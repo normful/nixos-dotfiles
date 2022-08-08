@@ -36,12 +36,13 @@
   services.openssh = {
     enable = true;
     passwordAuthentication = true;
-    permitRootLogin = "yes";
+    permitRootLogin = "no";
   };
 
   networking.firewall.enable = false;
 
   environment.systemPackages = with pkgs; [
+    xstow
     gnumake
     killall
 
@@ -54,11 +55,8 @@
     htop
     tree
 
-    xstow
     kitty
-
-    # TODO(norman): Make a new minimal working ~/.tmux.conf
-    tmux
+    tmux # TODO(norman): Make a new minimal working ~/.tmux.conf
 
     neovim
     nodePackages.neovim
@@ -112,9 +110,6 @@
 
     # C
     gcc
-
-    # Lightweight web browser
-    links2
   ];
 
   environment.variables = {
@@ -155,7 +150,7 @@
 
     windowManager.i3 = {
       enable = true;
-      extraPackages = with pkgs; [ dmenu i3status i3blocks ];
+      extraPackages = with pkgs; [ dmenu i3status ];
     };
   };
 
