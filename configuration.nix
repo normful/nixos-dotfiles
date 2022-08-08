@@ -56,6 +56,8 @@
 
     xstow
     kitty
+
+    # TODO(norman): Make a new minimal working ~/.tmux.conf
     tmux
 
     neovim
@@ -114,8 +116,6 @@
     # Lightweight web browser
     links2
   ];
-
-  # TODO(norman): Can fish replace: hstr and zoxide?
 
   environment.variables = {
     EDITOR = "nvim";
