@@ -3,7 +3,7 @@
 MAKEFILE_DIR:=$(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # Change this to the IP of `ip a`
-NIXOS_VM_IP:=10.211.55.4
+NIXOS_VM_IP:=10.211.55.6
 NIXOS_VM_SSH_PORT:=22
 
 SWAP_PARTITION_SIZE_GIB:=16
@@ -62,8 +62,8 @@ initial/after_install:
 
 initial/copy_config:
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT)' \
-		--exclude='iso/.*iso' \
 		--exclude='.git' \
+		--exclude='*.iso' \
 		--rsync-path="sudo rsync" \
 		$(MAKEFILE_DIR)/ root@$(NIXOS_VM_IP):/nixos-dotfiles
 
@@ -75,7 +75,8 @@ initial/rebuild:
 
 initial/copy_secrets:
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT)' \
-		--exclude='environment' \
+		--include='id_*' \
+		--exclude='*' \
 		$(HOME)/.ssh/ $(NIXOS_USER)@$(NIXOS_VM_IP):~/.ssh
 
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT)' \
@@ -103,16 +104,7 @@ switch:
 	sudo nixos-rebuild switch --flake ".#$(NIXOS_CONFIG_NAME)"
 
 stow:
-	xstow --verbose --target=$(HOME) --restow */
+	xstow --verbose --target $(HOME) --restow norman
 
 unstow:
-	xstow --verbose --target=$(HOME) --delete */
-
-# --------------------------------------------------------------------------------------
-# Temporary target for iterating
-# --------------------------------------------------------------------------------------
-
-temp:
-	$(MAKE) initial/copy_config
-	$(MAKE) initial/rebuild
-	$(MAKE) initial/reboot
+	xstow --verbose --target $(HOME) --delete norman
