@@ -2,28 +2,23 @@
 
 MAKEFILE_DIR:=$(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
+# Build NixOS installer .iso file
+build_iso:
+	cd installer_iso; ./build.sh
+
+# --------------------------------------------------------------------------------------
+# prl/init/* targets are for initial one-time setup of a Parallels VM
+# --------------------------------------------------------------------------------------
+
 # Change this to the IP of `ip a`
 NIXOS_VM_IP:=10.211.55.6
 NIXOS_VM_SSH_PORT:=22
-
 SWAP_PARTITION_SIZE_GIB:=16
-
-NIXOS_CONFIG_NAME:=myConfig
-
 NIXOS_USER:=norman
-
 SSH_OPTIONS:=-o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 
-# --------------------------------------------------------------------------------------
-# initial/* make targets are used only in the initial one-time setup of the NixOS VM.
-# --------------------------------------------------------------------------------------
-
-# Build ISO CD installer for NixOS.
-initial/build_iso:
-	cd installer_iso; ./build.sh
-
 # Partition disk, format partitions, generate NixOS configuration, and install NixOS.
-initial/install:
+prl/init/install:
 	ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT) root@$(NIXOS_VM_IP) " \
 		set -o xtrace; \
 		lsblk --paths; \
@@ -47,33 +42,33 @@ initial/install:
 			services.openssh.enable = true;\n \
 			services.openssh.passwordAuthentication = true;\n \
 			services.openssh.permitRootLogin = \"yes\";\n \
-			users.users.root.initialPassword = \"root\";\n \
+			users.users.root.prl/initPassword = \"root\";\n \
 		' /mnt/etc/nixos/configuration.nix; \
 		nixos-install --no-root-passwd; \
 		reboot; \
 	"
 
 # Run this after the first reboot.
-initial/after_install:
-	$(MAKE) initial/copy_config
-	$(MAKE) initial/rebuild
-	$(MAKE) initial/copy_secrets
-	$(MAKE) initial/reboot
+prl/init/after_install:
+	$(MAKE) prl/init/copy_config
+	$(MAKE) prl/init/rebuild
+	$(MAKE) prl/init/copy_secrets
+	$(MAKE) prl/init/reboot
 
-initial/copy_config:
+prl/init/copy_config:
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT)' \
 		--exclude='.git' \
 		--exclude='*.iso' \
 		--rsync-path="sudo rsync" \
 		$(MAKEFILE_DIR)/ root@$(NIXOS_VM_IP):/nixos-dotfiles
 
-initial/rebuild:
+prl/init/rebuild:
 	ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT) root@$(NIXOS_VM_IP) " \
 		set -o xtrace; \
 		nixos-rebuild switch --flake \"/nixos-dotfiles#$(NIXOS_CONFIG_NAME)\"; \
 	"
 
-initial/copy_secrets:
+prl/init/copy_secrets:
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT)' \
 		--include='id_*' \
 		--exclude='*' \
@@ -86,25 +81,27 @@ initial/copy_secrets:
 		$(HOME)/.gnupg/ $(NIXOS_USER)@$(NIXOS_VM_IP):~/.gnupg
 
 
-initial/reboot:
+prl/init/reboot:
 	ssh $(SSH_OPTIONS) -p$(NIXOS_VM_SSH_PORT) root@$(NIXOS_VM_IP) " \
 		set -o xtrace; \
 		reboot; \
 	"
 
 # --------------------------------------------------------------------------------------
-# These make targets below are used inside the NixOS, in a new git clone
-# of this repo, when logged in as the $NIXOS_USER user.
+# These can be used after initial setup, when logged in as $NIXOS_USER
 # --------------------------------------------------------------------------------------
 
-test:
-	sudo nixos-rebuild test --flake ".#$(NIXOS_CONFIG_NAME)"
-
-switch:
-	sudo nixos-rebuild switch --flake ".#$(NIXOS_CONFIG_NAME)"
-
 stow:
-	xstow --verbose --target $(HOME) --restow norman
+	stow -t $(HOME) -S git fish kitty karabiner htop
 
 unstow:
-	xstow --verbose --target $(HOME) --delete norman
+	stow -t $(HOME) -D git fish kitty karabiner htop
+
+prl:
+	sudo nixos-rebuild switch --flake ".#$(NIXOS_CONFIG_NAME)"
+
+mac:
+	darwin-rebuild switch --flake ~/code/nixos-dotfiles#macbook-pro-18-3
+
+update-flake:
+	nix flake update

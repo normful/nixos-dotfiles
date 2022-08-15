@@ -1,0 +1,947 @@
+# vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+[user]
+    email = normful@users.noreply.github.com
+    name = Norman Sue
+[advice]
+    detachedHead     = false
+    implicitIdentity = false
+    resolveConflict  = false
+[core]
+    autocrlf     = input
+    safecrlf     = false
+    excludesfile = $HOME/.gitignore_global
+    pager        = delta
+    ignorecase   = false
+[commit]
+    status = false
+[color]
+    ui          = always
+    branch      = always
+    diff        = always
+    interactive = always
+    status      = always
+    grep        = always
+    pager       = true
+    decorate    = always
+    showbranch  = always
+[color "branch"]
+    current      = "yellow reverse"
+    local        = "yellow"
+    remote       = "green"
+[color "diff"]
+    meta         = "yellow bold"
+    frag         = "#EE82EE bold"
+    old          = "red bold"
+    new          = "green bold"
+[delta]
+    features     = decorations line-numbers
+    syntax-theme = Monokai Extended Origin
+    navigate     = true
+[delta "decorations"]
+    commit-decoration-style      = none
+    file-style                   = bold white
+    file-decoration-style        = white box
+    hunk-header-decoration-style = none
+[interactive]
+    diffFilter = delta --color-only
+[apply]
+    whitespace = nowarn
+[branch]
+    autosetupmerge = true
+[blame]
+    date = short
+[diff]
+    mnemonicprefix = true
+    renameLimit = 999999
+    textconv = hexdump -v -C
+    colorMoved = default
+[diff "pdf"]
+    textconv = pdfinfo
+[diff "zip"]
+    textconv = unzip -v
+[grep]
+    linenumber = true
+    patterntype = perl
+[gc]
+    reflogExpire = never
+    auto = 0
+[http]
+    postBuffer = 1048576000
+[merge]
+    defaultToUpstream = true
+    summary = true
+    branchdesc = true
+    log = 1000
+    verbosity = 5
+    # tool = vimdiff # TODO(norman): replace this
+    # conflictstyle = zdiff3 # TODO(norman): fix
+    ff = false
+[mergetool]
+    prompt = false
+# TODO(norman): Replace this
+[mergetool "vimdiff"]
+    cmd="vim -c 'Gdiff' $MERGED" # use fugitive.vim for 3-way merge
+    keepbackup=false
+[push]
+    default = current
+[rebase]
+    autosquash = true
+[rerere]
+    enabled = false
+    autoupdate = true
+[alias]
+    # ---------------------------------------------------------------------------------------------------------------------
+    # show aliases
+    # ---------------------------------------------------------------------------------------------------------------------
+    la = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t = \\2/'
+    sa = !git la
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # add
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    a   = add                                # stage modified created
+    a1  = add ..                             # stage modified created                 in 1  level  above
+    a2  = add ../../                         # stage modified created                 in 2  levels above
+    a3  = add ../../../                      # stage modified created                 in 3  levels above
+    a4  = add ../../../../                   # stage modified created                 in 4  levels above
+    a5  = add ../../../../../                # stage modified created                 in 5  levels above
+    a6  = add ../../../../../../             # stage modified created                 in 6  levels above
+    a7  = add ../../../../../../../          # stage modified created                 in 7  levels above
+    a8  = add ../../../../../../../../       # stage modified created                 in 8  levels above
+    a9  = add ../../../../../../../../../    # stage modified created                 in 9  levels above
+    a10 = add ../../../../../../../../../../ # stage modified created                 in 10 levels above
+
+    au  = add --update :/                    # stage modified         deleted         in entire tree
+    aa  = add -A                             # stage modified created deleted
+    aaf = add -Af                            # stage modified created deleted ignored
+
+    adel = "!f() { git add --all $(git diff --diff-filter=D --name-only); }; f" # stage deleted
+
+    ap = add -p                              # stage commits chunk by chunk
+
+    ae = add -e                              # stage commits by manually editing patch
+
+    ane = !git add -N $1 && git add -e $1 # add intent and manually edit patch (for untracked files)
+    anp = !git add -N $1 && git add -p $1 # add intent an interactively choose hunks of patch to add (for untracked files)
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # apply
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    apc = apply --stat   # see stats before patching
+    apc = apply --check  # check before patching
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # am
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    ams = am --signoff   # Usage: git ams < fixes.patch
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # bisect
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    bs = bisect
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # branch
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    b               = branch -vv --list --contains @  # show info about current branch
+    bd              = branch -D                       # force delete branch
+
+    blocal          = branch -l
+    bremote         = branch -r
+    blocalandremote = branch -a
+
+    ball            = "!f() { git for-each-ref --sort=authordate --format='%(HEAD) %(color:bold red)%(refname:short)%(color:reset) %(color:bold magenta)%(objectname:short)%(color:reset) %(contents:subject) %(color:yellow)<%(authorname)>%(color:reset) %(color:bold blue)%(authordate)%(color:reset) %(color:green)(%(authordate:relative))%(color:reset)' refs/heads/; }; f"
+    bmine           = "!f() { git for-each-ref --sort=authordate --format='%(HEAD) %(color:bold red)%(refname:short)%(color:reset) %(color:bold magenta)%(objectname:short)%(color:reset) %(contents:subject) %(color:bold blue)%(authordate)%(color:reset) %(color:green)(%(authordate:relative))%(color:reset)' refs/heads/norman/local; }; f"
+
+    # set base (assuming a `base` branch already exists, this sets the `base` branch to some commitish without checking out `base`)
+    sb  = !sh -c 'git branch -f base  \"$0\"'
+    sb2 = !sh -c 'git branch -f base2 \"$0\"'
+    srb = !sh -c 'git branch -f reviewbase \"$0\"'
+
+    # set base to merge base with master (assuming a `base` branch already exists, this sets the `base` branch to the merge base between HEAD and master)
+    sbmb = "!f() { git branch -f base $(git merge-base HEAD master); }; f"
+
+    breleases = "!f() { git branch -r | grep 'origin/release' | sort -u; }; f"
+
+    bm  = branch -vv --list --merged @
+    bnm = !sh -c 'git --no-pager branch --list --verbose --no-merged \"$0\" | grep local'
+
+    bsetupstream  = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD` # if current branch is foo, then origin/foo is set as the upstream tracking branch for foo
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # bundle
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    bunc = bundle create                 # Usage: git bunc repo.bundle master
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # clean
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    cdf  = clean -df                     # force delete untracked files and directories
+    cdf2 = clean -df ../../              # force delete untracked files and directories
+    cdf3 = clean -df ../../../           # force delete untracked files and directories
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # clone
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    cl           = clone --recursive     # clone (including submodules)
+    cloen        = clone                 # clone (catch typo)
+    shallowclone = clone --depth 1       # shallow clone
+    shcl         = clone --depth 1       # shallow clone (short form)
+    shallowcloen = clone --depth 1       # shallow clone (catch typo)
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # commit
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    c         = commit                   # commit
+    cm        = commit -m                # commit with message
+    mc        = commit -m                # commit with message (catch typo)
+
+    # quickly commit everything
+    w         = !git add --all && git commit -m wip
+
+    # commit each file in its own commit
+    ce        = "!f() { $HOME/bin/git-commit-each-file-in-own-commit; }; f"
+
+    # TODO(norman): Clean up these $HOME/bin scripts, check them into this config, and hook them up with NixOS.
+
+    # tack on additional changes from staged files to the last commit, without editing the commit message
+    amend     = commit --amend --no-edit
+    aamend    = commit --amend --no-edit
+    amen      = commit --amend --no-edit
+    maend     = commit --amend --no-edit
+    aend      = commit --amend --no-edit
+
+    # tack on additional changes from staged files to the last commit, editing the commit message
+    amendm    = commit --amend
+    amednm    = commit --amend
+    anmend    = commit --amend
+    amnedm    = commit --amend
+    amnedm    = commit --amend
+    amenm     = commit --amend
+
+    # tack on additional changes from staged files to the last commit, editing the commit message
+    # but keep lines that start with a `#` inside the git commit message body
+    amendmcw  = commit --amend --cleanup=whitespace
+
+    # commit with same message and timestamp as some ref
+    cc        = commit -C
+
+    # amend HEAD's timestamp to now without changing commit message
+    amendnow    = "!f() { git commit --amend --no-edit --date=\"$(date)\"; }; f"
+
+    # amend HEAD's author to me
+    amendme     = commit --amend --reset-author
+    amendauthor = commit --amend --reset-author
+
+    # commit an empty commit with no changes (but with a message)
+    cmempty   = commit --allow-empty -m
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # checkout
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # checkout
+    co       = checkout
+    cvo      = checkout # catch typo
+
+    # create and checkout a new branch
+    cb       = checkout -b
+
+    # checkout last branch
+    col      = checkout @{-1}
+
+    # create and check out first local feature branch
+    cb1      = "!f() { $HOME/bin/git-create-and-checkout-first-local-feature-branch $@; }; f"
+
+    # create and check out first local review branch
+    cb1r     = "!f() { $HOME/bin/git-create-and-checkout-first-local-feature-branch review/$(git rev-parse --abbrev-ref HEAD); }; f"
+    cbr1     = "!f() { $HOME/bin/git-create-and-checkout-first-local-feature-branch review/$(git rev-parse --abbrev-ref HEAD); }; f"
+
+    # create and check out next local branch (when any local branch is checked out)
+    cbn      = "!f() { $HOME/bin/git-create-and-checkout-next-branch; }; f"
+    cbnext   = "!f() { $HOME/bin/git-create-and-checkout-next-branch; }; f"
+
+    # create and check out public branch (when any local branch is checked out)
+    cbpub    = "!f() { $HOME/bin/git-create-and-checkout-public-branch-from-local-branch $@; }; f"
+    cbpublic = "!f() { $HOME/bin/git-create-and-checkout-public-branch-from-local-branch $@; }; f"
+
+    # check out next local branch (when any local branch is checked out)
+    con      = "!f() { $HOME/bin/git-checkout-next-branch; }; f"
+    conext   = "!f() { $HOME/bin/git-checkout-next-branch; }; f"
+
+    # check out previous local branch (when any local branch is checked out)
+    cop      = "!f() { $HOME/bin/git-checkout-previous-branch; }; f"
+    coprev   = "!f() { $HOME/bin/git-checkout-previous-branch; }; f"
+
+    # check out public branch (when any local branch is checked out)
+    copublic = "!f() { $HOME/bin/git-checkout-public-branch-from-local-branch $@; }; f"
+    copub    = "!f() { $HOME/bin/git-checkout-public-branch-from-local-branch $@; }; f"
+
+    # checkout branch by picking from fuzzy search results interactively.
+    # Requires `pick` installed. Taken from https://github.com/rafaelrinaldi/til/blob/master/git/list-branches-by-date.md
+    copick = "!sh -c \"git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:iso)%09%(refname:short)' refs/heads | pick | cut -f2)\""
+    colist = !git copick
+
+    # checkout "our" existing changes when in a merge or rebase conflict
+    coours   = "!f() { git checkout --ours   $@ && git add $@; }; f"
+
+    # checkout "their" incoming changes when in a merge or rebase conflict
+    cotheirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+
+    # Usage: git track feature --> checks out a branch called feature that tracks origin/feature
+    track    = !sh -c 'git checkout -t ${2:-origin}/${1}' -
+    tr       = !git track
+    cot      = !git track
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # cherry-pick
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # cherry pick
+    cp  = cherry-pick -x -s --gpg-sign
+
+    # cherry pick changes and stage them, but don't commit
+    cpn = cherry-pick -n
+
+    # abort cherry pick when in a conflict
+    cpa = cherry-pick --abort
+
+    # continue cherry pick when in a conflict
+    cpc = cherry-pick --continue
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # diff
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    d       = diff -w                                # unstaged changes
+    ds      = diff -w --stat                         # unstaged changes, with stats
+    du      = diff -w --stat -U1000                  # unstaged changes, with stats and context
+    da      = diff -w -a                             # unstaged changes, treating all files as text
+
+    dc      = diff -w --cached                       # staged changes
+    dcs     = diff -w --cached --stat                # staged changes, with stats
+    dcu     = diff -w --cached --stat -U1000         # staged changes, with stats and context
+
+    dup     = diff -w @...@{upstream}                # against current branch's remote branch
+    dups    = diff -w @...@{upstream} --stat         # against current branch's remote branch, with stats
+    dupu    = diff -w @...@{upstream} --stat -U1000  # against current branch's remote branch, with stats and context
+
+    dor     = "!f() { $HOME/bin/git-diff-origin-branch-with-same-name; }; f"
+
+    dbase   = diff --base   -w
+    dours   = diff --ours   -w
+    dtheirs = diff --theirs -w
+
+    dignore = diff --ignore-cr-at-eol --ignore-space-at-eol --ignore-space-change --ignore-all-space --ignore-blank-lines
+
+    dforvim  = -c 'core.pager=delta --paging=never' diff -w
+    dcforvim = -c 'core.pager=delta --paging=never' diff -w --cached
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # format-patch
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    fp1 = format-patch -1
+
+    # Usage: git fps [ <since> | <revision range> ] > fixes.patch
+    fps = format-patch --stdout
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # fetch
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    f = fetch
+
+    fo = fetch origin
+
+    # # fetch changes from all remotes
+    fa = fetch --all
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # grep
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    grep = grep --break --show-function --function-context
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # .gitignore
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # Add a filepath to the .gitignore file
+    # Usage: git ignore <path-to-file-to-add-to-.gitignore>
+    ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # .gitkeep
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # .gitkeep files ensure that empty directories are maintained
+    # keep (touch empty .gitkeep files in each empty directory, recursively)
+    keepdirs = "!f() { $HOME/bin/git-touch-gitkeep-recursively; }; f"
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # lfs
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # Script for adding all files of a filetype and marking them as large binary files for tracking with git-lfs
+    # Usage: git lfs-init-for-filetype fileExtension
+    lfsinitforfiletype = "!f() { $HOME/bin/git-lfs-init-for-filetype $@; }; f"
+
+    # Add all PDF files to git-lfs
+    lfsinitpdf         = "!f() { $HOME/bin/git-lfs-init-for-filetype pdf; }; f"
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # log
+    #
+    # Commands starting with:
+    #
+    # l   - display two lines per commit, in graph
+    #
+    # ll  - display two lines per commit, in graph
+    #       plus file statistics
+    #
+    # lll - display two lines per commit, in graph
+    #       plus the entire commit patch
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # the most-used log commands
+    l       = log --graph --abbrev-commit --decorate --all                                     --use-mailmap --date=rfc-local                                                                                       --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+    ll      = log --graph --abbrev-commit --decorate --all                                     --use-mailmap --date=rfc-local --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+    lll     = log --graph --abbrev-commit --decorate --all                                     --use-mailmap --date=rfc-local -p --word-diff=color --pretty=fuller
+
+    # log showing only first parents of merge commits (i.e. hide constituent commits of merged-in feature branches)
+    lfp     = log --graph --abbrev-commit --decorate --first-parent                            --use-mailmap --date=rfc-local                                                                                       --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+    llfp    = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+    lllfp   = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local -p --word-diff=color --pretty=fuller                                                  --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+
+    # for repos with `master` as main branch: log showing only first parents of merge commits (i.e. hide constituent commits of merged-in feature branches)
+    lfpom   = log --graph --abbrev-commit --decorate --first-parent                            --use-mailmap --date=rfc-local                                                                                       --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/master --
+    llfpom  = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/master --
+    lllfpom = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local -p --word-diff=color --pretty=fuller                                                  --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/master --
+
+    # for repos with `develop` as main branch: log showing only first parents of merge commits (i.e. hide constituent commits of merged-in feature branches)
+    lfpod   = log --graph --abbrev-commit --decorate --first-parent                            --use-mailmap --date=rfc-local                                                                                       --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/develop --
+    llfpod  = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/develop --
+    lllfpod = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local -p --word-diff=color --pretty=fuller                                                  --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/develop --
+
+    lfpob   = log --graph --abbrev-commit --decorate --first-parent                            --use-mailmap --date=rfc-local                                                                                       --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/git-beta-blockers --
+    llfpob  = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/git-beta-blockers --
+    lllfpob = log --graph --abbrev-commit --decorate --first-parent --diff-merges=first-parent --use-mailmap --date=rfc-local -p --word-diff=color --pretty=fuller                                                  --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' origin/git-beta-blockers --
+
+    # log of a single file, but follow through renames to old filenames
+    l1      = log --follow --abbrev-commit --decorate --all                                     --use-mailmap --date=rfc-local                                                                                       --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+    ll1     = log --follow --abbrev-commit --decorate --all                                     --use-mailmap --date=rfc-local --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C(bold magenta)%h %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %n''           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)'
+    lll1    = log --follow --abbrev-commit --decorate --all                                     --use-mailmap --date=rfc-local -p --word-diff=color --pretty=fuller
+
+    # log of a single file, but show all other files involved in each commit
+    lfd     = !sh -c 'git l   --full-diff \"$0\"'
+    llfd    = !sh -c 'git ll  --full-diff \"$0\"'
+    lllfd   = !sh -c 'git lll --full-diff \"$0\"'
+
+    # log and grep commit message
+    lg       = !sh -c 'git l   --grep=\"$0\"'
+    llg      = !sh -c 'git ll  --grep=\"$0\"'
+    lllg     = !sh -c 'git lll --grep=\"$0\"'
+
+    # log showing only merge commits
+    lmerges     = !sh -c 'git l   --merges'
+    llmerges    = !sh -c 'git ll  --merges'
+    lllmerges   = !sh -c 'git lll --merges'
+
+    # log showing all commits except merge commits
+    lnomerges   = !sh -c 'git l   --no-merges'
+    llnomerges  = !sh -c 'git ll  --no-merges'
+    lllnomerges = !sh -c 'git lll --no-merges'
+
+    # log and showing commits since some date string
+    # Example usage: git lsince "24 hours ago"
+    lsince   = !sh -c 'git l   --since=\"$0\"'
+    llsince  = !sh -c 'git ll  --since=\"$0\"'
+    lllsince = !sh -c 'git lll --since=\"$0\"'
+
+    # log and showing commits from some person x since some date string ago
+    # Example usage: git lxsince John "24 hours ago"
+    lxsince   = !sh -c 'git l   --author=\"$0\" --since=\"$1\"'
+    llxsince  = !sh -c 'git ll  --author=\"$0\" --since=\"$1\"'
+    lllxsince = !sh -c 'git lll --author=\"$0\" --since=\"$1\"'
+
+    # with numbers for additions and changes
+    ln = !sh -c 'git l --numstat'
+
+    # succinct log and showing number stats and changed filenames from some person x since some date string ago
+    # Example usage: git llns John "24 hours ago"
+    llns = !sh -c 'git log --use-mailmap --author=\"$0\" --since=\"$1\" --numstat --format=""'
+
+    # log and showing commits since some date string authored by you
+    # Example usage: git lmesince "24 hours ago"
+    lmesince   = !sh -c 'git l   --since=\"$0\" --author=\"$(git config user.name)\"'
+    llmesince  = !sh -c 'git ll  --since=\"$0\" --author=\"$(git config user.name)\"'
+    lllmesince = !sh -c 'git lll --since=\"$0\" --author=\"$(git config user.name)\"'
+
+    # log and showing commits since some date string authored by your team (EXCEPT YOUR COMMITS)
+    # Example usage: git ltsince "24 hours ago"
+    ltsince   = !sh -c 'git lfp   origin/master --since=\"$0\" --author="person1" --author="person2"
+    lltsince  = !sh -c 'git llfp  origin/master --since=\"$0\" --author="person1" --author="person2"
+    llltsince = !sh -c 'git lllfp origin/master --since=\"$0\" --author="person1" --author="person2"
+
+    # log and showing first parents of merge commits from some person x since some date string ago
+    # Example usage: git lfpxsince John "24 hours ago"
+    lfpxsince   = !sh -c 'git lfp   --author=\"$0\" --since=\"$1\"'
+    llfpxsince  = !sh -c 'git llfp  --author=\"$0\" --since=\"$1\"'
+    lllfpxsince = !sh -c 'git lllfp --author=\"$0\" --since=\"$1\"'
+
+    # log with --ancestry-path
+    lap      = !sh -c 'git l   --ancestry-path \"$0\"'
+    llap     = !sh -c 'git ll  --ancestry-path \"$0\"'
+    lllap    = !sh -c 'git lll --ancestry-path \"$0\"'
+
+    # showing intermediate branch commits as if they were all in one tip branch commit
+    lsimp    = !sh -c 'git l   --simplify-by-decoration'
+    llsimp   = !sh -c 'git ll  --simplify-by-decoration'
+    lllsimp  = !sh -c 'git lll --simplify-by-decoration'
+
+    # Aliases ending in forvim are intended to used with vim and:
+    # - are invoked with a single git pathspec (e.g. a single file path name)
+    # - only show actual merged history since the `--all` flag is not used
+    # - follow file renames via the `--follow` flag (which only works with a single git pathspec)
+    # - produce output that is `!read` into vim
+    # - produce output containing only ANSI color escape codes supported by https://github.com/powerman/vim-plugin-AnsiEsc
+    lforvim    = -c 'core.pager=delta --paging=never' log --follow --abbrev-commit --abbrev=10 --decorate                   --use-mailmap --date=short                                                                                           --format='%C("#ffce51 bold")%h %C(reset)%C("#10aef8")%aN %C(reset)%C("#77d507")%ad (%ar)%C(reset)%C("#ff5874 bold")%d %n''           %C(reset)%C(white)%s %C(reset)'
+    llforvim   = -c 'core.pager=delta --paging=never' log --follow --abbrev-commit --abbrev=10 --decorate                   --use-mailmap --date=short     --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C("#ffce51 bold")%h %C(reset)%C("#10aef8")%aN %C(reset)%C("#77d507")%ad (%ar)%C(reset)%C("#ff5874 bold")%d %n''           %C(reset)%C(white)%s %C(reset)'
+    lllforvim  = -c 'core.pager=delta --paging=never' log --follow                             --decorate                   --use-mailmap --date=short     -p --pretty=fuller
+
+    # show commits that haven't been pushed to the remote yet
+    pending = !sh -c 'git --no-pager log "$0"/HEAD..HEAD && echo'
+
+    # show merge commits, and only those with conflicts will be displayed, with their diffs
+    lconflicts = log --min-parents=2 -p --cc
+
+    # log for release branch
+    lrel = log --merges --format='%aN %aE: %f' origin/release..HEAD
+
+    # combine all commit messages between A...B, into a single chunk of Markdown that can be used in a Pull Request message
+    msgs = !sh -c 'echo use gmsgs instead'
+    msgsactual = !sh -c 'echo --- && echo && git --no-pager log \"$0\"...\"$1\" --color=never --format="%x23%x23%x20%s%x20%x28%H%x29%n%n%b%n---%n"'
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # log pickaxe (-S and -G flags)
+    # https://git-scm.com/docs/gitdiffcore#_diffcore_pickaxe_for_detecting_additiondeletion_of_specified_string
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # log and show patches of files
+    # - that are merge commits AND
+    # - that have been merged into origin/develop AND
+    # - that match a regexp
+    laxeg  = !sh -c 'git log --use-mailmap --date=rfc-local   -G\"$0\"                 -p      --first-parent origin/develop --'
+
+    # log and show patches of files
+    # - that are merge commits AND
+    # - that have been merged into origin/develop AND
+    # - that changes the number of occurrences of lines matching a regexp (i.e. usually finds additions/deletions of the regexp)
+    laxes  = !sh -c 'git log --use-mailmap --date=rfc-local   -S\"$0\" --pickaxe-regex -p      --first-parent origin/develop --'
+
+    # log and show patches of files
+    # - that are merge commits AND
+    # - that have been merged into origin/develop AND
+    # - that changes the number of occurrences of lines exactly matching a string (i.e. usually finds additions/deletions of the exact string)
+    laxesx = !sh -c 'git log --use-mailmap --date=rfc-local   -S\"$0\"                 -p      --first-parent origin/develop --'
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # merge
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    mergeff = merge --ff-only
+    ergeff  = merge --ff-only
+    mf      = merge --ff-only
+    mff     = merge --ff-only
+    mmff    = merge --ff-only
+
+    # a "Squashed commit of the following" message is only auto-generated if there are no conflicts (which can be ensured by merging master into feature first)
+    mergesq = merge --squash --no-commit
+
+    ma      = merge --abort
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # mergetool
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    mt = mergetool
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # ls-files
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    lsfiles        = ls-files . --exclude-standard
+
+    # show contents of .git/index for current directory
+    lsindex        = ls-files --stage
+
+    lsignored      = ls-files --others -i --exclude-standard
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # push
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    pish   = push
+    psuh   = push
+
+    # git push --delete origin remote-branch-to-delete
+    pd     = push --delete
+
+    # git mirror private-backup-repo
+    mirror = push --mirror
+
+    pom    = push -u origin master
+    puom   = push -u origin master
+    poum   = push -u origin master
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # pull
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # pull rebase
+    pullrb = pull --rebase            # git fetch + git rebase onto FETCH_HEAD
+    prb    = pull --rebase            # git fetch + git rebase onto FETCH_HEAD
+
+    # pull changes, show commits since last pull/push
+    pullwithlog = !sh -c 'git pull "$0" HEAD && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # rebase
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    rb     = rebase -i --autosquash
+    rbb    = rebase -i --autosquash
+    rbom   = rebase -i --autosquash origin/master
+    rbod   = rebase -i --autosquash origin/develop
+
+    rba    = rebase --abort              # abort    rebase when in a conflict
+    rbc    = rebase --continue           # continue rebase when in a conflict
+    rbs    = rebase --skip               # skip     rebase when in a conflict
+
+    rebaes = rebase
+
+    # Rebase commits and ensure their timestamps are in ascending order by changing those timestamps to now, now+delta, etc.
+    rbnow  = "!f() { $HOME/bin/git-rebase-interactive-autosquash-now $@; }; f"
+    rbnwo  = "!f() { $HOME/bin/git-rebase-interactive-autosquash-now $@; }; f"
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # remote
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    r          = remote -v                      # show remotes (verbose)
+    origininfo = remote show origin             # show info about origin
+    remoet     = remote                         # catch typo
+
+    rpodry     = remote prune --dry-run origin  # delete stale remote-tracking branches already removed at origin, dry-run
+    rpo        = remote prune           origin  # delete stale remote-tracking branches already removed at origin
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # refs
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    refs = show-ref
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # reflog
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # reflog (for HEAD, by default)
+    rl           = reflog show --date=relative --format='%C(bold magenta)%h %C(reset)%C(bold red)%gd %C(reset)%C(cyan)%gs %n           %C(reset)%C(bold blue)%aD %C(reset)%C(green)(%ar) %n           %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN> %n'
+
+    # reflog entries for checkouts
+    rlco         = !sh -c 'git rl --color=never | grep \"checkout: moving from\" -A0 | less'
+    rlcol        = !sh -c 'git rl --color=never | grep \"checkout: moving from\" -A0 | grep local | grep -v review | less'    # mnemonic: ref-log checkout local
+    rlcor        = !sh -c 'git rl --color=never | grep \"checkout: moving from\" -A0 | grep review | less'                    # mnemonic: ref-log checkout review
+    rlcopub      = !sh -c 'git rl --color=never | grep \"checkout: moving from\" -A0 | grep -v local | grep -v review | less' # mnemonic: ref-log checkout public
+
+    rlm          = !sh -c 'git reflog show master'
+    rld          = !sh -c 'git reflog show develop'
+    rlb          = !sh -c 'git reflog show base'
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # reset
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # unstage files
+    unstage       = reset HEAD
+    unsatge       = reset HEAD
+    suntage       = reset HEAD
+    usntage       = reset HEAD
+    us            = reset HEAD
+
+    # discard unstaged changes and reset working tree to the provided commitish
+    rh            = reset --hard
+    setto         = reset --hard
+    settto        = reset --hard
+    steto         = reset --hard
+    seto          = reset --hard
+
+    # go back to commit before latest commit, with files from latest commit left unstaged
+    un            = reset --mixed HEAD^
+    und           = reset --mixed HEAD^
+    undo          = reset --mixed HEAD^
+    unro          = reset --mixed HEAD^
+    uncommit      = reset --mixed HEAD^
+    undocommit    = reset --mixed HEAD^
+
+    # undo to the commitish, with files unstaged
+    undoto        = reset --mixed
+    undot         = reset --mixed
+    goto          = reset --mixed
+    rsm           = reset --mixed
+
+    # unstage file hunks selectively
+    chunkyreset   = reset --patch HEAD
+    chunkyunstage = reset --patch HEAD
+
+    # go back before last commit, with files staged
+    undostaged    = reset --soft  HEAD^
+
+    # Creates a single commit containing all changes ahead of the provided commitish
+    # Example usage: git squashto base
+    squashto      = !sh -c 'git reset --soft \"$0\" && git commit -m \"squashed\"'
+    sqto          = !sh -c 'git reset --soft \"$0\" && git commit -m \"squashed\"'
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # show
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    sh    = show --format=fuller -w                         # show changes in a commit, with colored word diffs,
+    hs    = show --format=fuller -w                         # show changes in a commit, with colored word diffs, (catch typo)
+    shs   = show --format=fuller -w --stat                  # show changes in a commit, with colored word diffs, with stats
+    shu   = show --format=fuller -w -U10 --stat             # show changes in a commit, with colored word diffs, and surrounding context
+    shuu  = show --format=fuller -w -U100 --stat            # show changes in a commit, with colored word diffs, and surrounding context
+    shuuu = show --format=fuller -w -U1000 --stat           # show changes in a commit, with colored word diffs, and surrounding context
+    sha   = show --format=fuller -w -a                      # show changes in a commit, with colored word diffs, treating all files as text
+
+    shp  = !sh -c 'git diff -w $0^1 $0 $1'                 # show changes between the 1st parent of a rev and the rev itself, with colored word diffs
+    shm  = !sh -c 'git diff -w $0^1 $0 $1'                 # show changes between the 1st parent of a rev and the rev itself, with colored word diffs
+
+    shpu = !sh -c 'git diff -w -U1000 --stat $0^1 $0 $1'   # show changes between the 1st parent of a rev and the rev itself, with colored word diffs
+    shmu = !sh -c 'git diff -w -U1000 --stat $0^1 $0 $1'   # show changes between the 1st parent of a rev and the rev itself, with colored word diffs
+
+    shp1 = !sh -c 'git diff -w $0^1 $0 $1'                 # show changes between the 1st parent of a rev and the rev itself, with colored word diffs
+    shp2 = !sh -c 'git diff -w $0^2 $0 $1'                 # show changes between the 2nd parent of a rev and the rev itself, with colored word diffs
+    shp2 = !sh -c 'git diff -w $0^2 $0 $1'                 # show changes between the 2nd parent of a rev and the rev itself, with colored word diffs
+
+    shps = !sh -c 'git diff -w --stat $0^1 $0 $1'          # show changes between the 1st parent of a rev and the rev itself, with statistics
+    shms = !sh -c 'git diff -w --stat $0^1 $0 $1'          # show changes between the 1st parent of a rev and the rev itself, with statistics
+
+    shmc = diff-tree --cc                                                 # show changes made in resolving a merge conflict (this command is only meaningful if given a merge conflict rev)
+
+    shc  = "!f() { $HOME/bin/git-show-children $@; }; f"                  # show children of a commit
+    shch = "!f() { $HOME/bin/git-show-children $@; }; f"                  # show children of a commit
+
+    shrc  = "!f() { $HOME/bin/git-show-related-merged-commits $@; }; f"   # show related commits of a merge commit, or of a merged branch commit
+    shrcd  = "!f() { $HOME/bin/git-show-related-merged-commits $@ 'origin/develop'; }; f"   # show related commits of a merge commit, or of a merged branch commit
+
+    shf  = !sh -c 'git show --pretty='' --name-only $0 | cat -'           # show files of a commit
+    shno = !sh -c 'git show --pretty='' --name-only $0 | cat -'           # show files of a commit (mnemonic: name only)
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # rev-list
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    rlist = rev-list --format=%B --max-count=1 # Usage: git rlist @ shows full hash of HEAD and commit message
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # rev-parse
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    rp = rev-parse                          # Usage: git rp @ shows the full hash of HEAD
+    root = rev-parse --show-toplevel        # Print repo root dir
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # shortlog
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    ppl = shortlog -n -s -e
+    ppl2 = "!f() { $HOME/bin/run-git-authors; }; f"
+
+    pplforvim = -c 'core.pager=delta --paging=never' shortlog -n -s -e
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # stash
+    # (I never use any of these because many branches is easier and more powerful than many stashed changes.)
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    ss  = stash save                   # stash changes with name (save changes and add to stack)
+    sl  = stash list                   # list stashes
+    sp  = stash pop                    # apply stash (restore changes and pop from stack)
+    sap = stash apply                  # apply stash (restore changes without popping from stack)
+    sdd = stash drop                   # drop stashes (destory changes)
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # status
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # s = status
+
+    # less verbose status:
+    s = status -s -b --ahead-behind
+
+    # more performant status for large repos: don't look at untracked files
+    sfast = status -uno
+
+    # Command for bulk renaming the commit messages of related to the same Pivotal Story ID.
+    #
+    # Example:
+    #
+    #    A---B---C <---master
+    #             \
+    #              D---E---F <---HEAD
+    #
+    # To append [#100000] to the end of commits D, E, and F in this scenario:
+    #
+    #    git stamp 100000 master
+    #
+    # Alternatively, you can specify the number of previous commits to stamp:
+    #
+    #    git stamp 100000 3
+    #
+    # -----
+    #
+    # TODO: Fix bug in this script that causes the appended [#100000] to be on the second line of the commit message
+    stamp = "!f() { $HOME/bin/git-pivotal-story-stamp $@; }; f"
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # tag
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    # show tag list with first line of tag annotation or commit message
+    taglist = tag -l -n1
+    tags    = tag -n99
+
+    # Example usage: git tagcreate v1.0.0 HEAD
+    tagcreate = tag --annotate --sign
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # more various plumbing commands
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    objstats = count-objects --verbose --human-readable
+
+    # like `ls`, but for Git tree objects and blob objects
+    lstree = ls-tree -r -t --long HEAD
+
+    cf = cat-file      # `git cat-file` on a tree object will mess up your terminal; use ls-tree for tree objects
+    ui = update-index
+    wt = write-tree
+    ct = commit-tree
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # maintenance commands
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    gc   = gc
+    fsck = fsck --full
+
+    # ---------------------------------------------------------------------------------------------------------------------
+    # submodule
+    # ---------------------------------------------------------------------------------------------------------------------
+
+    sm     = submodule
+    smur   = submodule update --remote
+    smfepm = submodule foreach "git checkout master && git pull origin master"
+
+    #########################
+    ### `git-svn` aliases ###
+    #########################
+
+    # show aliases
+    svnla = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t = \\2/' | grep svn
+    svnsa = !git svnla
+    sasvn = !git svnla
+    lasvn = !git svnla
+
+    # svn help (also note that `git svn` is like --help)
+    svnh     = help svn
+    svnhelp  = help svn
+
+    # svn clone
+    svncl    = svn clone
+    svnclone = svn clone
+    svncloen = svn clone
+
+    # svn create-ignore and show-ignore
+    svnci    = svn create-ignore
+    svnsi    = svn show-ignore
+    svnsix   = !git svn show-ignore >> .git/info/exclude
+
+    # svn log
+    svnl     = svn log --show-commit --oneline
+    svnll    = svn log --show-commit --verbose
+
+    # svn blame
+    svnbl    = svn blame --git-format
+    svnblame = svn blame --git-format
+
+    # svn fetch
+    svnf     = svn fetch
+
+    # svn dcommit
+    svnd     = svn dcommit -v          # verbose
+    svndn    = svn dcommit -v -n       # verbose dry-run
+
+    # Special command used for copying commits from a remote git repo to a remote svn repo
+    #
+    # Mnemonic: port n' dcommit
+    #
+    # Assumptions:
+    #   - `git svn clone` was originally used to set up the current local repo
+    #   - `svn-tracker` is a pre-existing branch with some remote-tracking branch (usually `origin/svn-tracker`)
+    #
+    # Only run this command when:
+    #   - `master` is currently checked out
+    #
+    # Effects:
+    #   1.  Create a temporary local branch `temp-svnpnd` to backup the current commit
+    #   2.  Create a timestamped local branch to backup the current commit
+    #   3.  Rebase `master` on top of `git-svn`
+    #   4.  Verbosely `git svn dcommit`
+    #   5.  Check out the `svn-tracker` branch
+    #   6.  Fast-forward merge `git-svn` into `svn-tracker`
+    #   7.  Push `svn-tracker` to its remote-tracking branch
+    #   8.  Check out `master`
+    #   9.  Set `master` back to `temp-svnpnd`
+    #   10. Force delete `temp-svnpnd`
+    #
+    # Notes:
+    #   - it's ok (but not recommended) to run this command even when `master` is not
+    #     up-to-date with its upstream tracking branch
+    svnpnd = !sh -c 'git checkout -b temp-svnpnd && git checkout -b `date +'%Y-%b%d-%H%M%p-bu'` && git checkout @{-2} && git rebase git-svn && git svn dcommit -v && git checkout svn-tracker && git merge --ff-only git-svn && git push && git checkout master && git reset --hard temp-svnpnd && git branch -D temp-svnpnd'
+
+    ###################################
+    ### less used `git-svn` aliases ###
+    ###################################
+
+    # svn rebase (instead of rebasing, prefer `git svn fetch` and then `git rebase trunk`, `git rebase git-svn`, or whatever is the SVN mainline)
+    svnrb    = svn rebase
+    svnrbn   = svn rebase -n           # dry-run
+    svnrbl   = svn rebase --local
+
+    # svn info
+    svni     = svn info
+    svninfo  = svn info
+    quick-stats = ! /usr/local/bin/git-quick-stats
+[icdiff]
+    options = --line-numbers
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+[merge "npm-merge-driver"]
+    name = automatically merge npm lockfiles
+    driver = npx npm-merge-driver merge %A %O %B %P

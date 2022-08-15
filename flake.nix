@@ -1,21 +1,33 @@
 {
-  description = "My NixOS flake";
+  description = "My nix-darwin flake";
 
-  inputs.nixpkgsGitHubBranch.url = "github:NixOS/nixpkgs/22.05";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
-  outputs = allInputs@{ self, nixpkgs, ... }: {
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    # Used with `nixos-rebuild --flake .#<hostname>`
-    nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
-      system = "aarch64-linux";
-      modules = [ ./configuration.nix ];
-      specialArgs = allInputs;
-    };
+    darwin.url = "github:LnL7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    # Default overlay, for use in dependent flakes
-    # overlay = final: prev: { };
-
-    # # Same idea as overlay but a list or attrset of them.
-    # overlays = { exampleOverlay = self.overlay; };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/6e9964dd4a2198aeebef173807bcff1112cca45f";
   };
+
+  outputs = {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      darwin,
+      neovim-nightly-overlay
+    }: 
+    {
+      darwinConfigurations.macbook-pro-18-3 = darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [
+          ./macbook-pro-18-3-config.nix
+        ];
+        specialArgs = {
+          inherit nixpkgs nixpkgs-unstable darwin neovim-nightly-overlay;
+        };
+      };
+    };
 }
