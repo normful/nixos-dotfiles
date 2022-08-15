@@ -4,27 +4,6 @@ if len(luaeval('vim.lsp.buf_get_clients()')) > 1
   setlocal omnifunc=v:lua.vim.lsp.omnifunc
 endif
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 " Test Running {{{2
 " NeoBundle 'normful/vim-test'
 
@@ -35,105 +14,9 @@ augroup janko_vim_test_mappings_augroup
     autocmd FileType go,ruby,javascript,typescript,typescriptreact call normful#ConfigureJankoVimTestProjectRoot()
 augroup END
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 " Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 " Golang {{{2
 " NeoBundle 'fatih/vim-go'
@@ -236,10 +119,6 @@ augroup golang_map_augroup
     " :GoSameIdsAutoToggle
     autocmd FileType go nnoremap <buffer> <leader>si :GoSameIdsAutoToggle<CR>
 
-
-
-
-
     " :GoDef in this window
     "
     " Setting this to use <buffer> <leader> instead of only <leader>
@@ -253,10 +132,7 @@ augroup golang_map_augroup
 
     autocmd FileType go nnoremap <buffer> <leader>v :GoDef<CR>
 
-
     " autocmd FileType go nnoremap <buffer> <silent> <leader>vt <Plug>(coc-type-definition)
-
-
 
     " :GoDoc
     " autocmd FileType go nnoremap <buffer> <leader>d :GoDoc<CR>
@@ -286,9 +162,6 @@ augroup golang_map_augroup
     " autocmd FileType go nnoremap <buffer> <leader>cs :GoCallstack<CR>
     " Norman says: this DOES NOT YET work with go modules
 
-
-
-
     " :GoReferrers
     autocmd FileType go nnoremap <buffer> <leader>f :GoReferrers<CR>
 
@@ -299,20 +172,11 @@ augroup golang_map_augroup
     " autocmd FileType go nnoremap <buffer> <leader>im :GoImplements<CR>
     " autocmd FileType go nnoremap <buffer> <silent> <leader>im <Plug>(coc-implementation)
 
-
-
-
-
     " :GoDeclsDir
     autocmd FileType go nnoremap <buffer> <leader>s :GoDeclsDir<CR>
 
-
-
-
-
     " :GoAlternate
     autocmd FileType go nnoremap <buffer> <leader>a    :GoAlternate!<CR>
-
 
     " :GoTest
     autocmd FileType go nnoremap <buffer> <leader>T    :GoTest<CR>
@@ -326,14 +190,8 @@ augroup golang_map_augroup
     " :GoCoverageClear
     autocmd FileType go nnoremap <buffer> <leader>cc   :GoCoverageClear<CR>
 
-
-
     " :GoImport
     autocmd Filetype go nnoremap <buffer> <leader>imp :GoImport<Space>
-
-
-
-
 
     " :GoDebugBreakpoint
     " <F9>
@@ -350,11 +208,6 @@ augroup golang_map_augroup
 
     " :GoDebugStop
     autocmd FileType go,godebugstacktrace,godebugvariables,godebugoutput nnoremap <buffer> <leader>DS :GoDebugStop<CR>
-
-
-
-
-
 
     " DEBUGGER COMMANDS available after starting `dlv` with either
     " :GoDebugStart or :GoDebugText
@@ -374,19 +227,10 @@ augroup golang_map_augroup
     " :GoDebugStepOut
     autocmd FileType go,godebugstacktrace,godebugvariables,godebugoutput nnoremap <buffer> <leader>dso :GoDebugStepOut<CR>
 
-
-
-
-
     " Norman says: This DOES NOT YET work with go modules
     " :GoMetaLinter
     " autocmd FileType go nnoremap <buffer> <leader>L    :GoMetaLinter<CR>
     " autocmd FileType go nnoremap <buffer> <leader>ml   :GoMetaLinter<CR>
-
-
-
-
-
 
     " :GoBuild and :GoTestCompile
     autocmd FileType go nnoremap <buffer> <leader>B    :<C-u>call <SID>build_go_files()<CR>
@@ -409,14 +253,6 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-
-
-
-
-
-
-
-
 
 " CoffeeScript {{{2
 augroup coffeescript_augroup
@@ -447,19 +283,6 @@ let g:coffee_run_vert = 1
 " NeoBundle 'lukaszkorecki/CoffeeTags'
 let g:CoffeeAutoTagIncludeVars=1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 " Ruby {{{2
 
 " NeoBundle 'vim-ruby/vim-ruby'
@@ -477,44 +300,6 @@ augroup rails_augroup
     autocmd FileType ruby CmdAlias emo Emodel
     autocmd FileType ruby CmdAlias eco Econtroller
 augroup END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 augroup cd_augroup
     autocmd!
