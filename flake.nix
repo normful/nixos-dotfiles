@@ -2,6 +2,8 @@
   description = "My nix-darwin flake";
 
   inputs = {
+    # Docs: https://github.com/NixOS/nix/blob/master/src/nix/flake.md#flake-references
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
