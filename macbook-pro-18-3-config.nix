@@ -79,7 +79,6 @@ in
       htop
       tree
 
-      kitty
       fish
 
       myNeovim
