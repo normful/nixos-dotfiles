@@ -76,6 +76,9 @@ in
       curl
       wget
 
+      restic
+      rclone
+
       htop
       tree
 
