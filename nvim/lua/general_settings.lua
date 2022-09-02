@@ -2,14 +2,7 @@ local function add_general_settings()
   local g = vim.g
   local set = utils.set
 
-  -- o: global
-  -- wo: window
-  -- bo: buffer
-  -- Some settings require both {o, wo} or both {o, bo}
-  -- Some settings only need {bo}
-  local o, wo, bo = vim.o, vim.wo, vim.bo
-
-  -- Run :checkhealth to see status of these providers
+  -- Run :checkhealth to see status of providers
 
   -- Disable unneeded built-in plugins
   local disabled_built_ins = {
@@ -42,8 +35,8 @@ local function add_general_settings()
   set('listchars', 'tab:▶ ,eol:■,trail:•')
 
   -- Cursor line
-  set('cursorline', true, {o, wo})
-  set('cursorcolumn', false, {o, wo})
+  set('cursorline', true)
+  set('cursorcolumn', false)
   set('scrolloff', 0)
 
   -- Bottom line
@@ -54,7 +47,7 @@ local function add_general_settings()
 
   -- Left side
   set('number', true)
-  set('signcolumn', 'yes:1', {o, wo})
+  set('signcolumn', 'yes:1')
 
   -- Mouse
   set('mouse', 'a')
@@ -70,6 +63,7 @@ local function add_general_settings()
   set('splitbelow', true)
   set('splitright', true)
   set('title', true)
+  set('titlestring', '%{expand(\"%:p:s?/Users/norman/code?c?\")}')
   set('hidden', true)
 
   -- Reading files
@@ -121,7 +115,7 @@ local function add_general_settings()
 
   -- Folding
   set('foldenable', true) -- enable folding
-  set('foldlevel', 99, {o, wo}) -- default fold level
+  set('foldlevel', 99) -- default fold level
   set('foldlevelstart', 99) -- open some folds by default
 
   -- Wildmenu

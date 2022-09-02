@@ -4,23 +4,8 @@ function utils.has(key)
     return vim.fn.has(key) == 1
 end
 
-function utils.set(option_name, value, scopes)
-  for _, scope in pairs(scopes or { vim.o }) do
-    scope[option_name] = value
-  end
-end
-
--- Avoid using set_append, because reloading vim config will result in duplicate text in the setting's value.
-function utils.set_append(option_name, value, scopes)
-  for _, scope in pairs(scopes or { vim.o }) do
-    local prev = scope[option_name]
-    scope[option_name] = prev .. value
-  end
-end
-
--- Less sophisticated fallback. Prefer using `utils.set`.
-function utils.set2(expression)
-  vim.api.nvim_command(string.format("set " .. expression))
+function utils.set(option_name, value)
+  vim.opt[option_name] = value
 end
 
 --[[
