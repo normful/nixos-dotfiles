@@ -160,7 +160,7 @@ in
         AppleShowAllFiles = true;
         AppleShowScrollBars = "Automatic";
         AppleTemperatureUnit = "Celsius";
-        InitialKeyRepeat = 10;
+        InitialKeyRepeat = 15;
         KeyRepeat = 1;
       };
 
@@ -172,7 +172,18 @@ in
     };
 
     activationScripts.postUserActivation.text = ''
+      echo "Show all files in Finder"
       defaults write com.apple.Finder AppleShowAllFiles -bool YES
+
+      echo "Avoid creating .DS_Store files on network volumes"
+      defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+      echo "Disable the warning before emptying the Trash"
+      defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+      echo "Require password immediately after sleep or screen saver begins"
+      defaults write com.apple.screensaver askForPassword -int 1
+      defaults write com.apple.screensaver askForPasswordDelay -int 0
     '';
   };
 }
