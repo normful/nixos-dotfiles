@@ -133,48 +133,6 @@ in
   programs = {
     fish = {
       enable = true;
-      interactiveShellInit = ''
-        function cat
-            type -fq bat
-            and command bat $argv
-            or  command cat $argv
-        end
-
-        abbr --add l 'ls -lhAtr --color=always'
-
-        abbr --add h history
-        abbr --add d dirh
-        abbr --add nd nextd
-        abbr --add pd prevd
-
-        abbr --add c clear
-        abbr --add q exit
-        abbr --add t 'tree -N -ashFC -I ".git|node_modules"'
-
-        abbr --add utc 'date -u'
-
-        abbr --add ag rg
-
-        abbr --add g git
-        abbr --add qg git
-        abbr --add gl 'git l'
-        abbr --add gs 'git s'
-
-        abbr --add v nvim
-        abbr --add vi nvim
-        abbr --add nv nvim
-        abbr --add vim nvim
-
-        abbr --add ea "nvim $HOME/code/nixos-dotfiles/macbook-pro-18-3-config.nix"
-        abbr --add en "nvim $HOME/code/nixos-dotfiles/macbook-pro-18-3-config.nix"
-
-        abbr --add ek "nvim $HOME/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf"
-        abbr --add ef "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
-        abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
-        abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
-
-        alias mm="pushd ~/code/nixos-dotfiles && make mac && popd"
-      '';
     };
   };
 
