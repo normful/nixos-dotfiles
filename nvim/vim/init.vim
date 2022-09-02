@@ -7,12 +7,13 @@ endif
 " Test Running {{{2
 " NeoBundle 'normful/vim-test'
 
-augroup janko_vim_test_mappings_augroup
-    autocmd!
-
-    " This function sets let g:test#project_root
-    autocmd FileType go,ruby,javascript,typescript,typescriptreact call normful#ConfigureJankoVimTestProjectRoot()
-augroup END
+" TODO(norman): Configure later
+" augroup janko_vim_test_mappings_augroup
+"     autocmd!
+"
+"     " This function sets let g:test#project_root
+"     autocmd FileType go,ruby,javascript,typescript,typescriptreact call normful#ConfigureJankoVimTestProjectRoot()
+" augroup END
 
 " Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
