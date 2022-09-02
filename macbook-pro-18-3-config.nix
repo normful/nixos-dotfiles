@@ -154,14 +154,18 @@ in
         "com.apple.sound.beep.volume" = "0.000";
         AppleFontSmoothing = 1;
         AppleInterfaceStyle = "Dark";
+        ApplePressAndHoldEnabled = false;
         AppleMeasurementUnits = "Centimeters";
         AppleMetricUnits = 1;
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         AppleShowScrollBars = "Automatic";
         AppleTemperatureUnit = "Celsius";
-        InitialKeyRepeat = 15;
-        KeyRepeat = 1;
+
+        # Use https://mac-key-repeat.zaymon.dev to preview these settings
+        # See https://apple.stackexchange.com/a/288764 for steps
+        InitialKeyRepeat = 35;
+        KeyRepeat = 3;
       };
 
       finder = {
@@ -184,6 +188,9 @@ in
       echo "Require password immediately after sleep or screen saver begins"
       defaults write com.apple.screensaver askForPassword -int 1
       defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+      defaults write -g ApplePressAndHoldEnabled -bool false
+
     '';
   };
 }
