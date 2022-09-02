@@ -24,6 +24,8 @@ make mac
 chsh -s /run/current-system/sw/bin/fish
 ```
 
+Note that after an upgrade of macOS, `/etc/shells` may be recreated by macOS, so you'll need to delete it again.
+
 ## Why I don't run NixOS in a VM on a macOS host
 
 Previously, I tried running NixOS in a VM in VMWare Fusion and Parallels. Although
