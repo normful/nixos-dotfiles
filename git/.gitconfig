@@ -13,6 +13,7 @@
     excludesfile = $HOME/.gitignore_global
     pager        = delta
     ignorecase   = false
+	quotePath = false
 [commit]
     status = false
 [color]
@@ -212,7 +213,7 @@
     # commit each file in its own commit
     ce        = "!f() { $HOME/bin/git-commit-each-file-in-own-commit; }; f"
 
-    # TODO(norman): Clean up these $HOME/bin scripts, check them into this config, and hook them up with NixOS.
+    # TODO(norman): Rewrite these $HOME/bin scripts using fish functions.
 
     # tack on additional changes from staged files to the last commit, without editing the commit message
     amend     = commit --amend --no-edit
@@ -945,3 +946,5 @@
 [merge "npm-merge-driver"]
     name = automatically merge npm lockfiles
     driver = npx npm-merge-driver merge %A %O %B %P
+[init]
+	defaultBranch = main
