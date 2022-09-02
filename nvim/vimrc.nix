@@ -29,5 +29,7 @@ in
   ${builtins.readFile ./lua/git.lua}
   ${builtins.readFile ./lua/git-messenger.lua}
   ${builtins.readFile ./lua/gitsigns.lua}
+  ${builtins.readFile ./lua/tcomment.lua}
+  ${builtins.readFile ./lua/treesitter.lua}
   EOF
 ''
