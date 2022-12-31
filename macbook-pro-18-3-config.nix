@@ -24,7 +24,7 @@ in
       keep-outputs = true
       keep-derivations = true
       auto-optimise-store = true
-    '';
+      '';
     gc = {
       automatic = true;
       options = "--delete-older-than 30d";
@@ -69,12 +69,14 @@ in
       gnumake
       cmake
       killall
+      ghostscript
 
       git
       delta
 
       curl
       wget
+      rsync
 
       restic
       rclone
@@ -154,43 +156,32 @@ in
         "com.apple.sound.beep.volume" = "0.000";
         AppleFontSmoothing = 1;
         AppleInterfaceStyle = "Dark";
-        ApplePressAndHoldEnabled = false;
         AppleMeasurementUnits = "Centimeters";
         AppleMetricUnits = 1;
+        ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
         AppleShowScrollBars = "Automatic";
         AppleTemperatureUnit = "Celsius";
 
-        # Use https://mac-key-repeat.zaymon.dev to preview these settings
-        # See https://apple.stackexchange.com/a/288764 for steps
-        InitialKeyRepeat = 35;
-        KeyRepeat = 3;
+        # You can use https://mac-key-repeat.zaymon.dev to preview these settings without a restart
+        InitialKeyRepeat = 8;
+        KeyRepeat = 2;
       };
 
       finder = {
         AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
         FXEnableExtensionChangeWarning = true;
         _FXShowPosixPathInTitle = true;
       };
     };
 
     activationScripts.postUserActivation.text = ''
-      echo "Show all files in Finder"
-      defaults write com.apple.Finder AppleShowAllFiles -bool YES
-
-      echo "Avoid creating .DS_Store files on network volumes"
       defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-
-      echo "Disable the warning before emptying the Trash"
       defaults write com.apple.finder WarnOnEmptyTrash -bool false
-
-      echo "Require password immediately after sleep or screen saver begins"
       defaults write com.apple.screensaver askForPassword -int 1
       defaults write com.apple.screensaver askForPasswordDelay -int 0
-
-      defaults write -g ApplePressAndHoldEnabled -bool false
-
     '';
   };
 }
