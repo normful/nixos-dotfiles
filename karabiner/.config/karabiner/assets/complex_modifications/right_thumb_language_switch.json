@@ -7,7 +7,7 @@
         {
           "type": "basic",
           "description": "If input source is Japanese, light press switches to English",
-          "conditions": [ { "input_sources": [ { "language": "ja" } ], "type": "input_source_if" } ],
+          "conditions": [ { "input_sources": [ { "language": "^ja$" } ], "type": "input_source_if" } ],
           "from": { "key_code": "right_command", "modifiers": { "optional": [ "any" ] } },
           "to": [ { "key_code": "right_command", "lazy": true } ],
           "to_if_held_down": [ { "key_code": "right_command" } ],
@@ -16,38 +16,13 @@
         },
         {
           "type": "basic",
-          "description": "If input source is English or Chinese, light press switches to Japanese",
-          "conditions": [ { "input_sources": [ { "language": "en" }, { "language": "zh" } ], "type": "input_source_if" } ],
+          "description": "If input source is English, light press switches to Japanese",
+          "conditions": [ { "input_sources": [ { "language": "^en$" } ], "type": "input_source_if" } ],
           "from": { "key_code": "right_command", "modifiers": { "optional": [ "any" ] } },
           "to": [ { "key_code": "right_command", "lazy": true } ],
           "to_if_held_down": [ { "key_code": "right_command" } ],
           "parameters": { "basic.to_if_held_down_threshold_milliseconds": 100 },
           "to_if_alone": [ { "key_code": "japanese_kana" } ]
-        }
-      ]
-    },
-    {
-      "description": "Right Option: Simplified Chinese toggle. Short press with another key sends Fn + key. Long press sends Right Option",
-      "manipulators": [
-        {
-          "type": "basic",
-          "description": "If input source is Chinese, light press switches to English. ",
-          "conditions": [ { "input_sources": [ { "language": "zh" } ], "type": "input_source_if" } ],
-          "from": { "key_code": "right_option", "modifiers": { "optional": [ "any" ] } },
-          "to": [ { "key_code": "fn", "lazy": true } ],
-          "to_if_held_down": [ { "key_code": "right_option" } ],
-          "parameters": { "basic.to_if_held_down_threshold_milliseconds": 500 },
-          "to_if_alone": [ { "select_input_source": { "language": "en" } } ]
-        },
-        {
-          "type": "basic",
-          "description": "If input source is English or Japanese, light press switches to Chinese",
-          "conditions": [ { "input_sources": [ { "language": "en" }, { "language": "ja" } ], "type": "input_source_if" } ],
-          "from": { "key_code": "right_option", "modifiers": { "optional": [ "any" ] } },
-          "to": [ { "key_code": "fn", "lazy": true } ],
-          "to_if_held_down": [ { "key_code": "right_option" } ],
-          "parameters": { "basic.to_if_held_down_threshold_milliseconds": 500 },
-          "to_if_alone": [ { "select_input_source": { "language": "zh-Hans" } } ]
         }
       ]
     },
