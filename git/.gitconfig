@@ -57,6 +57,7 @@
     renameLimit = 999999
     textconv = hexdump -v -C
     colorMoved = default
+	submodule = log
 [diff "pdf"]
     textconv = pdfinfo
 [diff "zip"]

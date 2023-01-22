@@ -72,6 +72,7 @@ in
       ghostscript
 
       git
+      git-lfs
       delta
 
       curl
@@ -110,6 +111,7 @@ in
       gopls
       gotools
       protoc-gen-go
+      zola
 
       nodejs
       yarn
