@@ -1,15 +1,17 @@
 { pkgs, ... }:
 
 let
-  init.vim        = builtins.readFile ./vim/init.vim;
-  statusline.vim  = builtins.readFile ./vim/statusline.vim;
+  init.vim = builtins.readFile ./vim/init.vim;
+  statusline.vim = builtins.readFile ./vim/statusline.vim;
   projections.vim = builtins.readFile ./vim/projections.vim;
+  normful.vim = builtins.readFile ./vim/normful.vim;
 in
 
 ''
   ${init.vim}
   ${statusline.vim}
   ${projections.vim}
+  ${normful.vim}
 
   lua << EOF
   ${builtins.readFile ./lua/utils.lua}
