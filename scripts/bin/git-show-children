@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o xtrace
+set -o pipefail
+
+main() {
+    if ! git ls-files >& /dev/null; then
+        echo "Error: This script must be run within a git repository."
+        exit 1
+    fi
+
+    for arg in "$@"; do
+	for parent in $(/usr/local/bin/git rev-parse $arg^0); do
+	    printf "Children commits of $parent\n\n"
+
+	    # %H is the commit hash (i.e. child commit)
+	    # %P is the parent commit hash
+	    for child in $(/usr/local/bin/git log --format='%H %P' --all | /usr/bin/grep -F " $parent" | cut -f1 -d' '); do
+		git show --color=always --format='%C(bold magenta)%H %C(reset)%C(bold blue)%ad %C(reset)%C(green)(%ar)%C(reset)%C(bold red)%d %C(reset)%C(white)%s %C(reset)%C(yellow)<%aN>%C(reset)' "$child" | cat -
+		echo ""
+	    done
+	done
+    done
+}
+
+main "$@"

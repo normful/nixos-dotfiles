@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o xtrace
+set -o pipefail
+
+main() {
+    if ! git ls-files >& /dev/null; then
+        echo "Error: This script must be run within a git repository."
+        exit 1
+    fi
+
+    CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+    git diff --word-diff=color @...origin/"$CURRENT_BRANCH"
+}
+
+main "$@"

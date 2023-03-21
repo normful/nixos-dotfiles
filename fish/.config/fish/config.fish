@@ -49,5 +49,5 @@ end
 # Fixes order of $PATH entries in fish shell
 # Copied from https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
 if test (uname) = Darwin
-    fish_add_path --prepend --global "$HOME/.nix-profile/bin" /nix/var/nix/profiles/default/bin /run/current-system/sw/bin
+    fish_add_path --prepend --global "$HOME/.nix-profile/bin" /nix/var/nix/profiles/default/bin /run/current-system/sw/bin "$HOME/bin"
 end

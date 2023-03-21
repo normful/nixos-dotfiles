@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o xtrace
+set -o pipefail
+
+main() {
+    if ! git ls-files >& /dev/null; then
+        echo "Error: This script must be run within a git repository."
+        exit 1
+    fi
+
+    git status --porcelain | while read status file
+    do
+       echo $status $file
+
+       if [ "$status" = "M" ]; then
+	  git add $file
+	  git commit -n $file -m "M (modified) $file"
+       elif [ "$status" = "A" ]; then
+	  git add $file
+	  git commit -n $file -m "A (added) $file"
+       elif [ "$status" = "??" ]; then
+	  git add $file
+	  git commit -n $file -m "A (added) $file"
+       elif [ "$status" = "D" ]; then
+	  git rm $file
+	  git commit -n $file -m "D (deleted) $file"
+       elif [ "$status" = "R" ]; then
+	  git add $(echo "$file" | cut -d '>' -f2)
+	  git commit -m "R (renamed) $file"
+       else
+	  echo "unknown status $file"
+       fi
+    done
+}
+
+main "$@"

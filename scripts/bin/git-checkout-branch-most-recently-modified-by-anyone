@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o xtrace
+set -o pipefail
+
+main() {
+    if ! git ls-files >& /dev/null; then
+        echo "Error: This script must be run within a git repository."
+        exit 1
+    fi
+
+    branch=$(git for-each-ref --sort=-committerdate --count=1 --color=never --format='%(refname:lstrip=3)' refs/heads refs/remotes)
+
+    git checkout "$branch"
+}
+
+main "$@"

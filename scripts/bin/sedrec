@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -o xtrace
+set -o pipefail
+set -o nounset
+
+if [ -z "$1" ]; then
+    echo "usage: sedrec old new (must be within git repository)"
+    exit 1
+fi
+
+if [ -z "$2" ]; then
+    echo "usage: sedrec old new (must be within git repository)"
+    exit 1
+fi
+
+pattern="$(printf 's/%s/%s/g' "$1" "$2")"
+
+git grep --color=never -lz "$1" | xargs -0 perl -i'' -pE "$pattern"

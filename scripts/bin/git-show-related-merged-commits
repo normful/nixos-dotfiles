@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o xtrace
+set -o pipefail
+
+# This script runs `git show` on all commits that were merged along with
+# the given commit. It works both with a merge commit SHA as the argument,
+# or with a constituent branch commit as the argument (as long as the branch
+# has been merged into master).
+#
+# Usage:
+# git-show-related-merged-commits <merge-commit-sha>
+# git-show-related-merged-commits <merged-commit-sha>
+
+main() {
+    if ! git ls-files >& /dev/null; then
+	echo "Error: This script must be run within a git repository."
+	exit 1
+    fi
+
+    command -v git-when-merged >/dev/null 2>&1 || \
+      { echo "This script requires git-when-merged. Installing it now with Homebrew..."; brew install git-when-merged; }
+
+    sha="$1"
+    remote_ref="${2:-origin/master}"
+
+    function isMergeCommit() {
+	return $((!$(git rev-list --no-walk --count --merges "$sha")))
+    }
+
+    if ! isMergeCommit "$sha"; then
+	echo "Assuming $sha is not merge commit"
+	mergeCommit="$(git-when-merged --show-commit "$sha" "$remote_ref")"
+    else 
+	echo "Assuming $sha is merge commit"
+	mergeCommit="$sha"
+    fi
+
+    previousMergeCommit=$(git rev-parse "$mergeCommit"^1)
+
+    BIBlue='\033[1;94m'
+    ColorOff='\033[0m'
+
+    # Iterate over merge commit and its constituent commits
+    git rev-list "$previousMergeCommit".."$mergeCommit" | while read -r constituentCommitSha; do
+	git --no-pager show --format=fuller --word-diff=color "$constituentCommitSha"
+
+	# Print colored full-width horizontal separator
+	printf "${BIBlue}"
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =
+	printf "${ColorOff}"
+    done | less -R
+}
+
+main "$@"

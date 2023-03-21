@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o xtrace
+set -o pipefail
+
+# Example Usage:
+#
+# $ git-rebase-interactive-autosquash-now master
+#
+# This script rebases on top of a base ref but inserts `exec` lines after each
+# original line for amending the timestamp of each original commit to be now.
+# `date` is invoked at every `exec` line so that the resulting timestamps
+# are each a split second apart.
+#
+# This makes it so that the resulting chronological order of the rebased
+# commits matches the order that they appear in the git ancestry chain.
+#
+# In particular, this is useful for commits in GitHub Pull Requests, since
+# GitHub displays those commits in chronological order. See
+# https://help.github.com/articles/why-are-my-commits-in-the-wrong-order/
+#
+# By rewriting the timestamps so that the chronological order matches the
+# ancestral order, this ensures that GitHub Pull Requests display commits in
+# the same order as the ancestral order.
+
+main() {
+    if ! git ls-files >& /dev/null; then
+        echo "Error: This script must be run within a git repository."
+        exit 1
+    fi
+
+    baseRef="$1"
+    git rebase --interactive --autosquash --exec "git commit --amend --no-edit --date=\"\$(date)\"" "$baseRef"
+}
+
+main "$@"
