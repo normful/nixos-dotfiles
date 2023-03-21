@@ -92,10 +92,10 @@ prl/init/reboot:
 # --------------------------------------------------------------------------------------
 
 stow:
-	stow -t $(HOME) -S git fish kitty karabiner htop
+	stow -t $(HOME) -S git fish kitty karabiner htop scripts
 
 unstow:
-	stow -t $(HOME) -D git fish kitty karabiner htop
+	stow -t $(HOME) -D git fish kitty karabiner htop scripts
 
 prl:
 	sudo nixos-rebuild switch --flake ".#$(NIXOS_CONFIG_NAME)"
