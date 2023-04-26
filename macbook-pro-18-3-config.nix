@@ -155,7 +155,7 @@ in
       NSGlobalDomain = {
         "com.apple.mouse.tapBehavior" = 1;
         "com.apple.sound.beep.feedback" = 0;
-        "com.apple.sound.beep.volume" = "0.000";
+        "com.apple.sound.beep.volume" = 0.000;
         AppleFontSmoothing = 1;
         AppleInterfaceStyle = "Dark";
         AppleMeasurementUnits = "Centimeters";
