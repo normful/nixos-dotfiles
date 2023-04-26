@@ -144,7 +144,7 @@ local function add_general_maps()
     ['<Localleader>s'] = ':call StripTrailingWhitespace()<CR>',
 
     -- Set tab settings
-    ['<Localleader><Tab>'] = ':call normful#SetTabSettings()<CR>',
+    ['<Localleader><Tab>'] = ':call NormfulSetTabSettings()<CR>',
 
     -- Switch all omen windows to horizontal split
     ['<Localleader>H'] = '<Cmd>windo wincmd K<CR>',

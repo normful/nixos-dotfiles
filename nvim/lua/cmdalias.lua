@@ -5,8 +5,8 @@ local function configure_bufonly()
 end
 
 local function configure_cmdalias()
-  vim.cmd([[command! NormfulOpenTerminal call normful#OpenTerminal()]])
-  vim.cmd([[command! NormfulGitBlame call normful#GitBlame()]])
+  vim.cmd([[command! NormfulOpenTerminal call NormfulOpenTerminal()]])
+  vim.cmd([[command! NormfulGitBlame call NormfulGitBlame()]])
 
   utils.create_augroups({
     cmdalias_augroup = {
