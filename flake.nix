@@ -10,8 +10,6 @@
 
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/6e9964dd4a2198aeebef173807bcff1112cca45f";
   };
 
   outputs = {
@@ -19,7 +17,6 @@
       nixpkgs,
       nixpkgs-unstable,
       darwin,
-      neovim-nightly-overlay
     }: 
     {
       darwinConfigurations.macbook-pro-18-3 = darwin.lib.darwinSystem {
@@ -28,7 +25,7 @@
           ./macbook-pro-18-3-config.nix
         ];
         specialArgs = {
-          inherit nixpkgs nixpkgs-unstable darwin neovim-nightly-overlay;
+          inherit nixpkgs nixpkgs-unstable darwin;
         };
       };
     };
