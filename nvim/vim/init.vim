@@ -12,7 +12,7 @@ endif
 "     autocmd!
 "
 "     " This function sets let g:test#project_root
-"     autocmd FileType go,ruby,javascript,typescript,typescriptreact call normful#ConfigureJankoVimTestProjectRoot()
+"     autocmd FileType go,ruby,javascript,typescript,typescriptreact call NormfulConfigureJankoVimTestProjectRoot()
 " augroup END
 
 " Use <Tab> and <S-Tab> for navigate completion list:

@@ -2,11 +2,11 @@ local function add_general_augroups()
   utils.create_augroups({
   -- TODO(norman): Uncomment
   --terminal_no_number_augroup = {
-  --  {'TermOpen,BufWinEnter', '*', [[call normful#TerminalNoNumber()]]},
+  --  {'TermOpen,BufWinEnter', '*', [[call NormfulTerminalNoNumber()]]},
   --},
 
   --terminal_no_nested_nvim_augroup = {
-  --  {'VimEnter', '*', [[call normful#SplitWithoutNesting()]]},
+  --  {'VimEnter', '*', [[call NormfulSplitWithoutNesting()]]},
   --},
 
     help_augroup = {

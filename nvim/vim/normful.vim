@@ -1,6 +1,6 @@
 " vim: nowrap ts=4 sw=4 sts=4 et
 
-function! normful#SetTabSettings()
+function! NormfulSetTabSettings()
     let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
     if l:tabstop > 0
         let &l:sts = l:tabstop
@@ -8,10 +8,10 @@ function! normful#SetTabSettings()
         let &l:sw = l:tabstop
     endif
 
-    call normful#PrintTabSettings()
+    call NormfulPrintTabSettings()
 endfunction
 
-function! normful#PrintTabSettings()
+function! NormfulPrintTabSettings()
     try
         echohl ModeMsg
         echon ' tabstop='.&l:ts
@@ -27,7 +27,7 @@ function! normful#PrintTabSettings()
     endtry
 endfunction
 
-function! normful#StripTrailingWhitespace()
+function! NormfulStripTrailingWhitespace()
     " Preparation - save last search and cursor position
     let _s=@/
     let l = line(".")
@@ -39,7 +39,7 @@ function! normful#StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 
-function! normful#WordFrequency() range
+function! NormfulWordFrequency() range
   let all = split(join(getline(a:firstline, a:lastline)), '\A\+')
   let frequencies = {}
   for word in all
@@ -53,13 +53,13 @@ function! normful#WordFrequency() range
   sort i
 endfunction
 
-function! normful#ConfigureJankoVimTestProjectRoot()
+function! NormfulConfigureJankoVimTestProjectRoot()
     " g:test#project_root is a setting in https://github.com/vim-test/vim-test
     " projectroot#guess() is a function from https://github.com/dbakker/vim-projectroot
     let g:test#project_root = projectroot#guess(expand('%:p'))
 endfunction
 
-function! normful#TerminalNoNumber()
+function! NormfulTerminalNoNumber()
     if &buftype == 'terminal'
         setlocal nonumber
     else
@@ -67,12 +67,12 @@ function! normful#TerminalNoNumber()
     endif
 endfunction
 
-function! normful#OpenTerminal()
+function! NormfulOpenTerminal()
   belowright term
   startinsert
 endfunction
 
-function! normful#GitBlame()
+function! NormfulGitBlame()
   " fugitive command
   Git blame
 endfunction
