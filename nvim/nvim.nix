@@ -110,7 +110,7 @@ in
       vim-endwise
 
       # Language-specific matching text (extends %)
-      vim-matchup
+      # vim-matchup
 
       # Substitution and Typo Correction
       vim-abolish
