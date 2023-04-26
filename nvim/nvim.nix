@@ -65,10 +65,7 @@ in
       nvim-tree-lua
 
       # Treesitter
-      (nvim-treesitter.withPlugins
-        (_: builtins.filter
-          (x: x.pname != "tree-sitter-markdown-grammar")
-          pkgs.tree-sitter.allGrammars))
+      nvim-treesitter.withAllGrammars
       playground
       nvim-treesitter-textobjects
 
