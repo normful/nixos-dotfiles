@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, neovim-nightly-overlay, ... }:
+{ config, pkgs, nixpkgs, ... }:
 
 let
   myNeovim = pkgs.neovim.override {
@@ -40,7 +40,7 @@ in
 
     # List of overlays to use with the Nix Packages collection.
     # This overrides packages globally.
-    overlays = [ neovim-nightly-overlay.overlay ];
+    overlays = [];
   };
 
   networking = {
