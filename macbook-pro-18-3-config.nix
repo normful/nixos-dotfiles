@@ -58,6 +58,7 @@ in
     shells = [ pkgs.fish ];
     systemPackages = with pkgs; [
       coreutils-full
+      findutils
       gnused
       lsd
       bat
