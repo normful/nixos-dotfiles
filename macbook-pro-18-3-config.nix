@@ -133,7 +133,11 @@ in
 
       inkscape
       imagemagick
+      pngcrush
       plantuml
+
+      ffmpeg
+      vorbis-tools
     ];
   };
 
