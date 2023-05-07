@@ -1,1 +1,3 @@
-notes.sh
+#!/usr/bin/env bash
+
+nvim -c 'Neorg journal today'

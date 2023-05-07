@@ -82,7 +82,7 @@ local function configure_nvim_tree()
 
   utils.nnoremap_silent_bulk({
     -- Karabiner Elements maps Command + e => <F17>
-    ['<F17>'] = '<Cmd>NvimTreeFindFile<CR>',
+    ['<F17>'] = '<Cmd>NvimTreeFindFile!<CR>',
 
     ['<C-e>'] = err_msg_cmd,
     ['E']     = err_msg_cmd,

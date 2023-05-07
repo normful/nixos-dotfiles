@@ -58,8 +58,7 @@ local function add_general_maps()
     -- ['<Leader>es'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/lua/general_settings.lua<CR>',
     -- ['<Leader>em'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/lua/general_maps.lua<CR>',
 
-    ['<Leader>ea'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>',
-    ['<Leader>en'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>',
+    ['<Leader>em'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>',
     ['<Leader>eg'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/git/.gitconfig<CR>',
     ['<Leader>ek'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf<CR>',
     ['<Leader>ef'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/fish/.config/fish/config.fish<CR>',
