@@ -9,8 +9,6 @@ local my_linters = {
   javascriptreact = { 'tsserver', 'eslint' },
   typescript = { 'tsserver', 'eslint' },
   typescriptreact = { 'tsserver', 'eslint' },
-
-  coffeescript = { 'coffeelint' },
 }
 
 local my_fixers = {
@@ -24,8 +22,7 @@ local my_fixers = {
   typescriptreact = { 'prettier' },
 }
 
-local function configure()
-  local globals = require('globals')
+local function configure_ale()
   local g = vim.g
 
   -- Run :ALEInfo to get debugging info
@@ -43,10 +40,7 @@ local function configure()
   g.ale_lint_on_insert_leave = 1
   local final_linters = {}
   for ft, linters in pairs(my_linters) do
-    if vim.tbl_contains(globals.fts_enabled, ft) then
-      final_linters[ft] = linters
-    else
-    end
+    final_linters[ft] = linters
   end
   g.ale_linters = final_linters
 
@@ -54,9 +48,7 @@ local function configure()
   g.ale_fix_on_save = 1
   local final_fixers = {}
   for ft, fixers in pairs(my_fixers) do
-    if vim.tbl_contains(globals.fts_enabled, ft) then
-      final_fixers[ft] = fixers
-    end
+    final_fixers[ft] = fixers
   end
   g.ale_fixers = final_fixers
 
@@ -73,6 +65,6 @@ local function configure()
 end
 
 return {
-  name = 'dense-analysis/ale',
-  configure = configure,
+  'dense-analysis/ale',
+  configure = configure_ale,
 }
