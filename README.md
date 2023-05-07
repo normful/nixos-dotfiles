@@ -1,7 +1,6 @@
 # nixos-dotfiles
 
-Dotfiles and configuration for NixOS and
-macOS+[Nix](https://nixos.org/manual/nix/stable/installation/multi-user.html)+[nix-darwin](https://github.com/LnL7/nix-darwin).
+Dotfiles and configuration for macOS+[Nix](https://nixos.org/manual/nix/stable/installation/multi-user.html)+[nix-darwin](https://github.com/LnL7/nix-darwin).
 
 To keep things simple, I'm purposely not using
 [home-manager](https://github.com/nix-community/home-manager). Instead, I'm using [GNU
@@ -31,8 +30,7 @@ Note that after an upgrade of macOS, `/etc/shells` may be recreated by macOS, so
 Previously, I tried running NixOS in a VM in VMWare Fusion and Parallels. Although
 that worked, I realized that I prefer the simplicity of running Nix directly on
 my macOS host. It seems like there's too many constant bugs and workarounds needed
-to make Parallels Tools or VMWare Tools properly. So there are some left over
-config files for that setup here too, but I don't use them anymore.
+to make Parallels Tools or VMWare Tools properly.
 
 ## Neovim Config
 
