@@ -9,7 +9,7 @@ let
     vimAlias = true;
     viAlias = true;
 
-    configure = (import ./nvim/nvim.nix { pkgs = pkgs; nixpkgs = nixpkgs; });
+    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs; nixpkgs = nixpkgs; });
   };
 in
 {

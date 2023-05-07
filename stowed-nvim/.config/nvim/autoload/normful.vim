@@ -1,6 +1,7 @@
 " vim: nowrap ts=4 sw=4 sts=4 et
 
-function! NormfulSetTabSettings()
+" You can also use https://github.com/FotiadisM/tabset.nvim instead.
+function! normful#SetTabSettings()
     let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
     if l:tabstop > 0
         let &l:sts = l:tabstop
@@ -8,10 +9,10 @@ function! NormfulSetTabSettings()
         let &l:sw = l:tabstop
     endif
 
-    call NormfulPrintTabSettings()
+    call normful#PrintTabSettings()
 endfunction
 
-function! NormfulPrintTabSettings()
+function! normful#PrintTabSettings()
     try
         echohl ModeMsg
         echon ' tabstop='.&l:ts
@@ -27,7 +28,7 @@ function! NormfulPrintTabSettings()
     endtry
 endfunction
 
-function! NormfulStripTrailingWhitespace()
+function! normful#StripTrailingWhitespace()
     " Preparation - save last search and cursor position
     let _s=@/
     let l = line(".")
@@ -39,7 +40,7 @@ function! NormfulStripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 
-function! NormfulWordFrequency() range
+function! normful#WordFrequency() range
   let all = split(join(getline(a:firstline, a:lastline)), '\A\+')
   let frequencies = {}
   for word in all
@@ -53,13 +54,13 @@ function! NormfulWordFrequency() range
   sort i
 endfunction
 
-function! NormfulConfigureJankoVimTestProjectRoot()
+function! normful#ConfigureJankoVimTestProjectRoot()
     " g:test#project_root is a setting in https://github.com/vim-test/vim-test
     " projectroot#guess() is a function from https://github.com/dbakker/vim-projectroot
     let g:test#project_root = projectroot#guess(expand('%:p'))
 endfunction
 
-function! NormfulTerminalNoNumber()
+function! normful#TerminalNoNumber()
     if &buftype == 'terminal'
         setlocal nonumber
     else
@@ -67,12 +68,12 @@ function! NormfulTerminalNoNumber()
     endif
 endfunction
 
-function! NormfulOpenTerminal()
+function! normful#OpenTerminal()
   belowright term
   startinsert
 endfunction
 
-function! NormfulGitBlame()
+function! normful#GitBlame()
   " fugitive command
   Git blame
 endfunction

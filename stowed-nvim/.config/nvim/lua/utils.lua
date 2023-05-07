@@ -98,14 +98,4 @@ function utils.uniq(tbl)
   return res
 end
 
---[[
-Param plugin_fts: table of filetypes that the plugin works with
-Returns filtered table of filetypes that are enabled in globals
---]]
-function utils.enabled_fts(plugin_fts)
-  local filter_fn = function(this_ft)
-    return vim.tbl_contains(globals.fts_enabled, this_ft)
-  end
-
-  return vim.tbl_filter(filter_fn, plugin_fts)
-end
+return utils

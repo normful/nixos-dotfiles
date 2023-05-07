@@ -1,5 +1,6 @@
 local function add_general_maps()
   local g = vim.g
+  local utils = require("utils")
 
   -- Leader keys
   g.mapleader = ","
@@ -52,18 +53,16 @@ local function add_general_maps()
 
   utils.nnoremap_silent_bulk({
     -- Quick file editing
-    ['<Leader>ev'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/nvim.nix<CR>',
-    ['<Leader>es'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/lua/general_settings.lua<CR>',
-    ['<Leader>em'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/lua/general_maps.lua<CR>',
+    -- TODO(norman): Re-enable with new paths later
+    -- ['<Leader>ev'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/nvim.nix<CR>',
+    -- ['<Leader>es'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/lua/general_settings.lua<CR>',
+    -- ['<Leader>em'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/nvim/lua/general_maps.lua<CR>',
 
     ['<Leader>ea'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>',
     ['<Leader>en'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>',
     ['<Leader>eg'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/git/.gitconfig<CR>',
     ['<Leader>ek'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf<CR>',
     ['<Leader>ef'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/fish/.config/fish/config.fish<CR>',
-
-    -- TODO(norman)
-    -- ['<Leader>tl'] = '<Cmd>AsyncRun -mode=term -focus=1 -pos=curwin -cols=100 -strip ~/bin/tl<CR>',
 
     ['Y'] = 'yy',
 
@@ -144,7 +143,7 @@ local function add_general_maps()
     ['<Localleader>s'] = ':call StripTrailingWhitespace()<CR>',
 
     -- Set tab settings
-    ['<Localleader><Tab>'] = ':call NormfulSetTabSettings()<CR>',
+    ['<Localleader><Tab>'] = ':call normful#SetTabSettings()<CR>',
 
     -- Switch all omen windows to horizontal split
     ['<Localleader>H'] = '<Cmd>windo wincmd K<CR>',
