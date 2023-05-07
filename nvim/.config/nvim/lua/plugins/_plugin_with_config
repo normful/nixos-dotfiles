@@ -1,0 +1,9 @@
+local function configure_x()
+  require('x').setup()
+end
+
+return {
+  '',
+  config = configure_x,
+  event = 'VeryLazy',
+}
