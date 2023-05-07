@@ -99,5 +99,6 @@ return {
     { 'L', '<Cmd>TSNodeUnderCursor>CR>' },
   },
   config = configure_treesitter,
-  event = 'VeryLazy',
+  lazy = false,
+  priority = 100,
 }

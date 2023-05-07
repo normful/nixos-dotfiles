@@ -27,6 +27,8 @@ local function configure_cmdalias()
 
       {'VimEnter', '*', 'CmdAlias Gbl NormfulGitBlame'},
       {'VimEnter', '*', 'CmdAlias Gbl NormfulGitBlame'},
+
+      {'VimEnter', '*', 'CmdAlias N Neorg'},
     },
   })
 end
