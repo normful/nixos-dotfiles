@@ -123,6 +123,7 @@ in
         isort
         mypy
         pip
+        pipx
         pyflakes
         pylint
         pynvim
