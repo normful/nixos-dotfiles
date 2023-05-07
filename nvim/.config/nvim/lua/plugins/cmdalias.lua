@@ -1,12 +1,8 @@
-local function configure_bufonly()
-  utils.nnoremap_silent_bulk({
-    ['<Leader>bo'] = '<Cmd>BufOnly<CR>',
-  })
-end
-
 local function configure_cmdalias()
-  vim.cmd([[command! NormfulOpenTerminal call NormfulOpenTerminal()]])
-  vim.cmd([[command! NormfulGitBlame call NormfulGitBlame()]])
+  local utils = require('utils')
+
+  vim.cmd([[command! NormfulOpenTerminal call normful#OpenTerminal()]])
+  vim.cmd([[command! NormfulGitBlame call normful#GitBlame()]])
 
   utils.create_augroups({
     cmdalias_augroup = {
@@ -35,5 +31,11 @@ local function configure_cmdalias()
   })
 end
 
-configure_bufonly()
-configure_cmdalias()
+return {
+  'coot/cmdalias_vim',
+  dependencies = {
+    { 'coot/CRDispatcher', lazy = false, },
+  },
+  config = configure_cmdalias,
+  lazy = false,
+}
