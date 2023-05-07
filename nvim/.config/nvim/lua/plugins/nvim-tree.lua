@@ -109,28 +109,15 @@ local function configure_nvim_tree()
     git     = 1,
   }
 
-  --[[ TODO: fix
-  g.nvim_tree_icons = {
-    default = ' ',
-    symlink = 's',
-    folder = {
-      default = '⚧',
-      open = '⚩',
-      empty = '⚬',
-      empty_open = '⚭',
-      symlink = '⚮',
-      symlink_open = '⚯',
-    },
-    git = {
-      unstaged = '☷',
-      staged = '☰',
-      unmerged = '☵',
-      renamed = '⚏',
-      untracked = '⚊',
-      deleted = '⚋',
-    },
-  }
-  --]]
+  -- TODO(norman): fix icons
 end
 
-configure_nvim_tree()
+return {
+  'nvim-tree/nvim-tree.lua',
+  config = configure_nvim_tree,
+  keys = {
+    { '<F17>', '<Cmd>NvimTreeFindFileToggle!<CR>' },
+    { '<C-e>', '<Cmd>echoerr "Use [Right Command + e] to open file tree explorer<CR>' },
+    { '<E',    '<Cmd>echoerr "Use [Right Command + e] to open file tree explorer<CR>' },
+  },
+}
