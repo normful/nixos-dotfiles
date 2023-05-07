@@ -1,6 +1,6 @@
 return {
-	"vim-scripts/BufOnly.vim",
+	'vim-scripts/BufOnly.vim',
 	keys = {
-		{ "<Leader>bo", "<Cmd>BufOnly<CR>" },
+		{ '<Leader>bo', '<Cmd>BufOnly<CR>' },
 	},
 }
