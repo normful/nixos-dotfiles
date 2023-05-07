@@ -18,7 +18,7 @@ local function configure_git_mappings()
   -- 'Press ENTER or type command to continue' is not displayed
   utils.nnoremap_silent_bulk({
     -- git blame
-    ['<Leader>gb'] = '<Cmd>NormfulGitBlame<CR><F15><CR>',
+    ['<Leader>gb'] = '<Cmd>normful#GitBlame<CR><F15><CR>',
 
     -- git commit
     ['<Leader>gw'] = '<Cmd>Git w<CR><CR><CR>',

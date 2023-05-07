@@ -1,28 +1,9 @@
 local function add_general_settings()
   local g = vim.g
+  local utils = require("utils")
   local set = utils.set
 
   -- Run :checkhealth to see status of providers
-
-  -- Disable unneeded built-in plugins
-  local disabled_built_ins = {
-    'gzip',
-    'man',
-
-    -- andymass/vim-matchup is better than these:
-    'matchit',
-    'matchparen',
-
-    'netrwPlugin',
-    'shada_plugin',
-    'tar',
-    'tarPlugin',
-    'zip',
-    'zipPlugin',
-  }
-  for i = 1, #disabled_built_ins do
-    g['loaded_' .. disabled_built_ins[i]] = 1
-  end
 
   -- Colors
   set('termguicolors', true)
@@ -53,6 +34,7 @@ local function add_general_settings()
   set('mouse', 'a')
 
   -- Keyboard
+  set('timeout', true)
   set('timeoutlen', 500)
   set('backspace', 'indent,eol,start') -- allow backspacing over these characters
 
@@ -63,24 +45,18 @@ local function add_general_settings()
   set('splitbelow', true)
   set('splitright', true)
   set('title', true)
-  set('titlestring', '%{expand(\"%:p:s?/Users/norman/code?c?\")}')
+  set('titlestring', '%{expand(\"%:p:s?/Users/.*/code/??\")}') -- Assumes repos are at /Users/<username>/code and deletes the /Users/<username>/code/ prefix from the titlestring
   set('hidden', true)
 
   -- Reading files
   set('modeline', true)
   set('modelines', 5)
+  set('fileformats', '')
 
-  -- Expanded: ~/.cache/nvim
-  local cache_dir = os.getenv("HOME") .. '/.cache/nvim'
-
-  -- Expanded: ~/.cache/nvim/swap
-  local swap_dir = cache_dir .. '/swap'
-
-  -- Expanded: ~/.cache/nvim/backup
-  local backup_dir = cache_dir .. '/backup'
-
-  -- Expanded: ~/.cache/nvim/undo
-  local undo_dir = cache_dir .. '/undo'
+  local std_data_dir = vim.fn.stdpath("data") -- Usually: ~/.local/share/nvim
+  local swap_dir = std_data_dir .. '/my_swap'
+  local backup_dir = std_data_dir .. '/my_backup'
+  local undo_dir = std_data_dir .. '/my_undo'
 
   -- Swap
   set('swapfile', true)
@@ -113,10 +89,7 @@ local function add_general_settings()
   set('wrap', false)
   set('linebreak', true) -- when wrapping is set, break at words
 
-  -- Folding
-  set('foldenable', true) -- enable folding
-  set('foldlevel', 99) -- default fold level
-  set('foldlevelstart', 99) -- open some folds by default
+  -- Folding is not configured here, and is in nvim-ufo config instead
 
   -- Wildmenu
   set('wildmenu', true)
