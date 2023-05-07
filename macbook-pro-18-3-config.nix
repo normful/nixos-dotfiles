@@ -118,6 +118,8 @@ in
       yarn
       nodePackages.prettier
 
+      deno
+
       (python310.withPackages (pks: with pks; [
         black
         isort
