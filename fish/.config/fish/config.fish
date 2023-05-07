@@ -47,7 +47,10 @@ function __should_na --on-event fish_prompt
 end
 
 # Fixes order of $PATH entries in fish shell
-# Copied from https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
+# Based on https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
 if test (uname) = Darwin
-    fish_add_path --prepend --global "$HOME/.nix-profile/bin" /nix/var/nix/profiles/default/bin /run/current-system/sw/bin "$HOME/bin"
+    fish_add_path --prepend --global "$HOME/.local/bin"
+    fish_add_path --prepend --global "$HOME/bin"
+    fish_add_path --prepend --global /run/current-system/sw/bin
+    fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
 end
