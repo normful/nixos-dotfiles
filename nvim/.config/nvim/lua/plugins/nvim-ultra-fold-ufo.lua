@@ -26,10 +26,12 @@ local function fold_virt_text_handler(virtText, lnum, endLnum, width, truncate)
 end
 
 local function configure_nvim_ufo()
-  vim.o.foldcolumn = '0'
-  vim.o.foldlevel = 99
-  vim.o.foldlevelstart = 99
-  vim.o.foldenable = true
+  local set = require("utils").set
+
+  set('foldcolumn', '0')
+  set('foldlevel', 99)
+  set('foldlevelstart', 99)
+  set('foldenable', true)
 
   local ufo = require('ufo')
   ufo.setup({
