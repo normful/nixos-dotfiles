@@ -14,13 +14,14 @@ local function configure_neorg()
           icon_preset = 'diamond',
           icons = {
             todo = {
-              cancelled = { icon = '₵' },
-              on_hold = { icon = 'ℍ' },
-              pending = { icon = 'ℙ' },
-              uncertain = { icon = '⛏' },
               undone = { icon = ' ' },
               done = { icon = '✔' },
-              urgent = { icon = '⁕' },
+              uncertain = { icon = '?' },
+              urgent = { icon = '!' },
+
+              cancelled = { icon = '_' },
+              on_hold = { icon = '=' },
+              pending = { icon = '-' },
             },
           }
         },
