@@ -32,6 +32,8 @@ local function configure_neorg()
           journal_folder = 'journal',
           use_template = false,
           workspace = 'notes',
+          open_last_workspace = true,
+          use_popup = true,
         }
       },
       ['core.dirman'] = {
@@ -60,7 +62,7 @@ local function configure_neorg()
           -- - "none" generates no metadata
           -- - "auto" generates metadata if it is not present
           -- - "empty" generates metadata only for new files/buffers.
-          type = 'auto',
+          type = 'empty',
 
           -- Whether updated date field should be automatically updated on save if required
           update_date = false,
@@ -87,6 +89,7 @@ local function configure_neorg()
               end,
             },
 
+            { '[taxonomies]', '' },
             { 'tags', '[]' },
           },
 
@@ -120,10 +123,15 @@ return {
     { 'Pocco81/true-zen.nvim' },
   },
   keys = {
+    { '<Leader>ni', '<Cmd>Neorg index<CR>' },
+    { '<Leader>ei', '<Cmd>Neorg index<CR>' },
+    { '<Leader>en', '<Cmd>Neorg journal today<CR>' },
+    { '<Leader>er', '<Cmd>Neorg return<CR>' },
+
+    { '<Leader>nc', '<Cmd>Neorg toggle-concealer<CR>' },
+
     { '<Leader>mb',
       function()
-        vim.cmd(':Neorg inject-metadata')
-
         local markdown_file = '/Users/norman/code/blog/content/blog/' .. string.format('%s.md', vim.fn.expand('%:t:r'))
         vim.cmd(':Neorg export to-file ' .. markdown_file)
 
@@ -133,11 +141,13 @@ return {
         vim.api.nvim_win_set_buf(win, buf)
 
         vim.cmd('e ' .. markdown_file)
+
+        -- TODO(norman): Figure out how to automatically tweak the exported
+        -- meta block in the markdown_file so that it is in the format that
+        -- works with your Zola theme.
       end,
-      desc = 'Inject norg metadata, export to markdown blog post, edit markdown',
+      desc = 'Export to markdown blog file, edit markdown',
     },
-    { '<Leader>en', '<Cmd>Neorg journal today<CR>' },
-    { '<Leader>er', '<Cmd>Neorg return<CR>' },
   },
   config = configure_neorg,
   lazy = false,
