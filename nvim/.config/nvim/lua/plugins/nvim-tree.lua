@@ -104,12 +104,10 @@ local function configure_nvim_tree()
   g.nvim_tree_quit_on_open = 1
   g.nvim_tree_disable_window_picker = 1
   g.nvim_tree_show_icons = {
-    files   = 0,
+    files   = 1,
     folders = 1,
     git     = 1,
   }
-
-  -- TODO(norman): fix icons
 end
 
 return {
