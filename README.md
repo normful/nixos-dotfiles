@@ -34,14 +34,18 @@ to make Parallels Tools or VMWare Tools properly.
 
 ## Neovim Config
 
-I'm not symlinking Neovim config into `$HOME/.config/nvim` because I couldn't
-get treesitter to work that way.
+1. `./nix-nvim/nvim.nix` is used in my `neovim` Nix override.
+2. `./nix-nvim/customRC.vim.nix` is the `.vimrc` file that Nix generates. It loads general lua modules, and loads:
+3. `./nix-nvim/initLazy.lua`, which initializes [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-I couldn't figure out how to get `require` in lua files to work with my custon
-lua files, when used with the Nixpkgs [neovim derivation](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/default.nix).
+The rest of the Neovim config, which is in `./nvim`, is not managed by Nix. 
 
-So I'm just inserting all my lua inline in a generated `.vimrc` [file](https://github.com/normful/nixos-dotfiles/blob/main/nvim/vimrc.nix).
+It's purposely not controlled by Nix, so that it can be easily reused on 
+other systems that are not running Nix (e.g. other macOS systems
+where I don't run Nix, or other Linux systems). 
 
-My `nvim` config is in the process of being migrated from a modular
-Packer-based set of lua files. [These](https://github.com/normful/nixos-dotfiles/tree/main/nvim/lua/todo)
-are all the files that I haven't migrated yet.
+`./nvim/.config/nvim` is symlinked into `~/.config/nvim` using `stow`.
+
+`lazy.nvim` automatically loads all the plugin config from ~/.config/nvim/lua/plugins/`.
+
+There's a handful of miscellaneous old unused nvim config in `./nvim_OLD` that I don't use anymore.
