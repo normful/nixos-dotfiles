@@ -10,6 +10,7 @@ main() {
         exit 1
     fi
 
+    # TODO(norman): Make this handle files with spaces in them
     git status --porcelain | while read status file
     do
        echo $status $file
