@@ -133,7 +133,7 @@ return {
 
     { '<Leader>mb',
       function()
-        local markdown_file = '/Users/norman/code/blog/content/blog/' .. string.format('%s.md', vim.fn.expand('%:t:r'))
+        local markdown_file = '/Users/norman/code/blog/content/blog/' .. vim.fn.fnameescape(string.format('%s.md', vim.fn.expand('%:t:r')))
         vim.cmd(':Neorg export to-file ' .. markdown_file)
 
         vim.cmd('vsplit')
