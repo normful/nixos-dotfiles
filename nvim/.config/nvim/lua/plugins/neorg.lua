@@ -55,13 +55,13 @@ local function has_japanese_norg_title()
 end
 
 local function convert_metadata_to_zola_markdown_format()
-  vim.cmd([[:%s/^title:/title =/]])
-  vim.cmd([[:%s/^date:/date =/]])
+  vim.cmd([[:2s/^title:/title =/e]])
+  vim.cmd([[:3s/^date:/date =/e]])
 end
 
 local function find_and_replace_markdown_ext_placeholder(lang)
   local replacement = lang == 'ja' and '.ja.md' or '.md'
-  vim.cmd([[:6,%s/\.MARKDOWN_EXT_PLACEHOLDER/]] .. replacement)
+  vim.cmd([[:6,$s/\.MARKDOWN_EXT_PLACEHOLDER/]] .. replacement .. [[/ge]])
 end
 
 local function save_buffer()
@@ -88,6 +88,13 @@ local function close_other_windows()
   end, delay_ms)
 end
 
+local function reformat_links_to_ja_pages_from_english_pages(lang)
+  if lang == 'ja' then
+    return
+  end
+  vim.cmd([[:6,$s/\.ja](@/](@/ge]])
+end
+
 local function write_blog_markdown(lang)
   local original_win = vim.api.nvim_get_current_win()
   local original_buf = vim.api.nvim_get_current_buf()
@@ -98,6 +105,7 @@ local function write_blog_markdown(lang)
   export_and_edit_markdown(get_blog_markdown_path(lang))
   convert_metadata_to_zola_markdown_format()
   find_and_replace_markdown_ext_placeholder(lang)
+  reformat_links_to_ja_pages_from_english_pages(lang)
   save_buffer()
 
   git_add_and_commit()
@@ -198,6 +206,7 @@ local function configure_neorg()
           },
         },
       },
+      ['core.summary'] = {},
     },
   })
 end
