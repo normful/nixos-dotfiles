@@ -89,7 +89,11 @@ local function add_general_settings()
   set('wrap', false)
   set('linebreak', true) -- when wrapping is set, break at words
 
-  -- Folding is not configured here, and is in nvim-ufo config instead
+  -- Folding is also in nvim-ufo config
+  set('foldcolumn', '0')
+  set('foldlevel', 99)
+  set('foldlevelstart', 99)
+  set('foldenable', true)
 
   -- Wildmenu
   set('wildmenu', true)
