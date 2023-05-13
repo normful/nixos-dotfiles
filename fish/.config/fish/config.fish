@@ -40,6 +40,8 @@ if status is-interactive
     abbr --add eb "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
     abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
+
+    source ~/.open_ai_api_key.fish
 end
 
 function __should_na --on-event fish_prompt
