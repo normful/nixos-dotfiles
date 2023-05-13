@@ -112,6 +112,8 @@ in
       gopls
       gotools
       protoc-gen-go
+
+      cargo
       zola
 
       nodejs
@@ -132,8 +134,6 @@ in
       ]))
       poetry
       nodePackages.pyright
-
-      cargo
 
       inkscape
       imagemagick
