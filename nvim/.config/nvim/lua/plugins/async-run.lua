@@ -10,7 +10,7 @@ return {
   config = configure_async_run,
   keys = {
     -- This is used instead of vim-test
-    { '<Leadef>tf', '<Cmd>AsyncRun -cwd=<root> -mode=terminal -focus=0 -pos=right npm run test "%:p"<CR>' },
+    { '<Leader>tf', '<Cmd>AsyncRun -cwd=<root> -mode=terminal -focus=0 -pos=right npm run test "%:p"<CR>' },
   },
   lazy = false,
 }
