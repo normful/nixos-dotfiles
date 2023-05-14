@@ -48,6 +48,7 @@ return {
     { 'kevinhwang91/promise-async', event = 'VeryLazy' },
   },
   lazy = false,
+  enabled = false,
   config = configure_nvim_ufo,
 
   -- See `:h fold` docs for more folding basics
@@ -78,7 +79,7 @@ return {
           vim.lsp.buf.hover()
         end
       end,
-      desc = 'Peek foled lines',
+      desc = 'Peek folded lines',
     },
   },
 }
