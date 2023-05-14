@@ -135,7 +135,7 @@ local function configure_neorg()
           },
           default_workspace = 'notes',
           autochdir = true,
-          index = 'index.norg',
+          index = 'Notes index.norg',
         },
       },
       ['core.journal'] = {
