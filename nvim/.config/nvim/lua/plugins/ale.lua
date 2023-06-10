@@ -57,11 +57,11 @@ local function configure_ale()
   g.ale_maximum_file_size = 1024 * 1024
   g.ale_completion_enabled = 0
 
-  vim.cmd([[highlight! ALEErrorSign        ctermbg=236 ctermfg=Red]])
-  vim.cmd([[highlight! ALEWarningSign      ctermbg=236 ctermfg=Yellow]])
-  vim.cmd([[highlight! ALEInfoSign         ctermbg=236 ctermfg=Blue]])
-  vim.cmd([[highlight! ALEStyleErrorSign   ctermbg=236 ctermfg=Red]])
-  vim.cmd([[highlight! ALEStyleWarningSign ctermbg=236 ctermfg=Yellow]])
+  vim.api.nvim_set_hl(0, 'ALEErrorSign', { ctermbg = 236, ctermfg = 'Red' })
+  vim.api.nvim_set_hl(0, 'ALEWarningSign', { ctermbg = 236, ctermfg = 'Yellow' })
+  vim.api.nvim_set_hl(0, 'ALEInfoSign', { ctermbg = 236, ctermfg = 'Blue' })
+  vim.api.nvim_set_hl(0, 'ALEStyleErrorSign', { ctermbg = 236, ctermfg = 'Red' })
+  vim.api.nvim_set_hl(0, 'ALEStyleWarningSign', { ctermbg = 236, ctermfg = 'Yellow' })
 end
 
 return {
