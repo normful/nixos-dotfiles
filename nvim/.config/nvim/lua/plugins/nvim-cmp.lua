@@ -1,16 +1,9 @@
 local function configure_nvim_cmp()
-  local luasnip = require('luasnip')
   local lspkind = require('lspkind')
 
   local cmp = require('cmp')
   cmp.setup({
     preselect = cmp.PreselectMode.None,
-
-    snippet = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body)
-      end,
-    },
 
     window = {
       documentation = {
@@ -62,7 +55,6 @@ local function configure_nvim_cmp()
       { name = 'path' },
       { name = 'buffer', keyword_length = 3, max_item_count = 5 },
       { name = 'filename' },
-      { name = 'luasnip', keyword_length = 2, max_item_count = 5 },
     }),
 
     completion = {
@@ -92,14 +84,12 @@ end
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
-    'L3MON4D3/LuaSnip',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-path',
-    'saadparwaiz1/cmp_luasnip',
     'onsails/lspkind-nvim',
   },
   config = configure_nvim_cmp,

@@ -1,15 +1,5 @@
 local function configure_gitsigns()
   require('gitsigns').setup({
-    signs = {
-      add          = { hl = 'Function', text = '+', numhl = 'GitSignsAddNr',    linehl = 'GitSignsAddLn' },
-      delete       = { hl = 'Keyword',  text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-      topdelete    = { hl = 'Keyword',  text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-      change       = { hl = 'Boolean',  text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-      changedelete = { hl = 'Boolean',  text = '#', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-    },
-
-    keymaps = {}, -- Clears out default keymaps
-
     numhl = false,
     linehl = false,
 
