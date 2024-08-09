@@ -93,7 +93,6 @@ in
       tree-sitter
       ctags
       efm-langserver
-      rnix-lsp
 
       hstr
       zoxide
@@ -133,7 +132,6 @@ in
         pynvim
       ]))
       poetry
-      nodePackages.pyright
 
       inkscape
       imagemagick
