@@ -142,6 +142,8 @@ in
 
       ffmpeg
       vorbis-tools
+
+      scrcpy
     ];
   };
 
