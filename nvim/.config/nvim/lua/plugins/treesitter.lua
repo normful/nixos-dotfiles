@@ -78,10 +78,6 @@ local function configure_treesitter()
         ['v'] = 'textsubjects-smart',
       }
     },
-    -- https://github.com/HiPhish/nvim-ts-rainbow2
-    rainbow = {
-      enable = true,
-    },
   })
 end
 
@@ -90,7 +86,6 @@ return {
   dependencies = {
     { 'nvim-treesitter/playground', event = 'VeryLazy' },
     { 'nvim-treesitter/nvim-treesitter-textobjects', event = 'VeryLazy' },
-    { 'HiPhish/nvim-ts-rainbow2', event = 'VeryLazy' },
 
     -- NOTE(norman): I'm purposely not using nvim-treesitter/nvim-treesitter-refactor because none of it was useful to me
   },
