@@ -27,7 +27,7 @@ in
       '';
     gc = {
       automatic = true;
-      options = "--delete-older-than 300d";
+      options = "--delete-older-than 600d";
     };
   };
 
