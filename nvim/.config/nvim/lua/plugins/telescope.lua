@@ -1,6 +1,10 @@
 local function configure_telescope()
   local telescope = require('telescope')
   local actions = require('telescope.actions')
+  local browser_bookmarks = require('browser_bookmarks')
+  browser_bookmarks.setup({
+    selected_browser = "vivaldi"
+  })
 
   telescope.setup({
     defaults = {
@@ -28,9 +32,6 @@ local function configure_telescope()
       fzy_native = {
         override_generic_sorter = true,
         override_file_sorter = true,
-      },
-      bookmarks = {
-        selected_browser = 'vivaldi',
       },
     },
   })
