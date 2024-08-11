@@ -17,9 +17,10 @@ local function add_general_maps()
   utils.inoremap_silent_bulk(disable_arrow_keys)
 
   utils.xnoremap_silent_bulk({
-    -- Visual shifting (does not exit Visual mode)
-    ['<'] = '<gv',
-    ['>'] = '>gv',
+    -- Temporarily disabling because of conflict with Neorg
+    ---- Visual shifting (does not exit Visual mode)
+    ---- ['<'] = '<gv',
+    ---- ['>'] = '>gv',
 
     -- Navigating wrapped lines
     ['j'] = 'gj',
@@ -68,7 +69,8 @@ local function add_general_maps()
     ['D'] = '<Cmd>echoerr "Use [Right Command + j/d] to scroll down"<CR>', -- Avoid right-pinky RSI. D is usually: Delete the rest of the line from the cursor
     ['U'] = '<Cmd>echoerr "Use [Right Command + k/u] to scroll up"<CR>', -- Avoid right-pinky RSI. U is usually: Undo the line
 
-    ['<C-d>'] = '<Cmd>echoerr "Use [Right Command + j/d] to scroll down"<CR>', -- Avoid left-pinky RSI.
+    -- Temporarily disabling because of conflict with Neorg
+    ---- ['<C-d>'] = '<Cmd>echoerr "Use [Right Command + j/d] to scroll down"<CR>', -- Avoid left-pinky RSI.
     ['<C-u>'] = '<Cmd>echoerr "Use [Right Command + k/u] to scroll up"<CR>', -- Avoid left-pinky RSI.
 
     -- Karabiner Elements maps Command + j => <F13>
