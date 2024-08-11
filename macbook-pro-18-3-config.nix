@@ -120,7 +120,6 @@ in
 
       nodejs
       yarn
-      nodePackages.prettier
 
       deno
 
