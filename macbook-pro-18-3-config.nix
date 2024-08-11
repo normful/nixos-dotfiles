@@ -93,6 +93,9 @@ in
       tree-sitter
       ctags
       efm-langserver
+      (lua5_1.withPackages (pks: with pks; [
+        luarocks
+      ]))
 
       hstr
       zoxide
