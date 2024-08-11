@@ -1,27 +1,3 @@
-local my_linters = {
-  scss = { 'stylelint' },
-
-  -- markdown = { 'markdownlint' },
-
-  ruby = { 'brakeman', 'rails_best_practices', 'reek', 'rubocop', 'ruby' },
-
-  javascript = { 'tsserver', 'eslint' },
-  javascriptreact = { 'tsserver', 'eslint' },
-  typescript = { 'tsserver', 'eslint' },
-  typescriptreact = { 'tsserver', 'eslint' },
-}
-
-local my_fixers = {
-  scss = { 'stylelint', 'trim_whitespace', 'remove_trailing_lines' },
-
-  sh = { 'trim_whitespace', 'remove_trailing_lines' },
-
-  javascript = { 'prettier' },
-  javascriptreact = { 'prettier' },
-  typescript = { 'prettier' },
-  typescriptreact = { 'prettier' },
-}
-
 local function configure_ale()
   local g = vim.g
 
@@ -38,19 +14,31 @@ local function configure_ale()
   g.ale_linters_explicit = 1
   g.ale_lint_on_text_changed = 'never'
   g.ale_lint_on_insert_leave = 1
-  local final_linters = {}
-  for ft, linters in pairs(my_linters) do
-    final_linters[ft] = linters
-  end
-  g.ale_linters = final_linters
+  g.ale_linters = {
+    javascript = { 'tsserver', 'eslint' },
+    javascriptreact = { 'tsserver', 'eslint' },
+    ruby = { 'brakeman', 'rails_best_practices', 'reek', 'rubocop', 'ruby' },
+    scss = { 'stylelint' },
+    typescript = { 'tsserver', 'eslint' },
+    typescriptreact = { 'tsserver', 'eslint' },
+  }
 
   -- Fixer settings
   g.ale_fix_on_save = 1
-  local final_fixers = {}
-  for ft, fixers in pairs(my_fixers) do
-    final_fixers[ft] = fixers
-  end
-  g.ale_fixers = final_fixers
+  g.ale_fixers = {
+    ['*'] = { 'remove_trailing_lines', 'trim_whitespace' },
+    css = { 'prettier', 'stylelint' },
+    go = { 'trim_whitespace', 'remove_trailing_lines', 'goimports', 'gofmt' },
+    javascript = { 'biome', 'eslint' },
+    javascriptreact = { 'prettier', 'biome', 'eslint' },
+    json = { 'prettier', 'biome', 'eslint' },
+    lua = { 'stylua' },
+    rust = { 'rustfmt' },
+    scss = { 'prettier', 'stylelint' },
+    sh = { 'trim_whitespace', 'remove_trailing_lines' },
+    typescript = { 'prettier', 'biome', 'eslint' },
+    typescriptreact = { 'prettier', 'biome', 'eslint' },
+  }
 
   -- Other settings
   g.ale_warn_about_trailing_whitespace = 0
