@@ -51,27 +51,6 @@ local function configure_treesitter()
         scope_incremental = 'grc',
       },
     },
-    playground = {
-      enable = true,
-      updatetime = 25,
-      persist_queries = false,
-      keybindings = {
-        toggle_query_editor = 'o',
-
-        toggle_hl_groups = 'i',
-        toggle_injected_languages = 't',
-        toggle_anonymous_nodes = 'a',
-        toggle_language_display = 'I',
-
-        focus_language = 'f',
-        unfocus_language = 'F',
-
-        update = 'R',
-        goto_node = '<CR>',
-
-        show_help = '?',
-      },
-    },
     textsubjects = {
       enable = true,
       keymaps = {
@@ -84,14 +63,12 @@ end
 return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
-    { 'nvim-treesitter/playground', event = 'VeryLazy' },
     { 'nvim-treesitter/nvim-treesitter-textobjects', event = 'VeryLazy' },
 
     -- NOTE(norman): I'm purposely not using nvim-treesitter/nvim-treesitter-refactor because none of it was useful to me
   },
   keys = {
-    { '<F3>', '<Cmd>TSPlaygroundToggle>CR>' },
-    { 'L', '<Cmd>TSNodeUnderCursor>CR>' },
+    { '<F3>', '<Cmd>InspectTree<CR>' },
   },
   config = configure_treesitter,
   lazy = false,
