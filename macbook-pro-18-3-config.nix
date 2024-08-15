@@ -96,6 +96,7 @@ in
       (lua5_1.withPackages (pks: with pks; [
         luarocks
       ]))
+      stylua
 
       hstr
       zoxide
