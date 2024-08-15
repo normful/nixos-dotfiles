@@ -11,5 +11,5 @@ return {
   config = configure_vista,
   keys = {
     { '<F2>', '<Cmd>Vista nvim_lsp<CR>' },
-  }
+  },
 }

@@ -11,12 +11,12 @@ local configured_fts = {
 
 local function create_augroup_for_ft(ft, skip_all_tests_mapping)
   local autocmds = {
-      {'FileType', ft, [[nnoremap <silent> <Leader>tt <Cmd>TestNearest<CR>]]},
-      {'FileType', ft, [[nnoremap <silent> <Leader>tf <Cmd>TestFile<CR>]]},
+    { 'FileType', ft, [[nnoremap <silent> <Leader>tt <Cmd>TestNearest<CR>]] },
+    { 'FileType', ft, [[nnoremap <silent> <Leader>tf <Cmd>TestFile<CR>]] },
   }
 
   if not skip_all_tests_mapping then
-    table.insert(autocmds, {'FileType', ft, [[nnoremap <silent> <Leader>ta <Cmd>TestSuite<CR>]]})
+    table.insert(autocmds, { 'FileType', ft, [[nnoremap <silent> <Leader>ta <Cmd>TestSuite<CR>]] })
   end
 
   utils.create_augroups({

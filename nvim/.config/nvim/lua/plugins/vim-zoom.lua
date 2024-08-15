@@ -3,5 +3,5 @@ return {
   event = 'VeryLazy',
   keys = {
     { '<Leader>on', ':call zoom#toggle()<CR>' },
-  }
+  },
 }

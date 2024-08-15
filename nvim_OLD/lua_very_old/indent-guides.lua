@@ -1,5 +1,5 @@
 local function configure()
-  local utils = require("utils")
+  local utils = require('utils')
   local g = vim.g
 
   g.indent_guides_enable_on_vim_startup = 0
@@ -7,8 +7,8 @@ local function configure()
 
   utils.create_augroups({
     indent_guides_augroup = {
-      {'VimEnter,Colorscheme', '*', ':hi IndentGuidesOdd  guibg=black    ctermbg=black'},
-      {'VimEnter,Colorscheme', '*', ':hi IndentGuidesEven guibg=darkgrey ctermbg=darkgrey'},
+      { 'VimEnter,Colorscheme', '*', ':hi IndentGuidesOdd  guibg=black    ctermbg=black' },
+      { 'VimEnter,Colorscheme', '*', ':hi IndentGuidesEven guibg=darkgrey ctermbg=darkgrey' },
     },
   })
 

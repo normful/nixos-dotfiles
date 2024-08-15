@@ -71,7 +71,7 @@ local function configure_nvim_cmp()
         mode = 'symbol',
         maxwidth = 50,
         ellipsis_char = '...',
-      })
+      }),
     },
 
     experimental = {
@@ -79,7 +79,6 @@ local function configure_nvim_cmp()
     },
   })
 end
-
 
 return {
   'hrsh7th/nvim-cmp',

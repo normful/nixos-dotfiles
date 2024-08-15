@@ -10,5 +10,5 @@ return {
   config = configure_git_messenger,
   keys = {
     { 'M', '<Cmd>GitMessenger<CR>' },
-  }
+  },
 }

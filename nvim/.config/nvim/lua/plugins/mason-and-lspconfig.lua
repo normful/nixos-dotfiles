@@ -28,8 +28,8 @@ local function configure_mason_and_lspconfig()
         telemetry = {
           enable = false,
         },
-      }
-    }
+      },
+    },
   })
   lspconfig.tsserver.setup({})
 
@@ -41,7 +41,7 @@ local function configure_mason_and_lspconfig()
       local bufLocalMappingOpts = { buffer = ev.buf }
 
       -- Docs on below:
-      -- :help vim.lsp.* 
+      -- :help vim.lsp.*
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufLocalMappingOpts)
       vim.keymap.set('n', '<Leader>dec', vim.lsp.buf.declaration, bufLocalMappingOpts)
       vim.keymap.set('n', '<Leader>im', vim.lsp.buf.implementation, bufLocalMappingOpts)
@@ -53,7 +53,7 @@ local function configure_mason_and_lspconfig()
 
       -- NOTE(norman): I have not used the below yet
       vim.keymap.set('n', '<Leader>fo', function()
-        vim.lsp.buf.format { async = true }
+        vim.lsp.buf.format({ async = true })
       end)
     end,
   })

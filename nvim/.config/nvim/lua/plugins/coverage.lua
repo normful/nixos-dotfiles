@@ -8,7 +8,6 @@ local function configure_coverage()
   g.coverage_sign_uncovered = '☡'
   g.coverage_override_sign_column_highlight = 0
   g.coverage_interval = 5000
-
 end
 
 return {

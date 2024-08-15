@@ -3,7 +3,7 @@ local function configure_telescope()
   local actions = require('telescope.actions')
   local browser_bookmarks = require('browser_bookmarks')
   browser_bookmarks.setup({
-    selected_browser = "vivaldi"
+    selected_browser = 'vivaldi',
   })
 
   telescope.setup({
@@ -22,7 +22,7 @@ local function configure_telescope()
           ['<S-j>'] = actions.preview_scrolling_down,
           ['<S-k>'] = actions.preview_scrolling_up,
 
-          ['<C-q>'] = actions.send_to_qflist
+          ['<C-q>'] = actions.send_to_qflist,
         },
       },
       file_sorter = require('telescope.sorters').get_fzy_sorter,
@@ -40,11 +40,11 @@ local function configure_telescope()
   telescope.load_extension('zoxide')
   telescope.load_extension('bookmarks')
 
-  local zoxide_utils = require("telescope._extensions.zoxide.utils")
-  local zoxide_config = require("telescope._extensions.zoxide.config")
+  local zoxide_utils = require('telescope._extensions.zoxide.utils')
+  local zoxide_config = require('telescope._extensions.zoxide.config')
   zoxide_config.setup({
     mappings = {
-      ["<CR>"] = { action = zoxide_utils.create_basic_command("split") },
+      ['<CR>'] = { action = zoxide_utils.create_basic_command('split') },
     },
   })
 end
@@ -67,36 +67,52 @@ return {
     -- find filenames in this git repo
     { '<LocalLeader>f', '<Cmd>lua require("plug/telescope").funcs.git_or_find_files()<CR>', mode = 'n' },
     { '<LocalLeader>f', '<Cmd>lua require("plug/telescope").funcs.git_or_find_files()<CR>', mode = 't' },
-    { '<Leader>fi',     '<Cmd>lua require("plug/telescope").funcs.git_or_find_files()<CR>', mode = 'n' },
-    { '<Leader>fi',     '<Cmd>lua require("plug/telescope").funcs.git_or_find_files()<CR>', mode = 't' },
+    { '<Leader>fi', '<Cmd>lua require("plug/telescope").funcs.git_or_find_files()<CR>', mode = 'n' },
+    { '<Leader>fi', '<Cmd>lua require("plug/telescope").funcs.git_or_find_files()<CR>', mode = 't' },
 
     -- find filenames in all code
-    { '<Leader>fia',    '<Cmd>lua require("telescope.builtin").find_files({cwd="~/code"})<CR>', mode = 'n' },
-    { '<Leader>fia',    '<Cmd>lua require("telescope.builtin").find_files({cwd="~/code"})<CR>', mode = 't' },
+    { '<Leader>fia', '<Cmd>lua require("telescope.builtin").find_files({cwd="~/code"})<CR>', mode = 'n' },
+    { '<Leader>fia', '<Cmd>lua require("telescope.builtin").find_files({cwd="~/code"})<CR>', mode = 't' },
 
     -- [gg]rep for text
 
     -- grep for text in this git repo
-    { '<LocalLeader>g', '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 'n' },
-    { '<LocalLeader>g', '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 't' },
+    {
+      '<LocalLeader>g',
+      '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>',
+      mode = 'n',
+    },
+    {
+      '<LocalLeader>g',
+      '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>',
+      mode = 't',
+    },
 
     -- grep for text in this git repo
-    { '<Leader>g',      '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 'n' },
-    { '<Leader>g',      '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 't' },
+    {
+      '<Leader>g',
+      '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>',
+      mode = 'n',
+    },
+    {
+      '<Leader>g',
+      '<Cmd>ProjectRootCD<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>',
+      mode = 't',
+    },
 
     -- grep for text in all git repos
-    { '<Leader>gga',    '<Cmd>cd ~/code<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 'n' },
-    { '<Leader>gga',    '<Cmd>cd ~/code<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 't' },
+    { '<Leader>gga', '<Cmd>cd ~/code<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 'n' },
+    { '<Leader>gga', '<Cmd>cd ~/code<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 't' },
 
     --  b]uffers
     { '<LocalLeader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 'n' },
     { '<LocalLeader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 't' },
-    { '<Leader>b',      '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 'n' },
-    { '<Leader>b',      '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 't' },
+    { '<Leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 'n' },
+    { '<Leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 't' },
 
     -- [man] pages
-    { '<Leader>man',    '<Cmd>lua require("telescope.builtin").man_pages()<CR>', mode = 'n' },
-    { '<Leader>man',    '<Cmd>lua require("telescope.builtin").man_pages()<CR>', mode = 't' },
+    { '<Leader>man', '<Cmd>lua require("telescope.builtin").man_pages()<CR>', mode = 'n' },
+    { '<Leader>man', '<Cmd>lua require("telescope.builtin").man_pages()<CR>', mode = 't' },
 
     -- [o]pen directory with z[o]xide
     { '<LocalLeader>o', '<Cmd>lua require("telescope").extensions.zoxide.list{}<CR>', mode = 'n' },
@@ -111,7 +127,10 @@ return {
     -----------------------------------------
 
     -- grep for word under cursor
-    { '<Leader>vv', '><Cmd>lua require("telescope.builtin").grep_string({ cwd = vim.api.nvim_eval("projectroot#get()") })<CR>' },
+    {
+      '<Leader>vv',
+      '><Cmd>lua require("telescope.builtin").grep_string({ cwd = vim.api.nvim_eval("projectroot#get()") })<CR>',
+    },
 
     { '<Leader>lsp', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>' },
 
@@ -123,5 +142,3 @@ return {
     { '<Leader>vhi', '<Cmd>lua require("telescope.builtin").highlights()<CR>' },
   },
 }
-
-

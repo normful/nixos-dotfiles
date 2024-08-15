@@ -85,7 +85,7 @@ local function configure_nvim_tree()
     ['<F17>'] = '<Cmd>NvimTreeFindFile!<CR>',
 
     ['<C-e>'] = err_msg_cmd,
-    ['E']     = err_msg_cmd,
+    ['E'] = err_msg_cmd,
   })
 
   local nvim_tree = require('nvim-tree')
@@ -94,7 +94,7 @@ local function configure_nvim_tree()
     on_attach = on_attach,
     view = {
       width = 50,
-    }
+    },
   })
 
   local g = vim.g
@@ -104,9 +104,9 @@ local function configure_nvim_tree()
   g.nvim_tree_quit_on_open = 1
   g.nvim_tree_disable_window_picker = 1
   g.nvim_tree_show_icons = {
-    files   = 1,
+    files = 1,
     folders = 1,
-    git     = 1,
+    git = 1,
   }
 end
 
@@ -116,6 +116,6 @@ return {
   keys = {
     { '<F17>', '<Cmd>NvimTreeFindFileToggle!<CR>' },
     { '<C-e>', '<Cmd>echoerr "Use [Right Command + e] to open file tree explorer<CR>' },
-    { '<E',    '<Cmd>echoerr "Use [Right Command + e] to open file tree explorer<CR>' },
+    { '<E', '<Cmd>echoerr "Use [Right Command + e] to open file tree explorer<CR>' },
   },
 }
