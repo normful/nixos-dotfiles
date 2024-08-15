@@ -1,23 +1,22 @@
-local function configure_mason_and_lsp_config()
-  local lspconfig = require('lspconfig')
-
+local function configure_mason_and_lspconfig()
   require('mason').setup()
-
   require('mason-lspconfig').setup({
     ensure_installed = {
+      'biome',
       'eslint',
       'lua_ls',
       'tsserver',
-      'vimls',
     },
   })
 
-  lspconfig.eslint.setup()
+  local lspconfig = require('lspconfig')
+  lspconfig.biome.setup({})
+  lspconfig.eslint.setup({})
   lspconfig.lua_ls.setup({
     settings = {
       Lua = {
         runtime = {
-          version = 'LuaJIT',
+          version = 'Lua 5.1',
         },
         diagnostics = {
           globals = { 'vim' },
@@ -32,11 +31,9 @@ local function configure_mason_and_lsp_config()
       }
     }
   })
-  lspconfig.tsserver.setup()
-  lspconfig.vimls.setup()
+  lspconfig.tsserver.setup({})
 
   vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
       -- Enable completion triggered by <C-x><C-o>
       vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -57,7 +54,7 @@ local function configure_mason_and_lsp_config()
       -- NOTE(norman): I have not used the below yet
       vim.keymap.set('n', '<Leader>fo', function()
         vim.lsp.buf.format { async = true }
-      end, opts)
+      end)
     end,
   })
 end
