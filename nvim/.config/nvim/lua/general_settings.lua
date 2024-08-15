@@ -14,6 +14,7 @@ local function add_general_settings()
   set('lazyredraw', true)
   set('redrawtime', 10000)
   set('listchars', 'tab:▶ ,eol:■,trail:•')
+  set('conceallevel', 2)
 
   -- Cursor line
   set('cursorline', true)
