@@ -1,5 +1,5 @@
 local function configure_editorconfig()
-  vim.g.EditorConfig_exclude_patterns = {'fugitive://.*'}
+  vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 end
 
 return {

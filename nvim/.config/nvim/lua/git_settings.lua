@@ -10,8 +10,8 @@ local function quick_look_ar_cmd(cmd_txt)
 end
 
 local function configure_git_mappings()
-  local l   = ar_cmd('git lforvim "%:p"')
-  local ll  = ar_cmd('git llforvim "%:p"')
+  local l = ar_cmd('git lforvim "%:p"')
+  local ll = ar_cmd('git llforvim "%:p"')
   local lll = ar_cmd('git lllforvim "%:p"')
 
   -- Note that commands starting with :Git need two carriage returns (<CR>) so that

@@ -10,7 +10,7 @@ return {
           peek.close()
         else
           peek.open()
-          vim.fn.system("osascript -e 'tell application \"Vivaldi\" to set bounds of front window to {793, 38, 1512, 982}'")
+          vim.fn.system('osascript -e \'tell application "Vivaldi" to set bounds of front window to {793, 38, 1512, 982}\'')
         end
       end,
       desc = 'Peek (Markdown Preview)',

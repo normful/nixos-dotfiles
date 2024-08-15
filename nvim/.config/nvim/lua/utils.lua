@@ -1,7 +1,7 @@
 utils = {}
 
 function utils.has(key)
-    return vim.fn.has(key) == 1
+  return vim.fn.has(key) == 1
 end
 
 function utils.set(option_name, value)
@@ -73,13 +73,12 @@ function utils.xnoremap_silent_bulk_in_buffer(mappings, buf_nr)
   set_bulk_mappings_in_buffer(mappings, 'x', { noremap = true, silent = true }, buf_nr)
 end
 
-
 function utils.create_augroups(definitions)
   for group_name, definition in pairs(definitions) do
-    vim.cmd('augroup '..group_name)
+    vim.cmd('augroup ' .. group_name)
     vim.cmd('autocmd!')
     for _, def in ipairs(definition) do
-      local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+      local command = table.concat(vim.tbl_flatten({ 'autocmd', def }), ' ')
       vim.cmd(command)
     end
     vim.cmd('augroup END')
@@ -89,10 +88,10 @@ end
 function utils.uniq(tbl)
   local hash = {}
   local res = {}
-  for _,v in ipairs(tbl) do
-    if (not hash[v]) then
-       res[#res+1] = v
-       hash[v] = true
+  for _, v in ipairs(tbl) do
+    if not hash[v] then
+      res[#res + 1] = v
+      hash[v] = true
     end
   end
   return res

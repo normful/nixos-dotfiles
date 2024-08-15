@@ -55,7 +55,7 @@ local function configure_treesitter()
       enable = true,
       keymaps = {
         ['v'] = 'textsubjects-smart',
-      }
+      },
     },
   })
 end

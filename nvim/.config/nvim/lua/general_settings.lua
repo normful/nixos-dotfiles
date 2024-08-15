@@ -1,6 +1,6 @@
 local function add_general_settings()
   local g = vim.g
-  local utils = require("utils")
+  local utils = require('utils')
   local set = utils.set
 
   -- Run :checkhealth to see status of providers
@@ -46,7 +46,7 @@ local function add_general_settings()
   set('splitbelow', true)
   set('splitright', true)
   set('title', true)
-  set('titlestring', '%{expand(\"%:p:s?/Users/.*/code/??\")}') -- Assumes repos are at /Users/<username>/code and deletes the /Users/<username>/code/ prefix from the titlestring
+  set('titlestring', '%{expand("%:p:s?/Users/.*/code/??")}') -- Assumes repos are at /Users/<username>/code and deletes the /Users/<username>/code/ prefix from the titlestring
   set('hidden', true)
 
   -- Reading files
@@ -54,7 +54,7 @@ local function add_general_settings()
   set('modelines', 5)
   set('fileformats', '')
 
-  local std_data_dir = vim.fn.stdpath("data") -- Usually: ~/.local/share/nvim
+  local std_data_dir = vim.fn.stdpath('data') -- Usually: ~/.local/share/nvim
   local swap_dir = std_data_dir .. '/my_swap'
   local backup_dir = std_data_dir .. '/my_backup'
   local undo_dir = std_data_dir .. '/my_undo'

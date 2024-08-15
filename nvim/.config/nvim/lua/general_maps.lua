@@ -1,15 +1,15 @@
 local function add_general_maps()
   local g = vim.g
-  local utils = require("utils")
+  local utils = require('utils')
 
   -- Leader keys
-  g.mapleader = ","
-  g.maplocalleader = "\\"
+  g.mapleader = ','
+  g.maplocalleader = '\\'
 
   local disable_arrow_keys = {
-    ['<Up>']    = '<Cmd>echoerr "Use k instead"<CR>',
-    ['<Down>']  = '<Cmd>echoerr "Use j instead"<CR>',
-    ['<Left>']  = '<Cmd>echoerr "Use h instead"<CR>',
+    ['<Up>'] = '<Cmd>echoerr "Use k instead"<CR>',
+    ['<Down>'] = '<Cmd>echoerr "Use j instead"<CR>',
+    ['<Left>'] = '<Cmd>echoerr "Use h instead"<CR>',
     ['<Right>'] = '<Cmd>echoerr "Use l instead"<CR>',
   }
 

@@ -1,7 +1,7 @@
 local function configure_neorg()
   require('neorg').setup({
     load = {
-      ["core.defaults"] = {},
+      ['core.defaults'] = {},
       ['core.dirman'] = {
         config = {
           default_workspace = 'notes',
@@ -18,7 +18,7 @@ local function configure_neorg()
           strategy = 'flat',
           use_template = false,
           workspace = 'notes',
-        }
+        },
       },
       ['core.concealer'] = {
         config = {
@@ -74,4 +74,3 @@ return {
   config = configure_neorg,
   lazy = false,
 }
-
