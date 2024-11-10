@@ -146,6 +146,10 @@ in
       vorbis-tools
 
       scrcpy
+
+      texliveSmall
+      pandoc
+      qpdf
     ];
   };
 
