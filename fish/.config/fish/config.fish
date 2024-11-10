@@ -21,7 +21,7 @@ if status is-interactive
     
     abbr --add utc 'date -u'
     
-    abbr --add ag rg
+    abbr --add ag --position command --set-cursor=% 'rg --json % | delta'
     
     abbr --add g git
     abbr --add qg git
