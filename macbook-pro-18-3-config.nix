@@ -1,7 +1,7 @@
-{ config, pkgs, nixpkgs, ... }:
+{ config, nixpkgs-stable, pkgs, pkgs-stable, pkgs-30abd6, ... }:
 
 let
-  myNeovim = pkgs.neovim.override {
+  myNeovim = pkgs-stable.neovim.override {
     withPython3 = true;
     withNodeJs = true;
     withRuby = true;
@@ -9,7 +9,7 @@ let
     vimAlias = true;
     viAlias = true;
 
-    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs; nixpkgs = nixpkgs; });
+    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs-stable; nixpkgs = nixpkgs-stable; });
   };
 in
 {
@@ -18,7 +18,7 @@ in
   system.stateVersion = 4;
 
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs-stable.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -65,104 +65,108 @@ in
       GIT_EDITOR = "nvim";
       TERMINAL = "kitty";
     };
-    shells = [ pkgs.fish ];
-    systemPackages = with pkgs; [
-      coreutils-full
-      findutils
-      gnused
-      lsd
-      bat
-      openssl
-      tcpdump
-      ntfs3g
+    shells = [ pkgs-stable.fish ];
+    systemPackages =
+      (with pkgs-stable; [
+        coreutils-full
+        findutils
+        gnused
+        lsd
+        bat
+        openssl
+        tcpdump
+        ntfs3g
 
-      stow
-      gnumake
-      cmake
-      killall
-      ghostscript
+        stow
+        gnumake
+        cmake
+        killall
+        ghostscript
 
-      git
-      git-lfs
-      delta
+        git
+        git-lfs
+        delta
 
-      curl
-      wget
-      rsync
+        curl
+        wget
+        rsync
 
-      restic
-      rclone
+        restic
+        rclone
 
-      htop
-      tree
+        htop
+        tree
 
-      fish
+        fish
 
-      myNeovim
-      nodePackages.neovim
-      tree-sitter
-      ctags
-      efm-langserver
-      (lua5_1.withPackages (pks: with pks; [
-        luarocks
-      ]))
-      stylua
+        myNeovim
+        nodePackages.neovim
+        tree-sitter
+        ctags
+        efm-langserver
+        (lua5_1.withPackages (pks: with pks; [
+          luarocks
+        ]))
+        stylua
 
-      hstr
-      zoxide
-      fzf
+        hstr
+        zoxide
+        fzf
 
-      fd
-      ripgrep
-      ripgrep-all
-      ugrep
+        fd
+        ripgrep
+        ripgrep-all
+        ugrep
 
-      jq
+        jq
 
-      gcc
+        gcc
 
-      go
-      gopls
-      gotools
-      protoc-gen-go
+        go
+        gopls
+        gotools
+        protoc-gen-go
 
-      cargo
-      zola
+        cargo
+        zola
 
-      nodejs
-      yarn
-      nodePackages.prettier
+        nodejs
+        yarn
+        nodePackages.prettier
 
-      deno
+        (python312.withPackages (pks: with pks; [
+          black
+          isort
+          mypy
+          pip
+          pipx
+          pyflakes
+          pylint
+          pynvim
+        ]))
+        poetry
 
-      (python312.withPackages (pks: with pks; [
-        black
-        isort
-        mypy
-        pip
-        pipx
-        pyflakes
-        pylint
-        pynvim
-      ]))
-      poetry
+        inkscape
+        imagemagick
+        pngcrush
+        plantuml
 
-      inkscape
-      imagemagick
-      pngcrush
-      plantuml
+        ffmpeg
+        vorbis-tools
 
-      ffmpeg
-      vorbis-tools
+        scrcpy
 
-      scrcpy
+        texliveSmall
+        pandoc
+        qpdf
 
-      texliveSmall
-      pandoc
-      qpdf
+        gleam
+      ]) 
 
-      gleam
-    ];
+      ++
+      (with pkgs-30abd6; [
+        deno
+      ]);
   };
 
   programs = {
