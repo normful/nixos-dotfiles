@@ -165,6 +165,7 @@ in
         deno
         myNeovim
         gleam
+        erlang
       ]);
   };
 
