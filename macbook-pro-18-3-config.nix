@@ -23,11 +23,16 @@ in
       experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
-      auto-optimise-store = true
+      keep-failed = false
+      keep-going = true
+      auto-optimise-store = false
       '';
     gc = {
       automatic = true;
       options = "--delete-older-than 600d";
+    };
+    optimise = {
+      automatic = true;
     };
   };
 
@@ -45,7 +50,12 @@ in
 
   networking = {
     knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
-    dns = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+    dns = [ 
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
   };
 
   environment = {
@@ -125,7 +135,7 @@ in
 
       deno
 
-      (python310.withPackages (pks: with pks; [
+      (python312.withPackages (pks: with pks; [
         black
         isort
         mypy
