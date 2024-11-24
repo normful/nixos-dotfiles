@@ -150,6 +150,8 @@ in
       texliveSmall
       pandoc
       qpdf
+
+      gleam
     ];
   };
 
