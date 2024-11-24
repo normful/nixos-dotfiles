@@ -1,4 +1,4 @@
-{ config, nixpkgs-stable, nixpkgs-30abd, pkgs, pkgs-stable, pkgs-30abd6, ... }:
+{ nixpkgs-stable, nixpkgs-30abd, pkgs-stable, pkgs-30abd6, ... }:
 
 let
   myNeovim = pkgs-30abd6.neovim.override {
