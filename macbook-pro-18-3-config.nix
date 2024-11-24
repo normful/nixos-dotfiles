@@ -18,7 +18,7 @@ in
   system.stateVersion = 4;
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
