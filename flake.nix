@@ -25,6 +25,7 @@
         ];
         specialArgs = {
           nixpkgs-stable = nixpkgs-stable;
+          nixpkgs-30abd6 = nixpkgs-30abd6;
           pkgs-stable = import nixpkgs-stable {
             inherit system;
             config.allowUnfree = true;

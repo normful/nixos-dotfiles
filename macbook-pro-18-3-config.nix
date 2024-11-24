@@ -1,7 +1,7 @@
-{ config, nixpkgs-stable, pkgs, pkgs-stable, pkgs-30abd6, ... }:
+{ config, nixpkgs-stable, nixpkgs-30abd, pkgs, pkgs-stable, pkgs-30abd6, ... }:
 
 let
-  myNeovim = pkgs-stable.neovim.override {
+  myNeovim = pkgs-30abd6.neovim.override {
     withPython3 = true;
     withNodeJs = true;
     withRuby = true;
@@ -9,7 +9,7 @@ let
     vimAlias = true;
     viAlias = true;
 
-    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs-stable; nixpkgs = nixpkgs-stable; });
+    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs-30abd6; nixpkgs = nixpkgs-30abd; });
   };
 in
 {
@@ -99,7 +99,6 @@ in
 
         fish
 
-        myNeovim
         nodePackages.neovim
         tree-sitter
         ctags
@@ -166,6 +165,7 @@ in
       ++
       (with pkgs-30abd6; [
         deno
+        myNeovim
       ]);
   };
 
