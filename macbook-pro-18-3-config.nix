@@ -158,14 +158,13 @@ in
         texliveSmall
         pandoc
         qpdf
-
-        gleam
       ]) 
 
       ++
       (with pkgs-30abd6; [
         deno
         myNeovim
+        gleam
       ]);
   };
 
