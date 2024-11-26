@@ -1,8 +1,7 @@
 local function configure_comment_nvim()
   require('Comment').setup({
     toggler = {
-      line = 'cl',
-      block = 'cb',
+      line = 'tcl',
     },
     opleader = {
       line = 'cl',
