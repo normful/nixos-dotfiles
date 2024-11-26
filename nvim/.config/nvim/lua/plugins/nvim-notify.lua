@@ -1,7 +1,5 @@
 local function configure_nvim_notify()
-  require('notify').setup({
-    stages = 'fade_in_slide_out',
-  })
+  vim.notify = require('notify')
 end
 
 return {

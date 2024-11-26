@@ -104,7 +104,7 @@ return {
     { '<Leader>gga', '<Cmd>cd ~/code<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 'n' },
     { '<Leader>gga', '<Cmd>cd ~/code<CR><Bar><Cmd>lua require("telescope.builtin").live_grep()<CR>', mode = 't' },
 
-    --  b]uffers
+    -- [b]uffers
     { '<LocalLeader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 'n' },
     { '<LocalLeader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 't' },
     { '<Leader>b', '<Cmd>lua require("telescope.builtin").buffers()<CR>', mode = 'n' },
@@ -121,6 +121,9 @@ return {
     -- boo[k]marks and lin[k]s
     { '<LocalLeader>k', '<Cmd>Telescope bookmarks<CR>', mode = 'n' },
     { '<LocalLeader>k', '<Cmd>Telescope bookmarks<CR>', mode = 't' },
+
+    -- nvim-notify notifications
+    { '<LocalLeader>n', '<Cmd>lua require("telescope").extensions.notify.notify()<CR>', mode = 'n' },
 
     -----------------------------------------
     -- Mappings below are for mode = 'n' only
