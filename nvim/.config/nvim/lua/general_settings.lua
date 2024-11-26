@@ -1,5 +1,4 @@
 local function add_general_settings()
-  local g = vim.g
   local utils = require('utils')
   local set = utils.set
 
@@ -55,9 +54,9 @@ local function add_general_settings()
   set('fileformats', '')
 
   local std_data_dir = vim.fn.stdpath('data') -- Usually: ~/.local/share/nvim
-  local swap_dir = std_data_dir .. '/my_swap'
-  local backup_dir = std_data_dir .. '/my_backup'
-  local undo_dir = std_data_dir .. '/my_undo'
+  local swap_dir = std_data_dir .. '/my_swap//' -- Need 2 trailing forward slashes to ensure unique swap file names
+  local backup_dir = std_data_dir .. '/my_backup//' -- This too
+  local undo_dir = std_data_dir .. '/my_undo' -- But not this one
 
   -- Swap
   set('swapfile', true)
