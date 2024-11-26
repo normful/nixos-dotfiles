@@ -125,6 +125,7 @@ in
         gopls
         gotools
         protoc-gen-go
+        cobra-cli
 
         cargo
         zola
@@ -165,7 +166,8 @@ in
         deno
         myNeovim
         gleam
-        erlang
+        beam.packages.erlang_27.erlang
+        beam.packages.erlang_27.rebar3
       ]);
   };
 
