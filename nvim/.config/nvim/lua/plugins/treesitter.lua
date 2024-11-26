@@ -57,8 +57,6 @@ local function configure_treesitter()
         init_selection = '<Space>',
         node_incremental = '<Space>',
         node_decremental = '<BS>',
-
-        -- scope_incremental = 'grc', -- I haven't used this one yet
       },
     },
     modules = {},
@@ -72,20 +70,74 @@ local function configure_treesitter()
     -- END OF nvim-treesitter/nvim-treesitter config
     -- -----------------------------------------------
 
-    -- textsubjects is config for https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    textsubjects = {
-      enable = true,
-      keymaps = {
-        ['v'] = 'textsubjects-smart',
+    textobjects = {
+
+      -- If you want to repeat some of these, consider using https://github.com/ghostbuster91/nvim-next
+
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ["if"] = { query = "@function.inner", desc = "Inside function" },
+          ["af"] = { query = "@function.outer", desc = "Around function" },
+
+          ["ib"] = { query = "@block.inner", desc = "Inside block" },
+          ["ab"] = { query = "@block.outer", desc = "Around block" },
+
+          ["ii"] = { query = "@conditional.inner", desc = "Inside conditional" },
+          ["ai"] = { query = "@conditional.outer", desc = "Around conditional" },
+
+          ["ic"] = { query = "@call.inner", desc = "Inside call" },
+          ["ac"] = { query = "@call.outer", desc = "Around call" },
+
+          ["i:"] = { query = "@property.inner", desc = "Inside property" },
+          ["a:"] = { query = "@property.outer", desc = "Around property" },
+          [",:"] = { query = "@property.lhs",   desc = "Left of property" },
+          [".:"] = { query = "@property.rhs",   desc = "Right of property" },
+
+          ["ik"] = { query = "@class.inner", desc = "Inside class" },
+          ["ak"] = { query = "@class.outer", desc = "Around class" },
+
+          --
+          ["as"] = { query = "@statement.outer", desc = "Around statement" },
+
+          --
+          ["a/"] = { query = "@comment.outer", desc = "Around comment" },
+
+          ["is"] = { query = "@scopename.inner", desc = "Inside scope name" },
+          --
+        },
+        selection_modes = {
+          ['@parameter.outer'] = 'v', -- charwise
+          ['@function.outer'] = 'V', -- linewise
+          ['@class.outer'] = '<c-v>', -- blockwise
+        },
+        include_surrounding_whitespace = false,
       },
-    },
+      swap = {
+        enable = false,
+        -- Not sure why these are not working...
+        -- so I'm disabling for now
+        swap_next = {
+          ["<Leader>p]"] = "@parameter.inner",
+          ["<Leader>wf"] = "@function.outer",
+        },
+        swap_previous = {
+          ["<Leader>p["] = "@parameter.inner",
+          ["<Leader>wr"] = "@function.outer",
+        },
+      },
+    }
   })
 end
 
 return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
-    { 'nvim-treesitter/nvim-treesitter-textobjects', event = 'VeryLazy' },
+    {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      lazy = false,
+    },
 
     -- NOTE(norman): I'm purposely not using nvim-treesitter/nvim-treesitter-refactor because none of it was useful to me
   },
