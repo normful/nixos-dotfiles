@@ -5,7 +5,7 @@ local function configure_mason_and_lspconfig()
       'biome',
       'eslint',
       'lua_ls',
-      'tsserver',
+      'ts_ls',
     },
   })
 
@@ -31,7 +31,7 @@ local function configure_mason_and_lspconfig()
       },
     },
   })
-  lspconfig.tsserver.setup({})
+  lspconfig.ts_ls.setup({})
 
   vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
