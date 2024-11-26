@@ -1,18 +1,57 @@
 local function configure_mason_and_lspconfig()
   require('mason').setup()
   require('mason-lspconfig').setup({
-    ensure_installed = {
-      'biome',
-      'eslint',
-      'lua_ls',
-      'ts_ls',
-    },
+    automatic_installation = true,
   })
 
   local lspconfig = require('lspconfig')
-  lspconfig.biome.setup({})
-  lspconfig.eslint.setup({})
+
+  local on_attach = function(client, bufnr)
+    vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
+
+    local opts = { buffer = bufnr, silent = true, noremap = true }
+
+    -- Docs on below:
+    -- :help vim.lsp.*
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+
+    vim.keymap.set('n', '<Leader>dec', vim.lsp.buf.declaration, opts)
+
+    vim.keymap.set('n', '<Leader>f',   vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<Leader>v',   vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<Leader>im',  vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>tdef',  vim.lsp.buf.type_definition, opts)
+
+    vim.keymap.set('n', '<Leader>tre',  require('telescope.builtin').lsp_references, opts)
+    vim.keymap.set('n', '<Leader>tde',  require('telescope.builtin').lsp_definitions, opts)
+    vim.keymap.set('n', '<Leader>ti',  require('telescope.builtin').lsp_implementations, opts)
+
+    vim.keymap.set('n', '<Leader>d',   vim.lsp.buf.signature_help, opts)
+
+    vim.keymap.set('n', '<Leader>re',  vim.lsp.buf.rename, opts)
+
+    client.server_capabilities.document_formatting = true
+  end
+
+  local cmp_nvim_lsp = require('cmp_nvim_lsp')
+  local capabilities_with_more_completion_candidates = cmp_nvim_lsp.default_capabilities()
+
+  -- Full list of lspconfig.<name> is at
+  -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
+
+  lspconfig.biome.setup({
+    on_attach = on_attach,
+    capabilities = capabilities_with_more_completion_candidates,
+  })
+
+  lspconfig.eslint.setup({
+    on_attach = on_attach,
+    capabilities = capabilities_with_more_completion_candidates,
+  })
+
   lspconfig.lua_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities_with_more_completion_candidates,
     settings = {
       Lua = {
         runtime = {
@@ -31,39 +70,24 @@ local function configure_mason_and_lspconfig()
       },
     },
   })
-  lspconfig.ts_ls.setup({})
 
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-      -- Enable completion triggered by <C-x><C-o>
-      vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  lspconfig.templ.setup({
+    on_attach = on_attach,
+    capabilities = capabilities_with_more_completion_candidates,
+  })
 
-      local bufLocalMappingOpts = { buffer = ev.buf }
-
-      -- Docs on below:
-      -- :help vim.lsp.*
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>dec', vim.lsp.buf.declaration, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>im', vim.lsp.buf.implementation, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>ty', vim.lsp.buf.type_implementation, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>v', vim.lsp.buf.definition, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>f', vim.lsp.buf.references, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>d', vim.lsp.buf.signature_help, bufLocalMappingOpts)
-      vim.keymap.set('n', '<Leader>re', vim.lsp.buf.rename, bufLocalMappingOpts)
-
-      -- NOTE(norman): I have not used the below yet
-      vim.keymap.set('n', '<Leader>fo', function()
-        vim.lsp.buf.format({ async = true })
-      end)
-    end,
+  lspconfig.ts_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities_with_more_completion_candidates,
   })
 end
 
 return {
   'williamboman/mason.nvim',
   dependencies = {
-    { 'neovim/nvim-lspconfig' },
-    { 'williamboman/mason-lspconfig.nvim' },
+    { 'neovim/nvim-lspconfig', lazy = false },
+    { 'williamboman/mason-lspconfig.nvim', lazy = false },
+    { 'hrsh7th/cmp-nvim-lsp', lazy = false },
   },
   config = configure_mason_and_lspconfig,
   build = ':MasonUpdate',
