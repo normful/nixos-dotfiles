@@ -41,6 +41,8 @@ if status is-interactive
     abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
 
+    abbr --add es 'exercism submit'
+
     abbr --add zs 'zola serve'
 
     source ~/.open_ai_api_key.fish
