@@ -36,7 +36,22 @@ local function configure_catppuccin()
 end
 
 local function configure_nightfox()
-  require('nightfox').setup({})
+  require('nightfox').setup({
+    options = {
+      compile_path = vim.fn.stdpath('data') .. '/nightfox', -- Usually: ~/.local/share/nvim/nightfox
+    },
+    groups = {
+      all = {
+        RainbowDelimiterBlue = { fg = "palette.blue" },
+        RainbowDelimiterCyan = { fg = "palette.cyan" },
+        RainbowDelimiterGreen = { fg = "palette.green" },
+        RainbowDelimiterOrange = { fg = "palette.orange" },
+        RainbowDelimiterRed = { fg = "palette.red" },
+        RainbowDelimiterViolet = { fg = "palette.magenta" },
+        RainbowDelimiterYellow = { fg = "palette.yellow" },
+      },
+    },
+  })
 end
 
 local function configure_monokai_nightasty()
@@ -54,7 +69,19 @@ local function configure_everforest()
 end
 
 local function configure_tokyodark()
-  require('tokyodark').setup({})
+  require('tokyodark').setup({
+    custom_highlights = function(_, palette)
+      return {
+        RainbowDelimiterBlue = { fg = palette.blue },
+        RainbowDelimiterCyan = { fg = palette.cyan },
+        RainbowDelimiterGreen = { fg = palette.green },
+        RainbowDelimiterOrange = { fg = palette.orange },
+        RainbowDelimiterRed = { fg = palette.red },
+        RainbowDelimiterViolet = { fg = palette.purple },
+        RainbowDelimiterYellow = { fg = palette.yellow },
+      }
+    end,
+  })
 end
 
 local function configure_nordic()
