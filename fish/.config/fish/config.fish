@@ -42,6 +42,7 @@ if status is-interactive
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
 
     abbr --add es 'exercism submit'
+    abbr --add gt 'gleam test'
 
     abbr --add zs 'zola serve'
 
