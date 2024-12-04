@@ -19,9 +19,13 @@ local function configure_catppuccin()
   require('catppuccin').setup({
     flavour = 'mocha',
     no_italic = true,
-    custom_highlights = {},
+    custom_highlights = function(colors)
+      -- Color names are the CtpColor in https://github.com/catppuccin/nvim/blob/main/lua/catppuccin/types.lua
+      return {}
+    end,
     default_integrations = true,
     integrations = {
+      -- Plugin highlight groups: https://github.com/catppuccin/nvim/tree/main/lua/catppuccin/groups/integrations
       cmp = true,
       gitsigns = true,
       nvimtree = true,
@@ -38,10 +42,13 @@ end
 local function configure_nightfox()
   require('nightfox').setup({
     options = {
-      compile_path = vim.fn.stdpath('data') .. '/nightfox', -- Usually: ~/.local/share/nvim/nightfox
+      -- Usually: ~/.local/share/nvim/nightfox-colorscheme-cache
+      compile_path = vim.fn.stdpath('data') .. '/nightfox-colorscheme-cache',
     },
     groups = {
       all = {
+        -- Palette fields: https://github.com/EdenEast/nightfox.nvim/blob/main/lua/nightfox/palette.lua
+        -- Plugin highlight groups: https://github.com/EdenEast/nightfox.nvim/tree/main/lua/nightfox/group/modules
         RainbowDelimiterBlue = { fg = "palette.blue" },
         RainbowDelimiterCyan = { fg = "palette.cyan" },
         RainbowDelimiterGreen = { fg = "palette.green" },
@@ -58,6 +65,10 @@ local function configure_monokai_nightasty()
   require('monokai-nightasty').setup({
     dark_style_background = '#000000',
     markdown_header_marks = true,
+    on_highlights = function(highlights, colors)
+      -- Colors: https://github.com/polirritmico/monokai-nightasty.nvim/blob/main/lua/monokai-nightasty/colors/dark.lua
+      -- Plugin highlight groups: https://github.com/polirritmico/monokai-nightasty.nvim/tree/main/lua/monokai-nightasty/highlights
+    end,
   })
 end
 
@@ -72,6 +83,7 @@ local function configure_tokyodark()
   require('tokyodark').setup({
     custom_highlights = function(_, palette)
       return {
+        -- Palette: https://github.com/tiagovla/tokyodark.nvim/blob/master/lua/tokyodark/palette.lua
         RainbowDelimiterBlue = { fg = palette.blue },
         RainbowDelimiterCyan = { fg = palette.cyan },
         RainbowDelimiterGreen = { fg = palette.green },
@@ -85,7 +97,20 @@ local function configure_tokyodark()
 end
 
 local function configure_nordic()
-  require('nordic').setup({})
+  require('nordic').setup({
+    on_highlight = function(highlights, palette)
+      -- Palette: https://github.com/AlexvZyl/nordic.nvim/blob/main/lua/nordic/colors/nordic.lua
+      -- Basic highlight groups: https://github.com/AlexvZyl/nordic.nvim/blob/main/lua/nordic/groups/native.lua
+      -- Plugin highlight groups: https://github.com/AlexvZyl/nordic.nvim/blob/main/lua/nordic/groups/integrations.lua
+      highlights.RainbowDelimiterBlue = { fg = palette.blue0 }
+      highlights.RainbowDelimiterCyan = { fg = palette.cyan.dim }
+      highlights.RainbowDelimiterGreen = { fg = palette.green.dim }
+      highlights.RainbowDelimiterOrange = { fg = palette.orange.bright }
+      highlights.RainbowDelimiterRed = { fg = palette.red.bright }
+      highlights.RainbowDelimiterViolet = { fg = palette.magenta.bright }
+      highlights.RainbowDelimiterYellow = { fg = palette.yellow.bright }
+    end,
+  })
 end
 
 local function configure_styler()
@@ -94,7 +119,7 @@ local function configure_styler()
     themes = {
       gleam = { colorscheme = 'tokyodark', background = 'dark' },
       go = { colorscheme = 'catppuccin-mocha', background = 'dark' },
-      lua = { colorscheme = 'terafox', background = 'dark' },
+      lua = { colorscheme = 'tokyodark', background = 'dark' },
       markdown = { colorscheme = 'tokyodark', background = 'dark' },
       norg = { colorscheme = 'duskfox', background = 'dark' },
       typescript = { colorscheme = 'monokai-nightasty', background = 'dark' },
@@ -124,6 +149,7 @@ return {
   -- 2. (Mandatory) They're compatible with folke/styler.nvim because they call `vim.api.nvim_set_hl`
   -- 3. (Mandatory) They have treesitter support
   -- 4. (Ideally) Their lua code contains some LDoc comments
+  -- 5. (Ideally) They are customizable, so that colors for additional highlight groups can be configured
 
   {
     'catppuccin/nvim',
