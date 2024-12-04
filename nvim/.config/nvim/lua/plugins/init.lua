@@ -42,6 +42,7 @@ end
 local function configure_monokai_nightasty()
   require('monokai-nightasty').setup({
     dark_style_background = '#000000',
+    markdown_header_marks = true,
   })
 end
 
@@ -67,7 +68,7 @@ local function configure_styler()
       gleam = { colorscheme = 'tokyodark', background = 'dark' },
       go = { colorscheme = 'catppuccin-mocha', background = 'dark' },
       lua = { colorscheme = 'terafox', background = 'dark' },
-      markdown = { colorscheme = 'monokai-nightasty', background = 'dark' },
+      markdown = { colorscheme = 'tokyodark', background = 'dark' },
       norg = { colorscheme = 'duskfox', background = 'dark' },
       typescript = { colorscheme = 'monokai-nightasty', background = 'dark' },
       yaml = { colorscheme = 'nordic', background = 'dark' },
@@ -90,6 +91,13 @@ return {
     lazy = false,
     priority = 1100,
   },
+
+  -- The colorschemes below were chosen because
+  -- 1. (Mandatory) They visually look appealing for at least one filetype
+  -- 2. (Mandatory) They're compatible with folke/styler.nvim because they call `vim.api.nvim_set_hl`
+  -- 3. (Mandatory) They have treesitter support
+  -- 4. (Ideally) Their lua code contains some LDoc comments
+
   {
     'catppuccin/nvim',
     name = 'catppuccin',
@@ -104,7 +112,7 @@ return {
     config = configure_nightfox,
   },
   {
-    'polirritmico/monokai-nightasty.nvim',
+    'normful/monokai-nightasty.nvim',
     lazy = false,
     priority = 1070,
     config = configure_monokai_nightasty,

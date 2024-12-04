@@ -8,6 +8,42 @@ local function add_general_settings()
   set('termguicolors', true)
   set('background', 'dark')
 
+  -- Ignore colorschemes that I don't like
+  vim.opt.wildignore:append({
+    -- Built-in colorschemes
+    'blue.vim',
+    'darkblue.vim',
+    'delek.vim',
+    'desert.vim',
+    'elflord.vim',
+    'evening.vim',
+    'industry.vim',
+    'habamax.vim',
+    'koehler.vim',
+    'lunaperche.vim',
+    'morning.vim',
+    'murphy.vim',
+    'pablo.vim',
+    'peachpuff.vim',
+    'quiet.vim',
+    'ron.vim',
+    'shine.vim',
+    'slate.vim',
+    'sorbet.vim',
+    'retrobox.vim',
+    'torte.vim',
+    'wildcharm.vim',
+    'zaibatsu.vim',
+    'zellner.vim',
+    -- Variants of colorschemes that I installed
+    'catppuccin-frappe.vim',
+    'catppuccin-latte.vim',
+    'catppuccin-macchiato.vim',
+    'catppuccin-mocha.vim',
+    'dawnfox.vim',
+    'dayfox.vim',
+  })
+
   -- Rendering
   set('linespace', 0)
   set('lazyredraw', true)
