@@ -97,6 +97,8 @@ in
         htop
         tree
 
+        bats
+
         fish
 
         nodePackages.neovim
