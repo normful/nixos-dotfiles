@@ -21,6 +21,7 @@ local function configure_ale()
     scss = { 'stylelint' },
     typescript = { 'tsserver', 'eslint' },
     typescriptreact = { 'tsserver', 'eslint' },
+    gleam = { 'gleamlsp' },
   }
 
   -- Fixer settings
@@ -38,6 +39,7 @@ local function configure_ale()
     sh = { 'trim_whitespace', 'remove_trailing_lines' },
     typescript = { 'prettier', 'biome', 'eslint' },
     typescriptreact = { 'prettier', 'biome', 'eslint' },
+    gleam = { 'gleam_format' },
   }
 
   -- Other settings
