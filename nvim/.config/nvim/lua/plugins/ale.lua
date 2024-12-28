@@ -54,5 +54,5 @@ end
 
 return {
   'dense-analysis/ale',
-  configure = configure_ale,
+  config = configure_ale,
 }
