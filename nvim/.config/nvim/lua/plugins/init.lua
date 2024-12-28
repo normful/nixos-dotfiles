@@ -91,6 +91,8 @@ local function configure_tokyodark()
         RainbowDelimiterRed = { fg = palette.red },
         RainbowDelimiterViolet = { fg = palette.purple },
         RainbowDelimiterYellow = { fg = palette.yellow },
+
+        TreesitterContextLineNumber = { fg = palette.cyan },
       }
     end,
   })
@@ -122,13 +124,12 @@ local function configure_styler()
       lua = { colorscheme = 'tokyodark', background = 'dark' },
       markdown = { colorscheme = 'tokyodark', background = 'dark' },
       norg = { colorscheme = 'duskfox', background = 'dark' },
-      typescript = { colorscheme = 'monokai-nightasty', background = 'dark' },
+      typescript = { colorscheme = 'tokyodark', background = 'dark' },
       yaml = { colorscheme = 'nordic', background = 'dark' },
     },
   })
 
-  -- Set the colorscheme to use for most filetypes by default
-  vim.cmd.colorscheme('monokai-nightasty')
+  vim.cmd.colorscheme('tokyodark')
 end
 
 return {
