@@ -5,7 +5,7 @@
     # Docs: https://github.com/NixOS/nix/blob/master/src/nix/flake.md#flake-references
 
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
-    nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/30abd650aa5766f55513b4c56fca63df06b99baa";
+    nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/388129ef194a9898401d9e9f9453d0945b1a0d85";
 
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
