@@ -37,6 +37,8 @@ if status is-interactive
 
     abbr --add ek "nvim $HOME/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf"
     abbr --add et "nvim $HOME/code/nixos-dotfiles/ghostty/.config/ghostty/config"
+    abbr --add ew "nvim $HOME/code/nixos-dotfiles/wezterm/.config/wezterm/wezterm.lua"
+
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
     abbr --add eb "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
     abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
