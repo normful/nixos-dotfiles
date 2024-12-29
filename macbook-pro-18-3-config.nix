@@ -1,7 +1,7 @@
-{ nixpkgs-stable, nixpkgs-30abd, pkgs-stable, pkgs-30abd6, ... }:
+{ nixpkgs-stable, nixpkgs-pinned-unstable, pkgs-stable, pkgs-pinned-unstable, ... }:
 
 let
-  myNeovim = pkgs-30abd6.neovim.override {
+  myNeovim = pkgs-pinned-unstable.neovim.override {
     withPython3 = true;
     withNodeJs = true;
     withRuby = true;
@@ -9,7 +9,7 @@ let
     vimAlias = true;
     viAlias = true;
 
-    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs-30abd6; nixpkgs = nixpkgs-30abd; });
+    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs-pinned-unstable; nixpkgs = nixpkgs-pinned-unstable; });
   };
 in
 {
@@ -164,7 +164,7 @@ in
       ])
 
       ++
-      (with pkgs-30abd6; [
+      (with pkgs-pinned-unstable; [
         deno
         myNeovim
         gleam
