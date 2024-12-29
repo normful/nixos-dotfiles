@@ -2,13 +2,13 @@
 # Keyboard Mappings
 # ----------------------------
 
-# To see default keybinds:
-# /Applications/Ghostty.app/Contents/MacOS/ghostty +list-keybinds
+# To see default keybinds: /Applications/Ghostty.app/Contents/MacOS/ghostty +list-keybinds
 
+# Clear all default keybinds
+keybind = clear
+
+# Reload config
 keybind = cmd+r=reload_config
-
-# Quick terminal
-keybind = global:cmd+s=toggle_quick_terminal
 
 # Tabs: open and navigate
 keybind = ctrl+a>c=new_tab
@@ -91,6 +91,13 @@ keybind = cmd+e=text:\x1b[31~
 
 # Send F-18
 keybind = cmd+x=text:\x1b[32~
+
+# --------------------------------------
+# Keyboard Mappings For Special Features
+# --------------------------------------
+
+# Quick terminal
+keybind = global:cmd+s=toggle_quick_terminal
 
 # ----------------------------
 # Appearance
