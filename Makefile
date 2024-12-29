@@ -1,8 +1,8 @@
 stow:
-	stow -t $(HOME) -S git fish kitty karabiner htop nvim scripts
+	stow -t $(HOME) -S git fish kitty ghostty karabiner htop nvim scripts
 
 unstow:
-	stow -t $(HOME) -D git fish kitty karabiner htop nvim scripts
+	stow -t $(HOME) -D git fish kitty ghostty karabiner htop nvim scripts
 
 mac:
 	darwin-rebuild switch --flake ~/code/nixos-dotfiles#macbook-pro-18-3

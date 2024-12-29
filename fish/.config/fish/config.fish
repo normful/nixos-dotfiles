@@ -12,30 +12,31 @@ if status is-interactive
 
     abbr --add c clear
     abbr --add q exit
-    
+
     abbr --add l 'ls -lhAtr --color=always'
-    
+
     abbr --add d dirh
     abbr --add nd nextd
     abbr --add pd prevd
-    
+
     abbr --add utc 'date -u'
-    
+
     abbr --add ag --position command --set-cursor=% 'rg --json % | delta'
-    
+
     abbr --add g git
     abbr --add qg git
     abbr --add gl 'git l'
     abbr --add gs 'git s'
-    
+
     abbr --add v nvim
     abbr --add vi nvim
     abbr --add nv nvim
     abbr --add vim nvim
-    
+
     abbr --add em "nvim $HOME/code/nixos-dotfiles/macbook-pro-18-3-config.nix"
-    
+
     abbr --add ek "nvim $HOME/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf"
+    abbr --add et "nvim $HOME/code/nixos-dotfiles/ghostty/.config/ghostty/config"
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
     abbr --add eb "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
     abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"

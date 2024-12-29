@@ -62,6 +62,7 @@ local function add_general_maps()
     ['<Leader>em'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>',
     ['<Leader>eg'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/git/.gitconfig<CR>',
     ['<Leader>ek'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf<CR>',
+    ['<Leader>et'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/ghostty/.config/ghostty/config<CR>',
     ['<Leader>ef'] = '<Cmd>100vsplit ~/code/nixos-dotfiles/fish/.config/fish/config.fish<CR>',
 
     ['Y'] = 'yy',

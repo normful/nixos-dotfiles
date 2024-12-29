@@ -1,0 +1,148 @@
+# ----------------------------
+# Keyboard Mappings
+# ----------------------------
+
+# To see default keybinds:
+# /Applications/Ghostty.app/Contents/MacOS/ghostty +list-keybinds
+
+keybind = cmd+r=reload_config
+
+# Quick terminal
+keybind = global:cmd+s=toggle_quick_terminal
+
+# Tabs: open and navigate
+keybind = ctrl+a>c=new_tab
+keybind = ctrl+a>n=next_tab
+keybind = ctrl+a>p=previous_tab
+keybind = cmd+]=next_tab
+keybind = cmd+[=previous_tab
+
+# Splits: open
+keybind = ctrl+a>v=new_split:right
+keybind = ctrl+a>s=new_split:down
+
+# Splits: goto
+keybind = ctrl+a>ctrl+a=goto_split:next
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>j=goto_split:bottom
+keybind = ctrl+a>k=goto_split:top
+keybind = ctrl+a>l=goto_split:right
+
+# Splits: resize
+keybind = ctrl+a>equal=equalize_splits
+keybind = ctrl+a>r>h=resize_split:left,80
+keybind = ctrl+a>r>j=resize_split:down,80
+keybind = ctrl+a>r>k=resize_split:up,80
+keybind = ctrl+a>r>l=resize_split:right,80
+
+# Splits: zoom/unzoom
+keybind = ctrl+a>o=toggle_split_zoom
+
+# Splits (and other surfaces): close
+keybind = ctrl+a>x=close_surface
+
+# Adjust font size
+keybind = cmd+minus=decrease_font_size:0.5
+keybind = cmd+equal=increase_font_size:0.5
+
+# Paste
+keybind = cmd+v=paste_from_clipboard
+
+# IMPORTANT: DO NOT PLACE ANY COMMENTS TO THE RIGHT OF THE KEYBINDS
+# Run `kitty +kitten show_key` to get key escape codes, even for ghostty
+
+# Send CTRL+C (for quitting some programs)
+keybind = cmd+c=text:\x03
+
+# Send CTRL+D (for quitting some programs)
+keybind = cmd+d=text:\x04
+
+# Send CTRL+O (for vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions)
+keybind = cmd+o=text:\x0f
+
+# Send CTRL+I (for vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions)
+keybind = cmd+i=text:\t
+
+# Send CTRL+N (for selecting next item in vim completion menu)
+keybind = cmd+n=text:\x0e
+
+# Send CTRL+P (for selecting previous item in vim completion menu)
+keybind = cmd+p=text:\x10
+
+# Send CTRL+S (for fish pager-toggle-search https://www.youtube.com/watch?v=dnj-Hpg7Qlo&t=20s)
+keybind = cmd+`=text:\x13
+
+# F-13... were copied from http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
+
+# Send F-13
+keybind = cmd+d=text:\x1b[25~
+
+# Send F-14
+keybind = cmd+u=text:\x1b[26~
+
+# Send F-15
+keybind = cmd+w=text:\x1b[28~
+
+# Send F-16
+keybind = cmd+b=text:\x1b[29~
+
+# Send F-17
+keybind = cmd+e=text:\x1b[31~
+
+# Send F-18
+keybind = cmd+x=text:\x1b[32~
+
+# ----------------------------
+# Appearance
+# ----------------------------
+
+font-size = 20
+font-thicken = true
+
+font-family = Inconsolata Nerd Font Mono
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+# Visual test text for fonts
+# oO08 iIlL1 g9qCGQ ~-+=>;_
+# â é ù ï ø ç Ã Ē Æ œ
+# {a} (a) [a]
+# [[ ]]
+# (( ))
+# -----------
+# ___________
+# ===========
+
+theme = Raycast_Dark
+
+window-theme = dark
+window-width = 200
+window-height = 70
+window-padding-x = 0
+window-padding-y = 0
+
+fullscreen = false
+macos-non-native-fullscreen = false
+
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+
+# ----------------------------
+# Other
+# ----------------------------
+
+copy-on-select = clipboard
+clipboard-read = ask
+clipboard-write = ask
+clipboard-trim-trailing-spaces = true
+clipboard-paste-protection = true
+
+scrollback-limit = 100_000_000
+
+shell-integration = fish
+
+initial-window = true
+
+confirm-close-surface = false
+quit-after-last-window-closed = true
