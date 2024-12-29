@@ -54,27 +54,27 @@ local function configure_mason_and_lspconfig()
   -- ---------------------------------------------------------------------------------------------
 
   -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
-  lspconfig.lua_ls.setup({
-    on_attach = common_on_attach,
-    capabilities = capabilities_with_more_completion_candidates,
-    settings = {
-      Lua = {
-        runtime = {
-          version = 'Lua 5.1',
-        },
-        diagnostics = {
-          globals = { 'vim' },
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file('', true),
-          checkThirdParty = false,
-        },
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  })
+  -- lspconfig.lua_ls.setup({
+  --   on_attach = common_on_attach,
+  --   capabilities = capabilities_with_more_completion_candidates,
+  --   settings = {
+  --     Lua = {
+  --       runtime = {
+  --         version = 'Lua 5.1',
+  --       },
+  --       diagnostics = {
+  --         globals = { 'vim' },
+  --       },
+  --       workspace = {
+  --         library = vim.api.nvim_get_runtime_file('', true),
+  --         checkThirdParty = false,
+  --       },
+  --       telemetry = {
+  --         enable = false,
+  --       },
+  --     },
+  --   },
+  -- })
 
   -- ---------------------------------------------------------------------------------------------
   -- docker
