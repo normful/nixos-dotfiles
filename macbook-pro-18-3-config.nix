@@ -50,7 +50,7 @@ in
 
   networking = {
     knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
-    dns = [ 
+    dns = [
       "1.1.1.1"
       "1.0.0.1"
       "2606:4700:4700::1111"
@@ -161,7 +161,7 @@ in
         texliveSmall
         pandoc
         qpdf
-      ]) 
+      ])
 
       ++
       (with pkgs-30abd6; [
@@ -220,6 +220,7 @@ in
       defaults write com.apple.finder WarnOnEmptyTrash -bool false
       defaults write com.apple.screensaver askForPassword -int 1
       defaults write com.apple.screensaver askForPasswordDelay -int 0
+      defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
     '';
   };
 }

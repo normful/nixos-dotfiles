@@ -67,7 +67,6 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'x', api.fs.cut, opts('Cut'))
   vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
   vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
-  vim.keymap.set('n', '<F15>', api.tree.close, opts('Close'))
   vim.keymap.set('n', '<F17>', api.tree.close, opts('Close'))
   vim.keymap.set('n', 'v', api.node.open.vertical, opts('Open: Vertical Split'))
   vim.keymap.set('n', 's', api.node.open.horizontal, opts('Open: Horizontal Split'))
@@ -81,7 +80,7 @@ local function configure_nvim_tree()
   local err_msg_cmd = '<Cmd>echoerr "Use [Right Command + e] open file tree explorer"<CR>'
 
   utils.nnoremap_silent_bulk({
-    -- Karabiner Elements maps Command + e => <F17>
+    -- Kitty or Ghostty maps Command + e to <F17>
     ['<F17>'] = '<Cmd>NvimTreeFindFile!<CR>',
 
     ['<C-e>'] = err_msg_cmd,
