@@ -160,6 +160,12 @@ in
         texliveSmall
         pandoc
         qpdf
+
+        (ruby.withPackages (pks: with pks; [
+          nokogiri
+          pry
+          neovim
+        ]))
       ])
 
       ++
