@@ -101,7 +101,6 @@ in
 
         fish
 
-        nodePackages.neovim
         tree-sitter
         ctags
         efm-langserver

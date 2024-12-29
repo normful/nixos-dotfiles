@@ -4,7 +4,7 @@
   inputs = {
     # Docs: https://github.com/NixOS/nix/blob/master/src/nix/flake.md#flake-references
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
     nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/388129ef194a9898401d9e9f9453d0945b1a0d85";
 
     darwin.url = "github:LnL7/nix-darwin";
