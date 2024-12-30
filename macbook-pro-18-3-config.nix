@@ -87,6 +87,9 @@ in
         git-lfs
         delta
 
+        jujutsu
+        lazyjj
+
         curl
         wget
         rsync
@@ -135,6 +138,7 @@ in
         yarn
         nodePackages.prettier
 
+        uv
         (python312.withPackages (pks: with pks; [
           black
           isort
