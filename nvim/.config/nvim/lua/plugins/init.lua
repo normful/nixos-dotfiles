@@ -49,13 +49,13 @@ local function configure_nightfox()
       all = {
         -- Palette fields: https://github.com/EdenEast/nightfox.nvim/blob/main/lua/nightfox/palette.lua
         -- Plugin highlight groups: https://github.com/EdenEast/nightfox.nvim/tree/main/lua/nightfox/group/modules
-        RainbowDelimiterBlue = { fg = "palette.blue" },
-        RainbowDelimiterCyan = { fg = "palette.cyan" },
-        RainbowDelimiterGreen = { fg = "palette.green" },
-        RainbowDelimiterOrange = { fg = "palette.orange" },
-        RainbowDelimiterRed = { fg = "palette.red" },
-        RainbowDelimiterViolet = { fg = "palette.magenta" },
-        RainbowDelimiterYellow = { fg = "palette.yellow" },
+        RainbowDelimiterBlue = { fg = 'palette.blue' },
+        RainbowDelimiterCyan = { fg = 'palette.cyan' },
+        RainbowDelimiterGreen = { fg = 'palette.green' },
+        RainbowDelimiterOrange = { fg = 'palette.orange' },
+        RainbowDelimiterRed = { fg = 'palette.red' },
+        RainbowDelimiterViolet = { fg = 'palette.magenta' },
+        RainbowDelimiterYellow = { fg = 'palette.yellow' },
       },
     },
   })
