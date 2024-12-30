@@ -165,6 +165,8 @@ wezterm.on('update-right-status', function(window)
   window:set_right_status(name or '')
 end)
 
+config.max_fps = 120
+
 ------------------------------
 -- Other
 ------------------------------
