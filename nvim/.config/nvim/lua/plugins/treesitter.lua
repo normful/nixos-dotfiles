@@ -64,7 +64,7 @@ local function configure_treesitter()
       enable = true,
       custom_captures = {
         ['property_identifier'] = 'TSProperty', -- Highlight the @property_identifier capture group with the "TSProperty" highlight group
-      }
+      },
     },
     -- -----------------------------------------------
     -- END OF nvim-treesitter/nvim-treesitter config
@@ -78,33 +78,33 @@ local function configure_treesitter()
         enable = true,
         lookahead = true,
         keymaps = {
-          ["if"] = { query = "@function.inner", desc = "Inside function" },
-          ["af"] = { query = "@function.outer", desc = "Around function" },
+          ['if'] = { query = '@function.inner', desc = 'Inside function' },
+          ['af'] = { query = '@function.outer', desc = 'Around function' },
 
-          ["ib"] = { query = "@block.inner", desc = "Inside block" },
-          ["ab"] = { query = "@block.outer", desc = "Around block" },
+          ['ib'] = { query = '@block.inner', desc = 'Inside block' },
+          ['ab'] = { query = '@block.outer', desc = 'Around block' },
 
-          ["ii"] = { query = "@conditional.inner", desc = "Inside conditional" },
-          ["ai"] = { query = "@conditional.outer", desc = "Around conditional" },
+          ['ii'] = { query = '@conditional.inner', desc = 'Inside conditional' },
+          ['ai'] = { query = '@conditional.outer', desc = 'Around conditional' },
 
-          ["ic"] = { query = "@call.inner", desc = "Inside call" },
-          ["ac"] = { query = "@call.outer", desc = "Around call" },
+          ['ic'] = { query = '@call.inner', desc = 'Inside call' },
+          ['ac'] = { query = '@call.outer', desc = 'Around call' },
 
-          ["i:"] = { query = "@property.inner", desc = "Inside property" },
-          ["a:"] = { query = "@property.outer", desc = "Around property" },
-          [",:"] = { query = "@property.lhs",   desc = "Left of property" },
-          [".:"] = { query = "@property.rhs",   desc = "Right of property" },
+          ['i:'] = { query = '@property.inner', desc = 'Inside property' },
+          ['a:'] = { query = '@property.outer', desc = 'Around property' },
+          [',:'] = { query = '@property.lhs', desc = 'Left of property' },
+          ['.:'] = { query = '@property.rhs', desc = 'Right of property' },
 
-          ["ik"] = { query = "@class.inner", desc = "Inside class" },
-          ["ak"] = { query = "@class.outer", desc = "Around class" },
-
-          --
-          ["as"] = { query = "@statement.outer", desc = "Around statement" },
+          ['ik'] = { query = '@class.inner', desc = 'Inside class' },
+          ['ak'] = { query = '@class.outer', desc = 'Around class' },
 
           --
-          ["a/"] = { query = "@comment.outer", desc = "Around comment" },
+          ['as'] = { query = '@statement.outer', desc = 'Around statement' },
 
-          ["is"] = { query = "@scopename.inner", desc = "Inside scope name" },
+          --
+          ['a/'] = { query = '@comment.outer', desc = 'Around comment' },
+
+          ['is'] = { query = '@scopename.inner', desc = 'Inside scope name' },
           --
         },
         selection_modes = {
@@ -119,15 +119,15 @@ local function configure_treesitter()
         -- Not sure why these are not working...
         -- so I'm disabling for now
         swap_next = {
-          ["<Leader>p]"] = "@parameter.inner",
-          ["<Leader>wf"] = "@function.outer",
+          ['<Leader>p]'] = '@parameter.inner',
+          ['<Leader>wf'] = '@function.outer',
         },
         swap_previous = {
-          ["<Leader>p["] = "@parameter.inner",
-          ["<Leader>wr"] = "@function.outer",
+          ['<Leader>p['] = '@parameter.inner',
+          ['<Leader>wr'] = '@function.outer',
         },
       },
-    }
+    },
   })
 end
 
@@ -144,7 +144,7 @@ return {
   keys = {
     { '<F3>', '<Cmd>InspectTree<CR>' },
   },
-  build = ":TSUpdate",
+  build = ':TSUpdate',
   config = configure_treesitter,
   lazy = false,
   priority = 100,

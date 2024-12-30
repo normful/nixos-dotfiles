@@ -7,7 +7,7 @@ local function configure_mason_and_lspconfig()
 
   local lspconfig = require('lspconfig')
 
-  -- You can make another similar on_attach function, 
+  -- You can make another similar on_attach function,
   -- if you need slightly different behaviour for a specific language server.
   local common_on_attach = function(client, bufnr)
     vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
@@ -20,18 +20,18 @@ local function configure_mason_and_lspconfig()
 
     vim.keymap.set('n', '<Leader>dec', vim.lsp.buf.declaration, opts)
 
-    vim.keymap.set('n', '<Leader>f',   vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<Leader>v',   vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', '<Leader>im',  vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<leader>ty',  vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<Leader>f', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<Leader>v', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<Leader>im', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>ty', vim.lsp.buf.type_definition, opts)
 
-    vim.keymap.set('n', '<Leader>tre',  require('telescope.builtin').lsp_references, opts)
-    vim.keymap.set('n', '<Leader>tde',  require('telescope.builtin').lsp_definitions, opts)
-    vim.keymap.set('n', '<Leader>ti',  require('telescope.builtin').lsp_implementations, opts)
+    vim.keymap.set('n', '<Leader>tre', require('telescope.builtin').lsp_references, opts)
+    vim.keymap.set('n', '<Leader>tde', require('telescope.builtin').lsp_definitions, opts)
+    vim.keymap.set('n', '<Leader>ti', require('telescope.builtin').lsp_implementations, opts)
 
-    vim.keymap.set('n', '<Leader>d',   vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<Leader>d', vim.lsp.buf.signature_help, opts)
 
-    vim.keymap.set('n', '<Leader>re',  vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<Leader>re', vim.lsp.buf.rename, opts)
 
     client.server_capabilities.document_formatting = true
   end
@@ -178,7 +178,7 @@ local function configure_mason_and_lspconfig()
   })
 
   local enableLspLog = false
-  vim.lsp.set_log_level(enableLspLog and "debug" or "off")
+  vim.lsp.set_log_level(enableLspLog and 'debug' or 'off')
 end
 
 return {
