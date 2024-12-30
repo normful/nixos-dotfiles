@@ -119,7 +119,7 @@ config.key_tables = {
 }
 
 ------------------------------
--- Appearance
+-- Appearance: Font
 ------------------------------
 
 config.font_size = 20.0
@@ -139,13 +139,100 @@ config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
 -- ___________
 -- ===========
 
-config.color_scheme = 'Banana Blueberry'
+------------------------------
+-- Appearance: Color scheme
+------------------------------
 
-config.adjust_window_size_when_changing_font_size = false
+local fav_color_schemes = {
+  'Everforest Dark (Gogh)',
+  'Nord (Gogh)',
+  'One Dark (Gogh)',
+  'Sea Shells (Gogh)',
+  'Sequoia Moonlight',
+  'Sugarplum',
+  'Spacedust',
+  'Tokyo Night',
+}
+
+local random_color_scheme = function()
+  return fav_color_schemes[math.random(1, #fav_color_schemes)]
+end
+
+local active_color_scheme = random_color_scheme()
+
+config.color_scheme = active_color_scheme
+
+------------------------------
+-- Appearance: Tab bar
+------------------------------
+
 config.enable_tab_bar = true
+config.show_tabs_in_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = true
+
+wezterm.on('update-right-status', function(window, pane)
+  -- Each element holds the text for a cell in a "powerline" style << fade
+  local cells = {}
+
+  table.insert(cells, 'color_scheme: ' .. active_color_scheme)
+
+  table.insert(cells, window:active_key_table() or 'no mode')
+
+  -- The powerline < symbol
+  local LEFT_ARROW = utf8.char(0xe0b3)
+
+  -- The filled in variant of the < symbol
+  local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+
+  -- Color palette for the backgrounds of each cell
+  local colors = {
+    '#151515',
+    '#262626',
+    '#151515',
+    '#262626',
+    '#151515',
+    '#262626',
+  }
+
+  -- Foreground color for the text across the fade
+  local text_fg = '#c0c0c0'
+
+  -- The elements to be formatted
+  local elements = {}
+
+  -- How many cells have been formatted
+  local num_cells = 0
+
+  -- Translate a cell into elements
+  function push(text, is_last)
+    local cell_no = num_cells + 1
+    table.insert(elements, { Foreground = { Color = text_fg } })
+    table.insert(elements, { Background = { Color = colors[cell_no] } })
+    table.insert(elements, { Text = ' ' .. text .. ' ' })
+    if not is_last then
+      table.insert(elements, { Foreground = { Color = colors[cell_no + 1] } })
+      table.insert(elements, { Text = SOLID_LEFT_ARROW })
+    end
+    num_cells = num_cells + 1
+  end
+
+  while #cells > 0 do
+    local cell = table.remove(cells, 1)
+    push(cell, #cells == 0)
+  end
+
+  window:set_right_status(wezterm.format(elements))
+end)
+
+------------------------------
+-- Appearance: Window
+------------------------------
+
 config.initial_cols = 200
 config.initial_rows = 70
+
+config.window_decorations = 'RESIZE'
 config.window_frame = {
   font = wezterm.font_with_fallback({
     'PragmataPro Mono Liga',
@@ -155,20 +242,31 @@ config.window_frame = {
     'Apple Color Emoji',
   }),
   font_size = 14.0,
+  -- border_left_width = "0.5cell",
+  -- border_right_width = "0.5cell",
+  -- border_bottom_height = "0.25cell",
+  -- border_top_height = "0.25cell",
+  -- border_left_color = "purple",
+  -- border_right_color = "purple",
+  -- border_bottom_color = "purple",
+  -- border_top_color = "purple",
 }
 
-wezterm.on('update-right-status', function(window)
-  local name = window:active_key_table()
-  if name then
-    name = 'MODE: ' .. name
-  end
-  window:set_right_status(name or '')
-end)
+config.window_padding = {
+  left = '10px',
+  right = '0px',
+  top = 0,
+  bottom = 0,
+}
 
-config.max_fps = 120
+config.adjust_window_size_when_changing_font_size = false
 
 ------------------------------
 -- Other
 ------------------------------
+
+config.max_fps = 120
+config.audible_bell = 'Disabled'
+config.use_ime = true
 
 return config
