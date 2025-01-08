@@ -13,7 +13,7 @@ if status is-interactive
     abbr --add c clear
     abbr --add q exit
 
-    abbr --add l 'ls -lhAtr --color=always'
+    abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --git --sort time'
 
     abbr --add d dirh
     abbr --add nd nextd
