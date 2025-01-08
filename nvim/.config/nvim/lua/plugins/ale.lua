@@ -42,6 +42,8 @@ local function configure_ale()
     gleam = { 'gleam_format' },
   }
 
+  g.ale_lua_stylua_options = '--config-path ~/code/nixos-dotfiles/stylua.toml'
+
   -- Other settings
   g.ale_warn_about_trailing_whitespace = 0
   g.ale_maximum_file_size = 1024 * 1024
