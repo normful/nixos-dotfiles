@@ -1,3 +1,3 @@
-function t --description 'Run tree with colors and ignore typical big and irrelevant directories'
-    tree -N -ashFC -I ".git|node_modules" $argv
+function t --description 'Run eza in tree mode'
+    eza --tree --classify=auto --color=always --icons=always --almost-all --git-ignore --long --no-permissions --bytes --no-user --no-time --total-size $argv
 end
