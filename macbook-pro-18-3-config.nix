@@ -76,8 +76,10 @@ in
         openssl
         tcpdump
         ntfs3g
-        broot
+
+        tree
         eza
+        broot
 
         stow
         gnumake
@@ -100,7 +102,6 @@ in
         rclone
 
         htop
-        tree
 
         bats
 
