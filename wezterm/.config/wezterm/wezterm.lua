@@ -91,6 +91,9 @@ config.keys = {
   -----------------------------------------
   { mods = 'LEADER', key = 't', action = act.QuickSelect },
 
+  -- TODO(norman): Read https://wezfurlong.org/wezterm/scrollback.html#searching-the-scrollback and customize the search_mode key table
+  { mods = 'CMD|SHIFT', key = 'W', action = wezterm.action.Search({ Regex = '[a-f0-9]{6,}' }) },
+
   -- TODO(norman): Read https://wezfurlong.org/wezterm/copymode.html#configurable-key-assignments
   { mods = 'LEADER', key = '[', action = act.ActivateCopyMode },
 
@@ -144,14 +147,15 @@ config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
 ------------------------------
 
 local fav_color_schemes = {
-  'Everforest Dark (Gogh)',
   'Nord (Gogh)',
+  'Oceanic Next (Gogh)',
   'One Dark (Gogh)',
   'Sea Shells (Gogh)',
   'Sequoia Moonlight',
-  'Sugarplum',
   'Spacedust',
+  'Sugarplum',
   'Tokyo Night',
+  'Navy and Ivory (terminal.sexy)',
 }
 
 local random_color_scheme = function()
@@ -168,16 +172,96 @@ config.color_scheme = active_color_scheme
 
 config.enable_tab_bar = true
 config.show_tabs_in_tab_bar = true
+config.tab_bar_at_bottom = true
+config.tab_max_width = 20
+
 config.hide_tab_bar_if_only_one_tab = false
-config.use_fancy_tab_bar = true
+config.use_fancy_tab_bar = false
+
+config.colors = {
+  tab_bar = {
+    -- The color of the strip that goes along the top of the window
+    -- (does not apply when fancy tab bar is in use)
+    background = '#0b0022',
+
+    -- The active tab is the one that has focus in the window
+    active_tab = {
+      -- The color of the background area for the tab
+      bg_color = '#2b2042',
+      -- The color of the text for the tab
+      fg_color = '#c0c0c0',
+
+      -- Specify whether you want "Half", "Normal" or "Bold" intensity for the
+      -- label shown for this tab.
+      -- The default is "Normal"
+      intensity = 'Normal',
+
+      -- Specify whether you want "None", "Single" or "Double" underline for
+      -- label shown for this tab.
+      -- The default is "None"
+      underline = 'None',
+
+      -- Specify whether you want the text to be italic (true) or not (false)
+      -- for this tab.  The default is false.
+      italic = false,
+
+      -- Specify whether you want the text to be rendered with strikethrough (true)
+      -- or not for this tab.  The default is false.
+      strikethrough = false,
+    },
+
+    -- Inactive tabs are the tabs that do not have focus
+    inactive_tab = {
+      bg_color = '#1b1032',
+      fg_color = '#808080',
+
+      -- The same options that were listed under the `active_tab` section above
+      -- can also be used for `inactive_tab`.
+    },
+
+    -- You can configure some alternate styling when the mouse pointer
+    -- moves over inactive tabs
+    inactive_tab_hover = {
+      bg_color = '#3b3052',
+      fg_color = '#909090',
+      italic = true,
+
+      -- The same options that were listed under the `active_tab` section above
+      -- can also be used for `inactive_tab_hover`.
+    },
+
+    -- The new tab button that let you create new tabs
+    new_tab = {
+      bg_color = '#1b1032',
+      fg_color = '#808080',
+
+      -- The same options that were listed under the `active_tab` section above
+      -- can also be used for `new_tab`.
+    },
+
+    -- You can configure some alternate styling when the mouse pointer
+    -- moves over the new tab button
+    new_tab_hover = {
+      bg_color = '#3b3052',
+      fg_color = '#909090',
+      italic = true,
+
+      -- The same options that were listed under the `active_tab` section above
+      -- can also be used for `new_tab_hover`.
+    },
+  },
+}
 
 wezterm.on('update-right-status', function(window, pane)
   -- Each element holds the text for a cell in a "powerline" style << fade
   local cells = {}
 
-  table.insert(cells, 'color_scheme: ' .. active_color_scheme)
+  local active_mode = window:active_key_table()
+  if active_mode then
+    table.insert(cells, active_mode)
+  end
 
-  table.insert(cells, window:active_key_table() or 'no mode')
+  table.insert(cells, active_color_scheme)
 
   -- The powerline < symbol
   local LEFT_ARROW = utf8.char(0xe0b3)
@@ -187,12 +271,11 @@ wezterm.on('update-right-status', function(window, pane)
 
   -- Color palette for the backgrounds of each cell
   local colors = {
-    '#151515',
-    '#262626',
-    '#151515',
-    '#262626',
-    '#151515',
-    '#262626',
+    '#1b1032',
+    '#1b1032',
+    '#1b1032',
+    '#1b1032',
+    '#1b1032',
   }
 
   -- Foreground color for the text across the fade
@@ -233,25 +316,6 @@ config.initial_cols = 200
 config.initial_rows = 70
 
 config.window_decorations = 'RESIZE'
-config.window_frame = {
-  font = wezterm.font_with_fallback({
-    'PragmataPro Mono Liga',
-    -- We swap the patched and non-patched font around, otherwise some things are
-    -- not correctly displayed, such as: ']]' (two ] ] (without space)).
-    'PragmataProMonoLiga Nerd Font',
-    'Apple Color Emoji',
-  }),
-  font_size = 14.0,
-  -- border_left_width = "0.5cell",
-  -- border_right_width = "0.5cell",
-  -- border_bottom_height = "0.25cell",
-  -- border_top_height = "0.25cell",
-  -- border_left_color = "purple",
-  -- border_right_color = "purple",
-  -- border_bottom_color = "purple",
-  -- border_top_color = "purple",
-}
-
 config.window_padding = {
   left = '10px',
   right = '0px',
@@ -268,5 +332,9 @@ config.adjust_window_size_when_changing_font_size = false
 config.max_fps = 120
 config.audible_bell = 'Disabled'
 config.use_ime = true
+config.enable_kitty_keyboard = true
+config.check_for_updates = false
+config.notification_handling = 'NeverShow'
+config.scrollback_lines = 100000
 
 return config
