@@ -90,6 +90,7 @@ in
         git
         git-lfs
         delta
+        difftastic
 
         jujutsu
         lazyjj

@@ -57,7 +57,9 @@
     renameLimit = 999999
     textconv = hexdump -v -C
     colorMoved = default
-	submodule = log
+    submodule = log
+    # Uncomment the next line to temporarily use difftastic instead of delta
+    # external = difft --display inline
 [diff "pdf"]
     textconv = pdfinfo
 [diff "zip"]
