@@ -76,6 +76,8 @@ in
         openssl
         tcpdump
         ntfs3g
+        broot
+        eza
 
         stow
         gnumake
