@@ -147,7 +147,6 @@ config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
 ------------------------------
 
 local fav_color_schemes = {
-  'Nord (Gogh)',
   'Oceanic Next (Gogh)',
   'One Dark (Gogh)',
   'Sea Shells (Gogh)',
