@@ -91,6 +91,7 @@ in
         git-lfs
         delta
         difftastic
+        diff-pdf
 
         jujutsu
         lazyjj
@@ -103,6 +104,7 @@ in
         rclone
 
         htop
+        gtop
 
         bats
 
@@ -135,7 +137,7 @@ in
         protoc-gen-go
         cobra-cli
 
-        cargo
+        rustup
         zola
 
         nodejs
