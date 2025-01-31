@@ -154,6 +154,19 @@ local function configure_mason_and_lspconfig()
   lspconfig.rust_analyzer.setup({
     on_attach = common_on_attach,
     capabilities = capabilities_with_more_completion_candidates,
+    settings = {
+      ['rust-analyzer'] = {
+        cargo = {
+          allFeatures = true,
+        },
+        check = {
+          command = 'clippy',
+        },
+        diagnostics = {
+          enable = true,
+        },
+      },
+    },
   })
 
   -- ---------------------------------------------------------------------------------------------
