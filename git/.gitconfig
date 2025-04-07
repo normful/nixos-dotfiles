@@ -519,9 +519,9 @@
     # - follow file renames via the `--follow` flag (which only works with a single git pathspec)
     # - produce output that is `!read` into vim
     # - produce output containing only ANSI color escape codes supported by https://github.com/powerman/vim-plugin-AnsiEsc
-    lforvim    = -c 'core.pager=delta --paging=never' log --follow --abbrev-commit --abbrev=10 --decorate                   --use-mailmap --date=short                                                                                           --format='%C("#ffce51 bold")%h %C(reset)%C("#10aef8")%aN %C(reset)%C("#77d507")%ad (%ar)%C(reset)%C("#ff5874 bold")%d %n''           %C(reset)%C(white)%s %C(reset)'
-    llforvim   = -c 'core.pager=delta --paging=never' log --follow --abbrev-commit --abbrev=10 --decorate                   --use-mailmap --date=short     --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C("#ffce51 bold")%h %C(reset)%C("#10aef8")%aN %C(reset)%C("#77d507")%ad (%ar)%C(reset)%C("#ff5874 bold")%d %n''           %C(reset)%C(white)%s %C(reset)'
-    lllforvim  = -c 'core.pager=delta --paging=never' log --follow                             --decorate                   --use-mailmap --date=short     -p --pretty=fuller
+    lforvim    = -c core.pager=delta -c delta.paging=never log --follow --abbrev-commit --abbrev=10 --decorate --use-mailmap --date=short                                                                                       --format='%C("#ffce51 bold")%h %C(reset)%C("#10aef8")%aN %C(reset)%C("#77d507")%ad (%ar)%C(reset)%C("#ff5874 bold")%d %n''           %C(reset)%C(white)%s %C(reset)'
+    llforvim   = -c core.pager=delta -c delta.paging=never log --follow --abbrev-commit --abbrev=10 --decorate --use-mailmap --date=short --stat --stat-width=240 --stat-name-width=200 --stat-graph-width=40 --stat-count=1000 --format='%C("#ffce51 bold")%h %C(reset)%C("#10aef8")%aN %C(reset)%C("#77d507")%ad (%ar)%C(reset)%C("#ff5874 bold")%d %n''           %C(reset)%C(white)%s %C(reset)'
+    lllforvim  = -c core.pager=delta -c delta.paging=never -c delta.line-numbers=false log --follow --decorate --use-mailmap --date=short     -p --pretty=fuller
 
     # show commits that haven't been pushed to the remote yet
     pending = !sh -c 'git --no-pager log "$0"/HEAD..HEAD && echo'
