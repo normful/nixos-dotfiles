@@ -9,6 +9,10 @@ return {
   'rhysd/git-messenger.vim',
   config = configure_git_messenger,
   keys = {
-    { 'M', '<Cmd>GitMessenger<CR>' },
+    {
+      'M',
+      '<Cmd>GitMessenger<CR>',
+      desc = 'Show git commit details',
+    },
   },
 }

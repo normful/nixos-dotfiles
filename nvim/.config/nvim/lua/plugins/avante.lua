@@ -1,5 +1,14 @@
-local function configure_avante()
-  require('avante').setup({
+return {
+  'yetone/avante.nvim',
+  version = false,
+  build = 'make',
+  dependencies = {
+    { 'stevearc/dressing.nvim' },
+    { 'nvim-lua/plenary.nvim' },
+    { 'MunifTanjim/nui.nvim' },
+  },
+  cmd = { 'AvanteAsk', 'AvanteChat', 'AvanteToggle' },
+  opts = {
     -- See defaults at https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
     -- Model-related config copied from https://github.com/yetone/cosmos-nvim/blob/main/lua/layers/completion/plugins.lua
 
@@ -23,7 +32,7 @@ local function configure_avante()
       support_paste_from_clipboard = true,
     },
 
-    provider = 'openai',
+    provider = 'aihubmix',
 
     auto_suggestions_provider = 'claude',
 
@@ -37,11 +46,7 @@ local function configure_avante()
     },
 
     openai = {
-      endpoint = 'https://aihubmix.com/v1',
       model = 'gpt-4o-mini',
-      -- model = 'gemini-2.0-pro-exp-02-05',
-      -- model = "o1-preview",
-      -- model = 'claude-3-5-sonnet-latest',
     },
 
     file_selector = {
@@ -49,6 +54,15 @@ local function configure_avante()
     },
 
     vendors = {
+      aihubmix = {
+        __inherited_from = 'openai',
+        endpoint = 'https://api.mistral.ai/v1',
+        api_key_name = 'AIHUBMIX_API_KEY',
+        model = 'gpt-4o-mini',
+        -- model = 'gemini-2.0-pro-exp-02-05',
+        -- model = "o1-preview",
+        -- model = 'claude-3-5-sonnet-latest',
+      },
       mistral = {
         __inherited_from = 'openai',
         endpoint = 'https://api.mistral.ai/v1',
@@ -86,18 +100,6 @@ local function configure_avante()
         model = 'llama-3.1-sonar-large-128k-online',
       },
     },
-  })
-end
-
-return {
-  'yetone/avante.nvim',
-  dependencies = {
-    { 'stevearc/dressing.nvim' },
-    { 'nvim-lua/plenary.nvim' },
-    { 'MunifTanjim/nui.nvim' },
   },
-  config = configure_avante,
-  build = 'make',
-  lazy = false,
-  version = false,
+  keys = { '<Leader>aa' },
 }

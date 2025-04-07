@@ -34,18 +34,18 @@ to make Parallels Tools or VMWare Tools properly.
 
 ## Neovim Config
 
-1. `./nix-nvim/nvim.nix` is used in my `neovim` Nix override.
-2. `./nix-nvim/customRC.vim.nix` is the `.vimrc` file that Nix generates. It loads general lua modules, and loads:
-3. `./nix-nvim/initLazy.lua`, which initializes [lazy.nvim](https://github.com/folke/lazy.nvim)
+1. `./nix-nvim/customRC.vim.nix` is the `.vimrc` file that Nix generates. It loads general lua modules, and loads:
+2. `./nix-nvim/initLazyAndNvChad.lua`, which initializes [lazy.nvim](https://github.com/folke/lazy.nvim) and [NvChad](https://github.com/NvChad/NvChad)
 
-The rest of the Neovim config, which is in `./nvim`, is not managed by Nix. 
+The rest of the Neovim config, which is in `./nvim`, is not managed by Nix.
 
-It's purposely not controlled by Nix, so that it can be easily reused on 
+It's purposely not controlled by Nix, so that it can be easily reused on
 other systems that are not running Nix (e.g. other macOS systems
-where I don't run Nix, or other Linux systems). 
+where I don't run Nix, or other Linux systems).
 
 `./nvim/.config/nvim` is symlinked into `~/.config/nvim` using `stow`.
 
 `lazy.nvim` automatically loads all the plugin config from ~/.config/nvim/lua/plugins/`.
+Plugin config extends any config provided by [NvChad plugin config](https://github.com/NvChad/NvChad/tree/v2.5/lua/nvchad/plugins).
 
 There's a handful of miscellaneous old unused nvim config in `./nvim_OLD` that I don't use anymore.

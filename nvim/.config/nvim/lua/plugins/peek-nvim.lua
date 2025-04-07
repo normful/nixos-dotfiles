@@ -1,6 +1,10 @@
 return {
   'toppair/peek.nvim',
   build = 'deno task --quiet build:fast',
+  opts = {
+    theme = 'dark',
+    app = 'browser',
+  },
   keys = {
     {
       '<Leader>mp',
@@ -13,12 +17,8 @@ return {
           vim.fn.system('osascript -e \'tell application "Vivaldi" to set bounds of front window to {793, 38, 1512, 982}\'')
         end
       end,
-      desc = 'Peek (Markdown Preview)',
+      desc = 'Markdown preview',
     },
   },
   ft = 'markdown',
-  opts = {
-    theme = 'dark',
-    app = 'browser',
-  },
 }

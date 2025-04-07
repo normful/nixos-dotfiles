@@ -9,8 +9,11 @@ return {
   'skywind3000/asyncrun.vim',
   config = configure_async_run,
   keys = {
-    -- This is used instead of vim-test
-    { '<Leader>tf', '<Cmd>AsyncRun -cwd=<root> -mode=terminal -focus=0 -pos=right npm run test "%:p"<CR>' },
+    {
+      '<Leader>tf',
+      -- This is used instead of vim-test
+      '<Cmd>AsyncRun -cwd=<root> -mode=terminal -focus=0 -pos=right npm run test "%:p"<CR>',
+      desc = 'Test file (npm test)',
+    },
   },
-  lazy = false,
 }

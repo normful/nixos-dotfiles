@@ -1,5 +1,6 @@
-local function configure_comment_nvim()
-  require('Comment').setup({
+return {
+  'numToStr/Comment.nvim',
+  opts = {
     toggler = {
       line = 'tcl',
     },
@@ -11,11 +12,6 @@ local function configure_comment_nvim()
       basic = true,
       extra = false,
     },
-  })
-end
-
-return {
-  'numToStr/Comment.nvim',
-  config = configure_comment_nvim,
+  },
   event = 'VeryLazy',
 }

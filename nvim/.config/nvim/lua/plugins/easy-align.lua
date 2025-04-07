@@ -1,6 +1,11 @@
 return {
   'junegunn/vim-easy-align',
   keys = {
-    { '<LocalLeader>a', '<Plug>(EasyAlign)', mode = 'x' },
+    {
+      'al',
+      '<Plug>(EasyAlign)',
+      mode = { 'x' },
+      desc = 'Align visually selected text',
+    },
   },
 }

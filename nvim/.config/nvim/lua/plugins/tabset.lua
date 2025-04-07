@@ -1,6 +1,6 @@
-local function configure_tabset()
-  local tabset = require('tabset')
-  tabset.setup({
+return {
+  'FotiadisM/tabset.nvim',
+  opts = {
     defaults = {
       tabwidth = 2,
       expandtab = true,
@@ -18,11 +18,6 @@ local function configure_tabset()
         },
       },
     },
-  })
-end
-
-return {
-  'FotiadisM/tabset.nvim',
-  config = configure_tabset,
-  lazy = false,
+  },
+  event = 'VeryLazy',
 }

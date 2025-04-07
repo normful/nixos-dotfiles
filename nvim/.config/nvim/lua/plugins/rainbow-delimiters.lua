@@ -15,6 +15,6 @@ end
 
 return {
   'HiPhish/rainbow-delimiters.nvim',
-  lazy = false,
+  event = 'VeryLazy',
   config = configure_rainbow_delimiters,
 }

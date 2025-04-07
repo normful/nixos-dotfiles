@@ -60,19 +60,6 @@ function! normful#ConfigureJankoVimTestProjectRoot()
     let g:test#project_root = projectroot#guess(expand('%:p'))
 endfunction
 
-function! normful#TerminalNoNumber()
-    if &buftype == 'terminal'
-        setlocal nonumber
-    else
-        set number
-    endif
-endfunction
-
-function! normful#OpenTerminal()
-  belowright term
-  startinsert
-endfunction
-
 function! normful#GitBlame()
   " fugitive command
   Git blame
