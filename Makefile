@@ -1,8 +1,8 @@
 stow:
-	stow -t $(HOME) -S git fish kitty ghostty wezterm karabiner htop nvim scripts
+	stow --no-folding -t $(HOME) -S git fish kitty ghostty wezterm karabiner htop procs bat nvim scripts yazi cargo
 
 unstow:
-	stow -t $(HOME) -D git fish kitty ghostty wezterm karabiner htop nvim scripts
+	stow --no-folding -t $(HOME) -D git fish kitty ghostty wezterm karabiner htop procs bat nvim scripts yazi cargo
 
 mac:
 	darwin-rebuild switch --flake ~/code/nixos-dotfiles#macbook-pro-18-3
