@@ -9,6 +9,7 @@ Stow](https://github.com/aspiers/stow) to symlink dotfiles into `$HOME` instead.
 ## Typical Usage
 
 ```
+nix fmt
 make mac
 make stow
 ```

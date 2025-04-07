@@ -1,4 +1,7 @@
-{ nixpkgs-stable, nixpkgs-pinned-unstable, pkgs-stable, pkgs-pinned-unstable, ... }:
+{
+  nixpkgs-stable, nixpkgs-pinned-unstable, pkgs-stable, pkgs-pinned-unstable,
+  ...
+}:
 
 let
   myNeovim = pkgs-pinned-unstable.neovim.override {
@@ -15,9 +18,37 @@ let
       customRC = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
     };
   };
+  hl = pkgs-pinned-unstable.rustPlatform.buildRustPackage rec {
+    pname = "hl";
+    version = "0.30.4";
+
+    src = pkgs-pinned-unstable.fetchFromGitHub {
+      owner = "pamburus";
+      repo = pname;
+      rev = "v${version}";
+
+      # hash initially obtained from running:
+      # nix-prefetch-github pamburus hl --rev v0.30.4
+      hash = "sha256-xnw0C2UI3bvWqcHXwLdrrpPgZwlkN5LL+1rUPYhX5fY=";
+    };
+
+    cargoLock = {
+      lockFile = "${src}/Cargo.lock";
+      outputHashes = {
+        "htp-0.4.2" = "sha256-oYLN0aCLIeTST+Ib6OgWqEgu9qyI0n5BDtIUIIThLiQ=";
+        "wildflower-0.3.0" = "sha256-vv+ppiCrtEkCWab53eutfjHKrHZj+BEAprV5by8plzE=";
+      };
+    };
+
+    meta = {
+      homepage = "https://github.com/pamburus/hl";
+      license = pkgs-pinned-unstable.lib.licenses.mit;
+      maintainers = [ ];
+    };
+  };
 in
 {
-  imports = [];
+  imports = [ ];
 
   system.stateVersion = 4;
 
@@ -30,7 +61,7 @@ in
       keep-failed = false
       keep-going = true
       auto-optimise-store = false
-      '';
+    '';
     gc = {
       automatic = true;
       options = "--delete-older-than 600d";
@@ -49,11 +80,14 @@ in
 
     # List of overlays to use with the Nix Packages collection.
     # This overrides packages globally.
-    overlays = [];
+    overlays = [ ];
   };
 
   networking = {
-    knownNetworkServices = [ "Wi-Fi" "Thunderbolt Bridge" ];
+    knownNetworkServices = [
+      "Wi-Fi"
+      "Thunderbolt Bridge"
+    ];
     dns = [
       "1.1.1.1"
       "1.0.0.1"
@@ -67,79 +101,201 @@ in
     variables = {
       EDITOR = "nvim";
       GIT_EDITOR = "nvim";
-      TERMINAL = "kitty";
     };
     shells = [ pkgs-stable.fish ];
     systemPackages =
       (with pkgs-stable; [
-        coreutils-full
-        findutils
-        gnused
-        rip2
-        bat
-        openssl
-        tcpdump
-        ntfs3g
+        #################################################################################
+        # Basic utilities
+        #################################################################################
 
-        tree
-        eza
-        broot
+        # https://www.gnu.org/software/coreutils/manual/html_node/index.html
+        # https://www.mankier.com/package/coreutils-common
+        # coreutils-full
 
-        stow
-        gnumake
-        cmake
+        # https://uutils.github.io/coreutils/docs/
+        uutils-coreutils-noprefix
+
         killall
-        ghostscript
 
-        git
-        git-lfs
-        delta
-        difftastic
-        diff-pdf
+        # https://www.gnu.org/software/sed/
+        # https://www.mankier.com/1/sed
+        gnused
 
-        jujutsu
-        lazyjj
+        # rm replacement
+        # https://github.com/MilesCranmer/rip2
+        rip2
 
-        curl
-        wget
-        rsync
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batwatch.md
+        bat-extras.batwatch
 
-        restic
-        rclone
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
+        bat-extras.batpipe
 
+        #################################################################################
+        # View processes
+        #################################################################################
+
+        # https://htop.dev
         htop
-        gtop
-        bottom
 
-        bats
+        # https://github.com/dalance/procs#usage
+        procs
+
+        # Others I tried and don't like so much
+        # https://clementtsang.github.io/bottom/nightly/usage/general-usage/
+        # https://github.com/aksakalli/gtop
+        # https://github.com/bvaisvil/zenith
+        # https://github.com/xxxserxxx/gotop
+
+        #################################################################################
+        # Shells
+        #################################################################################
 
         fish
 
-        tree-sitter
-        ctags
-        efm-langserver
-        (lua5_1.withPackages (pks: with pks; [
-          luarocks
-        ]))
-        stylua
+        xonsh
+
+        #################################################################################
+        # Shell history
+        #################################################################################
 
         hstr
         hishtory
         atuin
 
+        #################################################################################
+        # Bash
+        #################################################################################
+
+        bats
+        shfmt
+
+        #################################################################################
+        # Navigating directories
+        #################################################################################
+
         zoxide
+
+        #################################################################################
+        # Viewing files and directories
+        #################################################################################
+
+        # https://github.com/eza-community/eza
+        eza
+
+        # https://dystroy.org/broot/
+        broot
+
+        # https://github.com/bootandy/dust
+        dust
+
+        # https://github.com/Byron/dua-cli/
+        dua
+
+        yazi
+
+        #################################################################################
+        # Finding files
+        #################################################################################
+
+        # https://www.mankier.com/1/find
+        # https://www.mankier.com/1/xargs
+        findutils
+
+        # https://github.com/sharkdp/fd
+        fd
+
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md
+        bat-extras.batgrep
+
+        # https://junegunn.github.io/fzf/
         fzf
 
-        fd
+        # https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
         ripgrep
+
+        # https://github.com/phiresky/ripgrep-all
         ripgrep-all
+
+        # https://ugrep.com
         ugrep
 
-        jq
+        #################################################################################
+        # Pagers
+        #################################################################################
 
-        lnav
+        # https://github.com/sharkdp/bat#how-to-use
+        bat
 
+        # https://github.com/dandavison/delta
+        delta
+
+        # https://github.com/lucc/nvimpager
+        nvimpager
+
+        # https://github.com/eth-p/bat-extras/blob/master/doc/prettybat.md
+        bat-extras.prettybat
+
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batman.md
+        bat-extras.batman
+
+        #################################################################################
+        # Git
+        #################################################################################
+
+        git
+        git-lfs
+        nix-prefetch-github
+
+        #################################################################################
+        # Jujutsu
+        #################################################################################
+
+        jujutsu
+        lazyjj
+
+        #################################################################################
+        # Diffs
+        #################################################################################
+
+        # https://www.gnu.org/software/diffutils/diffutils.html
+        diffutils
+
+        # https://difftastic.wilfred.me.uk
+        difftastic
+
+        #################################################################################
+        # Tools for multiple languages
+        #################################################################################
+
+        # https://gcc.gnu.org
         gcc
+
+        # https://www.gnu.org/software/make/
+        gnumake
+
+        # https://just.systems/man/en/
+        just
+
+        # https://cmake.org/cmake/help/latest/
+        cmake
+
+        # https://tree-sitter.github.io/tree-sitter/
+        tree-sitter
+
+        # https://docs.ctags.io/en/latest/
+        universal-ctags
+
+        # https://github.com/mattn/efm-langserver
+        efm-langserver
+
+        # https://github.com/cortesi/modd
+        modd
+
+        #################################################################################
+        # Golang
+        #################################################################################
 
         go
         gopls
@@ -147,55 +303,289 @@ in
         protoc-gen-go
         cobra-cli
 
+        #################################################################################
+        # Rust
+        #################################################################################
+
         rustup
+
+        #################################################################################
+        # Node.js
+        #################################################################################
 
         nodejs
         yarn
         nodePackages.prettier
+        prettierd
+        eslint_d
+
+        #################################################################################
+        # Python
+        #################################################################################
 
         uv
-        (python312.withPackages (pks: with pks; [
-          black
-          isort
-          mypy
-          pip
-          pipx
-          pyflakes
-          pylint
-          pynvim
-        ]))
+        (python312.withPackages (
+          pks: with pks; [
+            black
+            isort
+            mypy
+            pip
+            pipx
+            pyflakes
+            pylint
+            pynvim
+          ]
+        ))
         poetry
 
-        inkscape
-        imagemagick
-        pngcrush
+        #################################################################################
+        # Ruby
+        #################################################################################
+
+        (ruby.withPackages (
+          pks: with pks; [
+            rubocop
+            nokogiri
+            pry
+            neovim
+          ]
+        ))
+
+        #################################################################################
+        # Lua
+        #################################################################################
+
+        (lua5_1.withPackages (
+          pks: with pks; [
+            luarocks
+          ]
+        ))
+        stylua
+
+        #################################################################################
+        # Regular expressions
+        #################################################################################
+
+        # https://pemistahl.github.io/grex-js/
+        # https://github.com/pemistahl/grex?tab=readme-ov-file#51-the-command-line-tool
+        grex
+
+        #################################################################################
+        # JSON
+        #################################################################################
+
+        # https://jqlang.org
+        jq
+
+        # https://jless.io/user-guide
+        jless
+
+        # https://github.com/adamritter/fastgron
+        fastgron
+
+        #################################################################################
+        # CSS
+        #################################################################################
+
+        # https://stylelint.io/user-guide/configure
+        stylelint
+
+        #################################################################################
+        # TOML
+        #################################################################################
+
+        # https://taplo.tamasfe.dev/cli/introduction.html
+        taplo
+
+        #################################################################################
+        # Nix
+        #################################################################################
+
+        # https://taplo.tamasfe.dev/cli/introduction.html
+        nixfmt-rfc-style
+
+        #################################################################################
+        # Log files
+        #################################################################################
+
+        # https://docs.lnav.org/en/latest/index.html
+        lnav
+
+        #################################################################################
+        # UML Diagrams
+        #################################################################################
+
+        # https://plantuml.com
         plantuml
 
+        #################################################################################
+        # Images
+        #################################################################################
+
+        # https://inkscape.org
+        inkscape
+
+        # https://usage.imagemagick.org
+        imagemagick
+
+        # https://pmt.sourceforge.io/pngcrush/
+        pngcrush
+
+        #################################################################################
+        # Audio and video
+        #################################################################################
+
+        # https://www.ffmpeg.org/documentation.html
         ffmpeg
+
+        # https://xiph.org/vorbis/
         vorbis-tools
 
-        scrcpy
+        #################################################################################
+        # Typesetting
+        #################################################################################
 
+        # https://www.tug.org/texlive/doc.html
         texliveSmall
-        pandoc
+
+        # https://github.com/typst/typst
+        typst
+
+        # https://github.com/Myriad-Dreamin/tinymist
+        tinymist
+
+        # https://github.com/Bzero/typstwriter
+        typstwriter
+
+        #################################################################################
+        # PDF
+        #################################################################################
+
+        # https://qpdf.readthedocs.io/en/stable/
         qpdf
 
+        # https://vslavik.github.io/diff-pdf/
+        diff-pdf
+
+        # https://ghostscript.readthedocs.io/en/latest/Use.html
+        ghostscript
+
+        #################################################################################
+        # DNS lookups
+        #################################################################################
+
+        # https://github.com/ogham/dog
+        dogdns
+
+        # https://github.com/ameshkov/dnslookup
+        dnslookup
+
+        #################################################################################
+        # Downloading files
+        #################################################################################
+
+        # https://everything.curl.dev
+        # https://www.mankier.com/1/curl
+        curl
+
+        # https://www.gnu.org/software/wget/manual/wget.html
+        wget
+
+        # https://rockdaboot.github.io/wget2/md_wget2_manual.html
+        wget2
+
+        # https://github.com/ducaale/xh#usage
+        xh
+
+        #################################################################################
+        # gRPC
+        #################################################################################
+
+        # https://github.com/fullstorydev/grpcurl?tab=readme-ov-file#usage
+        grpcurl
+
+        #################################################################################
+        # Syncing files
+        #################################################################################
+
+        # https://download.samba.org/pub/rsync/rsync.1
+        # https://www.mankier.com/1/rsync
+        rsync
+
+        # https://rclone.org
+        rclone
+
+        #################################################################################
+        # Others
+        #################################################################################
+
+        # https://www.gnu.org/software/stow/
+        stow
+
+        # https://docs.openssl.org/master/man1/openssl/
+        openssl
+
+        # https://restic.readthedocs.io/en/stable/
+        restic
+
+        # https://pandoc.org/MANUAL.html
+        pandoc
+
+        # https://github.com/Genymobile/scrcpy
+        scrcpy
+
+        # https://www.getzola.org/documentation/getting-started/cli-usage/
         zola
 
-        (ruby.withPackages (pks: with pks; [
-          nokogiri
-          pry
-          neovim
-        ]))
+        # https://github.com/sharkdp/hyperfine#usage
+        hyperfine
+
+        # https://docs.cointop.sh
+        cointop
+
+        # https://www.tcpdump.org/manpages/tcpdump.1.html
+        tcpdump
+
+        # https://github.com/tuxera/ntfs-3g
+        ntfs3g
+
+        # https://github.com/sharkdp/pastel?tab=readme-ov-file#use-cases-and-demo
+        pastel
+
+        # https://wiki.archlinux.org/title/Remmina
+        remmina
+
+        # https://infisical.com/docs/cli/usage
+        infisical
+
+        # https://graphviz.org
+        graphviz
       ])
 
-      ++
-      (with pkgs-pinned-unstable; [
-        deno
+      ++ (with pkgs-pinned-unstable; [
         myNeovim
+
+        # https://docs.deno.com
+        deno
+
+        #################################################################################
+        # Gleam
+        #################################################################################
+
+        # https://gleam.run/documentation/
         gleam
+
+        #################################################################################
+        # Erlang
+        #################################################################################
+
+        # https://www.erlang.org/doc/man_index.html
         beam.packages.erlang_27.erlang
+
+        # https://rebar3.org/docs/
         beam.packages.erlang_27.rebar3
+
+        hl
       ]);
   };
 
