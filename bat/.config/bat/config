@@ -1,0 +1,4 @@
+--theme="Monokai Extended"
+--italic-text=always
+--map-syntax ".ignore:Git Ignore"
+#--paging=never
