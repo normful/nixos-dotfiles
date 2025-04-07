@@ -60,7 +60,7 @@ return {
       '<LocalLeader>p',
       '<Cmd>lua require("telescope.builtin").oldfiles()<CR>',
       mode = { 'n', 't' },
-      desc = 'Find Previously Opened Files',
+      desc = 'Find prev open files',
     },
     {
       '<LocalLeader>f',
@@ -153,13 +153,13 @@ return {
       '<LocalLeader>k',
       '<Cmd>Telescope bookmarks<CR>',
       mode = { 'n', 't' },
-      desc = 'Search Vivaldi Bookmarks',
+      desc = 'Find Vivaldi bookmark',
     },
     {
       '<Leader>vh',
       '<Cmd>lua require("telescope.builtin").help_tags()<CR>',
       mode = 'n',
-      desc = 'Search Vim help',
+      desc = 'Find Vim help tag',
     },
     {
       '<Leader>vm',

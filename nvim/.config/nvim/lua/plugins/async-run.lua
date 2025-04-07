@@ -8,6 +8,7 @@ end
 return {
   'skywind3000/asyncrun.vim',
   config = configure_async_run,
+  event = 'VeryLazy',
   keys = {
     {
       '<Leader>tf',

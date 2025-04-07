@@ -23,7 +23,6 @@ local lazy_config = require('lazy-config')
 
 vim.g.base46_cache = vim.fn.stdpath('data') .. '/base46/'
 
--- load plugins
 require('lazy').setup({
   {
     'NvChad/NvChad',

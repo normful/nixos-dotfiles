@@ -5,15 +5,6 @@ return {
   },
   lazy = false,
   config = function()
-    vim.cmd([[command! NormfulGitBlame call normful#GitBlame()]])
-
-    vim.api.nvim_create_user_command('ToggleNvchadTerminal', function()
-      require('nvchad.term').toggle({ pos = 'sp', id = 'htoggleTerm' })
-    end, {
-      nargs = 0,
-      desc = 'Toggle NvChad term in hsplit',
-    })
-
     local alias_definitions = {
       { 'Vsp', 'vsp' },
       { 'Vps', 'vsp' },
