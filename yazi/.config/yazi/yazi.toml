@@ -1,0 +1,7 @@
+[manager]
+ratio = [ 2, 3, 3]
+linemode = "mtime"
+show_hidden = true
+
+[preview]
+image_filter = "catmull-rom"
