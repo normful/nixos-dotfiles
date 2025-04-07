@@ -4,16 +4,21 @@
 
 # `funced function_name` edits the file for the function.
 
-if status is-interactive
-    fish_vi_key_bindings
+set -U fish_greeting ""
 
-    set -x HISTFILE ~/.config/fish/hh.history
-    set -x HSTR_CONFIG hicolor,prompt-bottom
+if status is-interactive
+    set -g fish_key_bindings fish_vi_key_bindings
+    set --export HISTFILE ~/.config/fish/hh.history
+    set --export HSTR_CONFIG hicolor,prompt-bottom
+    set --export TELEMETRY_ENABLED false
 
     abbr --add c clear
     abbr --add q exit
 
     abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --git --sort time'
+
+    abbr --add man 'batman'
+    abbr --add catp 'prettybat'
 
     abbr --add d dirh
     abbr --add nd nextd
@@ -28,10 +33,8 @@ if status is-interactive
     abbr --add gl 'git l'
     abbr --add gs 'git s'
 
-    abbr --add v nvim
-    abbr --add vi nvim
-    abbr --add nv nvim
-    abbr --add vim nvim
+    abbr --add n "nvim"
+    abbr --add v "nvim"
 
     abbr --add em "nvim $HOME/code/nixos-dotfiles/macbook-pro-18-3-config.nix"
 
@@ -49,8 +52,28 @@ if status is-interactive
 
     abbr --add zs 'zola serve'
 
+    abbr --add dua 'dua interactive'
+
+    abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
+
+    abbr --add cf 'cargo fmt'
+    abbr --add cl 'cargo clippy'
+    abbr --add ck 'cargo check'
+
+    abbr --add cb 'cargo build'
+    abbr --add cbr 'cargo build --release'
+
+    abbr --add cr 'cargo run'
+    abbr --add crr 'cargo run --release'
+
+    abbr --add ct 'cargo test'
+    abbr --add ctn 'cargo test -- --nocapture'
+
+    abbr --add cdo 'cargo doc --open'
+
     fish_add_path --global "$HOME/code/dotfiles/bin"
     fish_add_path --global "$HOME/.codeium/windsurf/bin"
+    fish_add_path --global "$HOME/.cargo/bin"
 
     source "$HOME/.api_keys.fish"
 end
@@ -59,7 +82,7 @@ function __should_na --on-event fish_prompt
     echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> ~/.config/fish/hh.history
 end
 
-# Fixes order of $PATH entries in fish shell
+# Fixes order of $PATH entries in fish shell when using nix-darwin
 # Based on https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
 if test (uname) = Darwin
     fish_add_path --prepend --global "$HOME/.local/bin"
