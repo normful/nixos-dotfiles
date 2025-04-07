@@ -140,6 +140,9 @@ local function add_general_settings()
 
   -- Usually disable spellcheck because built-in dictionaries are unaware of various words and identifiers
   set('spell', false)
+
+  -- Only the last window will have a status line
+  set('laststatus', 3)
 end
 
 add_general_settings()
