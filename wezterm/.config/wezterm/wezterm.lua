@@ -89,7 +89,9 @@ config.keys = {
   -----------------------------------------
   -- Keyboard Mappings For Special Features
   -----------------------------------------
-  { mods = 'LEADER', key = 't', action = act.QuickSelect },
+
+  -- This is similar to Kitty terminal's "hints" kitten
+  { mods = 'CMD|SHIFT', key = 'h', action = act.QuickSelect },
 
   -- TODO(norman): Read https://wezfurlong.org/wezterm/scrollback.html#searching-the-scrollback and customize the search_mode key table
   { mods = 'CMD|SHIFT', key = 'W', action = wezterm.action.Search({ Regex = '[a-f0-9]{6,}' }) },
@@ -98,7 +100,6 @@ config.keys = {
   { mods = 'LEADER', key = '[', action = act.ActivateCopyMode },
 
   -- TODO(norman): Read https://wezfurlong.org/wezterm/config/launch.html#the-launcher-menu
-  -- TODO(norman): Read https://wezfurlong.org/wezterm/quickselect.html
 }
 
 config.key_tables = {
@@ -249,6 +250,10 @@ config.colors = {
       -- can also be used for `new_tab_hover`.
     },
   },
+  quick_select_label_bg = { AnsiColor = 'Grey' },
+  quick_select_label_fg = { AnsiColor = 'Olive' },
+  quick_select_match_bg = { AnsiColor = 'Grey' },
+  quick_select_match_fg = { AnsiColor = 'Silver' },
 }
 
 wezterm.on('update-right-status', function(window, pane)
@@ -335,5 +340,10 @@ config.enable_kitty_keyboard = true
 config.check_for_updates = false
 config.notification_handling = 'NeverShow'
 config.scrollback_lines = 100000
+
+local path_regex = [[~?(?:[-.\w]*/)+[-.\w]*]]
+local url_regex = [[https?://[^<>"\s{-}\^⟨⟩`│⏎]+]]
+local hash_regex = [=[[a-f\d]{4,}|[A-Z_]{4,}]=]
+config.quick_select_patterns = { path_regex, url_regex, hash_regex }
 
 return config
