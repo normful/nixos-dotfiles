@@ -50,6 +50,7 @@ if status is-interactive
     abbr --add zs 'zola serve'
 
     fish_add_path --global "$HOME/code/dotfiles/bin"
+    fish_add_path --global "$HOME/.codeium/windsurf/bin"
 
     source "$HOME/.api_keys.fish"
 end
