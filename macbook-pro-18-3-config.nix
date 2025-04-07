@@ -71,7 +71,7 @@ in
         coreutils-full
         findutils
         gnused
-        lsd
+        rip2
         bat
         openssl
         tcpdump
@@ -105,6 +105,7 @@ in
 
         htop
         gtop
+        bottom
 
         bats
 
@@ -119,6 +120,9 @@ in
         stylua
 
         hstr
+        hishtory
+        atuin
+
         zoxide
         fzf
 
@@ -129,6 +133,8 @@ in
 
         jq
 
+        lnav
+
         gcc
 
         go
@@ -138,7 +144,6 @@ in
         cobra-cli
 
         rustup
-        zola
 
         nodejs
         yarn
@@ -170,6 +175,8 @@ in
         texliveSmall
         pandoc
         qpdf
+
+        zola
 
         (ruby.withPackages (pks: with pks; [
           nokogiri
