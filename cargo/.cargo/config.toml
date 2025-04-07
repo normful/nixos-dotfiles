@@ -1,0 +1,76 @@
+# https://doc.rust-lang.org/cargo/reference/config.html
+
+[alias]
+
+# Build aliases
+b = "build"
+br = "build --release"
+bfd = "build --features development"
+
+# Run aliases
+r = "run"
+rr = "run --release"
+rfd = "run --features development"
+
+# Test aliases
+t = "test"
+tr = "test --release"
+ts = "test -- --test-threads=1 --nocapture"  # Run tests serially with output
+
+# Check aliases
+c = "check"
+cf = "check --features"
+cl = "clippy -- -W clippy::pedantic"
+
+# Documentation
+d = "doc"
+do = "doc --open"  # Build docs and open in browser
+dr = "doc --release"
+
+# Workspace management
+ws = "workspace"
+wst = "workspace test"
+wsb = "workspace build"
+
+# Advanced cleaning
+cleaner = "clean -p"  # Clean a specific package
+sweep = "+nightly clean -Z build-std"  # Full clean including std library
+
+# Custom workflow combinations
+dev = "watch --exec run"  # Requires cargo-watch
+tt = "watch --exec test"  # Watch and test
+
+# Dependency management
+outdated = "install cargo-outdated --locked && cargo outdated"
+upgrade = "upgrade --workspace"
+tree = "tree --charset=ascii"
+
+[build]
+incremental = true # https://doc.rust-lang.org/cargo/reference/profiles.html#incremental
+
+[cargo-new]
+vcs = "git" # VCS to use
+
+[doc]
+browser = "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
+
+[future-incompat-report]
+frequency = "always" # when to display a notification about a future incompat report
+
+[target.aarch64-apple-darwin]
+linker = "/usr/bin/cc" # To avoid using gcc at /run/current-system/sw/bin/cc
+rustflags = [
+  "-C", "link-arg=-undefined",
+  "-C", "link-arg=dynamic_lookup",
+  "-C", "target-cpu=apple-m1",
+  "-C", "opt-level=3",
+]
+
+[term]
+quiet = false          # whether cargo output is quiet
+verbose = false        # whether cargo provides verbose output
+color = 'auto'         # whether cargo colorizes output
+hyperlinks = true      # whether cargo inserts links into output
+unicode = true         # whether cargo can render output using non-ASCII unicode characters
+progress.when = 'auto' # whether cargo shows progress bar
+progress.width = 80    # width of progress bar
