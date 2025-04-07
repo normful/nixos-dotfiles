@@ -23,7 +23,7 @@ M.on_attach = function(client, bufnr)
   map('n', '<Leader>d', vim.lsp.buf.signature_help, opts('Signature'))
 
   -- Writing code
-  map('n', '<Leader>dia', require('telescope.builtin').diagnostics, opts('List diagnostics in buffer'))
+  map('n', '<Leader>di', require('telescope.builtin').diagnostics, opts('List diagnostics in buffer'))
   map('n', '<Leader>re', require('nvchad.lsp.renamer'), opts('Rename'))
   map({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts('Code action'))
 

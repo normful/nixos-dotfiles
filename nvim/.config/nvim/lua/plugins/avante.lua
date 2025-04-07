@@ -101,5 +101,12 @@ return {
       },
     },
   },
-  keys = { '<Leader>aa' },
+  keys = {
+    {
+      '<Leader>aa',
+      '<Cmd>AvanteAsk<CR>',
+      mode = 'n',
+      desc = 'Avante: ask',
+    },
+  },
 }

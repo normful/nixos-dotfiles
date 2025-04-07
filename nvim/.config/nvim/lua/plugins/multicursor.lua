@@ -9,7 +9,7 @@ return {
     local set = vim.keymap.set
 
     -- Add a cursor for all matches of cursor word/selection in the document
-    set({ 'n', 'x' }, '<Leader>mc', mc.matchAllAddCursors)
+    set({ 'n', 'x' }, '<Leader>mc', mc.matchAllAddCursors, { desc = 'Multi cursors for word under cursor' })
 
     -- Mappings defined in a keymap layer only apply when there are
     -- multiple cursors. This lets you have overlapping mappings
