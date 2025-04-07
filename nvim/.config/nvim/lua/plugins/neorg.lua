@@ -6,7 +6,7 @@ local function configure_neorg()
         config = {
           default_workspace = 'notes',
           index = 'Notes index.norg',
-          open_last_workspace = true,
+          open_last_workspace = false,
           workspaces = {
             notes = '~/code/notes',
           },
