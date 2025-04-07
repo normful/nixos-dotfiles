@@ -11,7 +11,8 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
   };
 
-  outputs = {
+  outputs =
+    {
       self,
       nixpkgs-stable,
       nixpkgs-pinned-unstable,
@@ -36,5 +37,6 @@
           };
         };
       };
+      formatter.aarch64-darwin = nixpkgs-stable.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
     };
 }
