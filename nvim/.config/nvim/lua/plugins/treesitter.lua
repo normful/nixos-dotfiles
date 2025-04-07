@@ -1,13 +1,20 @@
-local function configure_treesitter()
-  local configs = require('nvim-treesitter.configs')
-  configs.setup({
-    -- -----------------------------------------------
-    -- START OF nvim-treesitter/nvim-treesitter config
-    -- -----------------------------------------------
-    ensure_installed = {
+return {
+  'nvim-treesitter/nvim-treesitter',
+  dependencies = {
+    { 'nvim-treesitter/nvim-treesitter-textobjects', event = { 'BufReadPost', 'BufNewFile' } },
+    -- NOTE(norman): I'm not using nvim-treesitter/nvim-treesitter-refactor because none of it was useful to me
+  },
+  keys = {
+    { '<F3>', '<Cmd>InspectTree<CR>' },
+  },
+  opts = function(_, conf)
+    local languages_to_ensure_installed = {
       'bash',
+      'c',
+      'cpp',
       'css',
       'dockerfile',
+      'editorconfig',
       'erlang',
       'fish',
       'git_config',
@@ -21,36 +28,48 @@ local function configure_treesitter()
       'gomod',
       'gosum',
       'gotmpl',
+      'graphql',
+      'groovy',
+      'helm',
       'html',
+      'hurl',
       'java',
       'javascript',
       'jsdoc',
       'json',
       'json5',
+      'latex',
       'lua',
       'make',
-      'markdown',
+      'markdown_inline',
+      'nginx',
       'nix',
       'norg',
       'python',
       'regex',
+      'ron',
+      'ruby',
+      'rust',
       'scss',
       'sql',
+      'ssh_config',
       'svelte',
       'terraform',
       'toml',
       'tsx',
       'typescript',
+      'typst',
       'vim',
       'yaml',
-    },
-    sync_install = false,
-    auto_install = true,
-    ignore_install = {},
-    indent = {
-      enable = true,
-    },
-    incremental_selection = {
+    }
+    for _, lang in ipairs(languages_to_ensure_installed) do
+      table.insert(conf.ensure_installed, lang)
+    end
+    conf.sync_install = false
+    conf.auto_install = true
+    conf.ignore_install = {}
+    conf.indent = { enable = true }
+    conf.incremental_selection = {
       enable = true,
       keymaps = {
         -- NOTE(norman): This is very helpful and you should get used to using it more.
@@ -58,22 +77,21 @@ local function configure_treesitter()
         node_incremental = '<Space>',
         node_decremental = '<BS>',
       },
-    },
-    modules = {},
-    highlight = {
-      enable = true,
-      custom_captures = {
-        ['property_identifier'] = 'TSProperty', -- Highlight the @property_identifier capture group with the "TSProperty" highlight group
-      },
-    },
-    -- -----------------------------------------------
-    -- END OF nvim-treesitter/nvim-treesitter config
-    -- -----------------------------------------------
+    }
+    conf.highlight.custom_captures = {
+      ['property_identifier'] = 'TSProperty', -- Highlight the @property_identifier capture group with the "TSProperty" highlight group
+    }
 
-    textobjects = {
+    -- Disable slow treesitter highlight for large files
+    conf.highlight.disable = function(lang, buf)
+      local max_filesize = 100 * 1024 -- 100 KB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+    end
 
-      -- If you want to repeat some of these, consider using https://github.com/ghostbuster91/nvim-next
-
+    conf.textobjects = {
       select = {
         enable = true,
         lookahead = true,
@@ -115,37 +133,18 @@ local function configure_treesitter()
         include_surrounding_whitespace = false,
       },
       swap = {
-        enable = false,
-        -- Not sure why these are not working...
-        -- so I'm disabling for now
+        enable = true,
         swap_next = {
-          ['<Leader>p]'] = '@parameter.inner',
-          ['<Leader>wf'] = '@function.outer',
+          ['<Leader>sp'] = '@parameter.inner',
+          ['<Leader>sf'] = '@function.outer',
         },
         swap_previous = {
-          ['<Leader>p['] = '@parameter.inner',
-          ['<Leader>wr'] = '@function.outer',
+          ['<Leader>sP'] = '@parameter.inner',
+          ['<Leader>sF'] = '@function.outer',
         },
       },
-    },
-  })
-end
+    }
 
-return {
-  'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      lazy = false,
-    },
-
-    -- NOTE(norman): I'm purposely not using nvim-treesitter/nvim-treesitter-refactor because none of it was useful to me
-  },
-  keys = {
-    { '<F3>', '<Cmd>InspectTree<CR>' },
-  },
-  build = ':TSUpdate',
-  config = configure_treesitter,
-  lazy = false,
-  priority = 100,
+    return conf
+  end,
 }

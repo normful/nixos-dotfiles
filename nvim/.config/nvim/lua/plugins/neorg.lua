@@ -1,5 +1,7 @@
-local function configure_neorg()
-  require('neorg').setup({
+return {
+  'nvim-neorg/neorg',
+  cmd = 'Neorg',
+  opts = {
     load = {
       ['core.defaults'] = {},
       ['core.dirman'] = {
@@ -66,11 +68,5 @@ local function configure_neorg()
       },
       --]]
     },
-  })
-end
-
-return {
-  'nvim-neorg/neorg',
-  config = configure_neorg,
-  lazy = false,
+  },
 }

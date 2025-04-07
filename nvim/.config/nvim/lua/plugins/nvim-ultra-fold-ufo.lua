@@ -25,72 +25,57 @@ local function fold_virt_text_handler(virtText, lnum, endLnum, width, truncate)
   return newVirtText
 end
 
-local function configure_nvim_ufo()
-  local set = require('utils').set
-
-  set('foldcolumn', '0')
-  set('foldlevel', 99)
-  set('foldlevelstart', 99)
-  set('foldenable', true)
-
-  local ufo = require('ufo')
-  ufo.setup({
+return {
+  'kevinhwang91/nvim-ufo',
+  dependencies = {
+    { 'kevinhwang91/promise-async' },
+  },
+  event = 'VeryLazy',
+  init = function()
+    local opt = vim.opt_global
+    opt.foldcolumn = '0'
+    opt.foldlevel = 99
+    opt.foldlevelstart = 99
+    opt.foldenable = true
+  end,
+  opts = {
     provider_selector = function()
       return { 'treesitter', 'indent' }
     end,
     fold_virt_text_handler = fold_virt_text_handler,
-  })
-end
-
-return {
-  'kevinhwang91/nvim-ufo',
-  dependencies = {
-    { 'kevinhwang91/promise-async', event = 'VeryLazy' },
   },
-  lazy = false,
-  enabled = false,
-  config = configure_nvim_ufo,
-
-  -- See `:h fold` docs for more folding basics
   keys = {
-    {
-      'zR',
-      function()
-        require('ufo').openAllFolds()
-      end,
-    },
-    {
-      'zM',
-      function()
-        require('ufo').closeAllFolds()
-      end,
-    },
+    -- See `:h fold` docs for more folding basics
+    { '~', 'za', desc = 'Toggle fold under cursor' },
+    { 'za', desc = 'Toggle fold under cursor' },
+    { 'zA', desc = 'Recursively toggle folds under cursor' },
+
+    { 'zo', desc = 'Open fold under cusor' },
+    { 'zc', desc = 'Close fold under cursor ' },
+
+    { 'zO', desc = 'Open folds under cursor recursively' },
+    { 'zC', desc = 'Close folds under cursor recursively' },
 
     {
       'zr',
-      function()
-        require('ufo').openFoldsExceptKinds()
-      end,
+      "<Cmd>lua require('ufo').openFoldsExceptKinds()<CR>",
+      desc = 'Open folds',
+    },
+    { 'zm', "<Cmd>lua require('ufo').closeFoldsWith()<CR>", desc = 'Close folds with' },
+
+    {
+      'zR',
+      "<Cmd>lua require('ufo').openAllFolds()<CR>",
+      desc = 'Open all folds, keeping foldlevel',
     },
     {
-      'zm',
-      function()
-        require('ufo').closeFoldsWith()
-      end,
+      'zM',
+      "<Cmd>lua require('ufo').closeAllFolds()<CR>",
+      desc = 'Close all folds, keeping foldlevel',
     },
 
-    { '~', 'za', desc = 'toggle' },
-    { 'za' },
-    { 'zA' },
-
-    { 'zo' },
-    { 'zc' },
-
-    { 'zO' },
-    { 'zC' },
-
-    { '[z' },
-    { ']z' },
+    { '[z', desc = 'Go to start of current open fold' },
+    { ']z', desc = 'Go to end of current open fold' },
 
     {
       'zp',

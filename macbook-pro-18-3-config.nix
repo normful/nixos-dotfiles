@@ -2,6 +2,8 @@
 
 let
   myNeovim = pkgs-pinned-unstable.neovim.override {
+    # https://github.com/NixOS/nixpkgs/blob/f8b8860d1bbd654706ae21017bd8da694614c440/doc/languages-frameworks/neovim.section.md
+
     withPython3 = true;
     withNodeJs = true;
     withRuby = true;
@@ -9,7 +11,9 @@ let
     vimAlias = true;
     viAlias = true;
 
-    configure = (import ./nix-nvim/nvim.nix { pkgs = pkgs-pinned-unstable; nixpkgs = nixpkgs-pinned-unstable; });
+    configure = {
+      customRC = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
+    };
   };
 in
 {
