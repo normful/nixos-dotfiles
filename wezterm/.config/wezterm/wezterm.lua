@@ -25,6 +25,7 @@ config.keys = {
   { mods = 'LEADER', key = 's', action = act.SplitVertical({ domain = 'CurrentPaneDomain' }) },
 
   -- Panes: activate
+  { mods = 'LEADER|CTRL', key = 'a', action = act.ActivatePaneDirection('Next') }, -- CTRL-a CTRL-a
   { mods = 'LEADER', key = 'h', action = act.ActivatePaneDirection('Left') },
   { mods = 'LEADER', key = 'j', action = act.ActivatePaneDirection('Down') },
   { mods = 'LEADER', key = 'k', action = act.ActivatePaneDirection('Up') },
@@ -153,7 +154,6 @@ local fav_color_schemes = {
   'Sea Shells (Gogh)',
   'Sequoia Moonlight',
   'Spacedust',
-  'Sugarplum',
   'Tokyo Night',
   'Navy and Ivory (terminal.sexy)',
 }
