@@ -49,9 +49,9 @@ if status is-interactive
 
     abbr --add zs 'zola serve'
 
-    source ~/.open_ai_api_key.fish
-
     fish_add_path --global "$HOME/code/dotfiles/bin"
+
+    source "$HOME/.api_keys.fish"
 end
 
 function __should_na --on-event fish_prompt
