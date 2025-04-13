@@ -196,6 +196,7 @@ in
         # https://github.com/Byron/dua-cli/
         dua
 
+        # https://yazi-rs.github.io/docs/quick-start
         yazi
 
         #################################################################################
