@@ -82,14 +82,62 @@ return {
       ['property_identifier'] = 'TSProperty', -- Highlight the @property_identifier capture group with the "TSProperty" highlight group
     }
 
-    -- Disable slow treesitter highlight for large files
-    conf.highlight.disable = function(lang, buf)
-      local max_filesize = 100 * 1024 -- 100 KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
+    local MAX_LINE_LENGTH = 200 -- Lines longer than this will trigger disabling
+    local MAX_CHECK_LINES = 500 -- Check only the first N lines for performance
+    local MAX_FILE_SIZE_MB = 1 -- Disable entirely for files larger than this (in MB)
+
+    -- The function that decides whether to disable Treesitter for a buffer
+    local function should_disable_treesitter(lang, bufnr)
+      local file_name = vim.api.nvim_buf_get_name(bufnr)
+
+      -- unnamed/temporary buffers
+      if file_name == '' or file_name == nil then
+        return false
+      end
+
+      if string.sub(file_name, -7) == '.min.js' then
+        vim.schedule(function()
+          vim.notify('Treesitter disabled for minified JS file', vim.log.levels.WARN, { title = 'Treesitter Performance' })
+        end)
         return true
       end
+
+      local file_size_limit_bytes = MAX_FILE_SIZE_MB * 1024 * 1024
+      local ok, stat = pcall(vim.loop.fs_stat, file_name)
+      if ok and stat and stat.size > file_size_limit_bytes then
+        vim.schedule(function()
+          vim.notify(
+            string.format('Treesitter disabled for large file (> %d MB)', MAX_FILE_SIZE_MB),
+            vim.log.levels.WARN,
+            { title = 'Treesitter Performance' }
+          )
+        end)
+        return true
+      end
+
+      local line_count = vim.api.nvim_buf_line_count(bufnr)
+      local lines = vim.api.nvim_buf_get_lines(bufnr, 0, math.min(MAX_CHECK_LINES, line_count), false)
+
+      -- Loop through the lines (won't run if lines table is empty)
+      for i, line in ipairs(lines) do
+        if #line > MAX_LINE_LENGTH then
+          -- Found a long line, notify and disable
+          vim.schedule(function()
+            vim.notify(
+              string.format('Treesitter disabled (line %d > %d chars)', i, MAX_LINE_LENGTH),
+              vim.log.levels.WARN,
+              { title = 'Treesitter Performance' }
+            )
+          end)
+          return true
+        end
+      end
+
+      -- If none of the above disabling conditions were met, allow Treesitter
+      return false
     end
+
+    conf.highlight.disable = should_disable_treesitter
 
     conf.textobjects = {
       select = {
