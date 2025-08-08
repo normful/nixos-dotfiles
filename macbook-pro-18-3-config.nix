@@ -567,7 +567,10 @@ in
       ])
 
       ++ (with pkgs-pinned-unstable; [
-        myNeovim
+
+        # https://docs.helix-editor.com/usage.html
+        # https://github.com/helix-editor/helix/wiki/Migrating-from-Vim
+        helix
 
         # https://docs.deno.com
         deno
