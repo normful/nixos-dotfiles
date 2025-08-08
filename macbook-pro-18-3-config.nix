@@ -7,7 +7,7 @@
 }:
 
 let
-  myNeovim = pkgs-pinned-unstable.neovim.override {
+  unstableNeovim = pkgs-pinned-unstable.neovim.override {
     # https://github.com/NixOS/nixpkgs/blob/f8b8860d1bbd654706ae21017bd8da694614c440/doc/languages-frameworks/neovim.section.md
 
     withPython3 = true;
@@ -21,7 +21,7 @@ let
       customRC = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
     };
   };
-  hl = pkgs-pinned-unstable.rustPlatform.buildRustPackage rec {
+  unstableHl = pkgs-pinned-unstable.rustPlatform.buildRustPackage rec {
     pname = "hl";
     version = "0.30.4";
 
@@ -567,6 +567,10 @@ in
       ])
 
       ++ (with pkgs-pinned-unstable; [
+        unstableNeovim
+
+        # https://github.com/pamburus/hl
+        unstableHl
 
         # https://docs.helix-editor.com/usage.html
         # https://github.com/helix-editor/helix/wiki/Migrating-from-Vim
@@ -591,8 +595,6 @@ in
 
         # https://rebar3.org/docs/
         beam.packages.erlang_27.rebar3
-
-        hl
       ]);
   };
 
