@@ -7,8 +7,8 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/388129ef194a9898401d9e9f9453d0945b1a0d85";
 
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
   };
 
   outputs =
@@ -16,10 +16,10 @@
       self,
       nixpkgs-stable,
       nixpkgs-pinned-unstable,
-      darwin,
+      nix-darwin,
     }:
     {
-      darwinConfigurations.macbook-pro-18-3 = darwin.lib.darwinSystem rec {
+      darwinConfigurations.macbook-pro-18-3 = nix-darwin.lib.darwinSystem rec {
         system = "aarch64-darwin";
         modules = [
           ./macbook-pro-18-3-config.nix
