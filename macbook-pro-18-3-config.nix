@@ -21,34 +21,6 @@ let
       customRC = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
     };
   };
-  unstableHl = pkgs-pinned-unstable.rustPlatform.buildRustPackage rec {
-    pname = "hl";
-    version = "0.30.4";
-
-    src = pkgs-pinned-unstable.fetchFromGitHub {
-      owner = "pamburus";
-      repo = pname;
-      rev = "v${version}";
-
-      # hash initially obtained from running:
-      # nix-prefetch-github pamburus hl --rev v0.30.4
-      hash = "sha256-xnw0C2UI3bvWqcHXwLdrrpPgZwlkN5LL+1rUPYhX5fY=";
-    };
-
-    cargoLock = {
-      lockFile = "${src}/Cargo.lock";
-      outputHashes = {
-        "htp-0.4.2" = "sha256-oYLN0aCLIeTST+Ib6OgWqEgu9qyI0n5BDtIUIIThLiQ=";
-        "wildflower-0.3.0" = "sha256-vv+ppiCrtEkCWab53eutfjHKrHZj+BEAprV5by8plzE=";
-      };
-    };
-
-    meta = {
-      homepage = "https://github.com/pamburus/hl";
-      license = pkgs-pinned-unstable.lib.licenses.mit;
-      maintainers = [ ];
-    };
-  };
 in
 {
   imports = [ ];
@@ -415,6 +387,9 @@ in
         # https://docs.lnav.org/en/latest/index.html
         lnav
 
+        # https://github.com/pamburus/hl
+        hl-log-viewer
+
         #################################################################################
         # UML Diagrams
         #################################################################################
@@ -569,9 +544,6 @@ in
       ++ (with pkgs-pinned-unstable; [
         unstableNeovim
 
-        # https://github.com/pamburus/hl
-        unstableHl
-
         # https://docs.helix-editor.com/usage.html
         # https://github.com/helix-editor/helix/wiki/Migrating-from-Vim
         helix
@@ -591,10 +563,20 @@ in
         #################################################################################
 
         # https://www.erlang.org/doc/man_index.html
-        beam.packages.erlang_27.erlang
+        beam.packages.erlang_28.erlang
 
         # https://rebar3.org/docs/
-        beam.packages.erlang_27.rebar3
+        beam.packages.erlang_28.rebar3
+
+        #################################################################################
+        # AI Coding Agents
+        #################################################################################
+
+        # https://docs.anthropic.com/en/docs/claude-code/overview
+        claude-code
+
+        # https://github.com/charmbracelet/crush
+        crush
       ]);
   };
 
