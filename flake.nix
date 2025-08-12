@@ -5,7 +5,10 @@
     # Docs: https://github.com/NixOS/nix/blob/master/src/nix/flake.md#flake-references
 
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
-    nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/388129ef194a9898401d9e9f9453d0945b1a0d85";
+
+    # To get latest unstable commit, run:
+    # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
+    nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/4e942f9ef5b35526597c354d1ded817d1c285ef1";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";
