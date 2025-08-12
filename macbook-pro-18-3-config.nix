@@ -606,7 +606,6 @@ in
 
   services = {
     nix-daemon = {
-      enable = true;
       logFile = "/var/log/nix-daemon.log";
     };
   };
@@ -640,12 +639,16 @@ in
       };
     };
 
-    activationScripts.postUserActivation.text = ''
-      defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-      defaults write com.apple.finder WarnOnEmptyTrash -bool false
-      defaults write com.apple.screensaver askForPassword -int 1
-      defaults write com.apple.screensaver askForPasswordDelay -int 0
-      defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
-    '';
+    activationScripts = {
+      setAppleDefaults.text = ''
+        defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+        defaults write com.apple.finder WarnOnEmptyTrash -bool false
+        defaults write com.apple.screensaver askForPassword -int 1
+        defaults write com.apple.screensaver askForPasswordDelay -int 0
+        defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
+      '';
+    };
+
+    primaryUser = "norman";
   };
 }
