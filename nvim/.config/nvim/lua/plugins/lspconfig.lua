@@ -33,7 +33,10 @@ local function configure_lspconfig()
     capabilities = lsp_completion_client_capabilities,
   }
 
-  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+  -- See https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+  -- for all language servers you can configure below.
+  -- Configuring will result in installation because of `automatic_installation = true` above.
+  --
   -- Structure: server_name = { specific_options }
   -- Use an empty table {} for servers using only default options.
   local language_servers = {
@@ -62,6 +65,10 @@ local function configure_lspconfig()
 
     -- Gleam
     gleam = {},
+
+    -- PHP
+    intelephense = {},
+    -- Purposely not using: psalm, phpactor
 
     -- Disabled to avoid conflict with rustaceanvim
     -- rust_analyzer = {},

@@ -6,6 +6,7 @@ return {
   ---@module "conform"
   ---@type conform.setupOpts
   opts = {
+    -- https://github.com/stevearc/conform.nvim#formatters
     -- https://github.com/stevearc/conform.nvim/tree/master/lua/conform/formatters
     formatters_by_ft = {
       lua = { 'stylua' },
@@ -20,10 +21,11 @@ return {
       css = { 'prettierd', 'stylelint' },
       scss = { 'prettierd', 'stylelint' },
       ruby = { 'rubocop', 'rubyfmt' },
+      php = { 'pint' },
       python = { 'black' },
       go = { 'gofmt', 'goimports' },
       gleam = { 'gleam' },
-      rust = {}, -- To avoid conflicting "https://github.com/mantoni/eslint_d.jswith rustaceanvim
+      rust = {}, -- To avoid conflicting https://github.com/mantoni/eslint_d.jswith rustaceanvim
       -- For all filetypes:
       ['*'] = { 'trim_newlines', 'trim_whitespace' },
       -- For filetypes that don't have other formatters configured:
