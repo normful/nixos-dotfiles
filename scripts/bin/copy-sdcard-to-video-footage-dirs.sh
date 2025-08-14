@@ -1,7 +1,7 @@
 #!/run/current-system/sw/bin/bash
 
 # --- Script Globals & Configuration ---
-DEFAULT_SOURCE_DIR="/Volumes/extreme512/DCIM/Camera01"
+DEFAULT_SOURCE_DIR="/Volumes/extreme512/DCIM/Camera03"
 DEST_BASE_DIR="$HOME/Videos/Raw-Footage"
 DEFAULT_DESC_WORD="Footage"
 MIN_RSYNC_MAJOR=3
