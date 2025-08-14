@@ -339,6 +339,15 @@ in
         stylua
 
         #################################################################################
+        # PHP
+        #################################################################################
+
+        php
+        php84Packages.composer
+        intelephense
+        php84Extensions.xdebug
+
+        #################################################################################
         # Regular expressions
         #################################################################################
 
@@ -574,6 +583,9 @@ in
 
         # https://docs.anthropic.com/en/docs/claude-code/overview
         claude-code
+
+        # https://github.com/google-gemini/gemini-cli#-documentation
+        gemini-cli
 
         # https://github.com/charmbracelet/crush
         crush
