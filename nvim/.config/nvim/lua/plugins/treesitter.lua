@@ -45,6 +45,7 @@ return {
       'nginx',
       'nix',
       'norg',
+      'php',
       'python',
       'regex',
       'ron',
