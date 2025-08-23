@@ -90,3 +90,6 @@ if test (uname) = Darwin
     fish_add_path --prepend --global /run/current-system/sw/bin
     fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
 end
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
