@@ -28,77 +28,24 @@ return {
     behaviour = {
       auto_suggestions = true,
       auto_apply_diff_after_generation = true,
-      jump_result_buffer_on_finish = true,
       support_paste_from_clipboard = true,
+      auto_approve_tool_permissions = true,
     },
 
+    auto_suggestions_provider = 'aihubmix',
+    memory_summary_provider = 'aihubmix',
     provider = 'aihubmix',
 
-    auto_suggestions_provider = 'claude',
-
-    copilot = {
-      model = 'claude-3.5-sonnet',
-    },
-
-    gemini = {
-      model = 'gemini-2.0-flash-exp',
-      -- model = 'gemini-2.0-flash-thinking-exp-1219',
-    },
-
-    openai = {
-      model = 'gpt-4o-mini',
+    providers = {
+      aihubmix = {
+        model = 'Qwen3-Coder', -- $2.16/M output tokens
+        -- model = 'qwen3-coder-plus-2025-07-22', -- $1.08/M output tokens
+        -- model = 'qwen3-coder-480b-a35b-instruct', -- $5.6/M output tokens
+      },
     },
 
     file_selector = {
       provider = 'telescope',
-    },
-
-    vendors = {
-      aihubmix = {
-        __inherited_from = 'openai',
-        endpoint = 'https://api.mistral.ai/v1',
-        api_key_name = 'AIHUBMIX_API_KEY',
-        model = 'gpt-4o-mini',
-        -- model = 'gemini-2.0-pro-exp-02-05',
-        -- model = "o1-preview",
-        -- model = 'claude-3-5-sonnet-latest',
-      },
-      mistral = {
-        __inherited_from = 'openai',
-        endpoint = 'https://api.mistral.ai/v1',
-        api_key_name = 'MISTRAL_API_KEY',
-        model = 'codestral-latest',
-      },
-      openrouter = {
-        __inherited_from = 'openai',
-        endpoint = 'https://openrouter.ai/api/v1',
-        api_key_name = 'OPENROUTER_API_KEY',
-        model = '',
-      },
-      ollama = {
-        __inherited_from = 'openai',
-        api_key_name = '',
-        endpoint = 'http://localhost:11434/v1',
-        model = 'phi4:14b-fp16',
-      },
-      mlc = {
-        __inherited_from = 'openai',
-        api_key_name = '',
-        endpoint = 'http://localhost:8000/v1',
-        model = 'qwen2.5-coder:32b',
-      },
-      groq = {
-        __inherited_from = 'openai',
-        api_key_name = 'GROQ_API_KEY',
-        endpoint = 'https://api.groq.com/openai/v1/',
-        model = 'deepseek-r1-distill-llama-70b',
-      },
-      perplexity = {
-        __inherited_from = 'openai',
-        api_key_name = 'PPLX_API_KEY',
-        endpoint = 'https://api.perplexity.ai',
-        model = 'llama-3.1-sonar-large-128k-online',
-      },
     },
   },
   keys = {
