@@ -47,8 +47,6 @@ in
   };
 
   nixpkgs = {
-    # The configuration of the Nix Packages collection. (For details, see the Nixpkgs documentation.)
-    # This allows you to set package configuration options, and to override packages globally through the packageOverrides option.
     config = {
       allowUnfree = true;
     };
@@ -86,10 +84,10 @@ in
 
         # https://www.gnu.org/software/coreutils/manual/html_node/index.html
         # https://www.mankier.com/package/coreutils-common
-        # coreutils-full
+        coreutils-full
 
         # https://uutils.github.io/coreutils/docs/
-        uutils-coreutils-noprefix
+        # uutils-coreutils-noprefix
 
         killall
 
@@ -117,19 +115,30 @@ in
         # https://github.com/dalance/procs#usage
         procs
 
-        # Others I tried and don't like so much
-        # https://clementtsang.github.io/bottom/nightly/usage/general-usage/
-        # https://github.com/aksakalli/gtop
-        # https://github.com/bvaisvil/zenith
-        # https://github.com/xxxserxxx/gotop
+        /*
+          Others I tried and don't like so much
+          https://clementtsang.github.io/bottom/nightly/usage/general-usage/
+          https://github.com/aksakalli/gtop
+          https://github.com/bvaisvil/zenith
+          https://github.com/xxxserxxx/gotop
+        */
 
         #################################################################################
         # Shells
         #################################################################################
 
+        # https://fishshell.com/docs/current/interactive.html
         fish
 
+        # https://xon.sh/tutorial.html
+        # Examples of .xsh code: https://github.com/search?q=language%3AXonsh&type=code
         xonsh
+
+        /*
+          Aim to use:
+          fish for interactive usage
+          xonsh for scripting
+        */
 
         #################################################################################
         # Shell history
@@ -286,7 +295,7 @@ in
         rustup
 
         #################################################################################
-        # Node.js
+        # Node.js, JavaScript
         #################################################################################
 
         nodejs
@@ -344,8 +353,8 @@ in
 
         php
         php84Packages.composer
-        intelephense
         php84Extensions.xdebug
+        intelephense
 
         #################################################################################
         # Regular expressions
@@ -430,7 +439,7 @@ in
         vorbis-tools
 
         #################################################################################
-        # Typesetting
+        # Typesetting (TeX, LaTeX, Typst)
         #################################################################################
 
         # https://www.tug.org/texlive/doc.html
@@ -445,18 +454,41 @@ in
         # https://github.com/Bzero/typstwriter
         typstwriter
 
+        # https://pandoc.org/MANUAL.html
+        pandoc
+
         #################################################################################
         # PDF
         #################################################################################
 
+        # https://ghostscript.readthedocs.io/en/latest/Use.html
+        ghostscript
+
         # https://qpdf.readthedocs.io/en/stable/
         qpdf
 
+        /*
+          Use Ghostscript when:
+
+          Converting PDFs to images or other formats
+          Processing PostScript files
+          Need aggressive compression for web delivery
+          Working with mixed document types
+          Dealing with rendering-related issues
+
+          Use qpdf when:
+
+          Need to preserve exact PDF structure and quality
+          Performing encryption/security operations
+          Splitting, merging, or reorganizing pages frequently
+          Need detailed PDF inspection and debugging
+          Working with large files where performance matters
+          Repairing corrupted PDFs
+        */
+
+        # GUI to visually diff PDFs
         # https://vslavik.github.io/diff-pdf/
         diff-pdf
-
-        # https://ghostscript.readthedocs.io/en/latest/Use.html
-        ghostscript
 
         #################################################################################
         # DNS lookups
@@ -507,6 +539,23 @@ in
         lftp
 
         #################################################################################
+        # Screen sharing
+        #################################################################################
+
+        # https://github.com/Genymobile/scrcpy
+        scrcpy
+
+        # https://wiki.archlinux.org/title/Remmina
+        remmina
+
+        #################################################################################
+        # Secrets management
+        #################################################################################
+
+        # https://infisical.com/docs/cli/usage
+        infisical
+
+        #################################################################################
         # Others
         #################################################################################
 
@@ -519,11 +568,8 @@ in
         # https://restic.readthedocs.io/en/stable/
         restic
 
-        # https://pandoc.org/MANUAL.html
-        pandoc
-
-        # https://github.com/Genymobile/scrcpy
-        scrcpy
+        # https://github.com/abiosoft/colima#usage
+        colima
 
         # https://www.getzola.org/documentation/getting-started/cli-usage/
         zola
@@ -540,14 +586,8 @@ in
         # https://github.com/tuxera/ntfs-3g
         ntfs3g
 
-        # https://github.com/sharkdp/pastel?tab=readme-ov-file#use-cases-and-demo
+        # https://github.com/sharkdp/pastel#use-cases-and-demo
         pastel
-
-        # https://wiki.archlinux.org/title/Remmina
-        remmina
-
-        # https://infisical.com/docs/cli/usage
-        infisical
 
         # https://graphviz.org
         graphviz
@@ -556,12 +596,15 @@ in
       ++ (with pkgs-pinned-unstable; [
         unstableNeovim
 
-        # https://docs.helix-editor.com/usage.html
-        # https://github.com/helix-editor/helix/wiki/Migrating-from-Vim
-        helix
+        #################################################################################
+        # Other TypeScript and JavaScript runtimes
+        #################################################################################
 
         # https://docs.deno.com
         deno
+
+        # https://bun.sh
+        bun
 
         #################################################################################
         # Gleam
@@ -589,6 +632,9 @@ in
 
         # https://github.com/google-gemini/gemini-cli#-documentation
         gemini-cli
+
+        # https://github.com/QwenLM/qwen-code
+        qwen-code
 
         # https://github.com/charmbracelet/crush
         crush
