@@ -1,0 +1,86 @@
+## General Settings
+set cmd:default-protocol ftp
+set cmd:interactive yes
+set cmd:verify-host yes
+set cmd:verify-path yes
+
+## Connection Settings
+set net:timeout 30
+set net:max-retries 3
+set net:reconnect-interval-base 5
+set net:reconnect-interval-max 300
+set net:connection-limit 10
+
+## FTP Specific Settings
+set ftp:passive-mode yes
+set ftp:prefer-epsv no
+set ftp:use-feat yes
+set ftp:use-mlsd yes
+set ftp:use-mdtm yes
+set ftp:use-size yes
+set ftp:ssl-allow yes
+set ftp:ssl-force yes
+set ftp:ssl-protect-data yes
+set ftp:ssl-protect-list yes
+
+## SFTP Settings
+set sftp:auto-confirm yes
+set sftp:connect-program "ssh -a -x"
+set sftp:server-program "sftp-server"
+
+## HTTP Settings
+set http:user-agent "lftp"
+set http:accept "*/*"
+
+## SSL/TLS Settings
+set ssl:verify-certificate yes
+set ssl:check-hostname yes
+
+## Performance Settings
+set cmd:parallel 3
+set mirror:parallel-transfer-count 3
+set mirror:parallel-directories yes
+set cmd:queue-parallel 3
+
+## Transfer Settings
+set xfer:clobber yes
+set xfer:auto-rename no
+set xfer:verify yes
+set xfer:verify-command ""
+
+set mirror:exclude-regex "\\.git|\\.gitattributes|\\.gitignore|\\.(glb|md|json|DS_Store|env|tmp|temp|log|bak|sh|txt)$"
+
+set mirror:use-pget-n 5
+set mirror:order name
+
+## Display Settings
+set cmd:ls-default "-la"
+set cmd:show-status yes
+set cmd:status-interval 1
+set color:use-color auto
+
+## Progress Settings
+set cmd:move-background yes
+set cmd:at-exit ""
+
+## Aliases
+alias dir ls -la
+alias ll ls -la
+alias la ls -la
+alias .. cd ..
+alias ... cd ../..
+alias exit quit
+
+## Bookmarks (examples - customize as needed)
+# bookmark myserver ftp://username@ftp.example.com
+# bookmark mysftp sftp://username@sftp.example.com
+
+## Site-specific settings (examples)
+# set ftp:ssl-force yes/ftp.example.com
+# set net:timeout 60/slow-server.com
+# set ftp:passive-mode no/problem-server.com
+
+## Debug settings (uncomment for troubleshooting)
+# debug 3
+# set log:enabled yes
+# set log:file "~/.lftp/log"
