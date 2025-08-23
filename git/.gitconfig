@@ -315,7 +315,7 @@
     # ---------------------------------------------------------------------------------------------------------------------
 
     # cherry pick
-    cp  = cherry-pick -x -s --gpg-sign
+    cp  = cherry-pick -x -s # --gpg-sign TODO(norman): Fix MacBoook GPG configuration
 
     # cherry pick changes and stage them, but don't commit
     cpn = cherry-pick -n
