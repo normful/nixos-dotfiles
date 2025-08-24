@@ -7,12 +7,13 @@
 }:
 
 {
-  imports = [ ];
-
   system.stateVersion = 4;
 
   nix = {
     package = pkgs-stable.nixVersions.latest;
+    settings = {
+      max-jobs = 10; # Apple M1 Pro has 10 CPU cores (8 performance + 2 efficiency)
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -23,7 +24,7 @@
     '';
     gc = {
       automatic = true;
-      options = "--delete-older-than 600d";
+      options = "--delete-older-than 30d";
     };
     optimise = {
       automatic = true;
@@ -34,10 +35,6 @@
     config = {
       allowUnfree = true;
     };
-
-    # List of overlays to use with the Nix Packages collection.
-    # This overrides packages globally.
-    overlays = [ ];
   };
 
   networking = {
@@ -90,17 +87,62 @@
         AppleShowAllFiles = true;
         AppleShowScrollBars = "Automatic";
         AppleTemperatureUnit = "Celsius";
+        AppleWindowTabbingMode = "always";
 
         # You can use https://mac-key-repeat.zaymon.dev to preview these settings without a restart
         InitialKeyRepeat = 8;
         KeyRepeat = 2;
       };
 
+      dock = {
+        appswitcher-all-displays = true;
+        autohide = true;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 0.5;
+        expose-animation-duration = 0.1;
+        mineffect = "scale";
+        minimize-to-application = true;
+        mouse-over-hilite-stack = false;
+        mru-spaces = false;
+        persistent-apps = [
+          "/Applications/WezTerm.app"
+          "/Applications/Vivaldi.app"
+          "/Applications/Notion.app"
+          "/Applications/Notion Calendar.app"
+          "/Applications/Claude.app"
+          "/Applications/ChatGPT.app"
+          "/Applications/KeePassXC.app"
+          "/Applications/LINE.app"
+          "/Applications/DeepL.app"
+          "/Applications/Google Chrome.app"
+          "/Applications/Firefox.app"
+          "/Applications/Insta360 Studio.app"
+          "/Applications/FileZilla.app"
+          "/System/Applications/System Settings.app"
+        ];
+        show-process-indicators = true;
+        show-recents = false;
+        tilesize = 48;
+        wvous-br-corner = 13; # Hot corner action for bottom right corner: Lock Screen
+      };
+
       finder = {
         AppleShowAllExtensions = true;
         AppleShowAllFiles = true;
+        CreateDesktop = false;
         FXEnableExtensionChangeWarning = true;
         _FXShowPosixPathInTitle = true;
+      };
+
+      spaces = {
+        spans-displays = false;
+      };
+
+      WindowManager = {
+        EnableStandardClickToShowDesktop = false;
+        EnableTiledWindowMargins = false;
+        EnableTopTilingByEdgeDrag = false;
+        GloballyEnabled = false;
       };
     };
 

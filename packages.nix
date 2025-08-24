@@ -368,7 +368,7 @@ in
   pngcrush
 
   #################################################################################
-  # Audio and video
+  # Audio and video libraries
   #################################################################################
 
   # https://www.ffmpeg.org/documentation.html
@@ -376,6 +376,16 @@ in
 
   # https://xiph.org/vorbis/
   vorbis-tools
+
+  #################################################################################
+  # Audio and video players
+  #################################################################################
+
+  cmus
+
+  # https://musikcube.com
+  # Actually looks pretty good. I like the shortcuts and ability to also use mouse on the TUI
+  musikcube
 
   #################################################################################
   # Typesetting (TeX, LaTeX, Typst)
@@ -563,7 +573,7 @@ in
   beam.packages.erlang_28.rebar3
 
   #################################################################################
-  # AI Coding Agents
+  # AI coding agents
   #################################################################################
 
   # https://docs.anthropic.com/en/docs/claude-code/overview
