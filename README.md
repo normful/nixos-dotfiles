@@ -1,6 +1,6 @@
 # nixos-dotfiles
 
-Dotfiles and configuration for macOS+[Nix](https://nixos.org/manual/nix/stable/installation/multi-user.html)+[nix-darwin](https://github.com/LnL7/nix-darwin).
+Dotfiles and configuration for macOS+[nix-darwin](https://github.com/LnL7/nix-darwin) and [NixOS](https://nixos.org).
 
 To keep things simple, I'm purposely not using
 [home-manager](https://github.com/nix-community/home-manager). Instead, I'm using [GNU
@@ -8,9 +8,18 @@ Stow](https://github.com/aspiers/stow) to symlink dotfiles into `$HOME` instead.
 
 ## Typical Usage
 
-```
+### macOS (nix-darwin)
+
+```sh
 nix fmt
 make mac
+make stow
+```
+
+### NixOS
+
+```sh
+sudo nixos-rebuild switch --flake .#lilac
 make stow
 ```
 
@@ -18,7 +27,7 @@ make stow
 
 ### Changing Shell to Fish
 
-```
+```sh
 sudo rm /etc/shells
 make mac
 chsh -s /run/current-system/sw/bin/fish

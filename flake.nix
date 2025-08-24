@@ -1,10 +1,10 @@
 {
-  description = "My nix-darwin flake";
+  description = "My NixOS and nix-darwin flake";
 
   inputs = {
     # Docs: https://github.com/NixOS/nix/blob/master/src/nix/flake.md#flake-references
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     # To get latest unstable commit, run:
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
@@ -22,6 +22,7 @@
       nix-darwin,
     }:
     {
+      # nix-darwin configurations
       darwinConfigurations.macbook-pro-18-3 = nix-darwin.lib.darwinSystem rec {
         system = "aarch64-darwin";
         modules = [
@@ -40,6 +41,29 @@
           };
         };
       };
+
+      # NixOS configurations
+      nixosConfigurations.lilac = nixpkgs-stable.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        modules = [
+          ./nixos-config.nix
+        ];
+        specialArgs = {
+          nixpkgs-stable = nixpkgs-stable;
+          nixpkgs-pinned-unstable = nixpkgs-pinned-unstable;
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          pkgs-pinned-unstable = import nixpkgs-pinned-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
+      };
+
+      # Formatters for both systems
       formatter.aarch64-darwin = nixpkgs-stable.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      formatter.x86_64-linux = nixpkgs-stable.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };
 }
