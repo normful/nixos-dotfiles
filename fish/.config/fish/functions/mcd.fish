@@ -47,11 +47,11 @@ function mcd --description "Creates a configuration directory in nixos-dotfiles,
     while read -l line
         if string match -qr "^\tstow .* -S " $line && not $stow_modified
             # This is the stow command line - append the new tool
-            echo "$line $tool_name" >> $temp_file
+            echo "$line '$tool_name'" >> $temp_file
             set stow_modified true
         else if string match -qr "^\tstow .* -D " $line && not $unstow_modified
             # This is the unstow command line - append the new tool
-            echo "$line $tool_name" >> $temp_file
+            echo "$line '$tool_name'" >> $temp_file
             set unstow_modified true
         else
             # Any other line - keep as is

@@ -47,6 +47,10 @@ if status is-interactive
     abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
 
+    abbr --add cld "claude"
+
+    abbr --add mus "musikcube"
+
     abbr --add es 'exercism submit'
     abbr --add gt 'gleam test'
 
