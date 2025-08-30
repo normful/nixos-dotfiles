@@ -217,15 +217,13 @@ in
   # https://github.com/cortesi/modd
   modd
 
-  #################################################################################
-  # Golang
-  #################################################################################
+  # https://espanso.org/docs/get-started/
+  # https://espanso.org/docs/packages/basics/
+  # https://hub.espanso.org/search
+  espanso
 
-  go
-  gopls
-  gotools
-  protoc-gen-go
-  cobra-cli
+  # https://mise.jdx.dev
+  mise
 
   #################################################################################
   # Rust
@@ -315,6 +313,9 @@ in
 
   # https://github.com/adamritter/fastgron
   fastgron
+
+  # https://github.com/Stranger6667/jsonschema
+  jsonschema-cli
 
   #################################################################################
   # CSS
@@ -573,18 +574,31 @@ in
   beam.packages.erlang_28.rebar3
 
   #################################################################################
-  # AI coding agents
+  # AI coding agents and related tools
   #################################################################################
 
   # https://docs.anthropic.com/en/docs/claude-code/overview
   claude-code
 
   # https://github.com/google-gemini/gemini-cli#-documentation
-  gemini-cli
+  (pkgs-pinned-unstable.callPackage ./nix-custom-pkgs/gemini-cli.nix { })
 
   # https://github.com/QwenLM/qwen-code
   qwen-code
 
   # https://github.com/charmbracelet/crush
   crush
+
+  opencommit
+  repomix
+
+  #################################################################################
+  # Golang
+  #################################################################################
+
+  go
+  gopls
+  gotools
+  protoc-gen-go
+  cobra-cli
 ])
