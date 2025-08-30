@@ -8,7 +8,7 @@
 
     # To get latest unstable commit, run:
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
-    nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/4e942f9ef5b35526597c354d1ded817d1c285ef1";
+    nixpkgs-pinned-unstable.url = "github:NixOS/nixpkgs/aca2499b79170038df0dbaec8bf2f689b506ad32";
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable";

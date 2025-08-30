@@ -106,9 +106,9 @@
         mru-spaces = false;
         persistent-apps = [
           "/Applications/WezTerm.app"
+          "/Applications/Warp.app"
           "/Applications/Vivaldi.app"
           "/Applications/Notion.app"
-          "/Applications/Notion Calendar.app"
           "/Applications/Claude.app"
           "/Applications/ChatGPT.app"
           "/Applications/KeePassXC.app"
@@ -118,6 +118,7 @@
           "/Applications/Firefox.app"
           "/Applications/Insta360 Studio.app"
           "/Applications/FileZilla.app"
+          "/Applications/QuickShade.app"
           "/System/Applications/System Settings.app"
         ];
         show-process-indicators = true;
