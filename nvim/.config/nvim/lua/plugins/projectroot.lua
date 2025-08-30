@@ -2,7 +2,7 @@ local function configure_projectroot()
   local g = vim.g
 
   -- rootmarkers are in descending priority
-  g.rootmarkers = { 'Cargo.toml', '.nvmrc', 'main.go', '.projectroot', '.git' }
+  g.rootmarkers = { 'Cargo.toml', '.nvmrc', 'pyproject.toml', 'main.go', '.projectroot', '.git' }
 end
 
 return {

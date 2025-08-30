@@ -38,6 +38,7 @@ return {
     opt.foldlevelstart = 99
     opt.foldenable = true
   end,
+  ---@type UfoConfig
   opts = {
     provider_selector = function()
       return { 'treesitter', 'indent' }

@@ -8,6 +8,7 @@ return {
     { 'MunifTanjim/nui.nvim' },
   },
   cmd = { 'AvanteAsk', 'AvanteChat', 'AvanteToggle' },
+  ---@type avante.Config
   opts = {
     -- See defaults at https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
     -- Model-related config copied from https://github.com/yetone/cosmos-nvim/blob/main/lua/layers/completion/plugins.lua

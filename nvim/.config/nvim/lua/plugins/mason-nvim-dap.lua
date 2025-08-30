@@ -1,5 +1,6 @@
 return {
   'jay-babu/mason-nvim-dap.nvim',
+  ---@type MasonNvimDapSettings | {}
   opts = {
     ensure_installed = {
       'codelldb',

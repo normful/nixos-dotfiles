@@ -1,5 +1,6 @@
 return {
   'numToStr/Comment.nvim',
+  ---@type CommentConfig | {}
   opts = {
     toggler = {
       line = 'tcl',

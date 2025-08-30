@@ -1,3 +1,5 @@
+-- IMPORTANT: If you change this file, remember to rebuild the Nix system
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
 if not vim.uv.fs_stat(lazypath) then
@@ -44,4 +46,7 @@ require('augroups')
 vim.schedule(function()
   require('mappings')
   require('user-commands')
+  if vim.g.neovide then
+    require('neovide')
+  end
 end)

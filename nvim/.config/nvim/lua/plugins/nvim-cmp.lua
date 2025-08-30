@@ -44,8 +44,15 @@ return {
     { 'rcarriga/cmp-dap', event = 'InsertEnter' },
     { 'SergioRibera/cmp-dotenv', event = 'InsertEnter' },
     { 'Snikimonkd/cmp-go-pkgs', event = 'InsertEnter' },
+    {
+      'windwp/nvim-autopairs',
+      -- Included by NvChad in https://github.com/NvChad/NvChad/blob/29ebe31ea6a4edf351968c76a93285e6e108ea08/lua/nvchad/plugins/init.lua#L119-L132
+      -- But it seems to be buggy, so I'm forcing it to disable here
+      enabled = false,
+    },
   },
 
+  ---@param conf cmp.ConfigSchema
   opts = function(_, conf)
     local cmp = require('cmp')
 
