@@ -1,6 +1,7 @@
 return {
   'saecki/crates.nvim',
   tag = 'stable',
+  ---@type crates.UserConfig
   opts = {
     completion = {
       crates = {

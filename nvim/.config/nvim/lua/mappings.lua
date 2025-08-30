@@ -73,15 +73,17 @@ map(
 )
 --[[
 map('n', '<Leader>ek', '<Cmd>100vsplit ~/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf<CR>', { desc = 'Edit kitty config' })
-map(
-  'n',
-  '<Leader>et',
-  '<Cmd>100vsplit ~/code/nixos-dotfiles/ghostty/.config/ghostty/config<CR>',
-  { desc = 'Edit ghostty config' }
-)
+map('n', '<Leader>et', '<Cmd>100vsplit ~/code/nixos-dotfiles/ghostty/.config/ghostty/config<CR>', { desc = 'Edit ghostty config' })
 ]]
 map('n', '<Leader>ef', '<Cmd>100vsplit ~/code/nixos-dotfiles/fish/.config/fish/config.fish<CR>', { desc = 'Edit fish config' })
 
+-- First set of mappings, intended for use with Neovide
+map('n', '<D-d>', '20j', { desc = '[Cmd+d] Scroll down 20 lines' })
+map('n', '<D-u>', '20k', { desc = '[Cmd+u] Scroll up 20 lines' })
+map('n', '<D-w>', '<C-w>w', { desc = '[Cmd+w] Next window' })
+map('n', '<D-b>', '<Cmd>bnext<CR>', { desc = '[Cmd+b] Next buffer' })
+
+-- Same copy of the above mappings, intended for use with nvim inside Wezterm
 -- These rely on Wezterm mappings that send these function keys
 map('n', '<F13>', '20j', { desc = '[Cmd+d] Scroll down 20 lines' })
 map('n', '<F14>', '20k', { desc = '[Cmd+u] Scroll up 20 lines' })
@@ -129,3 +131,9 @@ map('n', '<Leader>gl', open_term(term_id1, 'git lforvim "FILEPATH"'), { desc = '
 map('n', '<Leader>gll', open_term(term_id1, 'git llforvim "FILEPATH"'), { desc = 'git log this file with stats' })
 map('n', '<Leader>glll', open_term(term_id1, 'git lllforvim "FILEPATH"'), { desc = 'git log this file with patches' })
 map('n', '<Leader>gppl', open_term(term_id1, 'git pplforvim "FILEPATH"'), { desc = 'git shortlog' })
+
+map({ 'n', 'i', 'v' }, '<F12>', function()
+  print('Debugging mode - press any key (ESC to exit)')
+  local char = vim.fn.getchar()
+  print('Received keycode: ' .. char .. ' As string: ' .. vim.fn.nr2char(char))
+end)

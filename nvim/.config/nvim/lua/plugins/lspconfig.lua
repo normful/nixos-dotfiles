@@ -2,8 +2,8 @@ local function configure_lspconfig()
   require('mason').setup()
 
   require('mason-lspconfig').setup({
-    automatic_installation = true,
     ensure_installed = { 'rust_analyzer' },
+    automatic_enable = false,
   })
 
   local nvchad_lspconfig = require('nvchad.configs.lspconfig')
@@ -70,15 +70,23 @@ local function configure_lspconfig()
     intelephense = {},
     -- Purposely not using: psalm, phpactor
 
+    -- Python
+    basedpyright = {},
+
     -- Disabled to avoid conflict with rustaceanvim
     -- rust_analyzer = {},
 
     -- Spelling and grammar checker
     harper_ls = {
+      filetypes = {
+        'gitcommit',
+        'markdown',
+        'neorg',
+      },
       settings = {
         ['harper-ls'] = {
           linters = {
-            SpellCheck = false,
+            SpellCheck = true,
             SentenceCapitalization = false,
           },
         },
@@ -86,24 +94,20 @@ local function configure_lspconfig()
     },
   }
 
-  local lspconfig = require('lspconfig')
   for server_name, server_specific_opts in pairs(language_servers) do
     -- Create a new table {} first to avoid modifying common_lsp_opts.
     local final_opts = vim.tbl_deep_extend('force', {}, common_lsp_opts, server_specific_opts)
 
-    if lspconfig[server_name] then
-      lspconfig[server_name].setup(final_opts)
-    else
-      vim.notify('LSP Warning: Configuration not found for ' .. server_name, vim.log.levels.WARN)
-    end
+    vim.lsp.config(server_name, final_opts)
+    vim.lsp.enable(server_name)
   end
 end
 
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    { 'williamboman/mason.nvim', build = ':MasonUpdate' },
-    { 'williamboman/mason-lspconfig.nvim' },
+    { 'mason-org/mason.nvim', build = ':MasonUpdate' },
+    { 'mason-org/mason-lspconfig.nvim' },
     { 'hrsh7th/cmp-nvim-lsp' },
   },
   init = function()

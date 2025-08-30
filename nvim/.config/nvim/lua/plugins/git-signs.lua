@@ -1,5 +1,6 @@
 return {
   'lewis6991/gitsigns.nvim',
+  ---@type Gitsigns.Config | {}
   opts = {
     numhl = false,
     linehl = false,

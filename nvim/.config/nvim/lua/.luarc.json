@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "diagnostics": {
+    "globals": ["vim"]
+  },
+  "runtime.version": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "checkThirdParty": false,
+    "library": [
+      "$VIMRUNTIME",
+      "~/.local/share/nvim/lazy",
+      "~/code/nixos-dotfiles/nvim/.config/nvim/lua"
+    ]
+  }
+}

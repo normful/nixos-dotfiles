@@ -1,6 +1,7 @@
 return {
   'nvim-neorg/neorg',
   cmd = 'Neorg',
+  ---@type neorg.configuration.user
   opts = {
     load = {
       ['core.defaults'] = {},
