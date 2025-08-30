@@ -211,8 +211,8 @@
     mc        = commit -m                # commit with message (catch typo)
     cnm       = commit -n -m             # commit without pre-commit and commit-msg hooks, and message
 
-    # quickly commit everything
-    w         = !git add --all && git commit -m wip
+    # quickly commit everything with an AI-generated commit message
+    w         = "!f() { $HOME/bin/git-commit-with-ai-generated-message; }; f"
 
     # commit each file in its own commit
     ce        = "!f() { $HOME/bin/git-commit-each-file-in-own-commit; }; f"

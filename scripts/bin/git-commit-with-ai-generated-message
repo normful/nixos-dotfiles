@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+
+main() {
+    if ! git ls-files >& /dev/null; then
+        echo "Error: This script must be run within a git repository."
+        exit 1
+    fi
+
+    if ! git diff --cached --quiet; then
+        # Use staged files
+        :
+    else
+        git add -A
+    fi
+
+    opencommit --fgm --yes
+}
+
+main "$@"
