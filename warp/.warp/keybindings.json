@@ -1,0 +1,222 @@
+{
+  "keybindings": [
+    // =====================================
+    // CONFIG AND SYSTEM CONTROLS
+    // =====================================
+    {
+      "key": "cmd+r",
+      "command": "workspace:reload_config",
+      "description": "Reload Warp configuration (matches Wezterm CMD+r)"
+    },
+
+    // =====================================
+    // TAB MANAGEMENT
+    // =====================================
+    // Note: Wezterm uses LEADER (CTRL+a) + key, but Warp doesn't support leader keys
+    // Mapping to direct CMD keys instead for similar functionality
+    {
+      "key": "cmd+t",
+      "command": "workspace:open_new_tab",
+      "description": "Create new tab (Wezterm: LEADER+c)"
+    },
+    {
+      "key": "cmd+shift+]",
+      "command": "workspace:activate_next_tab",
+      "description": "Next tab (Wezterm: LEADER+n)"
+    },
+    {
+      "key": "cmd+shift+[",
+      "command": "workspace:activate_prev_tab", 
+      "description": "Previous tab (Wezterm: LEADER+p)"
+    },
+
+    // =====================================
+    // PANE MANAGEMENT
+    // =====================================
+    // Note: Wezterm uses LEADER key, mapping to CMD equivalents
+    {
+      "key": "cmd+shift+\\",
+      "command": "pane_group:add_right",
+      "description": "Split pane right (Wezterm: LEADER+v - SplitHorizontal)"
+    },
+    {
+      "key": "cmd+shift+d",
+      "command": "pane_group:add_down", 
+      "description": "Split pane down (Wezterm: LEADER+s - SplitVertical)"
+    },
+    {
+      "key": "cmd+shift+z",
+      "command": "pane_group:toggle_maximize_pane",
+      "description": "Toggle pane zoom (Wezterm: LEADER+o)"
+    },
+
+    // =====================================
+    // FONT SIZE CONTROLS
+    // =====================================
+    {
+      "key": "cmd+=",
+      "command": "workspace:increase_font_size",
+      "description": "Increase font size"
+    },
+    {
+      "key": "cmd+-", 
+      "command": "workspace:decrease_font_size",
+      "description": "Decrease font size"
+    },
+    {
+      "key": "cmd+0",
+      "command": "workspace:reset_font_size",
+      "description": "Reset font size to default"
+    },
+
+    // =====================================
+    // CLIPBOARD OPERATIONS
+    // =====================================
+    {
+      "key": "cmd+shift+v",
+      "command": "editor_view:paste",
+      "description": "Paste from clipboard (Wezterm: CMD+V)"
+    },
+    {
+      "key": "cmd+shift+c",
+      "command": "terminal:copy_commands",
+      "description": "Copy selection"
+    },
+
+    // =====================================
+    // SPECIAL FEATURES
+    // =====================================
+    {
+      "key": "cmd+shift+h", 
+      "command": "workspace:show_command_search",
+      "description": "Quick select/search (Wezterm: QuickSelect)"
+    },
+    {
+      "key": "cmd+shift+f",
+      "command": "workspace:show_command_search", 
+      "description": "Search (closest equivalent to Wezterm search)"
+    },
+
+    // =====================================
+    // CLEAR SCREEN
+    // =====================================
+    {
+      "key": "cmd+k",
+      "command": "input:clear_screen",
+      "description": "Clear terminal screen"
+    },
+    {
+      "key": "cmd+shift+k",
+      "command": "terminal:clear_blocks",
+      "description": "Clear blocks"
+    },
+
+    // =====================================
+    // TAB NAVIGATION BY NUMBER (1-9)
+    // =====================================
+    {
+      "key": "cmd+1",
+      "command": "workspace:activate_tab_1",
+      "description": "Go to tab 1"
+    },
+    {
+      "key": "cmd+2",
+      "command": "workspace:activate_tab_2", 
+      "description": "Go to tab 2"
+    },
+    {
+      "key": "cmd+3",
+      "command": "workspace:activate_tab_3",
+      "description": "Go to tab 3"
+    },
+    {
+      "key": "cmd+4",
+      "command": "workspace:activate_tab_4",
+      "description": "Go to tab 4"
+    },
+    {
+      "key": "cmd+5", 
+      "command": "workspace:activate_tab_5",
+      "description": "Go to tab 5"
+    },
+    {
+      "key": "cmd+6",
+      "command": "workspace:activate_tab_6",
+      "description": "Go to tab 6"
+    },
+    {
+      "key": "cmd+7",
+      "command": "workspace:activate_tab_7",
+      "description": "Go to tab 7"
+    },
+    {
+      "key": "cmd+8",
+      "command": "workspace:activate_tab_8",
+      "description": "Go to tab 8"
+    },
+    {
+      "key": "cmd+9",
+      "command": "workspace:activate_tab_9",
+      "description": "Go to tab 9"
+    },
+
+    // =====================================
+    // INPUT EDITOR CONTROLS
+    // =====================================
+    {
+      "key": "cmd+l",
+      "command": "terminal:focus_input",
+      "description": "Focus terminal input"
+    }
+  ]
+
+  // =====================================
+  // UNMAPPABLE WEZTERM KEYBINDINGS
+  // =====================================
+  // The following Wezterm keybindings cannot be directly mapped to Warp:
+  //
+  // 1. LEADER KEY FUNCTIONALITY:
+  //    - Warp doesn't support leader keys (CTRL+a in Wezterm)
+  //    - All LEADER+key combinations have been mapped to direct CMD equivalents above
+  //
+  // 2. PANE NAVIGATION (vim-like):
+  //    - LEADER+h/j/k/l (ActivatePaneDirection Left/Down/Up/Right)
+  //    - Warp doesn't appear to have direct pane navigation commands
+  //
+  // 3. PANE RESIZING:
+  //    - LEADER+r to enter resize mode with h/j/k/l
+  //    - Warp has pane_group:resize_* commands but they may work differently
+  //
+  // 4. CLOSE PANE:
+  //    - LEADER+x (CloseCurrentPane with confirmation)
+  //    - No direct equivalent found in Warp documentation
+  //
+  // 5. SEND KEY SEQUENCES:
+  //    - CMD+c → Send CTRL+C (\x03)
+  //    - CMD+d → Send CTRL+D (\x04) or F13 (\x1b[25~)  
+  //    - CMD+o → Send CTRL+O (\x0f)
+  //    - CMD+i → Send CTRL+I/Tab (\t)
+  //    - CMD+n → Send CTRL+N (\x0e)
+  //    - CMD+p → Send CTRL+P (\x10)  
+  //    - CMD+` → Send CTRL+S (\x13)
+  //    - CMD+u → Send F14 (\x1b[26~)
+  //    - CMD+w → Send F15 (\x1b[28~)
+  //    - CMD+b → Send F16 (\x1b[29~)
+  //    - CMD+e → Send F17 (\x1b[31~)
+  //    - CMD+x → Send F18 (\x1b[32~)
+  //    - Warp doesn't appear to support sending arbitrary key sequences
+  //
+  // 6. FULLSCREEN TOGGLE:
+  //    - CTRL+F10 → ToggleFullScreen
+  //    - No equivalent found in Warp documentation
+  //
+  // 7. COPY MODE:
+  //    - LEADER+[ → ActivateCopyMode  
+  //    - Warp doesn't have a direct copy mode equivalent
+  //
+  // 8. KEY TABLES/MODES:
+  //    - resize_pane key table with h/j/k/l for adjusting pane sizes
+  //    - Warp doesn't support custom key tables or modal key bindings
+  //
+  // NOTE: Some of these features might be available through different mechanisms
+  // in Warp, or may require using Warp's native alternatives (like Command Palette)

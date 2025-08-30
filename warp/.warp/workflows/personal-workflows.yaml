@@ -1,0 +1,357 @@
+name: "Personal Development Workflows"
+description: "Custom workflows based on fish config and git aliases"
+version: "1.0"
+
+workflows:
+  # ===== File and Directory Operations =====
+  - name: "List Files (Enhanced)"
+    command: "eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --git --sort time"
+    description: "Enhanced ls with eza (from fish config)"
+    tags: ["files", "list", "eza"]
+
+  - name: "Tree View"
+    command: "eza --tree --classify=auto --color=always --icons=always --almost-all --git-ignore --long --no-permissions --bytes --no-user --no-time --total-size {{path}}"
+    description: "Tree view with eza (replaces tree command)"
+    tags: ["tree", "files", "directory"]
+    arguments:
+      - name: "path"
+        description: "Directory path to show tree for (optional)"
+        default_value: "."
+
+  - name: "Make and Change Directory"
+    command: "mkdir -p {{dir_name}} && cd {{dir_name}}"
+    description: "Create directory and change into it"
+    tags: ["mkdir", "cd", "directory"]
+    arguments:
+      - name: "dir_name"
+        description: "Directory name to create and enter"
+
+  - name: "Interactive File Manager"
+    command: "yazi {{path}}"
+    description: "Launch yazi file manager"
+    tags: ["files", "manager", "yazi"]
+    arguments:
+      - name: "path"
+        description: "Starting path for file manager (optional)"
+        default_value: "."
+
+  - name: "Disk Usage Interactive"
+    command: "dua interactive"
+    description: "Interactive disk usage analyzer"
+    tags: ["disk", "usage", "analyze"]
+
+  # ===== Git Operations =====
+  - name: "Git Status Short"
+    command: "git s"
+    description: "Short git status with branch info"
+    tags: ["git", "status"]
+
+  - name: "Git Log Graph"
+    command: "git l"
+    description: "Pretty git log with graph and colors"
+    tags: ["git", "log", "graph"]
+
+  - name: "Git Log with Stats"
+    command: "git ll"
+    description: "Git log with file statistics"
+    tags: ["git", "log", "stats"]
+
+  - name: "Git Quick Commit"
+    command: "git add --all && git commit -m \"{{message}}\""
+    description: "Stage all changes and commit with message"
+    tags: ["git", "commit", "quick"]
+    arguments:
+      - name: "message"
+        description: "Commit message"
+        default_value: "wip"
+
+  - name: "Git Amend Last Commit"
+    command: "git commit --amend --no-edit"
+    description: "Amend last commit without changing message"
+    tags: ["git", "amend", "commit"]
+
+  - name: "Git Diff Unstaged"
+    command: "git d"
+    description: "Show unstaged changes"
+    tags: ["git", "diff", "unstaged"]
+
+  - name: "Git Diff Staged"
+    command: "git dc"
+    description: "Show staged changes"
+    tags: ["git", "diff", "staged"]
+
+  - name: "Git Create and Checkout Branch"
+    command: "git checkout -b {{branch_name}}"
+    description: "Create and checkout new branch"
+    tags: ["git", "branch", "checkout"]
+    arguments:
+      - name: "branch_name"
+        description: "Name of the new branch"
+
+  - name: "Git Checkout Last Branch"
+    command: "git checkout @{-1}"
+    description: "Checkout the previously checked out branch"
+    tags: ["git", "checkout", "previous"]
+
+  - name: "Git Push Set Upstream"
+    command: "git push -u origin {{branch_name}}"
+    description: "Push branch and set upstream"
+    tags: ["git", "push", "upstream"]
+    arguments:
+      - name: "branch_name"
+        description: "Branch name (use current branch if empty)"
+        default_value: "$(git branch --show-current)"
+
+  - name: "Git Rebase Interactive"
+    command: "git rebase -i --autosquash {{base_branch}}"
+    description: "Interactive rebase with autosquash"
+    tags: ["git", "rebase", "interactive"]
+    arguments:
+      - name: "base_branch"
+        description: "Base branch for rebase"
+        default_value: "origin/main"
+
+  - name: "Git Show Commit"
+    command: "git sh {{commit}}"
+    description: "Show commit details with colored word diffs"
+    tags: ["git", "show", "commit"]
+    arguments:
+      - name: "commit"
+        description: "Commit hash or reference"
+        default_value: "HEAD"
+
+  - name: "Git Reset Hard"
+    command: "git reset --hard {{commit}}"
+    description: "Hard reset to commit"
+    tags: ["git", "reset", "hard"]
+    arguments:
+      - name: "commit"
+        description: "Commit to reset to"
+        default_value: "HEAD"
+
+  - name: "Git Unstage Files"
+    command: "git reset HEAD {{files}}"
+    description: "Unstage files"
+    tags: ["git", "unstage", "reset"]
+    arguments:
+      - name: "files"
+        description: "Files to unstage (leave empty for all)"
+        default_value: "."
+
+  # ===== Development Tools =====
+  - name: "Cargo Check"
+    command: "cargo check"
+    description: "Check Rust code without building"
+    tags: ["rust", "cargo", "check"]
+
+  - name: "Cargo Build Release"
+    command: "cargo build --release"
+    description: "Build Rust project in release mode"
+    tags: ["rust", "cargo", "build"]
+
+  - name: "Cargo Run Release"
+    command: "cargo run --release"
+    description: "Run Rust project in release mode"
+    tags: ["rust", "cargo", "run"]
+
+  - name: "Cargo Test with Output"
+    command: "cargo test -- --nocapture"
+    description: "Run Rust tests showing println output"
+    tags: ["rust", "cargo", "test"]
+
+  - name: "Cargo Format"
+    command: "cargo fmt"
+    description: "Format Rust code"
+    tags: ["rust", "cargo", "format"]
+
+  - name: "Cargo Clippy"
+    command: "cargo clippy"
+    description: "Run Rust linter"
+    tags: ["rust", "cargo", "clippy"]
+
+  - name: "NPM Run Build"
+    command: "npm run build"
+    description: "Run npm build script"
+    tags: ["npm", "build", "javascript"]
+
+  - name: "Gleam Test"
+    command: "gleam test"
+    description: "Run Gleam tests"
+    tags: ["gleam", "test"]
+
+  - name: "Zola Serve"
+    command: "zola serve"
+    description: "Start Zola development server"
+    tags: ["zola", "serve", "static-site"]
+
+  # ===== Configuration Editing =====
+  - name: "Edit Fish Config"
+    command: "nvim ~/code/nixos-dotfiles/fish/.config/fish/config.fish"
+    description: "Edit fish shell configuration"
+    tags: ["config", "fish", "edit"]
+
+  - name: "Edit Git Config"
+    command: "nvim ~/code/nixos-dotfiles/git/.gitconfig"
+    description: "Edit git configuration"
+    tags: ["config", "git", "edit"]
+
+  - name: "Edit Neovim Config"
+    command: "nvim ~/code/nixos-dotfiles/nvim/nvim.nix"
+    description: "Edit Neovim configuration"
+    tags: ["config", "neovim", "edit"]
+
+  - name: "Edit Wezterm Config"
+    command: "nvim ~/code/nixos-dotfiles/wezterm/.config/wezterm/wezterm.lua"
+    description: "Edit Wezterm configuration"
+    tags: ["config", "wezterm", "edit"]
+
+  - name: "Edit Kitty Config"
+    command: "nvim ~/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf"
+    description: "Edit Kitty configuration"
+    tags: ["config", "kitty", "edit"]
+
+  - name: "Edit Ghostty Config"
+    command: "nvim ~/code/nixos-dotfiles/ghostty/.config/ghostty/config"
+    description: "Edit Ghostty configuration"
+    tags: ["config", "ghostty", "edit"]
+
+  - name: "Edit MacBook Config"
+    command: "nvim ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix"
+    description: "Edit nix-darwin configuration"
+    tags: ["config", "nix", "darwin", "edit"]
+
+  # ===== System Management =====
+  - name: "Build Blog"
+    command: "cd ~/code/blog && make"
+    description: "Build normful.com blog"
+    tags: ["blog", "build", "make"]
+
+  - name: "Build and Switch Nix Config"
+    command: "cd ~/code/nixos-dotfiles && make mac"
+    description: "Build and switch nix-darwin config"
+    tags: ["nix", "darwin", "switch"]
+
+  - name: "Stow Dotfiles"
+    command: "cd ~/code/nixos-dotfiles && find . -name .DS_Store -delete && make stow"
+    description: "Create symlinks from home directory to dotfiles"
+    tags: ["dotfiles", "stow", "symlink"]
+
+  - name: "Save Fish Function"
+    command: "funcsave --directory ~/code/nixos-dotfiles/fish/.config/fish/functions {{function_name}}"
+    description: "Save fish function to dotfiles and run make stow"
+    tags: ["fish", "function", "save"]
+    arguments:
+      - name: "function_name"
+        description: "Name of the fish function to save"
+
+  # ===== Search and Find =====
+  - name: "Ripgrep with FZF"
+    command: "rga --files-with-matches '{{query}}' | fzf --preview='rga --pretty --context 5 {{query}} {}'"
+    description: "Search files with ripgrep and fzf"
+    tags: ["search", "ripgrep", "fzf"]
+    arguments:
+      - name: "query"
+        description: "Search query"
+
+  - name: "Find Large Files"
+    command: "find . -type f -size +100M -exec ls -lh {} \\; 2>/dev/null"
+    description: "Find files larger than 100MB"
+    tags: ["find", "large", "files"]
+
+  # ===== Utilities =====
+  - name: "Pretty Cat"
+    command: "prettybat {{file}}"
+    description: "Cat with syntax highlighting using bat"
+    tags: ["cat", "syntax", "highlight"]
+    arguments:
+      - name: "file"
+        description: "File to display"
+
+  - name: "Better Man Pages"
+    command: "batman {{command}}"
+    description: "Enhanced man pages with bat"
+    tags: ["man", "help", "documentation"]
+    arguments:
+      - name: "command"
+        description: "Command to show man page for"
+
+  - name: "UTC Time"
+    command: "date -u"
+    description: "Show current UTC time"
+    tags: ["time", "utc", "date"]
+
+  - name: "Clear Screen"
+    command: "clear"
+    description: "Clear terminal screen"
+    tags: ["clear", "screen"]
+
+  - name: "Exit Terminal"
+    command: "exit"
+    description: "Exit terminal session"
+    tags: ["exit", "quit"]
+
+  # ===== Docker Operations =====
+  - name: "Docker Containers"
+    command: "docker ps -a"
+    description: "List all Docker containers"
+    tags: ["docker", "containers", "list"]
+
+  - name: "Docker Images"
+    command: "docker images"
+    description: "List Docker images"
+    tags: ["docker", "images", "list"]
+
+  - name: "Docker System Prune"
+    command: "docker system prune -f"
+    description: "Remove unused Docker data"
+    tags: ["docker", "prune", "cleanup"]
+
+  # ===== Process Management =====
+  - name: "Process List"
+    command: "procs"
+    description: "Modern replacement for ps command"
+    tags: ["processes", "procs", "system"]
+
+  - name: "Kill Process by Name"
+    command: "pkill {{process_name}}"
+    description: "Kill processes by name"
+    tags: ["kill", "process", "pkill"]
+    arguments:
+      - name: "process_name"
+        description: "Name of process to kill"
+
+  # ===== Network =====
+  - name: "Network Connections"
+    command: "netstat -tuln"
+    description: "Show network connections"
+    tags: ["network", "connections", "ports"]
+
+  - name: "Check Port Usage"
+    command: "lsof -i :{{port}}"
+    description: "Check what's using a specific port"
+    tags: ["network", "port", "lsof"]
+    arguments:
+      - name: "port"
+        description: "Port number to check"
+
+  # ===== Exercism =====
+  - name: "Exercism Submit"
+    command: "exercism submit"
+    description: "Submit exercism solution"
+    tags: ["exercism", "submit", "coding"]
+
+  # ===== Directory Navigation =====
+  - name: "Directory History"
+    command: "dirh"
+    description: "Show directory history"
+    tags: ["directory", "history", "navigation"]
+
+  - name: "Next Directory"
+    command: "nextd"
+    description: "Go to next directory in history"
+    tags: ["directory", "next", "navigation"]
+
+  - name: "Previous Directory"
+    command: "prevd"
+    description: "Go to previous directory in history"
+    tags: ["directory", "previous", "navigation"]
