@@ -1,0 +1,51 @@
+name: "Wezterm Dark"
+author: "Norman"
+version: "1.0"
+
+# Based on your wezterm tab bar colors
+background: "#1b1032"
+foreground: "#c0c0c0"
+cursor: "#c0c0c0"
+selection_background: "#3b3052"
+selection_foreground: "#c0c0c0"
+
+# Normal colors (approximated from common terminal themes)
+black: "#1b1032"
+red: "#ff6b6b"
+green: "#4ecdc4"
+yellow: "#ffe66d"
+blue: "#4dabf7"
+magenta: "#cc99cd"
+cyan: "#54a0ff"
+white: "#c0c0c0"
+
+# Bright colors
+bright_black: "#808080"
+bright_red: "#ff8e8e"
+bright_green: "#6bcf7f"
+bright_yellow: "#ffd93d"
+bright_blue: "#74c0fc"
+bright_magenta: "#d0bfff"
+bright_cyan: "#5dade2"
+bright_white: "#ffffff"
+
+# UI colors matching your wezterm config
+tab_bar:
+  background: "#0b0022"
+  active_tab:
+    background: "#2b2042"
+    foreground: "#c0c0c0"
+  inactive_tab:
+    background: "#1b1032"
+    foreground: "#808080"
+
+window:
+  border: "#2b2042"
+  active_border: "#4dabf7"
+  
+# Quick select colors (matching your wezterm config)
+quick_select:
+  label_bg: "#808080"
+  label_fg: "#808000"
+  match_bg: "#808080"
+  match_fg: "#c0c0c0"
