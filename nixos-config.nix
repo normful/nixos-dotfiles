@@ -13,7 +13,10 @@
     package = pkgs-stable.nixVersions.latest;
     settings = {
       max-jobs = 8; # Adjust based on your CPU cores
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       keep-outputs = true;
       keep-derivations = true;
       keep-failed = false;
@@ -81,12 +84,16 @@
     users.norman = {
       isNormalUser = true;
       description = "Norman";
-      extraGroups = [ "networkmanager" "wheel" "docker" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "docker"
+      ];
       shell = pkgs-stable.fish;
     };
   };
 
-  security.sudo.wheelNeedsPassword = false;
+  security.sudo.wheelNeedsPassword = true;
 
   boot = {
     loader = {
