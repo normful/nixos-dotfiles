@@ -592,7 +592,13 @@ in
   # https://github.com/charmbracelet/crush
   crush
 
+  # https://github.com/openai/codex
+  codex
+
+  # https://github.com/di-sukharev/opencommit
   opencommit
+
+  # https://repomix.com
   repomix
 
   #################################################################################
