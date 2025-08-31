@@ -541,6 +541,9 @@ in
 
   # https://graphviz.org
   graphviz
+
+  # https://github.com/julienXX/terminal-notifier
+  terminal-notifier
 ])
 
 ++ (with pkgs-pinned-unstable; [

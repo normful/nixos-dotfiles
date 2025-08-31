@@ -16,7 +16,7 @@ main() {
         git add -A
     fi
 
-    opencommit --fgm --yes
+    opencommit --yes
 }
 
 main "$@"
