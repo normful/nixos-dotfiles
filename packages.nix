@@ -226,41 +226,6 @@ in
   mise
 
   #################################################################################
-  # Rust
-  #################################################################################
-
-  rustup
-
-  #################################################################################
-  # Node.js, JavaScript
-  #################################################################################
-
-  nodejs
-  yarn
-  nodePackages.prettier
-  prettierd
-  eslint_d
-
-  #################################################################################
-  # Python
-  #################################################################################
-
-  uv
-  (python312.withPackages (
-    pks: with pks; [
-      black
-      isort
-      mypy
-      pip
-      pipx
-      pyflakes
-      pylint
-      pynvim
-    ]
-  ))
-  poetry
-
-  #################################################################################
   # Ruby
   #################################################################################
 
@@ -382,10 +347,8 @@ in
   # Audio and video players
   #################################################################################
 
-  cmus
-
   # https://musikcube.com
-  # Actually looks pretty good. I like the shortcuts and ability to also use mouse on the TUI
+  # I like this one more than cmus, and more than many others I tried
   musikcube
 
   #################################################################################
@@ -550,14 +513,52 @@ in
   unstableNeovim
 
   #################################################################################
-  # Other TypeScript and JavaScript runtimes
+  # Rust
   #################################################################################
+
+  rustup
+
+  #################################################################################
+  # TypeScript and JavaScript
+  #################################################################################
+
+  nodejs
 
   # https://docs.deno.com
   deno
 
   # https://bun.sh
   bun
+
+  yarn
+  nodePackages.prettier
+  prettierd
+  eslint_d
+
+  #################################################################################
+  # Python
+  #################################################################################
+
+  uv
+  (python312.withPackages (
+    pks: with pks; [
+      isort
+      pyflakes
+      pylint
+      pynvim
+    ]
+  ))
+  poetry
+
+  #################################################################################
+  # Golang
+  #################################################################################
+
+  go
+  gopls
+  gotools
+  protoc-gen-go
+  cobra-cli
 
   #################################################################################
   # Gleam
@@ -577,7 +578,7 @@ in
   beam.packages.erlang_28.rebar3
 
   #################################################################################
-  # AI coding agents and related tools
+  # AI coding agents from the big companies
   #################################################################################
 
   # https://docs.anthropic.com/en/docs/claude-code/overview
@@ -589,25 +590,26 @@ in
   # https://github.com/QwenLM/qwen-code
   qwen-code
 
+  # https://github.com/openai/codex
+  codex
+
+  #################################################################################
+  # Open source AI coding agents you can use with any model
+  #################################################################################
+
+  # https://github.com/sst/opencode
+  opencode
+
   # https://github.com/charmbracelet/crush
   crush
 
-  # https://github.com/openai/codex
-  codex
+  #################################################################################
+  # Other AI-powered tools
+  #################################################################################
 
   # https://github.com/di-sukharev/opencommit
   opencommit
 
   # https://repomix.com
   repomix
-
-  #################################################################################
-  # Golang
-  #################################################################################
-
-  go
-  gopls
-  gotools
-  protoc-gen-go
-  cobra-cli
 ])
