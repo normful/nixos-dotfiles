@@ -507,6 +507,9 @@ in
 
   # https://github.com/julienXX/terminal-notifier
   terminal-notifier
+
+  # https://github.com/denisidoro/navi
+  navi
 ])
 
 ++ (with pkgs-pinned-unstable; [
