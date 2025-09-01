@@ -36,7 +36,7 @@ if status is-interactive
     abbr --add n "nvim"
     abbr --add v "nvim"
 
-    abbr --add em "nvim $HOME/code/nixos-dotfiles/macbook-pro-18-3-config.nix"
+    abbr --add em "nvim $HOME/code/nixos-dotfiles/packages.nix"
 
     abbr --add ek "nvim $HOME/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf"
     abbr --add et "nvim $HOME/code/nixos-dotfiles/ghostty/.config/ghostty/config"

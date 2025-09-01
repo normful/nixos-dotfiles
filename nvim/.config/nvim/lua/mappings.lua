@@ -63,7 +63,7 @@ map('n', 'U', '<Cmd>echoerr "Use [Right Command + u] to scroll up"<CR>', { desc 
 
 map('n', 'Y', 'yy', { desc = 'Yank whole line' })
 
-map('n', '<Leader>em', '<Cmd>100vsplit ~/code/nixos-dotfiles/macbook-pro-18-3-config.nix<CR>', { desc = 'Edit Nix config' })
+map('n', '<Leader>em', '<Cmd>100vsplit ~/code/nixos-dotfiles/packages.nix<CR>', { desc = 'Edit Nix config' })
 map('n', '<Leader>eg', '<Cmd>100vsplit ~/code/nixos-dotfiles/git/.gitconfig<CR>', { desc = 'Edit gitconfig' })
 map(
   'n',

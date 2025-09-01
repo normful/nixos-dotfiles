@@ -562,6 +562,7 @@ in
   gotools
   protoc-gen-go
   cobra-cli
+  golangci-lint
 
   #################################################################################
   # Gleam
