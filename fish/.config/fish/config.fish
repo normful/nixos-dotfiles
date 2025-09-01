@@ -48,6 +48,7 @@ if status is-interactive
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
 
     abbr --add cld "claude"
+    abbr --add oc "opencode"
 
     abbr --add mus "musikcube"
 
