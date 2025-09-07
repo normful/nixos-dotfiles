@@ -14,9 +14,11 @@
           echo "GCP_PROJECT_ID=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/project/project-id' -H 'Metadata-Flavor: Google' || echo 'unknown')"
           echo "GCP_INSTANCE_ID=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/id' -H 'Metadata-Flavor: Google' || echo 'unknown')"
           echo "GCP_ZONE=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/zone' -H 'Metadata-Flavor: Google' | cut -d/ -f4 || echo 'unknown')"
-        } > /run/vector-gcp-env
+        } > /run/vector/gcp-env
       '';
-      EnvironmentFile = "-/run/vector-gcp-env";
+      EnvironmentFile = "-/run/vector/gcp-env";
+      RuntimeDirectory = "vector";
+      RuntimeDirectoryMode = "0755";
     };
   };
 
