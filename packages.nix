@@ -281,8 +281,7 @@ in
   fastgron
 
   # https://github.com/Stranger6667/jsonschema
-  # temporarily commented out, because of nix-darwin build errors
-  # jsonschema-cli
+  jsonschema-cli
 
   #################################################################################
   # CSS
@@ -313,8 +312,7 @@ in
   lnav
 
   # https://github.com/pamburus/hl
-  # temporarily commented out, because of nix-darwin build errors
-  # hl-log-viewer
+  hl-log-viewer
 
   #################################################################################
   # UML Diagrams
