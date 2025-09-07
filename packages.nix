@@ -478,6 +478,15 @@ in
   # https://docs.openssl.org/master/man1/openssl/
   openssl
 
+  # https://github.com/FiloSottile/age
+  age
+
+  # https://getsops.io/docs/
+  sops
+
+  # https://sources.debian.org/src/whois/5.6.4/mkpasswd.c
+  mkpasswd
+
   # https://restic.readthedocs.io/en/stable/
   restic
 
