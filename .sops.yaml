@@ -1,0 +1,17 @@
+keys:
+  - &cyan_key age1zxa5vn0k50t4s7mqyj83fje8z6sygwng9rvvpc5rclq9c6nk5y3qdrd2jf
+  - &gcp_vm_key age1vtz53h4kkedf70yzzsehs2yrznzegcwg3mpxdexm5h7pskhyvyss55kl78
+  - &emergency_key age16cvjl7f9yg60pzwv4ytmxqfezp2r5n27dhu08ymcg2rku7zc45kquynf9h
+
+creation_rules:
+  - path_regex: secrets/cyan\.yaml$
+    key_groups:
+      - age: [*cyan_key, *emergency_key]
+
+  - path_regex: secrets/gcp_.*\.yaml$
+    key_groups:
+      - age: [*gcp_vm_key, *emergency_key]
+
+  - path_regex: secrets/shared\.yaml$
+    key_groups:
+      - age: [*cyan_key, *gcp_vm_key, *emergency_key]

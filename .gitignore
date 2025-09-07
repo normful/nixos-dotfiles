@@ -4,3 +4,6 @@
 **/.DS_Store
 result
 .crush/
+/bin/
+/node_modules/
+/lib/

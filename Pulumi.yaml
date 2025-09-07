@@ -1,0 +1,8 @@
+name: nixos-gce
+description: NixOS VM on Google Compute Engine
+runtime:
+  name: nodejs
+  options:
+    packagemanager: bun
+    typescript: true
+main: ./gcp/pulumi-infra.ts
