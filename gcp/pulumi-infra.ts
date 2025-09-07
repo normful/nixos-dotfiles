@@ -234,7 +234,7 @@ const instance = new gcp.compute.Instance(stack, {
   allowStoppingForUpdate: true,
   deletionProtection: false,
   scheduling: {
-    preemptible: false,
+    preemptible: true,
     automaticRestart: false,
   },
   shieldedInstanceConfig: {
