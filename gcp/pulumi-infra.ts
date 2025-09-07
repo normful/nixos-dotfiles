@@ -426,7 +426,7 @@ const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
 const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
   `${stack}-login-alert`,
   {
-    displayName: `${stack} Daily Login Digest`,
+    displayName: `${stack} Login Alert`,
     combiner: "OR",
     conditions: [
       {
