@@ -318,38 +318,6 @@ const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
     host: "EXTRACT(jsonPayload.host)",
     leader_pid: "EXTRACT(jsonPayload.LEADER)",
   },
-  metricDescriptor: {
-    metricKind: "GAUGE",
-    valueType: "INT64",
-    displayName: `${stack} Login Events`,
-    labels: [
-      {
-        key: "user_id",
-        valueType: "STRING",
-        description: "System user ID from systemd-logind",
-      },
-      {
-        key: "session_id",
-        valueType: "STRING",
-        description: "systemd session identifier",
-      },
-      {
-        key: "timestamp",
-        valueType: "STRING",
-        description: "Login timestamp",
-      },
-      {
-        key: "host",
-        valueType: "STRING",
-        description: "Target host name",
-      },
-      {
-        key: "leader_pid",
-        valueType: "STRING",
-        description: "Leader process ID",
-      },
-    ],
-  },
 });
 
 // Additional metric to capture SSH connection details for correlation
@@ -368,43 +336,6 @@ const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
     session_id: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-session\\\\(([^\\\\)]+)\\\\)\")",
     timestamp: "EXTRACT(jsonPayload.timestamp)",
     host: "EXTRACT(jsonPayload.host)",
-  },
-  metricDescriptor: {
-    metricKind: "GAUGE",
-    valueType: "INT64",
-    displayName: `${stack} SSH Connection Events`,
-    labels: [
-      {
-        key: "source_user_email",
-        valueType: "STRING",
-        description: "Tailscale user email initiating SSH connection",
-      },
-      {
-        key: "source_ip",
-        valueType: "STRING",
-        description: "Source IP address of SSH connection",
-      },
-      {
-        key: "target_user",
-        valueType: "STRING",
-        description: "Target system user for SSH connection",
-      },
-      {
-        key: "session_id",
-        valueType: "STRING",
-        description: "Tailscale SSH session identifier",
-      },
-      {
-        key: "timestamp",
-        valueType: "STRING",
-        description: "SSH connection timestamp",
-      },
-      {
-        key: "host",
-        valueType: "STRING",
-        description: "Target host name",
-      },
-    ],
   },
 });
 
