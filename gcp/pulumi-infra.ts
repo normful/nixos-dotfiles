@@ -302,7 +302,6 @@ export const consoleUrl = instance.instanceId.apply(
 export const loggingServiceAccountEmail = loggingServiceAccount.email;
 export const loggingServiceAccountKey = loggingKey.privateKey;
 
-// Login monitoring and alerting
 const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
   name: `${stack}_login_events`,
   description: "Count of systemd-logind new session events (user logins)",
@@ -352,10 +351,10 @@ const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
   },
 });
 
-// Additional metric to capture SSH connection details for correlation
 const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
   name: `${stack}_ssh_connections`,
-  description: "SSH connection events from Tailscale for correlation with logins",
+  description:
+    "SSH connection events from Tailscale for correlation with logins",
   filter: `
     resource.type="gce_instance"
     jsonPayload.SYSLOG_IDENTIFIER="tailscaled"
@@ -399,57 +398,67 @@ const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
     ],
   },
   labelExtractors: {
-    source_user_email: "REGEXP_EXTRACT(jsonPayload.message, \"from ([^\\\\s]+@[^\\\\s]+)\")",
-    source_ip: "REGEXP_EXTRACT(jsonPayload.message, \"\\\\(([0-9\\\\.]+)\\\\)\")",
-    target_user: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-user \\\\\\\"([^\\\\\\\"]+)\\\\\\\"\")",
-    session_id: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-session\\\\(([^\\\\)]+)\\\\)\")",
+    source_user_email:
+      'REGEXP_EXTRACT(jsonPayload.message, "from ([^\\\\s]+@[^\\\\s]+)")',
+    source_ip: 'REGEXP_EXTRACT(jsonPayload.message, "\\\\(([0-9\\\\.]+)\\\\)")',
+    target_user:
+      'REGEXP_EXTRACT(jsonPayload.message, "ssh-user \\\\\\"([^\\\\\\"]+)\\\\\\"")',
+    session_id:
+      'REGEXP_EXTRACT(jsonPayload.message, "ssh-session\\\\(([^\\\\)]+)\\\\)")',
     timestamp: "EXTRACT(jsonPayload.timestamp)",
     host: "EXTRACT(jsonPayload.host)",
   },
 });
 
-const emailNotificationChannel = new gcp.monitoring.NotificationChannel(`${stack}-email-alerts`, {
-  displayName: `${stack} Login Alerts`,
-  description: "Email notifications for login events",
-  type: "email",
-  labels: {
-    email_address: "normful+f@gmail.com",
+const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
+  `${stack}-email-notification-channel`,
+  {
+    displayName: "Login Alerts",
+    description: "Email notificaton channel",
+    type: "email",
+    labels: {
+      email_address: "normful+f@gmail.com",
+    },
   },
-});
+  { protect: true },
+);
 
-const loginAlertPolicy = new gcp.monitoring.AlertPolicy(`${stack}-daily-login-digest`, {
-  displayName: `${stack} Daily Login Digest`,
-  combiner: "OR",
-  conditions: [
-    {
-      displayName: `VM Instance - ${stack} SSH Connection Events`,
-      conditionThreshold: {
-        filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}_ssh_connections"`,
-        comparison: "COMPARISON_GT",
-        thresholdValue: 0,
-        duration: "0s",
-        aggregations: [
-          {
-            alignmentPeriod: "60s",
-            perSeriesAligner: "ALIGN_SUM",
+const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
+  `${stack}-login-alert`,
+  {
+    displayName: `${stack} Daily Login Digest`,
+    combiner: "OR",
+    conditions: [
+      {
+        displayName: `VM Instance - ${stack} SSH Connection Events`,
+        conditionThreshold: {
+          filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}_ssh_connections"`,
+          comparison: "COMPARISON_GT",
+          thresholdValue: 0,
+          duration: "0s",
+          aggregations: [
+            {
+              alignmentPeriod: "60s",
+              perSeriesAligner: "ALIGN_SUM",
+            },
+          ],
+          trigger: {
+            count: 1,
           },
-        ],
-        trigger: {
-          count: 1,
         },
       },
+    ],
+    alertStrategy: {
+      autoClose: "1800s",
     },
-  ],
-  alertStrategy: {
-    autoClose: "1800s",
+    notificationChannels: [emailNotificationChannel.name],
+    documentation: {
+      content: "Blah blah",
+      mimeType: "text/markdown",
+      subject: `Login to ${stack} detected`,
+    },
   },
-  notificationChannels: [emailNotificationChannel.name],
-  documentation: {
-    content: "Blah blah",
-    mimeType: "text/markdown",
-    subject: `Login to ${stack} detected`,
-  },
-});
+);
 
 export const loginMetricName = loginMetric.name;
 export const sshConnectionMetricName = sshConnectionMetric.name;
