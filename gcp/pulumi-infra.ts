@@ -425,8 +425,8 @@ const loginAlertPolicy = new gcp.monitoring.AlertPolicy(`${stack}-daily-login-di
       displayName: "Daily login summary",
       conditionThreshold: {
         filter: `metric.type="logging.googleapis.com/user/${stack}_login_events" resource.type="gce_instance"`,
-        comparison: "COMPARISON_GE",
-        thresholdValue: 1,
+        comparison: "COMPARISON_GT",
+        thresholdValue: 0,
         duration: "0s",
         aggregations: [
           {
