@@ -94,9 +94,9 @@
         type = "remap";
         inputs = [ "logins_trimmed" ];
         source = ''
-          .gcp_project_id = "''${GCP_PROJECT_ID:?}"
-          .gcp_instance_id = "''${GCP_INSTANCE_ID:?}"
-          .gcp_zone = "''${GCP_ZONE:?}"
+          .gcp_project_id = "''${GCP_PROJECT_ID:-unknown}"
+          .gcp_instance_id = "''${GCP_INSTANCE_ID:-unknown}"
+          .gcp_zone = "''${GCP_ZONE:-unknown}"
         '';
       };
 
