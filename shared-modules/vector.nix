@@ -6,7 +6,10 @@
 }:
 {
   sops.secrets = {
-    loggingServiceAccountKeyJson = { };
+    loggingServiceAccountKeyJson = {
+      owner = "vector";
+      group = "vector"; 
+    };
   };
 
   systemd.services.vector = {
