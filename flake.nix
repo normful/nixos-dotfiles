@@ -42,26 +42,6 @@
         };
       };
 
-      # NixOS configurations
-      nixosConfigurations.lilac = nixpkgs-stable.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules = [
-          ./nixos-config.nix
-        ];
-        specialArgs = {
-          nixpkgs-stable = nixpkgs-stable;
-          nixpkgs-pinned-unstable = nixpkgs-pinned-unstable;
-          pkgs-stable = import nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          pkgs-pinned-unstable = import nixpkgs-pinned-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        };
-      };
-
       # Formatters for both systems
       formatter.aarch64-darwin = nixpkgs-stable.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
       formatter.x86_64-linux = nixpkgs-stable.legacyPackages.x86_64-linux.nixfmt-rfc-style;
