@@ -319,7 +319,7 @@ const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
     leader_pid: "EXTRACT(jsonPayload.LEADER)",
   },
   metricDescriptor: {
-    metricKind: "COUNTER",
+    metricKind: "CUMULATIVE",
     valueType: "INT64",
     displayName: `${stack} Login Events`,
   },
@@ -343,7 +343,7 @@ const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
     host: "EXTRACT(jsonPayload.host)",
   },
   metricDescriptor: {
-    metricKind: "COUNTER",
+    metricKind: "CUMULATIVE",
     valueType: "INT64",
     displayName: `${stack} SSH Connection Events`,
   },
