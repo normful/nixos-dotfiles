@@ -52,8 +52,7 @@ export const zone = gcpConfig.require("zone", {
 });
 
 export const machineType = config.require("machineType", {
-  pattern:
-    /^[a-z][0-9]-(micro|small|medium|standard|highmem|highcpu)(-[0-9]+)?$/,
+  pattern: /^[a-z][a-z0-9-]*$/,
 });
 
 export const imageProject = config.require("imageProject", {
@@ -72,12 +71,6 @@ export const bootDiskType = config.require("bootDiskType", {
   allowedValues: ["pd-standard", "pd-ssd", "pd-balanced", "pd-extreme"],
 });
 
-export const bootDiskDailyBackupHourUTC = config.require(
-  "bootDiskDailyBackupHourUTC",
-  {
-    pattern: /^([01][0-9]|2[0-3]):[0-5][0-9]$/,
-  },
-);
 
 export const bootDiskSizeGB = getValidatedBootDiskSizeGB();
 export const sshPublicKey = getSshPublicKey();
@@ -87,18 +80,27 @@ export const projectId = gcpConfig.require("project");
 export const subnetCidrRange = config.get("subnetCidrRange") || "10.0.1.0/24";
 
 // Service account scopes configuration
-export const serviceAccountScopes = config.getObject("serviceAccountScopes") as string[] | undefined || [
+export const serviceAccountScopes = (config.getObject(
+  "serviceAccountScopes",
+) as string[] | undefined) || [
   "https://www.googleapis.com/auth/compute",
   "https://www.googleapis.com/auth/logging.write",
   "https://www.googleapis.com/auth/monitoring.write",
 ];
 
 // Snapshot retention configuration (in days)
-export const snapshotRetentionDays = config.getNumber("snapshotRetentionDays") || 2;
+export const snapshotRetentionDays =
+  config.getNumber("snapshotRetentionDays") || 2;
 
 // Instance scheduling configuration
-export const enableInstanceScheduling = config.getBoolean("enableInstanceScheduling") ?? true;
+export const enableInstanceScheduling =
+  config.getBoolean("enableInstanceScheduling") ?? true;
+
+// Boot disk snapshot configuration
+export const enableWeeklySnapshots =
+  config.getBoolean("enableWeeklySnapshots") ?? false;
 
 // Identity-Aware Proxy TCP forwarding IP range configuration
 // Default is the well-known GCP IAP range, but can be overridden if GCP updates it
-export const iapTcpForwardingRange = config.get("iapTcpForwardingRange") || "35.235.240.0/20";
+export const iapTcpForwardingRange =
+  config.get("iapTcpForwardingRange") || "35.235.240.0/20";

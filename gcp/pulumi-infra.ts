@@ -1,10 +1,10 @@
 import * as gcp from "@pulumi/gcp";
 import * as pulumi from "@pulumi/pulumi";
 import {
-  bootDiskDailyBackupHourUTC,
   bootDiskSizeGB,
   bootDiskType,
   enableInstanceScheduling,
+  enableWeeklySnapshots,
   iapTcpForwardingRange,
   imageFamily,
   imageProject,
@@ -77,17 +77,25 @@ if (!iapUserEmail) {
   throw new Error("IAP_USER_EMAIL environment variable must be set");
 }
 
-new gcp.projects.IAMBinding(`${stack}-iap-tunnel-access`, {
-  project: projectId,
-  role: "roles/iap.tunnelResourceAccessor",
-  members: [`user:${iapUserEmail}`],
-});
+new gcp.projects.IAMBinding(
+  `${stack}-iap-tunnel-access`,
+  {
+    project: projectId,
+    role: "roles/iap.tunnelResourceAccessor",
+    members: [`user:${iapUserEmail}`],
+  },
+  { protect: true },
+);
 
-new gcp.projects.IAMBinding(`${stack}-compute-instance-admin`, {
-  project: projectId,
-  role: "roles/compute.instanceAdmin.v1",
-  members: [`user:${iapUserEmail}`],
-});
+new gcp.projects.IAMBinding(
+  `${stack}-compute-instance-admin`,
+  {
+    project: projectId,
+    role: "roles/compute.instanceAdmin.v1",
+    members: [`user:${iapUserEmail}`],
+  },
+  { protect: true },
+);
 
 const vmTag = `${stack}-vm`;
 const lowFirewallRulePriority = 65534;
@@ -153,24 +161,30 @@ new gcp.compute.Firewall(`${stack}-ingress-deny-others`, {
   },
 });
 
-const snapshotPolicy = new gcp.compute.ResourcePolicy(
-  `${stack}-daily-boot-disk-snapshot`,
-  {
-    region: region,
-    snapshotSchedulePolicy: {
-      schedule: {
-        dailySchedule: {
-          daysInCycle: 1,
-          startTime: bootDiskDailyBackupHourUTC,
+const snapshotPolicy = enableWeeklySnapshots
+  ? new gcp.compute.ResourcePolicy(
+      `${stack}-weekly-boot-disk-snapshot`,
+      {
+        region: region,
+        snapshotSchedulePolicy: {
+          schedule: {
+            weeklySchedule: {
+              dayOfWeeks: [
+                {
+                  day: "SATURDAY",
+                  startTime: "19:00", // UTC
+                },
+              ],
+            },
+          },
+          retentionPolicy: {
+            maxRetentionDays: snapshotRetentionDays,
+          },
         },
       },
-      retentionPolicy: {
-        maxRetentionDays: snapshotRetentionDays,
-      },
-    },
-  },
-  { protect: true }, // Prevent deletion on pulumi destroy to preserve backup policy
-);
+      { protect: true },
+    )
+  : undefined;
 
 // https://www.pulumi.com/registry/packages/gcp/api-docs/compute/resourcepolicy/#resource-policy-instance-schedule-policy
 const autoStartStopPolicy = enableInstanceScheduling
@@ -203,11 +217,11 @@ const bootDisk = new gcp.compute.Disk(
     size: bootDiskSizeGB,
     type: bootDiskType,
     zone: zone,
-    resourcePolicies: [snapshotPolicy.selfLink],
+    resourcePolicies: snapshotPolicy ? [snapshotPolicy.selfLink] : undefined,
     labels: commonLabels,
   },
   { protect: true },
-); // Prevent deletion on pulumi destroy to preserve data
+);
 
 const instance = new gcp.compute.Instance(stack, {
   machineType: machineTypeFromConfig,
@@ -226,7 +240,7 @@ const instance = new gcp.compute.Instance(stack, {
   allowStoppingForUpdate: true,
   deletionProtection: false,
   scheduling: {
-    preemptible: false,
+    preemptible: true,
     automaticRestart: false,
   },
   shieldedInstanceConfig: {
