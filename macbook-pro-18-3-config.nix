@@ -1,6 +1,4 @@
 {
-  nixpkgs-stable,
-  nixpkgs-pinned-unstable,
   pkgs-stable,
   pkgs-pinned-unstable,
   ...

@@ -1,0 +1,76 @@
+[tools]
+bun = "latest"
+pulumi = "latest"
+gcloud = "latest"
+sops = "latest"
+age = "latest"
+
+[env]
+GCP_VM_HOSTNAME = "beach"
+GCP_VM_USERNAME = "norman"
+SSH_PUBLIC_KEY_PATH = "/Users/norman/.ssh/id_ed25519.pub"
+GCE_PRIVATE_KEY_PATH = "/Users/norman/.ssh/google_compute_engine"
+IAP_USER_EMAIL = "normful@gmail.com"
+
+[tasks."gcp:new"]
+description = "Creates a new Pulumi stack in preparation for launching a new virtual machine on Google Compute Engine"
+run = [
+  "pulumi stack init $GCP_VM_HOSTNAME",
+  "cp Pulumi.example.yaml Pulumi.$GCP_VM_HOSTNAME.yaml",
+  "cp -R gcp/example gcp/$GCP_VM_HOSTNAME",
+  "cp -R secrets/gcp_example.yaml secrets/gcp_$GCP_VM_HOSTNAME.yaml",
+]
+alias = "new"
+
+[tasks."gcp:check:pulumi"]
+description = "Check Pulumi infrastructure TypeScript configuration"
+run = "bun tsc --noEmit"
+alias = "check1"
+
+[tasks."gcp:up"]
+description = "Create/update the GCP resources"
+depends = [ "gcp:check:pulumi" ]
+run = "pulumi up --yes --skip-preview"
+alias = "up"
+
+[tasks."gcp:edit-secrets"]
+description = "Edit sops secrets for GCP VM"
+run = "sops secrets/gcp_$GCP_VM_HOSTNAME.yaml"
+alias = "secrets"
+
+[tasks."gcp:test:bash"]
+description = "Run bashunit tests"
+run = [
+  "[ -e lib/bashunit ] || curl -s https://bashunit.typeddevs.com/install.sh | bash",
+  "lib/bashunit --verbose ./tests/**/*-test.sh",
+]
+alias = "check1"
+
+[tasks."gcp:check:nix"]
+description = "Check syntax of Nix configuration"
+run = "nix flake check --all-systems"
+alias = "check2"
+
+[tasks."gcp:install"]
+description = "Install NixOS on an existing running VM that was provisioned by Pulumi"
+depends = [ "gcp:check:nix" ]
+run = "./gcp/install-nixos.sh"
+alias = [
+  "install",
+  "i",
+]
+
+[tasks."gcp:ls"]
+description = "List Pulumi stacks"
+run = "pulumi stack ls"
+alias = "ls"
+
+[tasks."gcp:info"]
+description = "Show outputs of current Pulumi stack"
+run = "pulumi stack output"
+alias = "info"
+
+[tasks."gcp:down"]
+description = "Delete GCP resources, except protected ones"
+run = "pulumi destroy --exclude-protected --yes"
+alias = "down"
