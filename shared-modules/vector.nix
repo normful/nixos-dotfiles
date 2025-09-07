@@ -114,7 +114,7 @@
         gcp_logs = {
           type = "gcp_stackdriver_logs";
           inputs = [ "logins_with_gcp_metadata" ];
-          credentials_path = config.sops.loggingServiceAccountKeyJson.path;
+          credentials_path = config.sops.secrets.loggingServiceAccountKeyJson.path;
           resource = {
             type = "gce_instance";
           };
