@@ -10,13 +10,13 @@
     group = "vector";
     isSystemUser = true;
   };
-  
+
   users.groups.vector = { };
 
   sops.secrets = {
     loggingServiceAccountKeyJson = {
       owner = "vector";
-      group = "vector"; 
+      group = "vector";
     };
   };
 
@@ -102,6 +102,10 @@
 
           # Delete SELinux context (usually just "kernel", not login-specific)
           del(."_SELINUX_CONTEXT")
+
+          # Delete other unnecessary fields
+          del(."_GID")
+          del(."_UID")
         '';
       };
 
@@ -109,9 +113,7 @@
         type = "remap";
         inputs = [ "logins_trimmed" ];
         source = ''
-          .gcp_project_id = "''${GCP_PROJECT_ID:-unknown}"
-          .gcp_instance_id = "''${GCP_INSTANCE_ID:-unknown}"
-          .gcp_zone = "''${GCP_ZONE:-unknown}"
+          .instance = "''${GCP_INSTANCE_ID:-unknown}"
         '';
       };
 
