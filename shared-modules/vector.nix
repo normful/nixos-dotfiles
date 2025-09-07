@@ -141,10 +141,6 @@
             };
             project_id = config.my.gcpProjectId;
             log_id = "${config.my.hostname}-login";
-            labels = {
-              instance_id = "''${GCP_INSTANCE_ID: -unknown}";
-              zone = "''${GCP_ZONE: -unknown}";
-            };
             tls = {
               verify_certificate = true;
             };
