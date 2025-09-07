@@ -1,6 +1,8 @@
 { pkgs-stable, pkgs-pinned-unstable, ... }:
 
 let
+  better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync.nix { };
+
   unstableNeovim = pkgs-pinned-unstable.neovim.override {
     # https://github.com/NixOS/nixpkgs/blob/f8b8860d1bbd654706ae21017bd8da694614c440/doc/languages-frameworks/neovim.section.md
 
@@ -170,7 +172,6 @@ in
 
   git
   git-lfs
-  nix-prefetch-github
 
   #################################################################################
   # Jujutsu
@@ -453,6 +454,9 @@ in
   # https://lftp.yar.ru/lftp-man.html
   lftp
 
+  # https://github.com/jb2170/better-adb-sync
+  better-adb-sync
+
   #################################################################################
   # Screen sharing
   #################################################################################
@@ -525,6 +529,12 @@ in
 
 ++ (with pkgs-pinned-unstable; [
   unstableNeovim
+
+  #################################################################################
+  # Nix
+  #################################################################################
+
+  nix-prefetch-github
 
   #################################################################################
   # Rust
