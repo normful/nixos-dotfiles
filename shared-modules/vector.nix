@@ -126,11 +126,14 @@
         };
 
         sinks = {
-          console = {
-            type = "console";
-            inputs = [ "logins_with_gcp_metadata" ];
-            encoding.codec = "json";
-          };
+          /*
+            Uncomment for debugging
+            console = {
+              type = "console";
+              inputs = [ "logins_with_gcp_metadata" ];
+              encoding.codec = "json";
+            };
+          */
 
           gcp_logs = {
             type = "gcp_stackdriver_logs";
