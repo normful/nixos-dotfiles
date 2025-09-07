@@ -5,6 +5,14 @@
   ...
 }:
 {
+  # Create vector user and group for SOPS secrets access
+  users.users.vector = {
+    group = "vector";
+    isSystemUser = true;
+  };
+  
+  users.groups.vector = { };
+
   sops.secrets = {
     loggingServiceAccountKeyJson = {
       owner = "vector";
