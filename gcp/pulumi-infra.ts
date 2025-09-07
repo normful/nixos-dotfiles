@@ -311,6 +311,38 @@ const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
     jsonPayload.SYSLOG_IDENTIFIER="systemd-logind"
     jsonPayload.message=~"New session .* of user .*\\\\."
   `,
+  metricDescriptor: {
+    metricKind: "DELTA",
+    valueType: "INT64",
+    displayName: `${stack} Login Events`,
+    labels: [
+      {
+        key: "user_id",
+        valueType: "STRING",
+        description: "System user ID from systemd-logind",
+      },
+      {
+        key: "session_id",
+        valueType: "STRING",
+        description: "systemd session identifier",
+      },
+      {
+        key: "timestamp",
+        valueType: "STRING",
+        description: "Login timestamp",
+      },
+      {
+        key: "host",
+        valueType: "STRING",
+        description: "Target host name",
+      },
+      {
+        key: "leader_pid",
+        valueType: "STRING",
+        description: "Leader process ID",
+      },
+    ],
+  },
   labelExtractors: {
     user_id: "EXTRACT(jsonPayload.USER_ID)",
     session_id: "EXTRACT(jsonPayload.SESSION_ID)",
@@ -329,6 +361,43 @@ const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
     jsonPayload.SYSLOG_IDENTIFIER="tailscaled"
     jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*"
   `,
+  metricDescriptor: {
+    metricKind: "DELTA",
+    valueType: "INT64",
+    displayName: `${stack} SSH Connection Events`,
+    labels: [
+      {
+        key: "source_user_email",
+        valueType: "STRING",
+        description: "Tailscale user email initiating SSH connection",
+      },
+      {
+        key: "source_ip",
+        valueType: "STRING",
+        description: "Source IP address of SSH connection",
+      },
+      {
+        key: "target_user",
+        valueType: "STRING",
+        description: "Target system user for SSH connection",
+      },
+      {
+        key: "session_id",
+        valueType: "STRING",
+        description: "Tailscale SSH session identifier",
+      },
+      {
+        key: "timestamp",
+        valueType: "STRING",
+        description: "SSH connection timestamp",
+      },
+      {
+        key: "host",
+        valueType: "STRING",
+        description: "Target host name",
+      },
+    ],
+  },
   labelExtractors: {
     source_user_email: "REGEXP_EXTRACT(jsonPayload.message, \"from ([^\\\\s]+@[^\\\\s]+)\")",
     source_ip: "REGEXP_EXTRACT(jsonPayload.message, \"\\\\(([0-9\\\\.]+)\\\\)\")",
