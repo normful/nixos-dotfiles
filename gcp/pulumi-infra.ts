@@ -309,7 +309,7 @@ const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
   filter: `
     resource.type="gce_instance"
     jsonPayload.SYSLOG_IDENTIFIER="systemd-logind"
-    jsonPayload.message=~"New session .* of user .*"
+    jsonPayload.message=~"New session .* of user .*\\\\."
   `,
   labelExtractors: {
     user_id: "EXTRACT(jsonPayload.USER_ID)",
@@ -335,10 +335,10 @@ const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
     jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*"
   `,
   labelExtractors: {
-    source_user_email: "REGEXP_EXTRACT(jsonPayload.message, \"from (\\\\S+@\\\\S+)\")",
-    source_ip: "REGEXP_EXTRACT(jsonPayload.message, \"\\\\((\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+)\\\\)\")",
-    target_user: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-user \\\\\\\"(\\\\w+)\\\\\\\"\")",
-    session_id: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-session\\\\((\\\\S+)\\\\)\")",
+    source_user_email: "REGEXP_EXTRACT(jsonPayload.message, \"from ([^\\\\s]+@[^\\\\s]+)\")",
+    source_ip: "REGEXP_EXTRACT(jsonPayload.message, \"\\\\(([0-9\\\\.]+)\\\\)\")",
+    target_user: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-user \\\\\\\"([^\\\\\\\"]+)\\\\\\\"\")",
+    session_id: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-session\\\\(([^\\\\)]+)\\\\)\")",
     timestamp: "EXTRACT(jsonPayload.timestamp)",
     host: "EXTRACT(jsonPayload.host)",
   },
