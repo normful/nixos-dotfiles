@@ -253,23 +253,51 @@ const instance = new gcp.compute.Instance(stack, {
   labels: commonLabels,
 });
 
+const loggingServiceAccount = new gcp.serviceaccount.Account(
+  `${stack}-log-sa`,
+  {
+    accountId: `${stack}-log-sa`,
+    displayName: `${stack} logging service account`,
+    description: `Service account for ${stack} to send logs to Cloud Logging`,
+  },
+);
+
+new gcp.projects.IAMMember(`${stack}-log-writer`, {
+  project: projectId,
+  role: "roles/logging.logWriter",
+  member: loggingServiceAccount.email.apply(
+    (email) => `serviceAccount:${email}`,
+  ),
+});
+
+const loggingKey = new gcp.serviceaccount.Key(`${stack}-log-key`, {
+  serviceAccountId: loggingServiceAccount.name,
+  keyAlgorithm: "KEY_ALG_RSA_2048",
+  privateKeyType: "TYPE_GOOGLE_CREDENTIALS_FILE",
+});
+
 export const gcpProjectId = projectId;
+
 export const instanceName = instance.name;
 export const instanceId = instance.instanceId;
+export const bootDiskName = bootDisk.name;
+export const machineType = instance.machineType;
 export const vmInternalIp = instance.networkInterfaces.apply(
   (ni) => ni[0].networkIp,
 );
 export const deployedZone = instance.zone;
 export const deployedRegion = subnetwork.region;
-export const machineType = instance.machineType;
+
 export const networkName = network.name;
 export const subnetworkName = subnetwork.name;
-export const bootDiskName = bootDisk.name;
+export const publicNatGatewayName = publicNatGateway.name;
+export const publicNatGatewayIpAddress = publicNatIpAddress.address;
+
 export const sshCommand = pulumi.interpolate`gcloud compute ssh ${instanceName} --zone=${deployedZone} --tunnel-through-iap`;
 export const consoleUrl = instance.instanceId.apply(
   (id) =>
     `https://console.cloud.google.com/compute/instancesDetail/zones/${zone}/instances/${id}?project=${projectId}`,
 );
 
-export const publicNatGatewayName = publicNatGateway.name;
-export const publicNatGatewayIpAddress = publicNatIpAddress.address;
+export const loggingServiceAccountEmail = loggingServiceAccount.email;
+export const loggingServiceAccountKey = loggingKey.privateKey;
