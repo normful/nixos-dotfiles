@@ -422,18 +422,16 @@ const loginAlertPolicy = new gcp.monitoring.AlertPolicy(`${stack}-daily-login-di
   combiner: "OR",
   conditions: [
     {
-      displayName: "Daily login summary",
+      displayName: `VM Instance - ${stack} SSH Connection Events`,
       conditionThreshold: {
-        filter: `metric.type="logging.googleapis.com/user/${stack}_login_events" resource.type="gce_instance"`,
+        filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}_ssh_connections"`,
         comparison: "COMPARISON_GT",
         thresholdValue: 0,
         duration: "0s",
         aggregations: [
           {
-            alignmentPeriod: "86400s", // 24 hours
-            perSeriesAligner: "ALIGN_DELTA",
-            crossSeriesReducer: "REDUCE_SUM",
-            groupByFields: ["metric.label.user_id", "metric.label.host"],
+            alignmentPeriod: "60s",
+            perSeriesAligner: "ALIGN_SUM",
           },
         ],
         trigger: {
@@ -443,48 +441,13 @@ const loginAlertPolicy = new gcp.monitoring.AlertPolicy(`${stack}-daily-login-di
     },
   ],
   alertStrategy: {
-    autoClose: "86400s", // 24 hours - auto-close for daily digest
+    autoClose: "1800s",
   },
   notificationChannels: [emailNotificationChannel.name],
   documentation: {
-    content: `# 🔐 Daily Login Digest - ${stack}
-
-## Summary
-Login activity detected on your ${stack} instance in the last 24 hours.
-
-## Details Available
-Each login event includes:
-- **User**: System user account (extracted from USER_ID)
-- **Session**: systemd session identifier 
-- **Timestamp**: When the login session was established
-- **Host**: Target host (${stack} instance)
-- **Method**: SSH via Tailscale (correlated from connection logs)
-
-## Security Information
-- All logins are through Tailscale SSH with IAP protection
-- Sessions are managed by systemd-logind
-- Source IP addresses are captured from Tailscale connection logs
-- Login method is determined by correlation with SSH session initiation
-
-## View Full Details
-To see detailed login information including source IPs and exact timestamps:
-1. Go to [Cloud Logging](https://console.cloud.google.com/logs/query)
-2. Use this query for the last 24 hours:
-\`\`\`
-resource.type="gce_instance"
-(
-  (jsonPayload.SYSLOG_IDENTIFIER="systemd-logind" AND jsonPayload.message=~"New session .* of user .*")
-  OR
-  (jsonPayload.SYSLOG_IDENTIFIER="tailscaled" AND jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*")
-)
-timestamp >= "${new Date(Date.now() - 24*60*60*1000).toISOString()}"
-\`\`\`
-
-## Alert Configuration
-- **Frequency**: Daily digest (maximum 1 email per 24 hours)
-- **Trigger**: Any login activity detected
-- **Auto-close**: 24 hours after triggering`,
+    content: "Blah blah",
     mimeType: "text/markdown",
+    subject: `Login to ${stack} detected`,
   },
 });
 
