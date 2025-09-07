@@ -77,17 +77,25 @@ if (!iapUserEmail) {
   throw new Error("IAP_USER_EMAIL environment variable must be set");
 }
 
-new gcp.projects.IAMBinding(`${stack}-iap-tunnel-access`, {
-  project: projectId,
-  role: "roles/iap.tunnelResourceAccessor",
-  members: [`user:${iapUserEmail}`],
-});
+new gcp.projects.IAMBinding(
+  `${stack}-iap-tunnel-access`,
+  {
+    project: projectId,
+    role: "roles/iap.tunnelResourceAccessor",
+    members: [`user:${iapUserEmail}`],
+  },
+  { protect: true },
+);
 
-new gcp.projects.IAMBinding(`${stack}-compute-instance-admin`, {
-  project: projectId,
-  role: "roles/compute.instanceAdmin.v1",
-  members: [`user:${iapUserEmail}`],
-});
+new gcp.projects.IAMBinding(
+  `${stack}-compute-instance-admin`,
+  {
+    project: projectId,
+    role: "roles/compute.instanceAdmin.v1",
+    members: [`user:${iapUserEmail}`],
+  },
+  { protect: true },
+);
 
 const vmTag = `${stack}-vm`;
 const lowFirewallRulePriority = 65534;
@@ -169,7 +177,7 @@ const snapshotPolicy = new gcp.compute.ResourcePolicy(
       },
     },
   },
-  { protect: true }, // Prevent deletion on pulumi destroy to preserve backup policy
+  { protect: true },
 );
 
 // https://www.pulumi.com/registry/packages/gcp/api-docs/compute/resourcepolicy/#resource-policy-instance-schedule-policy
@@ -207,7 +215,7 @@ const bootDisk = new gcp.compute.Disk(
     labels: commonLabels,
   },
   { protect: true },
-); // Prevent deletion on pulumi destroy to preserve data
+);
 
 const instance = new gcp.compute.Instance(stack, {
   machineType: machineTypeFromConfig,
