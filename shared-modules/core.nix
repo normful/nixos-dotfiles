@@ -38,6 +38,7 @@
         sops
         age
         kitty
+	rustup
       ]
       ++ (with pkgs-pinned-unstable; [ ]);
 
