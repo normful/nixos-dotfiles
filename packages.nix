@@ -549,6 +549,7 @@ in
       pyflakes
       pylint
       pynvim
+      numpy
     ]
   ))
   poetry
