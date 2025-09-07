@@ -453,7 +453,6 @@ const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
     },
     notificationChannels: [emailNotificationChannel.name],
     documentation: {
-      content: "Blah blah",
       mimeType: "text/markdown",
       subject: `Login to ${stack} detected`,
     },
