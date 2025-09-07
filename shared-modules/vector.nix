@@ -5,13 +5,28 @@
   ...
 }:
 {
+  environment.systemPackages = [ pkgs.gnused ];
+
+  systemd.services.vector = {
+    serviceConfig = {
+      ExecStartPre = pkgs.writeShellScript "fetch-gcp-metadata" ''
+        {
+          echo "GCP_PROJECT_ID=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/project/project-id' -H 'Metadata-Flavor: Google')"
+          echo "GCP_INSTANCE_ID=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/id' -H 'Metadata-Flavor: Google')"
+          echo "GCP_ZONE=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/zone' -H 'Metadata-Flavor: Google' | cut -d/ -f4)"
+        } > /run/vector-gcp-env
+      '';
+      EnvironmentFile = "/run/vector-gcp-env";
+    };
+  };
+
   services.vector = {
     enable = true;
     journaldAccess = true;
     settings = {
       data_dir = "/var/lib/vector";
 
-      sources.tailscale_logins = {
+      sources.logins = {
         type = "journald";
         current_boot_only = true;
         include_units = [
@@ -23,9 +38,9 @@
         };
       };
 
-      transforms.remove_fields = {
+      transforms.logins_trimmed = {
         type = "remap";
-        inputs = [ "tailscale_logins" ];
+        inputs = [ "logins" ];
         source = ''
           # Delete debug/development fields
           del(."CODE_FILE")
@@ -75,10 +90,46 @@
         '';
       };
 
-      sinks.console = {
-        type = "console";
-        inputs = [ "remove_fields" ];
-        encoding.codec = "json";
+      transforms.logins_with_gcp_metadata = {
+        type = "remap";
+        inputs = [ "logins_trimmed" ];
+        source = ''
+          .gcp_project_id = "''${GCP_PROJECT_ID:?}"
+          .gcp_instance_id = "''${GCP_INSTANCE_ID:?}"
+          .gcp_zone = "''${GCP_ZONE:?}"
+        '';
+      };
+
+      sinks = {
+        console = {
+          type = "console";
+          inputs = [ "logins_with_gcp_metadata" ];
+          encoding.codec = "json";
+        };
+
+        /*
+          gcp_logs = {
+            type = "gcp_stackdriver_logs";
+            inputs = [ "logins_with_gcp_metadata" ];
+
+            credentials_path = "/etc/vector/gcp_credentials.json";
+
+            resource = {
+              type = "gce_instance";
+            };
+
+            project_id = "\${GCP_PROJECT_ID}";
+            instance_id = "\${GCP_INSTANCE_ID}";
+            zone = "\${GCP_ZONE_ID}";
+
+            tls = {
+              verify_certificate = true;
+            };
+            request = {
+              retry_attempts = 3;
+            };
+          };
+        */
       };
     };
   };
