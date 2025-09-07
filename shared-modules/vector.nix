@@ -5,7 +5,9 @@
   ...
 }:
 {
-  environment.systemPackages = [ pkgs.gnused ];
+  sops.secrets = {
+    loggingServiceAccountKeyJson = { };
+  };
 
   systemd.services.vector = {
     serviceConfig = {
@@ -109,29 +111,21 @@
           encoding.codec = "json";
         };
 
-        /*
-          gcp_logs = {
-            type = "gcp_stackdriver_logs";
-            inputs = [ "logins_with_gcp_metadata" ];
-
-            credentials_path = "/etc/vector/gcp_credentials.json";
-
-            resource = {
-              type = "gce_instance";
-            };
-
-            project_id = "\${GCP_PROJECT_ID}";
-            instance_id = "\${GCP_INSTANCE_ID}";
-            zone = "\${GCP_ZONE_ID}";
-
-            tls = {
-              verify_certificate = true;
-            };
-            request = {
-              retry_attempts = 3;
-            };
+        gcp_logs = {
+          type = "gcp_stackdriver_logs";
+          inputs = [ "logins_with_gcp_metadata" ];
+          credentials_path = config.sops.loggingServiceAccountKeyJson.path;
+          resource = {
+            type = "gce_instance";
           };
-        */
+          project_id = "dev-vm-provisioning";
+          tls = {
+            verify_certificate = true;
+          };
+          request = {
+            retry_attempts = 3;
+          };
+        };
       };
     };
   };
