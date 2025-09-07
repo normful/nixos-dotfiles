@@ -119,6 +119,7 @@
             type = "gce_instance";
           };
           project_id = "dev-vm-provisioning";
+          log_id = "${config.my.hostname}-login";
           tls = {
             verify_certificate = true;
           };
