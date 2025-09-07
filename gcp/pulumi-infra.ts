@@ -375,9 +375,6 @@ const loginAlertPolicy = new gcp.monitoring.AlertPolicy(`${stack}-daily-login-di
   ],
   alertStrategy: {
     autoClose: "86400s", // 24 hours - auto-close for daily digest
-    notificationRateLimit: {
-      period: "86400s", // Limit to once per day
-    },
   },
   notificationChannels: [emailNotificationChannel.name],
   documentation: {
