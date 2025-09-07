@@ -301,3 +301,138 @@ export const consoleUrl = instance.instanceId.apply(
 
 export const loggingServiceAccountEmail = loggingServiceAccount.email;
 export const loggingServiceAccountKey = loggingKey.privateKey;
+
+// Login monitoring and alerting
+const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
+  name: `${stack}_login_events`,
+  description: "Count of systemd-logind new session events (user logins)",
+  filter: `
+    resource.type="gce_instance"
+    jsonPayload.SYSLOG_IDENTIFIER="systemd-logind"
+    jsonPayload.message=~"New session .* of user .*"
+  `,
+  labelExtractors: {
+    user_id: "EXTRACT(jsonPayload.USER_ID)",
+    session_id: "EXTRACT(jsonPayload.SESSION_ID)",
+    timestamp: "EXTRACT(jsonPayload.timestamp)",
+    host: "EXTRACT(jsonPayload.host)",
+    leader_pid: "EXTRACT(jsonPayload.LEADER)",
+  },
+  metricDescriptor: {
+    metricKind: "COUNTER",
+    valueType: "INT64",
+    displayName: `${stack} Login Events`,
+  },
+});
+
+// Additional metric to capture SSH connection details for correlation
+const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
+  name: `${stack}_ssh_connections`,
+  description: "SSH connection events from Tailscale for correlation with logins",
+  filter: `
+    resource.type="gce_instance"
+    jsonPayload.SYSLOG_IDENTIFIER="tailscaled"
+    jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*"
+  `,
+  labelExtractors: {
+    source_user_email: "REGEXP_EXTRACT(jsonPayload.message, \"from (\\\\S+@\\\\S+)\")",
+    source_ip: "REGEXP_EXTRACT(jsonPayload.message, \"\\\\((\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+)\\\\)\")",
+    target_user: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-user \\\\\\\"(\\\\w+)\\\\\\\"\")",
+    session_id: "REGEXP_EXTRACT(jsonPayload.message, \"ssh-session\\\\((\\\\S+)\\\\)\")",
+    timestamp: "EXTRACT(jsonPayload.timestamp)",
+    host: "EXTRACT(jsonPayload.host)",
+  },
+  metricDescriptor: {
+    metricKind: "COUNTER",
+    valueType: "INT64",
+    displayName: `${stack} SSH Connection Events`,
+  },
+});
+
+const emailNotificationChannel = new gcp.monitoring.NotificationChannel(`${stack}-email-alerts`, {
+  displayName: `${stack} Login Alerts`,
+  description: "Email notifications for login events",
+  type: "email",
+  labels: {
+    email_address: "normful+f@gmail.com",
+  },
+});
+
+const loginAlertPolicy = new gcp.monitoring.AlertPolicy(`${stack}-daily-login-digest`, {
+  displayName: `${stack} Daily Login Digest`,
+  combiner: "OR",
+  conditions: [
+    {
+      displayName: "Daily login summary",
+      conditionThreshold: {
+        filter: `metric.type="logging.googleapis.com/user/${stack}_login_events" resource.type="gce_instance"`,
+        comparison: "COMPARISON_GTE",
+        thresholdValue: 1,
+        duration: "0s",
+        aggregations: [
+          {
+            alignmentPeriod: "86400s", // 24 hours
+            perSeriesAligner: "ALIGN_DELTA",
+            crossSeriesReducer: "REDUCE_SUM",
+            groupByFields: ["metric.label.user_id", "metric.label.host"],
+          },
+        ],
+        trigger: {
+          count: 1,
+        },
+      },
+    },
+  ],
+  alertStrategy: {
+    autoClose: "86400s", // 24 hours - auto-close for daily digest
+    notificationRateLimit: {
+      period: "86400s", // Limit to once per day
+    },
+  },
+  notificationChannels: [emailNotificationChannel.name],
+  documentation: {
+    content: `# 🔐 Daily Login Digest - ${stack}
+
+## Summary
+Login activity detected on your ${stack} instance in the last 24 hours.
+
+## Details Available
+Each login event includes:
+- **User**: System user account (extracted from USER_ID)
+- **Session**: systemd session identifier 
+- **Timestamp**: When the login session was established
+- **Host**: Target host (${stack} instance)
+- **Method**: SSH via Tailscale (correlated from connection logs)
+
+## Security Information
+- All logins are through Tailscale SSH with IAP protection
+- Sessions are managed by systemd-logind
+- Source IP addresses are captured from Tailscale connection logs
+- Login method is determined by correlation with SSH session initiation
+
+## View Full Details
+To see detailed login information including source IPs and exact timestamps:
+1. Go to [Cloud Logging](https://console.cloud.google.com/logs/query)
+2. Use this query for the last 24 hours:
+\`\`\`
+resource.type="gce_instance"
+(
+  (jsonPayload.SYSLOG_IDENTIFIER="systemd-logind" AND jsonPayload.message=~"New session .* of user .*")
+  OR
+  (jsonPayload.SYSLOG_IDENTIFIER="tailscaled" AND jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*")
+)
+timestamp >= "${new Date(Date.now() - 24*60*60*1000).toISOString()}"
+\`\`\`
+
+## Alert Configuration
+- **Frequency**: Daily digest (maximum 1 email per 24 hours)
+- **Trigger**: Any login activity detected
+- **Auto-close**: 24 hours after triggering`,
+    mimeType: "text/markdown",
+  },
+});
+
+export const loginMetricName = loginMetric.name;
+export const sshConnectionMetricName = sshConnectionMetric.name;
+export const emailNotificationChannelName = emailNotificationChannel.name;
+export const loginAlertPolicyName = loginAlertPolicy.name;
