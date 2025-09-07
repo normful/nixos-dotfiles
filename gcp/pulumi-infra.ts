@@ -1,10 +1,10 @@
 import * as gcp from "@pulumi/gcp";
 import * as pulumi from "@pulumi/pulumi";
 import {
-  bootDiskDailyBackupHourUTC,
   bootDiskSizeGB,
   bootDiskType,
   enableInstanceScheduling,
+  enableWeeklySnapshots,
   iapTcpForwardingRange,
   imageFamily,
   imageProject,
@@ -161,24 +161,30 @@ new gcp.compute.Firewall(`${stack}-ingress-deny-others`, {
   },
 });
 
-const snapshotPolicy = new gcp.compute.ResourcePolicy(
-  `${stack}-daily-boot-disk-snapshot`,
-  {
-    region: region,
-    snapshotSchedulePolicy: {
-      schedule: {
-        dailySchedule: {
-          daysInCycle: 1,
-          startTime: bootDiskDailyBackupHourUTC,
+const snapshotPolicy = enableWeeklySnapshots
+  ? new gcp.compute.ResourcePolicy(
+      `${stack}-weekly-boot-disk-snapshot`,
+      {
+        region: region,
+        snapshotSchedulePolicy: {
+          schedule: {
+            weeklySchedule: {
+              dayOfWeeks: [
+                {
+                  day: "SATURDAY",
+                  startTime: "19:00", // UTC
+                },
+              ],
+            },
+          },
+          retentionPolicy: {
+            maxRetentionDays: snapshotRetentionDays,
+          },
         },
       },
-      retentionPolicy: {
-        maxRetentionDays: snapshotRetentionDays,
-      },
-    },
-  },
-  { protect: true },
-);
+      { protect: true },
+    )
+  : undefined;
 
 // https://www.pulumi.com/registry/packages/gcp/api-docs/compute/resourcepolicy/#resource-policy-instance-schedule-policy
 const autoStartStopPolicy = enableInstanceScheduling
@@ -211,7 +217,7 @@ const bootDisk = new gcp.compute.Disk(
     size: bootDiskSizeGB,
     type: bootDiskType,
     zone: zone,
-    resourcePolicies: [snapshotPolicy.selfLink],
+    resourcePolicies: snapshotPolicy ? [snapshotPolicy.selfLink] : undefined,
     labels: commonLabels,
   },
   { protect: true },
