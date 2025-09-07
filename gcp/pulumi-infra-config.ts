@@ -71,12 +71,6 @@ export const bootDiskType = config.require("bootDiskType", {
   allowedValues: ["pd-standard", "pd-ssd", "pd-balanced", "pd-extreme"],
 });
 
-export const bootDiskDailyBackupHourUTC = config.require(
-  "bootDiskDailyBackupHourUTC",
-  {
-    pattern: /^([01][0-9]|2[0-3]):[0-5][0-9]$/,
-  },
-);
 
 export const bootDiskSizeGB = getValidatedBootDiskSizeGB();
 export const sshPublicKey = getSshPublicKey();
@@ -101,6 +95,10 @@ export const snapshotRetentionDays =
 // Instance scheduling configuration
 export const enableInstanceScheduling =
   config.getBoolean("enableInstanceScheduling") ?? true;
+
+// Boot disk snapshot configuration
+export const enableWeeklySnapshots =
+  config.getBoolean("enableWeeklySnapshots") ?? false;
 
 // Identity-Aware Proxy TCP forwarding IP range configuration
 // Default is the well-known GCP IAP range, but can be overridden if GCP updates it
