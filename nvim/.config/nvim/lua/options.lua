@@ -72,6 +72,19 @@ opt.backupcopy = 'yes'
 opt.undofile = true
 opt.undodir = undo_dir
 
+vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile', 'BufReadPost' }, {
+  pattern = {
+    vim.fn.expand('~') .. '/Library/Application Support/sops/*',
+    vim.fn.expand('~') .. '/.config/sops/*',
+  },
+  callback = function()
+    vim.opt_local.backup = false
+    vim.opt_local.writebackup = false
+    vim.opt_local.undofile = false
+    vim.opt_local.swapfile = false
+  end,
+})
+
 opt.history = 1000
 opt.autoread = true -- automatically reload file changed outside vim
 

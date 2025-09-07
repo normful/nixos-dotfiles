@@ -324,7 +324,7 @@ config.window_padding = {
   left = '10px',
   right = '0px',
   top = 0,
-  bottom = 0,
+  bottom = '10px',
 }
 
 config.adjust_window_size_when_changing_font_size = false

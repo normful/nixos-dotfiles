@@ -83,6 +83,8 @@ if status is-interactive
     fish_add_path --global "$HOME/.cargo/bin"
 
     source "$HOME/.api_keys.fish"
+
+    mise activate fish | source
 end
 
 function __should_na --on-event fish_prompt
