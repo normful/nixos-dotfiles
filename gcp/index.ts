@@ -21,7 +21,8 @@ export {
   vmInternalIp,
   deployedZone,
   deployedRegion,
-  sshCommand,
+  sshRootCommand,
+  sshUserCommand,
   consoleUrl,
 } from "./compute";
 export { loggingServiceAccountEmail, loggingServiceAccountKey } from "./iam";

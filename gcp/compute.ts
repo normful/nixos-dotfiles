@@ -129,7 +129,8 @@ export const vmInternalIp = instance.networkInterfaces.apply(
 export const deployedZone = instance.zone;
 export const deployedRegion = subnetwork.region;
 
-export const sshCommand = pulumi.interpolate`gcloud compute ssh ${instanceName} --zone=${deployedZone} --tunnel-through-iap`;
+export const sshRootCommand = pulumi.interpolate`gcloud compute ssh root@${instanceName} --zone=${deployedZone} --tunnel-through-iap`;
+export const sshUserCommand = pulumi.interpolate`gcloud compute ssh ${process.env.USER}@${instanceName} --zone=${deployedZone} --tunnel-through-iap`;
 export const consoleUrl = instance.instanceId.apply(
   (id) =>
     `https://console.cloud.google.com/compute/instancesDetail/zones/${zone}/instances/${id}?project=${projectId}`,
