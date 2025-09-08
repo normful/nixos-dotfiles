@@ -40,6 +40,9 @@ local function configure_lspconfig()
   -- Structure: server_name = { specific_options }
   -- Use an empty table {} for servers using only default options.
   local language_servers = {
+    -- nix
+    nil_ls = {},
+
     -- bash
     bashls = {},
 
