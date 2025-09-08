@@ -47,13 +47,13 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     - `gcp/<hostname>/my-config.nix`
     - If you want to customize the GCP infrastructure for the new VM, you can also edit the TypeScript Pulumi files under the `gcp` folder.
 1. (Optional) Commit the new files.
-1. `mise run up` to launch the GCP resources with Pulumi.
+1. `mise run up1` to do the first initial launch of the GCP resources with Pulumi.
     You may encounter such errors:
     ```sh
     Error creating AlertPolicy: ...
     If a metric was created recently, it could take up to 10 minutes to become available. Please try again soon.
     ```
-    These are normal. To resolve them, wait a bit and `mise run up` a second or third time until everything is created.
+    These are normal. To resolve them, wait a bit and `mise run up1` a second or third time until everything is created.
 1. `mise run logkey`. It will update `secrets/gcp_<hostname>.yaml` with a newly created GCP Service Account key to allow the new instance to send log records to Google Cloud Logging.
 1. `mise run i` install NixOS on the new VM.
     1. You will be prompted to paste in your `age` private key. It will be copied to the new VM.
@@ -68,3 +68,4 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
         Enter passphrase for "/tmp/tmp.V0q68MsW8t/nixos-anywhere":
         ```
         You can ignore the `Warning: Identity file /tmp/tmp.V0q68MsW8t/nixos-anywhere not accessible: No such file or directory.`
+1. At this point, the system has been installed initially, but is running a fairly beefy instance. Do `mise run up2` to downsize the VM.
