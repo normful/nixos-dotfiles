@@ -84,8 +84,3 @@ alias = "info"
 description = "Delete GCP resources, except protected ones"
 run = "pulumi destroy --exclude-protected --yes"
 alias = "down"
-
-[tasks."gcp:export-log-key"]
-description = "Exports the Service Account key to allow logging to GCP Cloud Logging, as a JSON file"
-run = "./add-loggingServiceAccountKeyJson-to-secrets.sh"
-alias = "logkey"

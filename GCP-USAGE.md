@@ -54,7 +54,6 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     If a metric was created recently, it could take up to 10 minutes to become available. Please try again soon.
     ```
     These are normal. To resolve them, wait a bit and `mise run up1` a second or third time until everything is created.
-1. `mise run logkey`. It will update `secrets/gcp_<hostname>.yaml` with a newly created GCP Service Account key to allow the new instance to send log records to Google Cloud Logging.
 1. `mise run i` install NixOS on the new VM.
     1. You will be prompted to paste in your `age` private key. It will be copied to the new VM.
         ```sh
