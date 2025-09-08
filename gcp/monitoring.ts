@@ -1,7 +1,7 @@
 import * as gcp from "@pulumi/gcp";
 import { stack, alertEmail, projectId } from "./config";
 
-export const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
+export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
   name: `${stack}_login_events`,
   description: "Count of systemd-logind new session events (user logins)",
   filter: `
@@ -51,7 +51,7 @@ export const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
 });
 
 export const sshConnectionMetric = new gcp.logging.Metric(
-  `${stack}-ssh-connections`,
+  `${stack}-ssh-conns-metric`,
   {
     name: `${stack}_ssh_connections`,
     description:

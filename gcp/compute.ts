@@ -134,4 +134,3 @@ export const consoleUrl = instance.instanceId.apply(
   (id) =>
     `https://console.cloud.google.com/compute/instancesDetail/zones/${zone}/instances/${id}?project=${projectId}`,
 );
-
