@@ -2,6 +2,7 @@
 
 let
   better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync.nix { };
+  carbonyl = pkgs-pinned-unstable.callPackage ./packages/carbonyl.nix { };
   gemini-cli = pkgs-pinned-unstable.callPackage ./packages/gemini-cli.nix { };
   neovimLuaRc = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
 
@@ -641,4 +642,10 @@ in
 
   # https://repomix.com
   repomix
+
+  #################################################################################
+  # Misc
+  #################################################################################
+
+  carbonyl
 ])
