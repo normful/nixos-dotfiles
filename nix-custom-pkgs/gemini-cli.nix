@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 pkgs.stdenv.mkDerivation rec {
   pname = "gemini-cli";
@@ -26,7 +26,7 @@ pkgs.stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/google-gemini/gemini-cli";
     mainProgram = "gemini";
   };

@@ -19,7 +19,6 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs-2411,
       nixpkgs-2505,
       nixpkgs-unstable-2511,

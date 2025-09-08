@@ -1,6 +1,8 @@
 { pkgs-stable, pkgs-pinned-unstable, ... }:
 
 let
+  better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync.nix { };
+
   unstableNeovim = pkgs-pinned-unstable.neovim.override {
     # https://github.com/NixOS/nixpkgs/blob/f8b8860d1bbd654706ae21017bd8da694614c440/doc/languages-frameworks/neovim.section.md
 
@@ -43,6 +45,9 @@ in
 
   # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
   bat-extras.batpipe
+
+  # https://mhost.pustina.de/docs/usage_examples
+  mhost
 
   #################################################################################
   # View processes
@@ -170,7 +175,6 @@ in
 
   git
   git-lfs
-  nix-prefetch-github
 
   #################################################################################
   # Jujutsu
@@ -280,8 +284,7 @@ in
   fastgron
 
   # https://github.com/Stranger6667/jsonschema
-  # temporarily commented out, because of nix-darwin build errors
-  # jsonschema-cli
+  jsonschema-cli
 
   #################################################################################
   # CSS
@@ -312,8 +315,7 @@ in
   lnav
 
   # https://github.com/pamburus/hl
-  # temporarily commented out, because of nix-darwin build errors
-  # hl-log-viewer
+  hl-log-viewer
 
   #################################################################################
   # UML Diagrams
@@ -453,6 +455,9 @@ in
   # https://lftp.yar.ru/lftp-man.html
   lftp
 
+  # https://github.com/jb2170/better-adb-sync
+  better-adb-sync
+
   #################################################################################
   # Screen sharing
   #################################################################################
@@ -525,6 +530,12 @@ in
 
 ++ (with pkgs-pinned-unstable; [
   unstableNeovim
+
+  #################################################################################
+  # Nix
+  #################################################################################
+
+  nix-prefetch-github
 
   #################################################################################
   # Rust
