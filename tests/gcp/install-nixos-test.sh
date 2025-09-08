@@ -566,7 +566,7 @@ function test_run_nixos_anywhere_with_mocked_commands() {
     mise() {
         echo "mise $*" >> "$called_commands_log"
         case "$*" in
-            "exec pulumi -- pulumi stack output gcpProjectId")
+            "exec pulumi -- pulumi stack output projectId")
                 echo "test-project"
                 ;;
             "exec pulumi -- pulumi stack output deployedZone")
@@ -602,7 +602,7 @@ function test_run_nixos_anywhere_with_mocked_commands() {
 
     # Verify expected commands were called
     local commands_called_log="$(cat "$called_commands_log")"
-    assert_contains "mise exec pulumi -- pulumi stack output gcpProjectId" "$commands_called_log"
+    assert_contains "mise exec pulumi -- pulumi stack output projectId" "$commands_called_log"
     assert_contains "mise exec pulumi -- pulumi stack output deployedZone" "$commands_called_log"
     assert_contains "mise exec pulumi -- pulumi stack output instanceName" "$commands_called_log"
     assert_contains "nix run github:nix-community/nixos-anywhere" "$commands_called_log"
