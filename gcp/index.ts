@@ -1,4 +1,4 @@
-import { gcpProjectId } from "./config";
+import { projectId } from "./config";
 
 import "./network";
 import "./firewall";
@@ -6,7 +6,7 @@ import "./compute";
 import "./iam";
 import "./monitoring";
 
-export { gcpProjectId };
+export { projectId };
 export {
   networkName,
   subnetworkName,

@@ -69,7 +69,6 @@ export const imageFamily = config.require("imageFamily", {
 
 export const bootDiskType = config.require("bootDiskType");
 
-
 export const bootDiskSizeGB = getValidatedBootDiskSizeGB();
 export const sshPublicKey = getSshPublicKey();
 export const projectId = gcpConfig.require("project");
@@ -112,5 +111,3 @@ export const commonLabels = Object.freeze({
   stack: stack,
   managed_by: "pulumi",
 });
-
-export const gcpProjectId = projectId;

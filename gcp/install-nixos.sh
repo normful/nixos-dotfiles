@@ -23,6 +23,10 @@ ensure_nix_installed() {
 }
 
 check_required_env_vars() {
+  if [[ -z "${GCP_PROJECT_ID:-}" ]]; then
+    error_and_exit "GCP_PROJECT_ID environment variable is not set or is empty"
+  fi
+
   if [[ -z "${GCP_VM_HOSTNAME:-}" ]]; then
     error_and_exit "GCP_VM_HOSTNAME environment variable is not set or is empty"
   fi
@@ -84,6 +88,7 @@ validate_not_empty() {
 write_machine_specific_config_into_placeholders() {
   local target="$REPO_DIR/gcp/${GCP_VM_HOSTNAME}/my-config.nix"
   # Use portable sed that works on both Linux and macOS
+  sed -i.bak "s|GCP_PROJECT_ID_PLACEHOLDER|${GCP_PROJECT_ID}|g" "$target" && rm -f "$target.bak"
   sed -i.bak "s|GCP_VM_HOSTNAME_PLACEHOLDER|${GCP_VM_HOSTNAME}|g" "$target" && rm -f "$target.bak"
   sed -i.bak "s|GCP_VM_USERNAME_PLACEHOLDER|${GCP_VM_USERNAME}|g" "$target" && rm -f "$target.bak"
   sed -i.bak "s|SSH_PUBLIC_KEY_PLACEHOLDER|$(cat "$SSH_PUBLIC_KEY_PATH")|g" "$target" && rm -f "$target.bak"
