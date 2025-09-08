@@ -14,6 +14,7 @@ in
     keep-failed = false;
     keep-going = true;
     keep-outputs = false;
+    min-free = 10 * 1024 * 1024 * 1024;
     experimental-features = [
       "nix-command"
       "flakes"
