@@ -5,6 +5,7 @@ import {
   bootDiskType,
   enableInstanceScheduling,
   enableWeeklySnapshots,
+  firstMachineType,
   imageFamily,
   imageProject,
   machineType as machineTypeFromConfig,
@@ -82,8 +83,14 @@ export const bootDisk = new gcp.compute.Disk(
   { protect: true },
 );
 
+// Choose machine type based on whether this is the first NixOS install
+// Use more powerful instance for initial builds which are resource-intensive
+const selectedMachineType = process.env.IS_FIRST_NIXOS_INSTALL
+  ? firstMachineType
+  : machineTypeFromConfig;
+
 export const instance = new gcp.compute.Instance(stack, {
-  machineType: machineTypeFromConfig,
+  machineType: selectedMachineType,
   bootDisk: {
     source: bootDisk.selfLink,
     autoDelete: false,
@@ -127,3 +134,4 @@ export const consoleUrl = instance.instanceId.apply(
   (id) =>
     `https://console.cloud.google.com/compute/instancesDetail/zones/${zone}/instances/${id}?project=${projectId}`,
 );
+

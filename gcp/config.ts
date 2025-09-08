@@ -55,6 +55,10 @@ export const machineType = config.require("machineType", {
   pattern: /^[a-z][a-z0-9-]*$/,
 });
 
+export const firstMachineType = config.require("firstMachineType", {
+  pattern: /^[a-z][a-z0-9-]*$/,
+});
+
 export const imageProject = config.require("imageProject", {
   minLength: 1,
   maxLength: 63,
