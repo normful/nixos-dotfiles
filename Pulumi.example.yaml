@@ -7,3 +7,4 @@ config:
   nixos-gce:imageFamily: ubuntu-minimal-2504-amd64 # if you change this, just ensure its an image family ending in `amd64`
   nixos-gce:bootDiskSizeGB: "120"
   nixos-gce:bootDiskType: pd-ssd
+  nixos-gce:alertEmail: your-email@example.com
