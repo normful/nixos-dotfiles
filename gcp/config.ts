@@ -67,9 +67,7 @@ export const imageFamily = config.require("imageFamily", {
   pattern: /^[a-z][a-z0-9-]*$/,
 });
 
-export const bootDiskType = config.require("bootDiskType", {
-  allowedValues: ["pd-standard", "pd-ssd", "pd-balanced", "pd-extreme"],
-});
+export const bootDiskType = config.require("bootDiskType");
 
 
 export const bootDiskSizeGB = getValidatedBootDiskSizeGB();
