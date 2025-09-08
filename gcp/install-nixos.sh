@@ -160,8 +160,8 @@ copy_nixos_config() {
 run_nixos_anywhere() {
   local tree_to_copy="$1"
 
-  local project=$(mise exec pulumi -- pulumi stack output gcpProjectId)
-  validate_not_empty "$project" "Failed to get gcpProjectId from Pulumi stack output"
+  local project=$(mise exec pulumi -- pulumi stack output projectId)
+  validate_not_empty "$project" "Failed to get projectId from Pulumi stack output"
 
   local zone=$(mise exec pulumi -- pulumi stack output deployedZone)
   validate_not_empty "$zone" "Failed to get deployedZone from Pulumi stack output"
