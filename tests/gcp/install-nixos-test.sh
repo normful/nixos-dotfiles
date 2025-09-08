@@ -85,7 +85,40 @@ function test_ensure_nix_installed_when_nix_missing() {
     assert_same "Nix is not installed. Please install Nix first." "$(ensure_nix_installed)"
 }
 
+function test_check_required_env_vars_missing_project_id() {
+    mock error_and_exit <<< '$1'
+
+    unset GCP_PROJECT_ID
+    export GCP_VM_HOSTNAME="test-host"
+    export GCP_VM_USERNAME="testuser"
+    export SSH_PUBLIC_KEY_PATH="$TEST_TMP_DIR/test_key.pub"
+    export GCE_PRIVATE_KEY_PATH="$TEST_TMP_DIR/test_key"
+
+    echo "ssh-ed25519 ABC test" > "$SSH_PUBLIC_KEY_PATH"
+    echo "-----BEGIN OPENSSH PRIVATE KEY-----" > "$GCE_PRIVATE_KEY_PATH"
+    chmod 600 "$GCE_PRIVATE_KEY_PATH"
+
+    assert_same "GCP_PROJECT_ID environment variable is not set or is empty" "$(set +u; check_required_env_vars | head -1)"
+}
+
+function test_check_required_env_vars_empty_project_id() {
+    mock error_and_exit <<< '$1'
+
+    export GCP_PROJECT_ID=""
+    export GCP_VM_HOSTNAME="test-host"
+    export GCP_VM_USERNAME="testuser"
+    export SSH_PUBLIC_KEY_PATH="$TEST_TMP_DIR/test_key.pub"
+    export GCE_PRIVATE_KEY_PATH="$TEST_TMP_DIR/test_key"
+
+    echo "ssh-ed25519 ABC test" > "$SSH_PUBLIC_KEY_PATH"
+    echo "-----BEGIN OPENSSH PRIVATE KEY-----" > "$GCE_PRIVATE_KEY_PATH"
+    chmod 600 "$GCE_PRIVATE_KEY_PATH"
+
+    assert_same "GCP_PROJECT_ID environment variable is not set or is empty" "$(check_required_env_vars | head -1)"
+}
+
 function test_check_required_env_vars_all_set() {
+    export GCP_PROJECT_ID="test-project"
     export GCP_VM_HOSTNAME="test-host"
     export GCP_VM_USERNAME="testuser"
     export SSH_PUBLIC_KEY_PATH="$TEST_TMP_DIR/test_key.pub"

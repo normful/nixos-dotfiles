@@ -6,6 +6,7 @@ sops = "latest"
 age = "latest"
 
 [env]
+GCP_PROJECT_ID = "dev-vm-provisioning"
 GCP_VM_HOSTNAME = "coral"
 GCP_VM_USERNAME = "norman"
 SSH_PUBLIC_KEY_PATH = "/Users/norman/.ssh/id_ed25519.pub"

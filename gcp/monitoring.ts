@@ -1,5 +1,5 @@
 import * as gcp from "@pulumi/gcp";
-import { stack, alertEmail } from "./config";
+import { stack, alertEmail, projectId } from "./config";
 
 export const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
   name: `${stack}_login_events`,
@@ -50,119 +50,129 @@ export const loginMetric = new gcp.logging.Metric(`${stack}-login-events`, {
   },
 });
 
-export const sshConnectionMetric = new gcp.logging.Metric(`${stack}-ssh-connections`, {
-  name: `${stack}_ssh_connections`,
-  description:
-    "SSH connection events from Tailscale for correlation with logins",
-  filter: `
+export const sshConnectionMetric = new gcp.logging.Metric(
+  `${stack}-ssh-connections`,
+  {
+    name: `${stack}_ssh_connections`,
+    description:
+      "SSH connection events from Tailscale for correlation with logins",
+    filter: `
     resource.type="gce_instance"
     jsonPayload.SYSLOG_IDENTIFIER="tailscaled"
     jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*"
   `,
-  metricDescriptor: {
-    metricKind: "DELTA",
-    valueType: "INT64",
-    displayName: `${stack} SSH Connection Events`,
-    labels: [
-      {
-        key: "source_user_email",
-        valueType: "STRING",
-        description: "Tailscale user email initiating SSH connection",
-      },
-      {
-        key: "source_ip",
-        valueType: "STRING",
-        description: "Source IP address of SSH connection",
-      },
-      {
-        key: "target_user",
-        valueType: "STRING",
-        description: "Target system user for SSH connection",
-      },
-      {
-        key: "session_id",
-        valueType: "STRING",
-        description: "Tailscale SSH session identifier",
-      },
-      {
-        key: "timestamp",
-        valueType: "STRING",
-        description: "SSH connection timestamp",
-      },
-      {
-        key: "host",
-        valueType: "STRING",
-        description: "Target host name",
-      },
-    ],
+    metricDescriptor: {
+      metricKind: "DELTA",
+      valueType: "INT64",
+      displayName: `${stack} SSH Connection Events`,
+      labels: [
+        {
+          key: "source_user_email",
+          valueType: "STRING",
+          description: "Tailscale user email initiating SSH connection",
+        },
+        {
+          key: "source_ip",
+          valueType: "STRING",
+          description: "Source IP address of SSH connection",
+        },
+        {
+          key: "target_user",
+          valueType: "STRING",
+          description: "Target system user for SSH connection",
+        },
+        {
+          key: "session_id",
+          valueType: "STRING",
+          description: "Tailscale SSH session identifier",
+        },
+        {
+          key: "timestamp",
+          valueType: "STRING",
+          description: "SSH connection timestamp",
+        },
+        {
+          key: "host",
+          valueType: "STRING",
+          description: "Target host name",
+        },
+      ],
+    },
+    labelExtractors: {
+      source_user_email:
+        'REGEXP_EXTRACT(jsonPayload.message, "from ([^\\\\s]+@[^\\\\s]+)")',
+      source_ip:
+        'REGEXP_EXTRACT(jsonPayload.message, "\\\\(([0-9\\\\.]+)\\\\)")',
+      target_user:
+        'REGEXP_EXTRACT(jsonPayload.message, "ssh-user \\\\\\"([^\\\\\\"]+)\\\\\\"")',
+      session_id:
+        'REGEXP_EXTRACT(jsonPayload.message, "ssh-session\\\\(([^\\\\)]+)\\\\)")',
+      timestamp: "EXTRACT(jsonPayload.timestamp)",
+      host: "EXTRACT(jsonPayload.host)",
+    },
   },
-  labelExtractors: {
-    source_user_email:
-      'REGEXP_EXTRACT(jsonPayload.message, "from ([^\\\\s]+@[^\\\\s]+)")',
-    source_ip: 'REGEXP_EXTRACT(jsonPayload.message, "\\\\(([0-9\\\\.]+)\\\\)")',
-    target_user:
-      'REGEXP_EXTRACT(jsonPayload.message, "ssh-user \\\\\\"([^\\\\\\"]+)\\\\\\"")',
-    session_id:
-      'REGEXP_EXTRACT(jsonPayload.message, "ssh-session\\\\(([^\\\\)]+)\\\\)")',
-    timestamp: "EXTRACT(jsonPayload.timestamp)",
-    host: "EXTRACT(jsonPayload.host)",
-  },
-});
+);
 
-export const instanceLifecycleMetric = new gcp.logging.Metric(`${stack}-instance-lifecycle`, {
-  name: `${stack}_instance_lifecycle`,
-  description: "GCP Compute Engine instance start and stop events from Cloud Audit logs",
-  filter: `
+export const instanceLifecycleMetric = new gcp.logging.Metric(
+  `${stack}-instance-lifecycle`,
+  {
+    name: `${stack}_instance_lifecycle`,
+    description:
+      "GCP Compute Engine instance start and stop events from Cloud Audit logs",
+    filter: `
     (protoPayload.methodName="v1.compute.instances.stop" OR protoPayload.methodName="v1.compute.instances.start")
-    logName="projects/dev-vm-provisioning/logs/cloudaudit.googleapis.com%2Factivity"
+    logName="projects/${projectId}/logs/cloudaudit.googleapis.com%2Factivity"
     protoPayload.@type="type.googleapis.com/google.cloud.audit.AuditLog"
   `,
-  metricDescriptor: {
-    metricKind: "DELTA",
-    valueType: "INT64",
-    displayName: `${stack} Instance Lifecycle Events`,
-    labels: [
-      {
-        key: "operation",
-        valueType: "STRING",
-        description: "Instance operation: start or stop",
-      },
-      {
-        key: "instance_name",
-        valueType: "STRING",
-        description: "Name of the GCP instance",
-      },
-      {
-        key: "instance_id",
-        valueType: "STRING",
-        description: "Unique instance ID",
-      },
-      {
-        key: "zone",
-        valueType: "STRING",
-        description: "GCP zone where the instance is located",
-      },
-      {
-        key: "user_email",
-        valueType: "STRING",
-        description: "Email of the user who initiated the operation",
-      },
-      {
-        key: "operation_id",
-        valueType: "STRING",
-        description: "GCP operation ID for tracking",
-      },
-    ],
+    metricDescriptor: {
+      metricKind: "DELTA",
+      valueType: "INT64",
+      displayName: `${stack} Instance Lifecycle Events`,
+      labels: [
+        {
+          key: "operation",
+          valueType: "STRING",
+          description: "Instance operation: start or stop",
+        },
+        {
+          key: "instance_name",
+          valueType: "STRING",
+          description: "Name of the GCP instance",
+        },
+        {
+          key: "instance_id",
+          valueType: "STRING",
+          description: "Unique instance ID",
+        },
+        {
+          key: "zone",
+          valueType: "STRING",
+          description: "GCP zone where the instance is located",
+        },
+        {
+          key: "user_email",
+          valueType: "STRING",
+          description: "Email of the user who initiated the operation",
+        },
+        {
+          key: "operation_id",
+          valueType: "STRING",
+          description: "GCP operation ID for tracking",
+        },
+      ],
+    },
+    labelExtractors: {
+      operation:
+        'REGEXP_EXTRACT(protoPayload.methodName, "v1\\\\.compute\\\\.instances\\\\.(start|stop)")',
+      instance_name:
+        'REGEXP_EXTRACT(protoPayload.resourceName, "instances/([^/]+)$")',
+      instance_id: "EXTRACT(resource.labels.instance_id)",
+      zone: "EXTRACT(resource.labels.zone)",
+      user_email: "EXTRACT(protoPayload.authenticationInfo.principalEmail)",
+      operation_id: "EXTRACT(protoPayload.response.name)",
+    },
   },
-  labelExtractors: {
-    operation: 'REGEXP_EXTRACT(protoPayload.methodName, "v1\\\\.compute\\\\.instances\\\\.(start|stop)")',
-    instance_name: 'REGEXP_EXTRACT(protoPayload.resourceName, "instances/([^/]+)$")',
-    instance_id: "EXTRACT(resource.labels.instance_id)",
-    zone: "EXTRACT(resource.labels.zone)",
-    user_email: "EXTRACT(protoPayload.authenticationInfo.principalEmail)",
-    operation_id: "EXTRACT(protoPayload.response.name)",
-  },
-});
+);
 
 export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
   `${stack}-email-notification-channel`,
@@ -279,4 +289,5 @@ export const sshConnectionMetricName = sshConnectionMetric.name;
 export const instanceLifecycleMetricName = instanceLifecycleMetric.name;
 export const emailNotificationChannelName = emailNotificationChannel.name;
 export const loginAlertPolicyName = loginAlertPolicy.name;
-export const instanceLifecycleAlertPolicyName = instanceLifecycleAlertPolicy.name;
+export const instanceLifecycleAlertPolicyName =
+  instanceLifecycleAlertPolicy.name;
