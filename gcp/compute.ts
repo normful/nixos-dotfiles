@@ -129,8 +129,8 @@ export const vmInternalIp = instance.networkInterfaces.apply(
 export const deployedZone = instance.zone;
 export const deployedRegion = subnetwork.region;
 
-export const sshRootCommand = pulumi.interpolate`gcloud compute ssh root@${instanceName} --zone=${deployedZone} --tunnel-through-iap`;
-export const sshUserCommand = pulumi.interpolate`gcloud compute ssh ${process.env.USER}@${instanceName} --zone=${deployedZone} --tunnel-through-iap`;
+export const sshRootCommand = pulumi.interpolate`gcloud compute ssh root@${instanceName} --zone=${deployedZone} --tunnel-through-iap (use before first NixOS install)`;
+export const sshUserCommand = pulumi.interpolate`gcloud compute ssh ${process.env.USER}@${instanceName} --zone=${deployedZone} --tunnel-through-iap --strict-host-key-checking=no (use after first NixOS install)`;
 export const consoleUrl = instance.instanceId.apply(
   (id) =>
     `https://console.cloud.google.com/compute/instancesDetail/zones/${zone}/instances/${id}?project=${projectId}`,
