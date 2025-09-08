@@ -618,7 +618,7 @@ in
   gemini-cli
 
   # https://github.com/QwenLM/qwen-code
-  qwen-code
+  # Run with bunx, not the Nix pkg
 
   # https://github.com/openai/codex
   codex

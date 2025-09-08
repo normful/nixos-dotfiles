@@ -78,6 +78,8 @@ if status is-interactive
 
     abbr --add nrb 'npm run build'
 
+    abbr --add qwen 'bunx @qwen-code/qwen-code@latest'
+
     fish_add_path --global "$HOME/code/dotfiles/bin"
     fish_add_path --global "$HOME/.codeium/windsurf/bin"
     fish_add_path --global "$HOME/.cargo/bin"
