@@ -6,7 +6,7 @@ sops = "latest"
 age = "latest"
 
 [env]
-GCP_VM_HOSTNAME = "beach"
+GCP_VM_HOSTNAME = "coral"
 GCP_VM_USERNAME = "norman"
 SSH_PUBLIC_KEY_PATH = "/Users/norman/.ssh/id_ed25519.pub"
 GCE_PRIVATE_KEY_PATH = "/Users/norman/.ssh/google_compute_engine"
