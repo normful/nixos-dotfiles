@@ -5,13 +5,13 @@
   ...
 }:
 {
-  programs.nh = lib.mkIf config.my.bigInstall {
+  programs.nh = {
     enable = true;
     flake = "/etc/nixos";
   };
 
-  environment.systemPackages = lib.mkIf config.my.bigInstall (with pkgs-stable; [
+  environment.systemPackages = with pkgs-stable; [
     nix-output-monitor
     nvd
-  ]);
+  ];
 }

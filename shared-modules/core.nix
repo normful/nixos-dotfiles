@@ -17,11 +17,6 @@
       type = lib.types.str;
       description = "The hostname to use for this machine.";
     };
-    my.bigInstall = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether to install a bigger set of packages.";
-    };
   };
 
   config = {
@@ -50,7 +45,7 @@
       validateSopsFiles = false;
     };
 
-    environment.variables = lib.mkIf config.my.bigInstall {
+    environment.variables = {
       EDITOR = "nvim";
       GIT_EDITOR = "nvim";
     };

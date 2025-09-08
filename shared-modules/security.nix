@@ -4,7 +4,7 @@
   ...
 }:
 {
-  security.polkit = lib.mkIf config.my.bigInstall {
+  security.polkit = {
     enable = true;
     # Allow members of the wheel group to shutdown/reboot without password
     extraConfig = ''
@@ -26,7 +26,7 @@
 
   networking.firewall.enable = true;
 
-  services.fail2ban = lib.mkIf config.my.bigInstall {
+  services.fail2ban = {
     enable = true;
     bantime-increment = {
       enable = true;
