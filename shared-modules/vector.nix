@@ -28,7 +28,7 @@
       };
     };
 
-    systemd.services.vector = {
+    systemd.services.vector = lib.mkIf config.my.bigInstall {
       serviceConfig = {
         ExecStartPre = pkgs.writeShellScript "fetch-gcp-metadata" ''
           {
@@ -43,7 +43,7 @@
       };
     };
 
-    services.vector = {
+    services.vector = lib.mkIf config.my.bigInstall {
       enable = true;
       journaldAccess = true;
       settings = {
