@@ -612,7 +612,7 @@ in
   claude-code
 
   # https://github.com/google-gemini/gemini-cli#-documentation
-  (pkgs-pinned-unstable.callPackage ./nix-custom-pkgs/gemini-cli.nix { })
+  (pkgs-pinned-unstable.callPackage ./packages/gemini-cli.nix { })
 
   # https://github.com/QwenLM/qwen-code
   qwen-code
