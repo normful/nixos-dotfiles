@@ -1,5 +1,5 @@
 config:
-  gcp:project: dev-vm-provisioning
+  gcp:project: GCP_PROJECT_ID_PLACEHOLDER
   gcp:zone: asia-northeast2-a
   nixos-gce:region: asia-northeast2
   nixos-gce:machineType: n2d-highcpu-2
