@@ -104,3 +104,15 @@ export const enableWeeklySnapshots =
 // Default is the well-known GCP IAP range, but can be overridden if GCP updates it
 export const iapTcpForwardingRange =
   config.get("iapTcpForwardingRange") || "35.235.240.0/20";
+
+// Email configuration for monitoring alerts
+export const alertEmail = config.require("alertEmail", {
+  pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+});
+
+export const commonLabels = Object.freeze({
+  stack: stack,
+  managed_by: "pulumi",
+});
+
+export const gcpProjectId = projectId;

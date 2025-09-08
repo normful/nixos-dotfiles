@@ -1,6 +1,7 @@
 {
     "name": "nixos-dotfiles",
-    "main": "gcp/pulumi-infra.ts",
+    "description": "Pulumi TypeScript GCP IaC",
+    "main": "gcp/index.ts",
     "devDependencies": {
         "@types/node": "^18",
         "typescript": "^5.0.0"
