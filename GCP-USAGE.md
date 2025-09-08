@@ -48,11 +48,12 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     - If you want to customize the GCP infrastructure for the new VM, you can also edit the TypeScript Pulumi files under the `gcp` folder.
 1. (Optional) Commit the new files.
 1. `mise run up` to launch the GCP resources with Pulumi.
-    These kinds of errors are normal and expected initially:
+    You may encounter such errors:
     ```sh
-    Error creating AlertPolicy: googleapi: Error 404: Cannot find metric(s) that match type = "logging.googleapis.com/user/coral_instance_lifecycle". If a metric was created recently, it could take up to 10 minutes to become available. Please try again soon.
+    Error creating AlertPolicy: ...
+    If a metric was created recently, it could take up to 10 minutes to become available. Please try again soon.
     ```
-    `mise run up` a second or third time until everything is successfully created.
+    These are normal. To resolve them, wait a bit and `mise run up` a second or third time until everything is created.
 1. `mise run logkey`. It will update `secrets/gcp_<hostname>.yaml` with a newly created GCP Service Account key to allow the new instance to send log records to Google Cloud Logging.
 1. `mise run i` install NixOS on the new VM.
     1. You will be prompted to paste in your `age` private key. It will be copied to the new VM.
