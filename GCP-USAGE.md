@@ -67,4 +67,4 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
         Enter passphrase for "/tmp/tmp.V0q68MsW8t/nixos-anywhere":
         ```
         You can ignore the `Warning: Identity file /tmp/tmp.V0q68MsW8t/nixos-anywhere not accessible: No such file or directory.`
-1. At this point, the system has been installed initially, but is running a fairly beefy instance. Do `mise run up2` to downsize the VM.
+1. At this point, the system has been installed initially, but is running a fairly beefy instance. Do `mise run up2` to downsize the VM. Later, if you want to run a bigger instance again, you can run `mise run up1` also.
