@@ -13,21 +13,6 @@
   };
 
   config = {
-    # Create vector user and group for SOPS secrets access
-    users.users.vector = {
-      group = "vector";
-      isSystemUser = true;
-    };
-
-    users.groups.vector = { };
-
-    sops.secrets = {
-      loggingServiceAccountKeyJson = {
-        owner = "vector";
-        group = "vector";
-      };
-    };
-
     systemd.services.vector = {
       serviceConfig = {
         ExecStartPre = pkgs.writeShellScript "fetch-gcp-metadata" ''
@@ -138,7 +123,6 @@
           gcp_logs = {
             type = "gcp_stackdriver_logs";
             inputs = [ "logins_with_gcp_metadata" ];
-            credentials_path = config.sops.secrets.loggingServiceAccountKeyJson.path;
             resource = {
               type = "gce_instance";
             };
