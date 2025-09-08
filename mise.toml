@@ -77,5 +77,5 @@ alias = "down"
 
 [tasks."gcp:export-log-key"]
 description = "Exports the Service Account key to allow logging to GCP Cloud Logging, as a JSON file"
-run = "pulumi stack output loggingServiceAccountKey --show-secrets | base64 -d > logging-service-account-key.json"
+run = "./add-loggingServiceAccountKeyJson-to-secrets.sh"
 alias = "logkey"
