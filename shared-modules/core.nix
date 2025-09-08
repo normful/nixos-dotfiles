@@ -37,7 +37,9 @@
         sops
         age
       ]
-      ++ (with pkgs-pinned-unstable; [ ]);
+      ++ (with pkgs-pinned-unstable; [
+        neovim
+      ]);
 
     sops = {
       defaultSopsFile = "/etc/nixos/secrets/gcp_${config.my.hostname}.yaml";
