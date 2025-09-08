@@ -20,7 +20,7 @@ run = [
   "cp Pulumi.example.yaml Pulumi.$GCP_VM_HOSTNAME.yaml",
   "cp -R gcp/example gcp/$GCP_VM_HOSTNAME",
   "cp -R secrets/gcp_example.yaml secrets/gcp_$GCP_VM_HOSTNAME.yaml",
-  "perl -pi -e 's/GCP_PROJECT_ID/$GCP_PROJECT_ID/g' Pulumi.$GCP_VM_HOSTNAME.yaml",
+  "perl -pi -e 's/GCP_PROJECT_ID_PLACEHOLDER/$GCP_PROJECT_ID/g' Pulumi.$GCP_VM_HOSTNAME.yaml",
 ]
 alias = "new"
 
