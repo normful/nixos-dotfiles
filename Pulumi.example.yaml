@@ -2,6 +2,7 @@ config:
   gcp:project: GCP_PROJECT_ID_PLACEHOLDER
   gcp:zone: asia-northeast2-a
   nixos-gce:region: asia-northeast2
+  nixos-gce:firstMachineType: n2d-highmem-8
   nixos-gce:machineType: n2d-highcpu-2
   nixos-gce:imageProject: ubuntu-os-cloud
   nixos-gce:imageFamily: ubuntu-minimal-2504-amd64 # if you change this, just ensure its an image family ending in `amd64`

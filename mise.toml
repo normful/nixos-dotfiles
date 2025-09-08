@@ -30,11 +30,17 @@ description = "Check Pulumi infrastructure TypeScript configuration"
 run = "bun tsc --noEmit"
 alias = "check1"
 
+[tasks."gcp:first-up"]
+description = "Initially launch a bigger GCE VM instance for doing the initial NixOS install with lots of RAM (most important) and CPU"
+depends = [ "gcp:check:pulumi" ]
+run = "pulumi up --yes --skip-preview"
+alias = "up1"
+
 [tasks."gcp:up"]
 description = "Create/update the GCP resources"
 depends = [ "gcp:check:pulumi" ]
 run = "pulumi up --yes --skip-preview"
-alias = "up"
+alias = "up2"
 
 [tasks."gcp:edit-secrets"]
 description = "Edit sops secrets for GCP VM"
