@@ -2,6 +2,8 @@
 
 let
   better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync.nix { };
+  gemini-cli = pkgs-pinned-unstable.callPackage ./packages/gemini-cli.nix { };
+  neovimLuaRc = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
 
   unstableNeovim = pkgs-pinned-unstable.neovim.override {
     # https://github.com/NixOS/nixpkgs/blob/f8b8860d1bbd654706ae21017bd8da694614c440/doc/languages-frameworks/neovim.section.md
@@ -14,7 +16,7 @@ let
     viAlias = true;
 
     configure = {
-      customRC = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
+      customRC = neovimLuaRc;
     };
   };
 in
@@ -612,7 +614,7 @@ in
   claude-code
 
   # https://github.com/google-gemini/gemini-cli#-documentation
-  (pkgs-pinned-unstable.callPackage ./packages/gemini-cli.nix { })
+  gemini-cli
 
   # https://github.com/QwenLM/qwen-code
   qwen-code
