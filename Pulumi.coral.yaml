@@ -1,0 +1,10 @@
+config:
+  gcp:project: dev-vm-provisioning
+  gcp:zone: asia-northeast2-a
+  nixos-gce:region: asia-northeast2
+  nixos-gce:machineType: n2d-highcpu-2
+  nixos-gce:imageProject: ubuntu-os-cloud
+  nixos-gce:imageFamily: ubuntu-minimal-2504-amd64 # if you change this, just ensure its an image family ending in `amd64`
+  nixos-gce:bootDiskSizeGB: "60"
+  nixos-gce:bootDiskType: pd-balanced
+  nixos-gce:alertEmail: normful+f@gmail.com

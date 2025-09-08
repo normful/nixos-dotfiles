@@ -27,11 +27,11 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     1. Log into Tailscale admin console
     1. Create a Non-reusable, Pre-approved, Tagged auth key. It'll produce `tskey-auth-...`
 1. Create a hash your desired sudo password for the new non-root user on the VM.
-    - Run `mkpasswd`. It'll produce `$y$...`
+    - Run `mkpasswd -m sha-512`. It'll produce `$...`
 1. `mise run secrets` to edit `secrets/gcp_<hostname>.yaml` with `sops`.
     - Paste in your recently created secrets:
         ```yaml
-        hashedUserPassword: $y$...
+        hashedUserPassword: $...
         tailscaleAuthKey: tskey-auth-...
         ```
     - Save and close the file.
@@ -42,9 +42,10 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
         - `gcp:zone`
         - `nixos-gce:machineType`
         - `nixos-gce:region`
+        - `nixos-gce:alertEmail`
     - `gcp/<hostname>/configuration.nix`
     - `gcp/<hostname>/my-config.nix`
-    - If you want to customize the GCP infrastructure for the new VM, you can also edit `gcp/pulumi-infra.ts` and `gcp/pulumi-infra-config.ts`
+    - If you want to customize the GCP infrastructure for the new VM, you can also edit the TypeScript Pulumi files under the `gcp` folder.
 1. (Optional) Commit the new files.
 1. `mise run up` to launch the GCP VM with Pulumi.
 1. `mise run i` install NixOS on the new VM.

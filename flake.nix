@@ -30,7 +30,7 @@
       darwinSystem = inputs.nix-darwin.lib.darwinSystem;
 
       linuxHostnames = [
-        "beach"
+        "coral"
       ];
 
       vmConfigs = genAttrs linuxHostnames (name: {
