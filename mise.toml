@@ -17,10 +17,11 @@ IAP_USER_EMAIL = "normful@gmail.com"
 description = "Creates a new Pulumi stack in preparation for launching a new virtual machine on Google Compute Engine"
 run = [
   "pulumi stack init $GCP_VM_HOSTNAME",
-  "cp Pulumi.example.yaml Pulumi.$GCP_VM_HOSTNAME.yaml",
   "cp -R gcp/example gcp/$GCP_VM_HOSTNAME",
   "cp -R secrets/gcp_example.yaml secrets/gcp_$GCP_VM_HOSTNAME.yaml",
-  "perl -pi -e 's/GCP_PROJECT_ID_PLACEHOLDER/$GCP_PROJECT_ID/g' Pulumi.$GCP_VM_HOSTNAME.yaml",
+  "sed -i.bak \"s/GCP_PROJECT_ID_PLACEHOLDER/${GCP_PROJECT_ID}/g\" Pulumi.example.yaml",
+  "mv Pulumi.example.yaml Pulumi.$GCP_VM_HOSTNAME.yaml",
+  "mv Pulumi.example.yaml.bak Pulumi.example.yaml",
 ]
 alias = "new"
 
