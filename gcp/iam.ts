@@ -13,7 +13,6 @@ export const iapTunnelAccess = new gcp.projects.IAMBinding(
     role: "roles/iap.tunnelResourceAccessor",
     members: [`user:${iapUserEmail}`],
   },
-  { protect: true },
 );
 
 export const computeInstanceAdmin = new gcp.projects.IAMBinding(
@@ -23,7 +22,6 @@ export const computeInstanceAdmin = new gcp.projects.IAMBinding(
     role: "roles/compute.instanceAdmin.v1",
     members: [`user:${iapUserEmail}`],
   },
-  { protect: true },
 );
 
 export const loggingServiceAccount = new gcp.serviceaccount.Account(
