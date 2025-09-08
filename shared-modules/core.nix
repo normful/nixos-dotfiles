@@ -17,6 +17,11 @@
       type = lib.types.str;
       description = "The hostname to use for this machine.";
     };
+    my.bigInstall = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to install a bigger set of packages.";
+    };
   };
 
   config = {
@@ -34,7 +39,6 @@
       [
         curl
         git
-        neovim
         sops
         age
       ]
@@ -46,7 +50,7 @@
       validateSopsFiles = false;
     };
 
-    environment.variables = {
+    environment.variables = lib.mkIf config.my.bigInstall {
       EDITOR = "nvim";
       GIT_EDITOR = "nvim";
     };
