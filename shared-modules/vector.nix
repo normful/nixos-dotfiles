@@ -4,171 +4,155 @@
   pkgs,
   ...
 }:
-with lib; let
-  cfg = config.services.vector;
-in {
-  options.services.vector = {
-    enable = mkEnableOption "Vector log collection and forwarding";
-
-    gcpProjectId = mkOption {
-      type = types.str;
-      description = "GCP project ID for log forwarding";
-    };
-
-    gcpCredentialsFile = mkOption {
-      type = types.path;
-      description = "Path to GCP service account credentials JSON file";
-    };
-
-    logLevel = mkOption {
-      type = types.str;
-      default = "info";
-      description = "Vector log level";
-    };
-
-    resourceType = mkOption {
-      type = types.str;
-      default = "gce_instance";
-      description = "GCP resource type for logs (e.g., gce_instance, k8s_container, etc.)";
+{
+  options = {
+    my.gcpProjectId = lib.mkOption {
+      type = lib.types.str;
+      description = "The ID of the Google Cloud Platform Project this instance is in.";
     };
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      vector
-    ];
+  config = {
+    # Create vector user and group for SOPS secrets access
+    users.users.vector = {
+      group = "vector";
+      isSystemUser = true;
+    };
 
-    systemd.services.vector = {
-      description = "Vector log collector";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      
-      serviceConfig = {
-        Type = "simple";
-        User = "vector";
-        Group = "vector";
-        ExecStart = "${pkgs.vector}/bin/vector --config /etc/vector/vector.toml";
-        Restart = "always";
-        RestartSec = "5s";
-        
-        # Security settings
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        RestrictRealtime = true;
-        RestrictNamespaces = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
-        
-        # Allow reading journal
-        SupplementaryGroups = [ "systemd-journal" ];
+    users.groups.vector = { };
+
+    sops.secrets = {
+      loggingServiceAccountKeyJson = {
+        owner = "vector";
+        group = "vector";
       };
     };
 
-    users.users.vector = {
-      isSystemUser = true;
-      group = "vector";
-      description = "Vector service user";
+    systemd.services.vector = {
+      serviceConfig = {
+        ExecStartPre = pkgs.writeShellScript "fetch-gcp-metadata" ''
+          {
+            echo "GCP_PROJECT_ID=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/project/project-id' -H 'Metadata-Flavor: Google' || echo 'unknown')"
+            echo "GCP_INSTANCE_ID=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/id' -H 'Metadata-Flavor: Google' || echo 'unknown')"
+            echo "GCP_ZONE=$(${pkgs.curl}/bin/curl -s 'http://metadata.google.internal/computeMetadata/v1/instance/zone' -H 'Metadata-Flavor: Google' | cut -d/ -f4 || echo 'unknown')"
+          } > /run/vector/gcp-env
+        '';
+        EnvironmentFile = "-/run/vector/gcp-env";
+        RuntimeDirectory = "vector";
+        RuntimeDirectoryMode = "0755";
+      };
     };
 
-    users.groups.vector = {};
+    services.vector = {
+      enable = true;
+      journaldAccess = true;
+      settings = {
+        data_dir = "/var/lib/vector";
 
-    environment.etc."vector/vector.toml" = {
-      text = ''
-        data_dir = "/var/lib/vector"
+        sources.logins = {
+          type = "journald";
+          current_boot_only = true;
+          include_units = [
+            "tailscaled.service"
+            "systemd-logind.service"
+          ];
+          include_matches = {
+            "_COMM" = [ "login" ];
+          };
+        };
 
-        [api]
-        enabled = true
-        address = "127.0.0.1:8686"
+        transforms.logins_trimmed = {
+          type = "remap";
+          inputs = [ "logins" ];
+          source = ''
+            # Delete debug/development fields
+            del(."CODE_FILE")
+            del(."CODE_FUNC")
+            del(."CODE_LINE")
+            del(."MESSAGE_ID")
 
-        [log_schema]
-        host_key = "host"
-        message_key = "message"
-        timestamp_key = "timestamp"
+            # Delete systemd internal metadata (not security relevant)
+            del(."_BOOT_ID")
+            del(."_MACHINE_ID")
+            del(."_RUNTIME_SCOPE")
+            del(."_SYSTEMD_CGROUP")
+            del(."_SYSTEMD_INVOCATION_ID")
+            del(."_SYSTEMD_SLICE")
+            del(."_SYSTEMD_UNIT")
+            del(."_SYSTEMD_OWNER_UID")
+            del(."_SYSTEMD_USER_SLICE")
+            del(."_STREAM_ID")
 
-        [sources.journald_sshd]
-        type = "journald"
-        include_units = ["ssh.service", "sshd.service"]
-        
-        [transforms.parse_sshd]
-        type = "remap"
-        inputs = ["journald_sshd"]
-        source = '''
-          .host = get_hostname!()
-          .service = "sshd"
-          
-          # Set severity based on message content
-          .severity = if match(.message, r'(?i)(failed|failure|error)') {
-            "error"
-          } else if match(.message, r'(?i)(accepted|successful)') {
-            "info"  
-          } else if match(.message, r'(?i)(invalid|warning|disconnect)') {
-            "warning"
-          } else {
-            "info"
-          }
-          
-          # Extract IP addresses from SSH logs
-          ip_result = parse_regex(.message, r'from (?P<client_ip>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
-          if !is_null(ip_result) {
-            .client_ip = ip_result.client_ip
-          }
-          
-          # Extract usernames - handle multiple patterns
-          user_result = parse_regex(.message, r'(?:user |for )(?P<username>[a-zA-Z0-9_-]+)')
-          if !is_null(user_result) {
-            .username = user_result.username
-          }
-          
-          # Extract authentication method if present
-          method_result = parse_regex(.message, r'(?P<method>publickey|password|keyboard-interactive)')
-          if !is_null(method_result) {
-            .auth_method = method_result.method
-          }
-          
-          # Add structured fields for common SSH events
-          if match(.message, r'session opened') {
-            .event_type = "session_start"
-          } else if match(.message, r'session closed') {
-            .event_type = "session_end"
-          } else if match(.message, r'Accepted') {
-            .event_type = "auth_success"
-          } else if match(.message, r'Failed') {
-            .event_type = "auth_failure"
-          }
-        '''
+            # Delete duplicate/redundant timestamp fields
+            del(."_SOURCE_REALTIME_TIMESTAMP")
+            del(."__MONOTONIC_TIMESTAMP")
+            del(."__REALTIME_TIMESTAMP")
+            del(."SYSLOG_TIMESTAMP")
 
-        [sinks.gcp_logging]
-        type = "gcp_stackdriver_logs"
-        inputs = ["parse_sshd"]
-        project_id = "${cfg.gcpProjectId}"
-        credentials_path = "${cfg.gcpCredentialsFile}"
-        log_id = "sshd-logs"
-        
-        # Required resource field for GCP
-        [sinks.gcp_logging.resource]
-        type = "${cfg.resourceType}"
-        
-        # Optional: Configure batching for efficiency
-        [sinks.gcp_logging.batch]
-        max_events = 100
-        timeout_secs = 5
-        
-        # Configure encoding
-        [sinks.gcp_logging.encoding]
-        codec = "json"
-        timestamp_format = "rfc3339"
-      '';
-      mode = "0644";
+            # Delete sequence/ordering fields (not security relevant)
+            del(."__SEQNUM")
+            del(."__SEQNUM_ID")
+
+            # Delete process metadata (keep _CMDLINE for security context)
+            del(."_PID")
+            del(."TID")
+            del(."SYSLOG_PID")
+            del(."_COMM")
+            del(."_EXE")
+
+            # Delete transport/facility metadata
+            del(."_TRANSPORT")
+            del(."PRIORITY")
+            del(."SYSLOG_FACILITY")
+
+            # Delete capabilities field (complex, not directly login-relevant)
+            del(."_CAP_EFFECTIVE")
+
+            # Delete SELinux context (usually just "kernel", not login-specific)
+            del(."_SELINUX_CONTEXT")
+
+            # Delete other unnecessary fields
+            del(."_GID")
+            del(."_UID")
+          '';
+        };
+
+        transforms.logins_with_gcp_metadata = {
+          type = "remap";
+          inputs = [ "logins_trimmed" ];
+          source = ''
+            .instance = "''${GCP_INSTANCE_ID:-unknown}"
+          '';
+        };
+
+        sinks = {
+          /*
+            Uncomment for debugging
+            console = {
+              type = "console";
+              inputs = [ "logins_with_gcp_metadata" ];
+              encoding.codec = "json";
+            };
+          */
+
+          gcp_logs = {
+            type = "gcp_stackdriver_logs";
+            inputs = [ "logins_with_gcp_metadata" ];
+            credentials_path = config.sops.secrets.loggingServiceAccountKeyJson.path;
+            resource = {
+              type = "gce_instance";
+            };
+            project_id = config.my.gcpProjectId;
+            log_id = "${config.my.hostname}-login";
+            tls = {
+              verify_certificate = true;
+            };
+            request = {
+              retry_attempts = 3;
+            };
+          };
+        };
+      };
     };
-
-    systemd.tmpfiles.rules = [
-      "d /var/lib/vector 0755 vector vector -"
-    ];
   };
 }

@@ -5,4 +5,4 @@ runtime:
   options:
     packagemanager: bun
     typescript: true
-main: ./gcp/pulumi-infra.ts
+main: ./gcp/index.ts

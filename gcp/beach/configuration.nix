@@ -20,6 +20,7 @@
     ../../shared-modules/openssh-server.nix
     ../../shared-modules/security.nix
     ../../shared-modules/tailscale.nix
+    ../../shared-modules/vector.nix
     ./my-config.nix
   ];
 }
