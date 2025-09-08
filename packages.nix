@@ -46,7 +46,7 @@ in
   # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
   bat-extras.batpipe
 
-  # https://github.com/lukaspustina/mhost
+  # https://mhost.pustina.de/docs/usage_examples
   mhost
 
   #################################################################################
