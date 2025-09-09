@@ -47,8 +47,13 @@ if status is-interactive
     abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
 
-    abbr --add cld "claude"
-    abbr --add oc "opencode"
+    abbr --add cld "bunx @anthropic-ai/claude-code"
+    abbr --add claude "bunx @anthropic-ai/claude-code"
+    abbr --add gemini "bunx @google/gemini-cli"
+    abbr --add qwen "bunx @qwen-code/qwen-code@latest"
+    abbr --add oc "bunx opencode-ai"
+    abbr --add crush "bunx @charmland/crush"
+    abbr --add codex "bunx @openai/codex"
 
     abbr --add mus "musikcube"
 
@@ -77,8 +82,7 @@ if status is-interactive
     abbr --add cdo 'cargo doc --open'
 
     abbr --add nrb 'npm run build'
-
-    abbr --add qwen 'bunx @qwen-code/qwen-code@latest'
+    abbr --add nrs 'npm run start'
 
     fish_add_path --global "$HOME/code/dotfiles/bin"
     fish_add_path --global "$HOME/.codeium/windsurf/bin"

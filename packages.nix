@@ -3,7 +3,6 @@
 let
   better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync.nix { };
   carbonyl = pkgs-pinned-unstable.callPackage ./packages/carbonyl.nix { };
-  gemini-cli = pkgs-pinned-unstable.callPackage ./packages/gemini-cli.nix { };
   neovimLuaRc = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
 
   unstableNeovim = pkgs-pinned-unstable.neovim.override {
@@ -612,26 +611,26 @@ in
   #################################################################################
 
   # https://docs.anthropic.com/en/docs/claude-code/overview
-  claude-code
+  # Run latest version with bunx, not the Nix pkg
 
   # https://github.com/google-gemini/gemini-cli#-documentation
-  gemini-cli
+  # Run latest version with bunx, not the Nix pkg
 
   # https://github.com/QwenLM/qwen-code
-  # Run with bunx, not the Nix pkg
+  # Run latest version with bunx, not the Nix pkg
 
   # https://github.com/openai/codex
-  codex
+  # Run latest version with bunx, not the Nix pkg
 
   #################################################################################
   # Open source AI coding agents you can use with any model
   #################################################################################
 
   # https://github.com/sst/opencode
-  opencode
+  # Run latest version with bunx, not the Nix pkg
 
   # https://github.com/charmbracelet/crush
-  crush
+  # Run latest version with bunx, not the Nix pkg
 
   #################################################################################
   # Other AI-powered tools
