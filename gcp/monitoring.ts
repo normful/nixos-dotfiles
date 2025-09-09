@@ -211,10 +211,6 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
       autoClose: "1800s",
     },
     notificationChannels: [emailNotificationChannel.name],
-    documentation: {
-      mimeType: "text/markdown",
-      subject: `Login to ${stack} detected`,
-    },
   },
 );
 
@@ -247,10 +243,6 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
       autoClose: "1800s",
     },
     notificationChannels: [emailNotificationChannel.name],
-    documentation: {
-      mimeType: "text/markdown",
-      subject: `${stack} instance lifecycle event detected`,
-    },
   },
 );
 
