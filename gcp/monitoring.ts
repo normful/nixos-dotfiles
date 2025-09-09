@@ -174,8 +174,7 @@ export const instanceLifecycleMetric = new gcp.logging.Metric(
 export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
   `email-notification-channel`,
   {
-    displayName: "Login Alerts",
-    description: "Email notificaton channel",
+    displayName: "Email notification channel",
     type: "email",
     labels: {
       email_address: alertEmail,
