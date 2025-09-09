@@ -84,3 +84,8 @@ alias = "info"
 description = "Delete GCP resources, except protected ones"
 run = "pulumi destroy --exclude-protected --yes"
 alias = "down"
+
+[tasks."gcp:refresh"]
+description = "Sync actual GCP resources state with Pulumi state"
+run = "pulumi refresh"
+alias = "refresh"
