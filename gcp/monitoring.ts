@@ -191,7 +191,7 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
       {
         displayName: `VM Instance - ${stack} SSH Connection Events`,
         conditionThreshold: {
-          filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}_ssh_connections"`,
+          filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}/ssh_connections"`,
           comparison: "COMPARISON_GT",
           thresholdValue: 0,
           duration: "0s",
@@ -223,7 +223,7 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
       {
         displayName: `VM Instance - ${stack} Instance Lifecycle Events`,
         conditionThreshold: {
-          filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}_instance_lifecycle"`,
+          filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}/instance_lifecycle"`,
           comparison: "COMPARISON_GT",
           thresholdValue: 0,
           duration: "0s",
