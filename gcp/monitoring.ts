@@ -2,12 +2,13 @@ import * as gcp from "@pulumi/gcp";
 import { stack, alertEmail, projectId } from "./config";
 
 export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
-  name: `${stack}_login_events`,
+  name: `${stack}/logins`,
   description: "Count of systemd-logind new session events (user logins)",
   filter: `
     resource.type="gce_instance"
+    jsonPayload.host="${stack}"
     jsonPayload.SYSLOG_IDENTIFIER="systemd-logind"
-    jsonPayload.message=~"New session .* of user .*\\\\\\\\."
+    jsonPayload.message=~"New session .* of user .*"
   `,
   metricDescriptor: {
     metricKind: "DELTA",
@@ -34,11 +35,6 @@ export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
         valueType: "STRING",
         description: "Target host name",
       },
-      {
-        key: "leader_pid",
-        valueType: "STRING",
-        description: "Leader process ID",
-      },
     ],
   },
   labelExtractors: {
@@ -46,18 +42,18 @@ export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
     session_id: "EXTRACT(jsonPayload.SESSION_ID)",
     timestamp: "EXTRACT(jsonPayload.timestamp)",
     host: "EXTRACT(jsonPayload.host)",
-    leader_pid: "EXTRACT(jsonPayload.LEADER)",
   },
 });
 
 export const sshConnectionMetric = new gcp.logging.Metric(
   `${stack}-ssh-conns-metric`,
   {
-    name: `${stack}_ssh_connections`,
+    name: `${stack}/ssh_connections`,
     description:
       "SSH connection events from Tailscale for correlation with logins",
     filter: `
     resource.type="gce_instance"
+    jsonPayload.host="${stack}"
     jsonPayload.SYSLOG_IDENTIFIER="tailscaled"
     jsonPayload.message=~"ssh-session.*: handling new SSH connection from.*"
   `,
@@ -116,13 +112,14 @@ export const sshConnectionMetric = new gcp.logging.Metric(
 export const instanceLifecycleMetric = new gcp.logging.Metric(
   `${stack}-instance-lifecycle`,
   {
-    name: `${stack}_instance_lifecycle`,
+    name: `${stack}/instance_lifecycle`,
     description:
-      "GCP Compute Engine instance start and stop events from Cloud Audit logs",
+      "GCP Compute Engine instance beginning of start and stop events from Cloud Audit logs",
     filter: `
     (protoPayload.methodName="v1.compute.instances.stop" OR protoPayload.methodName="v1.compute.instances.start")
     logName="projects/${projectId}/logs/cloudaudit.googleapis.com%2Factivity"
     protoPayload.@type="type.googleapis.com/google.cloud.audit.AuditLog"
+    operation.first="true"
   `,
     metricDescriptor: {
       metricKind: "DELTA",
@@ -184,7 +181,6 @@ export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
       email_address: alertEmail,
     },
   },
-  { protect: true },
 );
 
 export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
@@ -202,8 +198,8 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
           duration: "0s",
           aggregations: [
             {
-              alignmentPeriod: "60s",
-              perSeriesAligner: "ALIGN_SUM",
+              alignmentPeriod: "180s",
+              perSeriesAligner: "ALIGN_PERCENT_CHANGE",
             },
           ],
           trigger: {
@@ -219,19 +215,6 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
     documentation: {
       mimeType: "text/markdown",
       subject: `Login to ${stack} detected`,
-      content: `
-A login event has been detected in the ${stack} environment.
-
-**Event Details:**
-- Source User: {metric.label.source_user_email}
-- Source IP: {metric.label.source_ip}
-- Target User: {metric.label.target_user}
-- Session ID: {metric.label.session_id}
-- Host: {metric.label.host}
-- Timestamp: {metric.label.timestamp}
-
-This alert is triggered by SSH connection events from Tailscale, which typically indicate user logins to your infrastructure.
-      `.trim(),
     },
   },
 );
@@ -251,8 +234,8 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
           duration: "0s",
           aggregations: [
             {
-              alignmentPeriod: "60s",
-              perSeriesAligner: "ALIGN_SUM",
+              alignmentPeriod: "180s",
+              perSeriesAligner: "ALIGN_PERCENT_CHANGE",
             },
           ],
           trigger: {
@@ -268,18 +251,6 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
     documentation: {
       mimeType: "text/markdown",
       subject: `${stack} instance lifecycle event detected`,
-      content: `
-An instance lifecycle event (start or stop) has been detected in the ${stack} environment.
-
-**Event Details:**
-- Operation: {metric.label.operation}
-- Instance: {metric.label.instance_name} (ID: {metric.label.instance_id})
-- Zone: {metric.label.zone}
-- User: {metric.label.user_email}
-- Operation ID: {metric.label.operation_id}
-
-This alert helps track infrastructure changes and potential security events.
-      `.trim(),
     },
   },
 );
