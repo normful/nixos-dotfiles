@@ -18,7 +18,7 @@ This repository uses `mise` as a task runner with the following key commands:
 
 **GCP Infrastructure & Deployment:**
 
-For detailed instructions (for humans only, and not for Claude, not for other AI coding agents) on how to deploy a new GCP VM, see `GCP-USAGE.md`
+For detailed instructions (for humans only, and not for Claude, not for other AI coding agents) on how to deploy a new GCP VM, see `GCP_USAGE.md`
 
 - `mise run gcp:new` (or `mise new`) - Create new Pulumi stack for new VM
 - `mise run gcp:first-up` (or `mise up1`) - Initial launch with larger instance for NixOS install
@@ -111,7 +111,7 @@ This is a comprehensive NixOS dotfiles repository with three main architectural 
 ## Key Configuration Details of GCP virtual machines
 
 **Environment Variables**
-- When launching a new GCP instance, environment variables need to be configured in `mise.toml`. See `GCP-USAGE.md` for detailed instructions.
+- When launching a new GCP instance, environment variables need to be configured in `mise.toml`. See `GCP_USAGE.md` for detailed instructions.
 
 **Configuration of the `coral` GCP instance**
 - **Machine Types**: `n2d-highmem-8` (first install), `n2d-highcpu-2` (regular operation)
