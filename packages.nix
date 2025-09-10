@@ -1,9 +1,9 @@
 { pkgs-stable, pkgs-pinned-unstable, ... }:
 
 let
-  better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync.nix { };
-  carbonyl = pkgs-pinned-unstable.callPackage ./packages/carbonyl.nix { };
-  neovimLuaRc = pkgs-pinned-unstable.callPackage ./nix-nvim/customRC.vim.nix { };
+  better-adb-sync = pkgs-stable.callPackage ./packages/better-adb-sync { };
+  carbonyl = pkgs-pinned-unstable.callPackage ./packages/carbonyl { };
+  neovimInitDotLua = pkgs-pinned-unstable.callPackage ./packages/neovim { };
 
   unstableNeovim = pkgs-pinned-unstable.neovim.override {
     # https://github.com/NixOS/nixpkgs/blob/f8b8860d1bbd654706ae21017bd8da694614c440/doc/languages-frameworks/neovim.section.md
@@ -16,7 +16,7 @@ let
     viAlias = true;
 
     configure = {
-      customRC = neovimLuaRc;
+      customRC = neovimInitDotLua;
     };
   };
 in
