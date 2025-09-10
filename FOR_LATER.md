@@ -23,15 +23,15 @@ The target file is `gcp/coral/configuration.nix` which currently has a static im
   imports = [
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
-    ../../shared-modules/disko-partitions.nix
-    ../../shared-modules/core.nix
-    ../../shared-modules/nix.nix
-    ../../shared-modules/nh.nix
-    ../../shared-modules/user.nix
-    ../../shared-modules/openssh-server.nix
-    ../../shared-modules/security.nix
-    ../../shared-modules/tailscale.nix
-    ../../shared-modules/vector.nix
+    ../../modules/disko-partitions.nix
+    ../../modules/core.nix
+    ../../modules/nix.nix
+    ../../modules/nh.nix
+    ../../modules/user.nix
+    ../../modules/openssh-server.nix
+    ../../modules/security.nix
+    ../../modules/tailscale.nix
+    ../../modules/vector.nix
     ./my-config.nix
   ];
 }
@@ -108,29 +108,29 @@ imports = [
   # Core modules - always imported
   inputs.disko.nixosModules.disko
   inputs.sops-nix.nixosModules.sops
-  ../../shared-modules/disko-partitions.nix
-  ../../shared-modules/core.nix
-  ../../shared-modules/nix.nix
-  ../../shared-modules/nh.nix
-  ../../shared-modules/user.nix
-  ../../shared-modules/openssh-server.nix
-  ../../shared-modules/security.nix
-  ../../shared-modules/tailscale.nix
-  ../../shared-modules/vector.nix
+  ../../modules/disko-partitions.nix
+  ../../modules/core.nix
+  ../../modules/nix.nix
+  ../../modules/nh.nix
+  ../../modules/user.nix
+  ../../modules/openssh-server.nix
+  ../../modules/security.nix
+  ../../modules/tailscale.nix
+  ../../modules/vector.nix
   ./my-config.nix
 ] ++ lib.optionals config.my.enableDevelopment [
   # Development modules - only when enableDevelopment = true
-  ../../shared-modules/development.nix
-  ../../shared-modules/docker.nix
-  ../../shared-modules/vscode-server.nix
+  ../../modules/development.nix
+  ../../modules/docker.nix
+  ../../modules/vscode-server.nix
 ] ++ lib.optionals config.my.enableMonitoring [
   # Monitoring modules - only when enableMonitoring = true
-  ../../shared-modules/prometheus.nix
-  ../../shared-modules/grafana.nix
+  ../../modules/prometheus.nix
+  ../../modules/grafana.nix
 ] ++ lib.optionals config.my.enableGaming [
   # Gaming modules - only when enableGaming = true
-  ../../shared-modules/steam.nix
-  ../../shared-modules/gaming.nix
+  ../../modules/steam.nix
+  ../../modules/gaming.nix
 ];
 ```
 
@@ -197,23 +197,23 @@ Here's what the final `gcp/coral/configuration.nix` should look like:
     # Core modules - always imported
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
-    ../../shared-modules/disko-partitions.nix
-    ../../shared-modules/core.nix
-    ../../shared-modules/nix.nix
-    ../../shared-modules/nh.nix
-    ../../shared-modules/user.nix
-    ../../shared-modules/openssh-server.nix
-    ../../shared-modules/security.nix
-    ../../shared-modules/tailscale.nix
-    ../../shared-modules/vector.nix
+    ../../modules/disko-partitions.nix
+    ../../modules/core.nix
+    ../../modules/nix.nix
+    ../../modules/nh.nix
+    ../../modules/user.nix
+    ../../modules/openssh-server.nix
+    ../../modules/security.nix
+    ../../modules/tailscale.nix
+    ../../modules/vector.nix
     ./my-config.nix
   ] ++ lib.optionals config.my.enableDevelopment [
     # Development modules
-    ../../shared-modules/development.nix
-    ../../shared-modules/docker.nix
+    ../../modules/development.nix
+    ../../modules/docker.nix
   ] ++ lib.optionals config.my.enableMonitoring [
     # Monitoring modules
-    ../../shared-modules/monitoring.nix
+    ../../modules/monitoring.nix
   ];
 }
 ```

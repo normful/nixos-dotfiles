@@ -522,8 +522,8 @@ function test_copy_nixos_config() {
     mkdir -p "$TEST_TMP_DIR/secrets"
     echo "secret data" > "$TEST_TMP_DIR/secrets/test.yaml"
 
-    mkdir -p "$TEST_TMP_DIR/shared-modules"
-    echo "shared module" > "$TEST_TMP_DIR/shared-modules/core.nix"
+    mkdir -p "$TEST_TMP_DIR/modules"
+    echo "shared module" > "$TEST_TMP_DIR/modules/core.nix"
 
     copy_nixos_config "$dest_dir"
 
@@ -533,7 +533,7 @@ function test_copy_nixos_config() {
     assert_file_exists "$dest_dir/.sops.yaml"
     assert_file_exists "$dest_dir/gcp/test-config/config.nix"
     assert_file_exists "$dest_dir/secrets/test.yaml"
-    assert_file_exists "$dest_dir/shared-modules/core.nix"
+    assert_file_exists "$dest_dir/modules/core.nix"
 
     # Verify content is copied correctly
     assert_same "flake content" "$(cat "$dest_dir/flake.nix")"

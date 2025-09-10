@@ -147,7 +147,7 @@ copy_nixos_config() {
   copy "$REPO_DIR/flake.lock" "$dst"
   copy "$REPO_DIR/gcp/" "$dst"
   copy "$REPO_DIR/secrets/" "$dst"
-  copy "$REPO_DIR/shared-modules/" "$dst"
+  copy "$REPO_DIR/modules/" "$dst"
   copy "$REPO_DIR/.sops.yaml" "$dst"
 }
 
