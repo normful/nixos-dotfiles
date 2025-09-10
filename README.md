@@ -77,7 +77,7 @@ In alphabetical order:
 - `│       └──` [install-nixos-test.sh](tests/gcp/install-nixos-test.sh) bashunit tests for [install-nixos.sh](gcp/install-nixos.sh)
 - `└──` [tsconfig.json](tsconfig.json) TypeScript compiler configuration, used by Pulumi
 
-## How to reuse some of this config
+## Documentation
 
 Aside from this README.md, the other main docs are:
 - [CLAUDE.md](CLAUDE.md): detailed instructions for AI coding agents to understand this repository. Humans may find it useful too
