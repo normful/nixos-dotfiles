@@ -1,6 +1,6 @@
 {
     "name": "nixos-dotfiles",
-    "description": "Pulumi TypeScript GCP IaC",
+    "description": "Cross-platform dotfiles managed with chezmoi, nix-darwin config, NixOS config, NixOS installation on GCP managed by Pulumi TypeScript Infrastucture-as-Code",
     "main": "gcp/index.ts",
     "devDependencies": {
         "@types/node": "^18",
