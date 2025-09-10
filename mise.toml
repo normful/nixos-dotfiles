@@ -89,3 +89,11 @@ alias = "down"
 description = "Sync actual GCP resources state with Pulumi state"
 run = "pulumi refresh --diff"
 alias = "refresh"
+
+[tasks."cyan"]
+description = "Apply nix-darwin changes to the 'cyan' macOS system"
+run = "sudo darwin-rebuild switch --flake .#cyan"
+
+[tasks."update-flake"]
+description = "Update Nix flake"
+run = "nix flake update"
