@@ -528,6 +528,9 @@ in
 
   # https://github.com/denisidoro/navi
   navi
+
+  # https://github.com/tailscale/tailscale
+  tailscale
 ])
 
 ++ (with pkgs-pinned-unstable; [
