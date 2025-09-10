@@ -66,7 +66,7 @@
       darwinConfigurations.cyan = darwinSystem rec {
         system = "aarch64-darwin";
         modules = [
-          ./macbook-pro-18-3-config.nix
+          ./mac/cyan/configuration.nix
         ];
         specialArgs = {
           inherit inputs;
