@@ -481,9 +481,6 @@ in
   # Others
   #################################################################################
 
-  # https://www.gnu.org/software/stow/
-  stow
-
   # https://docs.openssl.org/master/man1/openssl/
   openssl
 
