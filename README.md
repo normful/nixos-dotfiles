@@ -68,7 +68,7 @@ In alphabetical order:
 - `│   ├──` [install-nixos.sh](gcp/install-nixos.sh) NixOS install script that uses nixos-anywhere and GCP IAP SSH tunneling
 - `│   ├──` [monitoring.ts](gcp/monitoring.ts) Logging metrics + alert policies
 - `│   └──` [network.ts](gcp/network.ts) VPC, subnets, Cloud NAT, flow logs
-- `├──` [GCP-USAGE.md](GCP-USAGE.md) Human guide for provisioning and operating GCP VMs
+- `├──` [GCP_USAGE.md](GCP_USAGE.md) Human guide for provisioning and operating GCP VMs
 - `├──` [mac/](mac/) macOS (nix-darwin) configuration
 - `│   └──` [cyan/](mac/cyan/) Host config for 'cyan' MacBook Pro
 - `│       ├──` [configuration.nix](mac/cyan/configuration.nix) nix-darwin system configuration
@@ -103,7 +103,7 @@ In alphabetical order:
 
 Aside from this README.md, the other main docs are:
 - [CLAUDE.md](CLAUDE.md): detailed instructions for AI coding agents to understand this repository. Humans may find it useful too
-- [GCP-USAGE.md](GCP-USAGE.md): explains how to create a new Pulumi Stack and a set of GCP resources for a new GCP virtual machine running NixOS
+- [GCP_USAGE.md](GCP_USAGE.md): explains how to create a new Pulumi Stack and a set of GCP resources for a new GCP virtual machine running NixOS
 
 # FAQs
 
