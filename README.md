@@ -17,7 +17,7 @@ This repository contains:
 ## Detailed explanation of key files
 
 Sorted alphabetically:
-```
+
 ├── [.sops.yaml](.sops.yaml)                             # SOPS config: age keys + encryption rules
 ├── [bun.lock](bun.lock)                               # Bun lockfile for reproducible JS/TS deps
 ├── [chezmoi/](chezmoi/)                               # Dotfiles managed by chezmoi
@@ -76,20 +76,20 @@ Sorted alphabetically:
 │   └── gcp/
 │       └── [install-nixos-test.sh](tests/gcp/install-nixos-test.sh)          # bashunit tests for installer script
 └── [tsconfig.json](tsconfig.json)                          # TypeScript compiler configuration
-```
+
 ## How to reuse some of this config
 
 Aside from this README.md, the other main docs are:
-- [CLAUDE.md](CLAUDE.md) : detailed instructions for AI coding agents to understand this repository. Humans may find it useful too
-- [GCP-USAGE.md](GCP-USAGE.md) : explains how to create a new Pulumi Stack and a set of GCP resources for a new GCP virtual machine running NixOS
+- [CLAUDE.md](CLAUDE.md): detailed instructions for AI coding agents to understand this repository. Humans may find it useful too
+- [GCP-USAGE.md](GCP-USAGE.md): explains how to create a new Pulumi Stack and a set of GCP resources for a new GCP virtual machine running NixOS
 
 # FAQs
 
 ## What are the hostnames of machines managed here?
 
 - Currently, this repo contains config for:
-    - A GCP VM named `coral` in [./gcp/coral/configuration.nix](gcp/coral/configuration.nix)
-    - A MacBook Pro named `cyan` in [./mac/cyan/configuration.nix](mac/cyan/configuration.nix)
+    - A GCP VM named `coral` in [gcp/coral/configuration.nix](gcp/coral/configuration.nix)
+    - A MacBook Pro named `cyan` in [mac/cyan/configuration.nix](mac/cyan/configuration.nix)
 
 ## Why don't you run NixOS in a VM on macOS?
 
