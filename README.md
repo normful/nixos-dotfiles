@@ -25,6 +25,28 @@ In alphabetical order:
 - `│   ├──` [dot_cargo/](chezmoi/dot_cargo/) Cargo (Rust) config files
 - `│   ├──` [dot_claude/](chezmoi/dot_claude/) Claude Code/editor integration settings
 - `│   ├──` [dot_config/](chezmoi/dot_config/) App configs (fish, nvim, kitty, etc.)
+- `│   │   ├──` [bat/](chezmoi/dot_config/bat/) bat (better cat) config
+- `│   │   ├──` [fish/](chezmoi/dot_config/fish/) Fish shell config
+- `│   │   ├──` [ghostty/](chezmoi/dot_config/ghostty/) Ghostty terminal config
+- `│   │   ├──` [helix/](chezmoi/dot_config/helix/) Helix editor config
+- `│   │   ├──` [htop/](chezmoi/dot_config/htop/) htop process monitor config
+- `│   │   ├──` [karabiner/](chezmoi/dot_config/karabiner/) Karabiner-Elements key mapping config
+- `│   │   ├──` [kitty/](chezmoi/dot_config/kitty/) Kitty terminal config
+- `│   │   ├──` [lftp/](chezmoi/dot_config/lftp/) lftp FTP client config
+- `│   │   ├──` [nvim/](chezmoi/dot_config/nvim/) Neovim editor config
+- `│   │   │   ├──` [lua/augroups.lua](chezmoi/dot_config/nvim/lua/augroups.lua) Neovim autocommand groups
+- `│   │   │   ├──` [lua/chadrc.lua](chezmoi/dot_config/nvim/lua/chadrc.lua) NvChad configuration
+- `│   │   │   ├──` [lua/lazy-config.lua](chezmoi/dot_config/nvim/lua/lazy-config.lua) Lazy.nvim plugin manager config
+- `│   │   │   ├──` [lua/lsp-on-attach.lua](chezmoi/dot_config/nvim/lua/lsp-on-attach.lua) LSP client attachment handlers
+- `│   │   │   ├──` [lua/mappings-helpers.lua](chezmoi/dot_config/nvim/lua/mappings-helpers.lua) Key mapping utility functions
+- `│   │   │   ├──` [lua/mappings.lua](chezmoi/dot_config/nvim/lua/mappings.lua) Custom key bindings
+- `│   │   │   ├──` [lua/neovide.lua](chezmoi/dot_config/nvim/lua/neovide.lua) Neovide GUI client config
+- `│   │   │   ├──` [lua/options.lua](chezmoi/dot_config/nvim/lua/options.lua) Neovim options and settings
+- `│   │   │   ├──` [lua/plugins/](chezmoi/dot_config/nvim/lua/plugins/) Plugin configurations (lazy.nvim format)
+- `│   │   │   └──` [lua/user-commands.lua](chezmoi/dot_config/nvim/lua/user-commands.lua) Custom user commands
+- `│   │   ├──` [procs/](chezmoi/dot_config/procs/) procs process viewer config
+- `│   │   ├──` [wezterm/](chezmoi/dot_config/wezterm/) WezTerm terminal config
+- `│   │   └──` [yazi/](chezmoi/dot_config/yazi/) Yazi file manager config
 - `│   ├──` [dot_gitconfig](chezmoi/dot_gitconfig) Global Git configuration
 - `│   ├──` [dot_gitignore_global](chezmoi/dot_gitignore_global) Global Git ignore patterns
 - `│   └──` [dot_warp/](chezmoi/dot_warp/) Warp terminal themes, settings, workflows
