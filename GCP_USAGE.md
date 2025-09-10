@@ -1,4 +1,6 @@
-# One-time initial setup
+# How-To: Launch a new Google Cloud Platform virtual machine running the NixOS config in this repo
+
+## One-time initial setup
 
 1. Install `nix` on your machine (the package manager only, not NixOS). <https://nixos.org/download/>
 1. Install [`mise`](https://github.com/jdx/mise).
@@ -11,7 +13,7 @@
     1. This keypair encrypts and decrypts `./secrets/gcp_*.yaml` files.
     1. Copy the public key of your new keypair into the top `keys` section in `.sops.yaml`.
 
-# To launch a new VM with NixOS
+## To launch a new VM with NixOS
 
 Each time you want to launch a new Google Compute Engine VM machine and install NixOS on it:
 
