@@ -1,10 +1,10 @@
-*.syntax
 **/*.syntax
-.DS_Store
 **/.DS_Store
-result
+*.syntax
+.DS_Store
 .crush/
+.claude/
 /bin/
-/node_modules/
 /lib/
-logging-service-account-key.json
+/node_modules/
+result
