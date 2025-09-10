@@ -36,16 +36,14 @@ if status is-interactive
     abbr --add n "nvim"
     abbr --add v "nvim"
 
-    abbr --add em "nvim $HOME/code/nixos-dotfiles/packages.nix"
+    abbr --add em "nvim $HOME/code/nixos-dotfiles/mac/cyan/packages.nix"
 
-    abbr --add ek "nvim $HOME/code/nixos-dotfiles/kitty/.config/kitty/kitty.conf"
-    abbr --add et "nvim $HOME/code/nixos-dotfiles/ghostty/.config/ghostty/config"
-    abbr --add ew "nvim $HOME/code/nixos-dotfiles/wezterm/.config/wezterm/wezterm.lua"
+    abbr --add ek "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf"
+    abbr --add et "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config"
+    abbr --add ew "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua"
 
-    abbr --add ef "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
-    abbr --add eb "nvim $HOME/code/nixos-dotfiles/fish/.config/fish/config.fish"
-    abbr --add ev "nvim $HOME/code/nixos-dotfiles/nvim/nvim.nix"
-    abbr --add eg "nvim $HOME/code/nixos-dotfiles/git/.gitconfig"
+    abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish"
+    abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/gitconfig"
 
     abbr --add cld "bunx @anthropic-ai/claude-code"
     abbr --add claude "bunx @anthropic-ai/claude-code"
