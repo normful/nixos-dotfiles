@@ -22,13 +22,9 @@ This repository contains:
 
 ## Why don't you run NixOS in a VM on macOS?
 
-I tried this already and didn't like it.
+I tried it already and didn't like it, Specifically, I tried running NixOS in a VM in VMWare Fusion and Parallels.
 
-I tried running NixOS in a VM in VMWare Fusion and Parallels.
-
-Although it worked, I realized that I prefer the simplicity of using nix-darwin on macOS.
-
-There seemed to be too many bugs and workarounds needed to make Parallels Tools or VMWare Tools properly.
+Although it worked, I realized that I prefer the simplicity of using nix-darwin on macOS. There seemed to be too many bugs and workarounds needed to make Parallels Tools or VMWare Tools properly.
 
 ## Why don't you use Home Manager?
 
