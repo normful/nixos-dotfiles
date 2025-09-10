@@ -31,9 +31,9 @@ In alphabetical order:
 - `├──` [CLAUDE.md](CLAUDE.md) Guidance for AI assistants working on this repo
 - `├──` [flake.lock](flake.lock) Nix flake lock (pins inputs for reproducibility)
 - `├──` [flake.nix](flake.nix) Main Nix flake (NixOS + macOS configs)
-- `├──` [gcp/](gcp/) GCP infrastructure and NixOS installer
+- `├──` [gcp/](gcp/) GCP infrastructure config, NixOS installer script, and NixOS config for GCP VM instances
 - `│   ├──` [compute.ts](gcp/compute.ts) VM instances, disks, schedules, snapshots
-- `│   ├──` [config.ts](gcp/config.ts) Centralized config parsing + validation
+- `│   ├──` [config.ts](gcp/config.ts) Parsing and validation of `Pulumi.<hostname>.yaml` files.
 - `│   ├──` [coral/](gcp/coral/) Host config for 'coral' GCP VM
 - `│   │   ├──` [configuration.nix](gcp/coral/configuration.nix) NixOS config importing shared modules
 - `│   │   └──` [my-config.nix](gcp/coral/my-config.nix) Host-specific overrides (hostname, user, proj)
@@ -43,10 +43,10 @@ In alphabetical order:
 - `│   ├──` [firewall.ts](gcp/firewall.ts) Firewall rules (IAP SSH, tailscale, deny-all)
 - `│   ├──` [iam.ts](gcp/iam.ts) IAM bindings for IAP and compute permissions
 - `│   ├──` [index.ts](gcp/index.ts) Pulumi entrypoint exporting all resources/outputs
-- `│   ├──` [install-nixos.sh](gcp/install-nixos.sh)*                  # Executable: automated NixOS install via IAP/SSH
-- `│   ├──` [monitoring.ts](gcp/monitoring.ts) Logging metrics + alert policies (security/events)
+- `│   ├──` [install-nixos.sh](gcp/install-nixos.sh)*  NixOS install script that uses nixos-anywhere and GCP IAP SSH tunneling
+- `│   ├──` [monitoring.ts](gcp/monitoring.ts) Logging metrics + alert policies
 - `│   └──` [network.ts](gcp/network.ts) VPC, subnets, Cloud NAT, flow logs
-- `├──` [GCP-USAGE.md](GCP-USAGE.md) Human guide for provisioning/operating GCP VM(s)
+- `├──` [GCP-USAGE.md](GCP-USAGE.md) Human guide for provisioning and operating GCP VMs
 - `├──` [mac/](mac/) macOS (nix-darwin) configuration
 - `│   └──` [cyan/](mac/cyan/) Host config for 'cyan' MacBook Pro
 - `│       ├──` [configuration.nix](mac/cyan/configuration.nix) nix-darwin system configuration
@@ -55,27 +55,27 @@ In alphabetical order:
 - `├──` [modules/](modules/) Shared NixOS modules used by hosts
 - `│   ├──` [core.nix](modules/core.nix) Base system config + essential packages
 - `│   ├──` [disko-partitions.nix](modules/disko-partitions.nix) Disk layout (EFI, swap, ext4 root) via disko
-- `│   ├──` [golang.nix](modules/golang.nix) Optional Go dev environment module
+- `│   ├──` [golang.nix](modules/golang.nix) Golang dev environment module
 - `│   ├──` [nh.nix](modules/nh.nix) NixOS Helper (nh) + build output tooling
 - `│   ├──` [nix.nix](modules/nix.nix) Nix daemon, GC, substituters/caches
 - `│   ├──` [openssh-server.nix](modules/openssh-server.nix) Hardened OpenSSH server configuration
 - `│   ├──` [security.nix](modules/security.nix) Firewall, fail2ban, polkit rules
-- `│   ├──` [tailscale.nix](modules/tailscale.nix) Tailscale VPN + SSH integration
+- `│   ├──` [tailscale.nix](modules/tailscale.nix) Tailscale VPN configuration
 - `│   ├──` [user.nix](modules/user.nix) User accounts, SSH keys, shell, sudo
-- `│   └──` [vector.nix](modules/vector.nix) Vector agent → Google Cloud Logging
-- `├──` [package.json](package.json) JS/TS manifest (Pulumi code, scripts)
-- `├──` [packages/](packages/) Custom Nix packages/overlays (derivations)
+- `│   └──` [vector.nix](modules/vector.nix) Vector log agent → Google Cloud Logging
+- `├──` [package.json](package.json) Package manifest for Pulumi TypeScript infrastructure code
+- `├──` [packages/](packages/) Custom Nix packages (Nix derivations)
 - `├──` [Pulumi.coral.yaml](Pulumi.coral.yaml) Pulumi stack config for 'coral' environment
 - `├──` [Pulumi.example.yaml](Pulumi.example.yaml) Template Pulumi stack config for new VMs
-- `├──` [Pulumi.yaml](Pulumi.yaml) Pulumi project manifest (name, runtime)
-- `├──` [secrets/](secrets/) SOPS-encrypted secrets
+- `├──` [Pulumi.yaml](Pulumi.yaml) Overall Pulumi project manifest
+- `├──` [secrets/](secrets/) SOPS secrets encrypted with [age](https://github.com/FiloSottile/age)
 - `│   ├──` [gcp_coral.yaml](secrets/gcp_coral.yaml) Secrets for 'coral' (password hashes, tailscale)
 - `│   └──` [gcp_example.yaml](secrets/gcp_example.yaml) Template secrets for new VM stacks
 - `├──` [stylua.toml](stylua.toml) StyLua formatter config (Lua files)
 - `├──` [tests/](tests/) Test suites
-- `│   └──` gcp/
-- `│       └──` [install-nixos-test.sh](tests/gcp/install-nixos-test.sh) bashunit tests for installer script
-- `└──` [tsconfig.json](tsconfig.json) TypeScript compiler configuration
+- `│   └──` [gcp/](gcp/) Tests for [gcp/](gcp/)
+- `│       └──` [install-nixos-test.sh](tests/gcp/install-nixos-test.sh) bashunit tests for [install-nixos.sh](gcp/install-nixos.sh)
+- `└──` [tsconfig.json](tsconfig.json) TypeScript compiler configuration, used by Pulumi
 
 ## How to reuse some of this config
 
