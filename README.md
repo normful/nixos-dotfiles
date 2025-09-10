@@ -65,7 +65,7 @@ In alphabetical order:
 - `│   ├──` [firewall.ts](gcp/firewall.ts) Firewall rules (IAP SSH, tailscale, deny-all)
 - `│   ├──` [iam.ts](gcp/iam.ts) IAM bindings for IAP and compute permissions
 - `│   ├──` [index.ts](gcp/index.ts) Pulumi entrypoint exporting all resources/outputs
-- `│   ├──` [install-nixos.sh](gcp/install-nixos.sh)*  NixOS install script that uses nixos-anywhere and GCP IAP SSH tunneling
+- `│   ├──` [install-nixos.sh](gcp/install-nixos.sh) NixOS install script that uses nixos-anywhere and GCP IAP SSH tunneling
 - `│   ├──` [monitoring.ts](gcp/monitoring.ts) Logging metrics + alert policies
 - `│   └──` [network.ts](gcp/network.ts) VPC, subnets, Cloud NAT, flow logs
 - `├──` [GCP-USAGE.md](GCP-USAGE.md) Human guide for provisioning and operating GCP VMs
