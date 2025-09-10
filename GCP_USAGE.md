@@ -10,16 +10,16 @@
 1. If you haven't already, create an SSH keypair with `ssh-keygen`
 1. Setup `age` and `sops`
     1. Create at least one `age` keypair by running `age-keygen`
-    1. This keypair encrypts and decrypts `./secrets/gcp_*.yaml` files
-    1. Copy the public key of your new keypair into the top `keys` section in `.sops.yaml`
+    1. This keypair encrypts and decrypts [`./secrets/gcp_*.yaml`](./secrets/) files
+    1. Copy the public key of your new keypair into the top `keys` section in [`.sops.yaml`](./.sops.yaml)
 
 ## To launch a new VM with NixOS
 
 Each time you want to launch a new Google Compute Engine VM machine and install NixOS on it:
 
-1. Edit in `mise.toml`
+1. Edit in [`mise.toml`](./mise.toml)
     - `GCP_VM_HOSTNAME`. The new GCP VM's desired hostname
-1. If you are not Norman, make these additional edits to `mise.toml`:
+1. If you are not Norman, make these additional edits to [`mise.toml`](./mise.toml):
     - `GCP_VM_USERNAME`. Name of non-root user that you want created on the VM
     - `SSH_PUBLIC_KEY_PATH`. Path to your local SSH public key `*.pub`
     - `GCE_PRIVATE_KEY_PATH`. Path to the Google Compute Engine key for using `gcloud compute ssh`. Usually ~/.ssh/google_compute_engine
@@ -30,23 +30,23 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     1. Create a Non-reusable, Pre-approved, Tagged auth key. It'll produce `tskey-auth-...`
 1. Create a hash your desired sudo password for the new non-root user on the VM.
     - Run `mkpasswd -m sha-512`. It'll produce `$...`
-1. `mise run secrets` to edit `secrets/gcp_<hostname>.yaml` with `sops`
+1. `mise run secrets` to edit [`secrets/gcp_<hostname>.yaml`](./secrets/) with `sops`
     - Paste in your recently created secrets:
         ```yaml
         hashedUserPassword: $...
         tailscaleAuthKey: tskey-auth-...
         ```
     - Save and close the file
-1. Add the new hostname to `flake.nix`, under `linuxHostnames`
+1. Add the new hostname to [`flake.nix`](./flake.nix), under `linuxHostnames`
 1. If you are not Norman, you probably also want to change:
-    - `Pulumi.<hostname>.yaml`
+    - [`Pulumi.<hostname>.yaml`](./)
         - `gcp:project`
         - `gcp:zone`
         - `nixos-gce:machineType`
         - `nixos-gce:region`
         - `nixos-gce:alertEmail`
-    - `gcp/<hostname>/configuration.nix`
-    - `gcp/<hostname>/my-config.nix`
+    - [`gcp/<hostname>/configuration.nix`](./gcp/)
+    - [`gcp/<hostname>/my-config.nix`](./gcp/)
     - If you want to customize the GCP infrastructure for the new VM, you can also edit the TypeScript Pulumi files under the `gcp` folder
 1. (Optional) Commit the new files
 1. `mise run up1` to do the first initial launch of the GCP resources with Pulumi
