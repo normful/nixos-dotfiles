@@ -97,3 +97,8 @@ run = "sudo darwin-rebuild switch --flake .#cyan"
 [tasks."update-flake"]
 description = "Update Nix flake"
 run = "nix flake update"
+
+[tasks."format"]
+description = "Run autoformatting"
+run = "nix fmt"
+alias = "fmt"
