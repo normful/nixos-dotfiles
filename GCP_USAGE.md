@@ -39,14 +39,14 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     - Save and close the file
 1. Add the new hostname to [`flake.nix`](./flake.nix), under `linuxHostnames`
 1. If you are not Norman, you probably also want to change:
-    - [`Pulumi.<hostname>.yaml`](./)
+    - `Pulumi.<hostname>.yaml`
         - `gcp:project`
         - `gcp:zone`
         - `nixos-gce:machineType`
         - `nixos-gce:region`
         - `nixos-gce:alertEmail`
-    - [`gcp/<hostname>/configuration.nix`](./gcp/)
-    - [`gcp/<hostname>/my-config.nix`](./gcp/)
+    - `gcp/<hostname>/configuration.nix`
+    - `gcp/<hostname>/my-config.nix`
     - If you want to customize the GCP infrastructure for the new VM, you can also edit the TypeScript Pulumi files under the `gcp` folder
 1. (Optional) Commit the new files
 1. `mise run up1` to do the first initial launch of the GCP resources with Pulumi
