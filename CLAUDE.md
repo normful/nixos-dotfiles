@@ -1,6 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents when working with code in this repository.
 
 ## Common Development Commands
 
@@ -17,8 +15,6 @@ This repository uses `mise` as a task runner with the following key commands:
 - `mise run update-flake` - Update Nix flake inputs
 
 **GCP Infrastructure & Deployment:**
-
-For detailed instructions (for humans only, and not for Claude, not for other AI coding agents) on how to deploy a new GCP VM, see `GCP_USAGE.md`
 
 - `mise run gcp:new` (or `mise new`) - Create new Pulumi stack for new VM
 - `mise run gcp:first-up` (or `mise up1`) - Initial launch with larger instance for NixOS install
