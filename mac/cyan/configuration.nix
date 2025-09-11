@@ -105,6 +105,7 @@
         persistent-apps = [
           "/Applications/WezTerm.app"
           "/Applications/Warp.app"
+          "/Applications/Ghostty.app"
           "/Applications/Vivaldi.app"
           "/Applications/Notion.app"
           "/Applications/Claude.app"
