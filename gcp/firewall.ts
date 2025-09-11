@@ -1,6 +1,7 @@
 import * as gcp from "@pulumi/gcp";
 import { stack, iapTcpForwardingRange } from "./config";
 import { network } from "./network";
+import { gcpProvider } from "./provider";
 
 export const vmTag = `${stack}-vm`;
 const lowFirewallRulePriority = 65534;
@@ -16,7 +17,7 @@ export const ingressAllowIapSsh = new gcp.compute.Firewall(`${stack}-ingress-all
   logConfig: {
     metadata: "INCLUDE_ALL_METADATA",
   },
-});
+}, { provider: gcpProvider });
 
 export const egressAllowTailscaleCoordination = new gcp.compute.Firewall(`${stack}-egress-allow-tailscale-coordination`, {
   network: network.id,
@@ -33,7 +34,7 @@ export const egressAllowTailscaleCoordination = new gcp.compute.Firewall(`${stac
   logConfig: {
     metadata: "INCLUDE_ALL_METADATA",
   },
-});
+}, { provider: gcpProvider });
 
 export const ingressAllowTailscaleP2p = new gcp.compute.Firewall(`${stack}-ingress-allow-tailscale-p2p`, {
   network: network.id,
@@ -52,7 +53,7 @@ export const ingressAllowTailscaleP2p = new gcp.compute.Firewall(`${stack}-ingre
   logConfig: {
     metadata: "EXCLUDE_ALL_METADATA",
   },
-});
+}, { provider: gcpProvider });
 
 export const ingressDenyOthers = new gcp.compute.Firewall(`${stack}-ingress-deny-others`, {
   network: network.id,
@@ -65,4 +66,4 @@ export const ingressDenyOthers = new gcp.compute.Firewall(`${stack}-ingress-deny
   logConfig: {
     metadata: "INCLUDE_ALL_METADATA",
   },
-});
+}, { provider: gcpProvider });

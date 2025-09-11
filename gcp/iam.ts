@@ -1,5 +1,6 @@
 import * as gcp from "@pulumi/gcp";
 import { projectId, stack } from "./config";
+import { gcpProvider } from "./provider";
 
 const iapUserEmail = process.env.IAP_USER_EMAIL;
 if (!iapUserEmail) {
@@ -13,6 +14,7 @@ export const iapTunnelAccess = new gcp.projects.IAMBinding(
     role: "roles/iap.tunnelResourceAccessor",
     members: [`user:${iapUserEmail}`],
   },
+  { provider: gcpProvider },
 );
 
 export const computeInstanceAdmin = new gcp.projects.IAMBinding(
@@ -22,4 +24,5 @@ export const computeInstanceAdmin = new gcp.projects.IAMBinding(
     role: "roles/compute.instanceAdmin.v1",
     members: [`user:${iapUserEmail}`],
   },
+  { provider: gcpProvider },
 );

@@ -20,6 +20,7 @@ import {
 import { commonLabels } from "./config";
 import { network, subnetwork } from "./network";
 import { vmTag } from "./firewall";
+import { gcpProvider } from "./provider";
 
 export const snapshotPolicy = enableWeeklySnapshots
   ? new gcp.compute.ResourcePolicy(
@@ -42,7 +43,7 @@ export const snapshotPolicy = enableWeeklySnapshots
           },
         },
       },
-      { protect: true },
+      { protect: true, provider: gcpProvider },
     )
   : undefined;
 
@@ -60,7 +61,7 @@ export const autoStartStopPolicy = enableInstanceScheduling
         },
         timeZone: "Asia/Tokyo",
       },
-    })
+    }, { provider: gcpProvider })
   : undefined;
 
 // e.g. a free Ubuntu image, only for initial use
@@ -68,7 +69,7 @@ const recentNonNixosLinuxImage = gcp.compute.getImage({
   project: imageProject,
   family: imageFamily,
   mostRecent: true,
-});
+}, { provider: gcpProvider });
 
 export const bootDisk = new gcp.compute.Disk(
   `${stack}-boot-disk`,
@@ -80,7 +81,7 @@ export const bootDisk = new gcp.compute.Disk(
     resourcePolicies: snapshotPolicy ? [snapshotPolicy.selfLink] : undefined,
     labels: commonLabels,
   },
-  { protect: true },
+  { protect: true, provider: gcpProvider },
 );
 
 // Choose machine type based on whether this is the first NixOS install
@@ -117,7 +118,7 @@ export const instance = new gcp.compute.Instance(stack, {
   enableDisplay: true,
   resourcePolicies: autoStartStopPolicy?.selfLink,
   labels: commonLabels,
-});
+}, { provider: gcpProvider });
 
 export const instanceName = instance.name;
 export const instanceId = instance.instanceId;
