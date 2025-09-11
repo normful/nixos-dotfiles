@@ -48,9 +48,6 @@ in
   # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
   bat-extras.batpipe
 
-  # https://mhost.pustina.de/docs/usage_examples
-  mhost
-
   #################################################################################
   # View processes
   #################################################################################
@@ -78,7 +75,7 @@ in
 
   # https://xon.sh/tutorial.html
   # Examples of .xsh code: https://github.com/search?q=language%3AXonsh&type=code
-  xonsh
+  xonsh # TODO: Add to `modules`
 
   /*
     Aim to use:
@@ -91,15 +88,15 @@ in
   #################################################################################
 
   hstr
-  hishtory
-  atuin
+  # hishtory
+  # atuin
 
   #################################################################################
   # Bash
   #################################################################################
 
-  bats
-  shfmt
+  bats # TODO: add to `modules`
+  shfmt # TODO: add to `modules`
 
   #################################################################################
   # Navigating directories
@@ -180,7 +177,7 @@ in
   gh
 
   #################################################################################
-  # Jujutsu
+  # Jujutsu TODO: add to `modules`
   #################################################################################
 
   jujutsu
@@ -419,6 +416,9 @@ in
 
   # https://github.com/ameshkov/dnslookup
   dnslookup
+
+  # https://mhost.pustina.de/docs/usage_examples
+  mhost
 
   #################################################################################
   # Downloading files
