@@ -1,0 +1,5 @@
+sourceDir = "{{ .chezmoi.sourceDir }}"
+
+[data]
+  mac = {{ eq .chezmoi.os "darwin" }}
+  linux = {{ eq .chezmoi.os "linux" }}

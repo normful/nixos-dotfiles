@@ -1,0 +1,16 @@
+{{/* vim: set filetype=gotemplate : */}}
+**/.DS_Store
+
+{{/* Config that should not be installed on macOS */}}
+
+{{ if .mac -}}
+
+{{ end -}}
+
+{{/* Config that should not be installed on Linux */}}
+
+{{ if .linux -}}
+.config/ghostty/
+.config/karabiner/
+.config/wezterm/
+{{ end -}}
