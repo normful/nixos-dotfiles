@@ -60,8 +60,6 @@ if status is-interactive
     abbr --add crush "bunx @charmland/crush"
     abbr --add codex "bunx @openai/codex"
 
-    abbr --add mus "musikcube"
-
     abbr --add cf 'cargo fmt'
     abbr --add cl 'cargo clippy'
     abbr --add ck 'cargo check'
@@ -80,17 +78,21 @@ if status is-interactive
     abbr --add nrb 'npm run build'
     abbr --add nrs 'npm run start'
 
+    fish_add_path --global "$HOME/.cargo/bin"
+
+    {{ if .mac -}}
+    source "$HOME/.api_keys.fish"
+
+    fish_add_path --global "$HOME/code/dotfiles/bin"
+    fish_add_path --global "$HOME/.codeium/windsurf/bin"
+
     abbr --add es 'exercism submit'
+    abbr --add mus "musikcube"
     abbr --add gt 'gleam test'
     abbr --add zs 'zola serve'
     abbr --add dua 'dua interactive'
     abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
-
-    fish_add_path --global "$HOME/code/dotfiles/bin"
-    fish_add_path --global "$HOME/.codeium/windsurf/bin"
-    fish_add_path --global "$HOME/.cargo/bin"
-
-    source "$HOME/.api_keys.fish"
+    {{ end -}}
 
     mise activate fish | source
 end
@@ -101,11 +103,11 @@ end
 
 # Fixes order of $PATH entries in fish shell when using nix-darwin
 # Based on https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
-if test (uname) = Darwin
-    fish_add_path --prepend --global "$HOME/.local/bin"
-    fish_add_path --prepend --global /run/current-system/sw/bin
-    fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
-end
+{{ if .mac -}}
+fish_add_path --prepend --global "$HOME/.local/bin"
+fish_add_path --prepend --global /run/current-system/sw/bin
+fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
 
 # Added by OrbStack: command-line tools and integration
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+{{ end -}}
