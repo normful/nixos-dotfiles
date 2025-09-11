@@ -1,7 +1,29 @@
-{{ $customSourceDir := promptStringOnce . "customSourceDir" "What is the absolute path to nixos-dotfiles/chezmoi" "/Users/norman/code/nixos-dotfiles/chezmoi" -}}
-{{ $gitName := promptStringOnce . "gitName" "What name to use in Git commits" "Norman Sue" -}}
-{{ $gitEmail := promptStringOnce . "gitEmail" "What email to use in Git commits" "normful@users.noreply.github.com" -}}
-{{ $hasDisplay := promptBoolOnce . "hasDisplay" "Does this machine have a display" true -}}
+{{ $customSourceDir := "" -}}
+{{ if stdinIsATTY -}}
+{{   $customSourceDir = promptStringOnce . "customSourceDir" "What is the absolute path to nixos-dotfiles/chezmoi" "/Users/norman/code/nixos-dotfiles/chezmoi" -}}
+{{ else -}}
+{{   $customSourceDir = "/home/norman/code/nixos-dotfiles/chezmoi" -}}
+{{ end -}}
+
+{{ $gitName := "" -}}
+{{ if stdinIsATTY -}}
+{{   $gitName = promptStringOnce . "gitName" "What name to use in Git commits" "Norman Sue" -}}
+{{ else -}}
+{{   $gitName = "Norman Sue" -}}
+{{ end -}}
+
+{{ $gitEmail := "" -}}
+{{ if stdinIsATTY -}}
+{{   $gitEmail = promptStringOnce . "gitEmail" "What email to use in Git commits" "normful@users.noreply.github.com" -}}
+{{ else -}}
+{{   $gitEmail = "normful@users.noreply.github.com" -}}
+{{ end -}}
+
+{{ $hasDisplay := false -}}
+{{ if stdinIsATTY -}}
+{{   $hasDisplay = promptBoolOnce . "hasDisplay" "Does this machine have a display" true -}}
+{{ end -}}
+
 sourceDir = {{ $customSourceDir | quote }}
 
 [data]
