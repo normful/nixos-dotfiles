@@ -156,6 +156,7 @@ in
           git-lfs
         ]
         ++ lib.optionals isLinux [
+          nh
           nix-output-monitor
           nvd
         ]
