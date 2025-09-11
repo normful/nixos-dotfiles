@@ -1,6 +1,7 @@
 import * as gcp from "@pulumi/gcp";
 import { stack, region, subnetCidrRange } from "./config";
 import { commonLabels } from "./config";
+import { gcpProvider } from "./provider";
 
 export const network = new gcp.compute.Network(`${stack}-vpc`, {
   routingMode: "REGIONAL",

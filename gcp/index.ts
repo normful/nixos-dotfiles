@@ -1,4 +1,5 @@
 import { projectId } from "./config";
+import "./provider";
 
 import "./network";
 import "./firewall";
@@ -7,6 +8,7 @@ import "./iam";
 import "./monitoring";
 
 export { projectId };
+export { gcpProvider } from "./provider";
 export {
   networkName,
   subnetworkName,
