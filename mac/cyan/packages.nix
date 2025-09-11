@@ -54,9 +54,6 @@ in
   # https://gcc.gnu.org
   gcc
 
-  # https://www.gnu.org/software/make/
-  gnumake
-
   # https://just.systems/man/en/
   just
 
@@ -79,9 +76,6 @@ in
   # https://espanso.org/docs/packages/basics/
   # https://hub.espanso.org/search
   espanso
-
-  # https://mise.jdx.dev
-  mise
 
   #################################################################################
   # Ruby
@@ -339,11 +333,17 @@ in
   # https://docs.openssl.org/master/man1/openssl/
   openssl
 
-  # https://github.com/FiloSottile/age
-  age
+  # https://github.com/tailscale/tailscale
+  tailscale
 
   # https://getsops.io/docs/
   sops
+
+  # https://github.com/FiloSottile/age
+  age
+
+  # https://mise.jdx.dev
+  mise
 
   # https://sources.debian.org/src/whois/5.6.4/mkpasswd.c
   mkpasswd
@@ -380,9 +380,6 @@ in
 
   # https://github.com/denisidoro/navi
   navi
-
-  # https://github.com/tailscale/tailscale
-  tailscale
 ])
 
 ++ (with pkgs-pinned-unstable; [
