@@ -186,21 +186,23 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
   `${stack}-login-alert`,
   {
     displayName: `${stack} Login Alert`,
+    severity: "WARNING",
     combiner: "OR",
     conditions: [
       {
-        displayName: `VM Instance - ${stack} SSH Connection Events`,
+        displayName: `${stack} SSH Connection`,
         conditionThreshold: {
           filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}/ssh_connections"`,
+          aggregations: [
+            {
+              alignmentPeriod: "60s",
+              crossSeriesReducer: "REDUCE_NONE",
+              perSeriesAligner: "ALIGN_COUNT",
+            },
+          ],
           comparison: "COMPARISON_GT",
           thresholdValue: 0,
           duration: "0s",
-          aggregations: [
-            {
-              alignmentPeriod: "180s",
-              perSeriesAligner: "ALIGN_PERCENT_CHANGE",
-            },
-          ],
           trigger: {
             count: 1,
           },
@@ -209,6 +211,7 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
     ],
     alertStrategy: {
       autoClose: "1800s",
+      notificationPrompts: ["OPENED"],
     },
     notificationChannels: [emailNotificationChannel.name],
   },
@@ -218,21 +221,23 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
   `${stack}-instance-lifecycle-alert`,
   {
     displayName: `${stack} Instance Lifecycle Alert`,
+    severity: "WARNING",
     combiner: "OR",
     conditions: [
       {
-        displayName: `VM Instance - ${stack} Instance Lifecycle Events`,
+        displayName: `${stack} Started/Stopped`,
         conditionThreshold: {
           filter: `resource.type = "gce_instance" AND metric.type = "logging.googleapis.com/user/${stack}/instance_lifecycle"`,
+          aggregations: [
+            {
+              alignmentPeriod: "60s",
+              crossSeriesReducer: "REDUCE_NONE",
+              perSeriesAligner: "ALIGN_COUNT",
+            },
+          ],
           comparison: "COMPARISON_GT",
           thresholdValue: 0,
           duration: "0s",
-          aggregations: [
-            {
-              alignmentPeriod: "180s",
-              perSeriesAligner: "ALIGN_PERCENT_CHANGE",
-            },
-          ],
           trigger: {
             count: 1,
           },
@@ -241,6 +246,7 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
     ],
     alertStrategy: {
       autoClose: "1800s",
+      notificationPrompts: ["OPENED"],
     },
     notificationChannels: [emailNotificationChannel.name],
   },
