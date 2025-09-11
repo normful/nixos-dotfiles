@@ -17,7 +17,7 @@
       description = "The hostname to use for this machine.";
     };
 
-    options.my.isFirstInstall = lib.mkOption {
+    my.isFirstInstall = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Whether this is the first installation of the system";
