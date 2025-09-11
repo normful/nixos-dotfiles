@@ -24,6 +24,10 @@ in
   config = {
     environment.systemPackages = [
       (if config.my.enableFullNeovim then fullNeovim else pkgs-pinned-unstable.neovim)
-    ];
+    ]
+    ++ (with pkgs-pinned-unstable; [
+      # https://www.gnu.org/software/make/
+      gnumake
+    ]);
   };
 }
