@@ -18,7 +18,6 @@
     ../../modules/vector.nix
     ../../modules/gh.nix
     ../../modules/nixos-dotfiles.nix
-    ../../modules/interactive-cli.nix
     ./my-config.nix
   ]
   ++ lib.optionals config.my.enableInteractiveCli [
