@@ -7,5 +7,6 @@ sourceDir = {{ $customSourceDir | quote }}
 [data]
   mac = {{ eq .chezmoi.os "darwin" }}
   linux = {{ eq .chezmoi.os "linux" }}
+  windows = {{ eq .chezmoi.os "windows" }}
   gitName = {{ $gitName | quote }}
   gitEmail = {{ $gitEmail | quote }}
