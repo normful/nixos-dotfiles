@@ -26,20 +26,20 @@ in
       if config.my.enableFullNeovim then
         [ fullNeovim ]
         ++ (with pkgs-pinned-unstable; [
-          lua5_4_compat
-          lua54Packages.luarocks
+          cargo
           deno
-          stylua
           gcc
           gnumake
           go
+          lua54Packages.luarocks
+          lua5_4_compat
+          php
+          php84Packages.composer
+          python3Minimal
+          stylua
           tree-sitter
           unzip
           wget
-          python314
-          cargo
-          php
-          php84Packages.composer
         ])
       else
         [ pkgs-pinned-unstable.neovim ];
