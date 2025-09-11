@@ -46,7 +46,7 @@ if status is-interactive
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig"
 
     abbr --add cm 'chezmoi'
-    abbr --add cme 'chezmoi edit'
+    abbr --add cme 'chezmoi edit --apply'
     abbr --add cma 'chezmoi apply -v'
 
     abbr --add cld "bunx @anthropic-ai/claude-code"
