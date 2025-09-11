@@ -18,5 +18,6 @@
     ../../modules/gh.nix
     ../../modules/nixos-dotfiles.nix
     ../../modules/interactive-cli.nix
+    ../../modules/neovim.nix
   ];
 }

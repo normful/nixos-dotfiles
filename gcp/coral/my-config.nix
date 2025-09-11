@@ -9,4 +9,5 @@
   system.stateVersion = "24.11"; # Don't change this after initial installation
 
   my.enableInteractiveCli = true;
+  my.enableFullNeovim = true;
 }
