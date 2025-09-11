@@ -15,6 +15,7 @@
     ../../modules/security.nix
     ../../modules/tailscale.nix
     ../../modules/vector.nix
+    ../../modules/gh.nix
     ./my-config.nix
   ];
 }
