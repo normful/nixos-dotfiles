@@ -37,11 +37,6 @@ env.USE_BIGGER_INSTANCE=1
 run = "pulumi up --yes --skip-preview"
 alias = "up1"
 
-[tasks."gcp:add-log-api-key"]
-description = "Adds an API key into the SOPS secrets file for the current Pulumi stack, so that Vector can send log records to Google Cloud Logging"
-run = "./secrets/add-gcpLoggingApiKey.sh"
-alias = "logkey"
-
 [tasks."gcp:up"]
 description = "Create/update the GCP resources"
 depends = [ "gcp:check:pulumi" ]

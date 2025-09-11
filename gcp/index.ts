@@ -28,7 +28,6 @@ export {
   consoleUrl,
 } from "./compute";
 export {
-  loggingApiKeyValue,
   loginMetricName,
   sshConnectionMetricName,
   emailNotificationChannelName,

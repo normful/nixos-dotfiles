@@ -178,22 +178,6 @@ export const instanceLifecycleMetric = new gcp.logging.Metric(
   { provider: gcpProvider },
 );
 
-export const loggingApiKey = new gcp.projects.ApiKey(
-  `${stack}-logging-api-key`,
-  {
-    name: `${stack}-logging-key`,
-    displayName: `${stack} Logging API Key`,
-    restrictions: {
-      apiTargets: [
-        {
-          service: "logging.googleapis.com",
-        },
-      ],
-    },
-  },
-  { provider: gcpProvider },
-);
-
 export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
   `email-notification-channel`,
   {
@@ -278,7 +262,6 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
   { provider: gcpProvider },
 );
 
-export const loggingApiKeyValue = loggingApiKey.keyString;
 export const loginMetricName = loginMetric.name;
 export const sshConnectionMetricName = sshConnectionMetric.name;
 export const instanceLifecycleMetricName = instanceLifecycleMetric.name;
