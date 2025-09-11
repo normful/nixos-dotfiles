@@ -1,8 +1,8 @@
 # vim: tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 [user]
-    name = "{{ .gitName }}"
-    email = "{{ .gitEmail }}"
+    name = {{ .gitName | quote }}
+    email = {{ .gitEmail | quote }}
 [advice]
     detachedHead     = false
     implicitIdentity = false
