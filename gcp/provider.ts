@@ -1,6 +1,11 @@
 import * as gcp from "@pulumi/gcp";
 import { projectId, region, zone, commonLabels } from "./config";
 
+// This is an Explicit Provider Configuration
+//
+// Related docs:
+// https://www.pulumi.com/docs/iac/concepts/resources/providers/#default-and-explicit-providers
+// https://www.pulumi.com/docs/iac/concepts/resources/providers/#explicit-provider-configuration
 export const gcpProvider = new gcp.Provider("gcp-provider", {
   region: region,
   zone: zone,

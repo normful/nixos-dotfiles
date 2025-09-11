@@ -1,4 +1,6 @@
 config:
+  pulumi:disable-default-providers:
+    - gcp
   gcp:project: GCP_PROJECT_ID_PLACEHOLDER
   gcp:zone: asia-northeast2-a
   nixos-gce:region: asia-northeast2
