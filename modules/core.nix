@@ -36,17 +36,12 @@
         git
         sops
         age
+        chezmoi
+        mise
       ]
       ++ (with pkgs-pinned-unstable; [
         neovim
-      ])
-      ++ lib.optionals (!config.my.isFirstInstall) (
-        with pkgs-pinned-unstable;
-        [
-          chezmoi
-          mise
-        ]
-      );
+      ]);
 
     sops = {
       defaultSopsFile =
