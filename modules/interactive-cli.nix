@@ -1,15 +1,21 @@
 {
   config,
   lib,
-  pkgs-stable,
   pkgs-pinned-unstable,
   ...
 }:
 {
   config = lib.mkIf config.my.enableInteractiveCli {
-    environment.systemPackages =
-      with pkgs-stable;
+    environment.systemPackages = (
+      with pkgs-pinned-unstable;
       [
+        nix-output-monitor
+        nvd
+
+        chezmoi
+        mise
+        neovim
+
         #################################################################################
         # Basic utilities
         #################################################################################
@@ -18,36 +24,14 @@
         # https://www.mankier.com/package/coreutils-common
         coreutils-full
 
+        # https://uutils.github.io/coreutils/docs/
+        # uutils-coreutils-noprefix
+
         killall
 
         # https://www.gnu.org/software/sed/
         # https://www.mankier.com/1/sed
         gnused
-
-        #################################################################################
-        # Shell history
-        #################################################################################
-
-        # hh
-        hstr
-      ]
-      ++ (with pkgs-pinned-unstable; [
-        nix-output-monitor
-
-        nvd
-
-        chezmoi
-
-        mise
-
-        neovim
-
-        #################################################################################
-        # Basic utilities
-        #################################################################################
-
-        # https://uutils.github.io/coreutils/docs/
-        # uutils-coreutils-noprefix
 
         # rm replacement
         # https://github.com/MilesCranmer/rip2
@@ -58,6 +42,13 @@
 
         # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
         bat-extras.batpipe
+
+        #################################################################################
+        # Shell history
+        #################################################################################
+
+        # hh
+        hstr
 
         #################################################################################
         # View processes
@@ -162,7 +153,8 @@
         #################################################################################
 
         git-lfs
-      ]);
+      ]
+    );
 
     environment.variables = {
       EDITOR = "nvim";
