@@ -21,7 +21,8 @@ In alphabetical order:
 - `├──` [.sops.yaml](.sops.yaml) SOPS config: age keys + encryption rules
 - `├──` [bun.lock](bun.lock) Bun lockfile for reproducible JS/TS deps
 - `├──` [chezmoi/](chezmoi/) Dotfiles managed by chezmoi
-- `│   ├──` [bin/](chezmoi/bin/) Personal scripts (git helpers, media, misc.)
+- `│   ├──` [dot_local/](chezmoi/dot_local/)
+- `│   │   └──` [bin/](chezmoi/dot_local/bin/) Personal scripts
 - `│   ├──` [dot_cargo/](chezmoi/dot_cargo/) Cargo (Rust) config files
 - `│   ├──` [dot_claude/](chezmoi/dot_claude/) Claude Code/editor integration settings
 - `│   ├──` [dot_config/](chezmoi/dot_config/) App configs (fish, nvim, kitty, etc.)
