@@ -137,7 +137,6 @@
           gcp_logs = {
             type = "gcp_stackdriver_logs";
             inputs = [ "logins_with_gcp_metadata" ];
-            api_key = config.sops.secrets.gcpLoggingApiKey;
             resource = {
               type = "gce_instance";
             };
