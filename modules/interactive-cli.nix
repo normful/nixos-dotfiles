@@ -10,13 +10,12 @@
     environment.systemPackages =
       with pkgs-stable;
       [
-        chezmoi
-        mise
-
-        nix-output-monitor
-        nvd
       ]
       ++ (with pkgs-pinned-unstable; [
+        nix-output-monitor
+        nvd
+        chezmoi
+        mise
         neovim
       ]);
 
