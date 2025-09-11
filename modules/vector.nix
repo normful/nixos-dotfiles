@@ -13,20 +13,6 @@
   };
 
   config = {
-    # Create vector user and group for SOPS secrets access
-    users.users.vector = {
-      group = "vector";
-      isSystemUser = true;
-    };
-    users.groups.vector = { };
-
-    sops.secrets = {
-      gcpLoggingApiKey = {
-        owner = "vector";
-        group = "vector";
-      };
-    };
-
     systemd.services.vector = {
       serviceConfig = {
         ExecStartPre = pkgs.writeShellScript "fetch-gcp-metadata" ''
