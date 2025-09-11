@@ -38,6 +38,12 @@
       default = false;
       description = "Enable tools for interactive command line interface usage";
     };
+
+    enableFullNeovim = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Install Neovim configured with many extras";
+    };
   };
 
   config = {

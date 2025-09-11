@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ./my-config.nix
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
     ../../modules/disko-partitions.nix
@@ -17,6 +18,6 @@
     ../../modules/gh.nix
     ../../modules/nixos-dotfiles.nix
     ../../modules/interactive-cli.nix
-    ./my-config.nix
+    ../../modules/neovim.nix
   ];
 }
