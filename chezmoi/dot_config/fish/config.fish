@@ -45,6 +45,9 @@ if status is-interactive
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/gitconfig"
 
+    abbr --add cm 'chezmoi'
+    abbr --add cme 'chezmoi edit'
+
     abbr --add cld "bunx @anthropic-ai/claude-code"
     abbr --add claude "bunx @anthropic-ai/claude-code"
     abbr --add gemini "bunx @google/gemini-cli"
@@ -54,15 +57,6 @@ if status is-interactive
     abbr --add codex "bunx @openai/codex"
 
     abbr --add mus "musikcube"
-
-    abbr --add es 'exercism submit'
-    abbr --add gt 'gleam test'
-
-    abbr --add zs 'zola serve'
-
-    abbr --add dua 'dua interactive'
-
-    abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
 
     abbr --add cf 'cargo fmt'
     abbr --add cl 'cargo clippy'
@@ -81,6 +75,13 @@ if status is-interactive
 
     abbr --add nrb 'npm run build'
     abbr --add nrs 'npm run start'
+
+    abbr --add es 'exercism submit'
+    abbr --add gt 'gleam test'
+    abbr --add zs 'zola serve'
+    abbr --add dua 'dua interactive'
+    abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
+
 
     fish_add_path --global "$HOME/code/dotfiles/bin"
     fish_add_path --global "$HOME/.codeium/windsurf/bin"
