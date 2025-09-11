@@ -85,22 +85,9 @@ in
   ))
 
   #################################################################################
-  # Lua
-  #################################################################################
-
-  (lua5_1.withPackages (
-    pks: with pks; [
-      luarocks
-    ]
-  ))
-  stylua
-
-  #################################################################################
   # PHP
   #################################################################################
 
-  php
-  php84Packages.composer
   php84Extensions.xdebug
   intelephense
 
@@ -270,9 +257,6 @@ in
   # https://www.mankier.com/1/curl
   curl
 
-  # https://www.gnu.org/software/wget/manual/wget.html
-  wget
-
   # https://rockdaboot.github.io/wget2/md_wget2_manual.html
   wget2
 
@@ -394,9 +378,6 @@ in
   #################################################################################
 
   nodejs
-
-  # https://docs.deno.com
-  deno
 
   # https://bun.sh
   bun

@@ -22,15 +22,26 @@ let
 in
 {
   config = {
-    environment.systemPackages = [
-      (if config.my.enableFullNeovim then fullNeovim else pkgs-pinned-unstable.neovim)
-    ]
-    ++ (with pkgs-pinned-unstable; [
-      tree-sitter
-      gcc
-      gnumake
-      deno
-      go
-    ]);
+    environment.systemPackages =
+      if config.my.enableFullNeovim then
+        [ fullNeovim ]
+        ++ (with pkgs-pinned-unstable; [
+          lua5_4_compat
+          lua54Packages.luarocks
+          deno
+          stylua
+          gcc
+          gnumake
+          go
+          tree-sitter
+          unzip
+          wget
+          python314
+          cargo
+          php
+          php84Packages.composer
+        ])
+      else
+        [ pkgs-pinned-unstable.neovim ];
   };
 }
