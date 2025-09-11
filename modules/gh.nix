@@ -29,6 +29,7 @@ in
       Group = "users";
       RemainAfterExit = true;
     };
+    path = [ gh-wrapped ];
     script = ''
       SSH_DIR="/home/${config.my.user.name}/.ssh"
       PUBLIC_KEY="$SSH_DIR/id_rsa.pub"
@@ -38,7 +39,7 @@ in
         exit 1
       fi
 
-      if ! ${gh-wrapped}/bin/gh auth status >/dev/null 2>&1; then
+      if ! gh auth status >/dev/null 2>&1; then
         echo "GitHub CLI gh is not authenticated."
         exit 1
       fi
@@ -46,7 +47,7 @@ in
       KEY_TITLE="${config.my.user.name}@${config.my.hostname}-$(date +%Y%m%d)"
 
       echo "Adding SSH key to GitHub with title: $KEY_TITLE"
-      ${gh-wrapped}/bin/gh ssh-key add "$PUBLIC_KEY" --title "$KEY_TITLE" --type "authentication"
+      gh ssh-key add "$PUBLIC_KEY" --title "$KEY_TITLE" --type "authentication"
 
       if [ $? -eq 0 ]; then
         echo "SSH key successfully added to GitHub"
