@@ -3,7 +3,6 @@
   modulesPath,
   lib,
   pkgs-stable,
-  pkgs-pinned-unstable,
   ...
 }:
 {
@@ -17,45 +16,37 @@
       type = lib.types.str;
       description = "The hostname to use for this machine.";
     };
+
+    my.flakePath = lib.mkOption {
+      description = "Path to the system flake";
+      type = lib.types.str;
+      default =
+        if config.my.isFirstInstall then
+          "/etc/nixos"
+        else
+          "/home/${config.my.user.name}/code/nixos-dotfiles";
+    };
   };
 
   config = {
-    boot = {
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
-    };
-
     networking.hostName = config.my.hostname;
 
-    environment.systemPackages =
-      with pkgs-stable;
-      [
-        curl
-        git
-        sops
-        age
-        chezmoi
-        mise
-      ]
-      ++ (with pkgs-pinned-unstable; [
-        neovim
-      ]);
+    environment.systemPackages = with pkgs-stable; [
+      curl
+      git
+      sops
+      age
+    ];
 
     sops = {
-      defaultSopsFile =
-        if config.my.isFirstInstall then
-          "/etc/nixos/secrets/gcp_${config.my.hostname}.yaml"
-        else
-          "/home/${config.my.user.name}/code/nixos-dotfiles/secrets/gcp_${config.my.hostname}.yaml";
+      defaultSopsFile = "${config.my.flakePath}/secrets/gcp_${config.my.hostname}.yaml";
       age.keyFile = "/root/.config/sops/age/keys.txt";
       validateSopsFiles = false;
     };
 
-    environment.variables = {
-      EDITOR = "nvim";
-      GIT_EDITOR = "nvim";
+    boot.loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     time.timeZone = "UTC";

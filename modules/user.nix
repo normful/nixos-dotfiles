@@ -27,6 +27,8 @@
       };
     };
 
+    programs.fish.enable = true;
+
     users.users.${config.my.user.name} = {
       description = "Main non-root user with sudo ability";
       isNormalUser = true;
@@ -80,7 +82,5 @@
         echo "SSH keypair generated successfully for ${config.my.user.name}"
       '';
     };
-
-    programs.fish.enable = true;
   };
 }
