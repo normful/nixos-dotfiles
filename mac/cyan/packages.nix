@@ -60,9 +60,6 @@ in
   # https://cmake.org/cmake/help/latest/
   cmake
 
-  # https://tree-sitter.github.io/tree-sitter/
-  tree-sitter
-
   # https://docs.ctags.io/en/latest/
   universal-ctags
 

@@ -26,6 +26,7 @@ in
       (if config.my.enableFullNeovim then fullNeovim else pkgs-pinned-unstable.neovim)
     ]
     ++ (with pkgs-pinned-unstable; [
+      tree-sitter
       gnumake
       deno
       go
