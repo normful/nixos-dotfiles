@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 {
   options.my.isFirstInstall = lib.mkOption {
     type = lib.types.bool;
