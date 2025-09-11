@@ -29,6 +29,7 @@ in
       gnumake
       deno
       go
+      zig
     ]);
   };
 }
