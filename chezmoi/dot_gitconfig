@@ -212,12 +212,12 @@
     cnm       = commit -n -m             # commit without pre-commit and commit-msg hooks, and message
 
     # quickly commit everything with an AI-generated commit message
-    w         = "!f() { $HOME/bin/git-commit-with-ai-generated-message; }; f"
+    w         = "!f() { $HOME/.local/bin/git-commit-with-ai-generated-message; }; f"
 
     # commit each file in its own commit
-    ce        = "!f() { $HOME/bin/git-commit-each-file-in-own-commit; }; f"
+    ce        = "!f() { $HOME/.local/bin/git-commit-each-file-in-own-commit; }; f"
 
-    # TODO(norman): Rewrite these $HOME/bin scripts using fish functions.
+    # TODO(norman): Rewrite these $HOME/.local/bin scripts using fish functions.
 
     # tack on additional changes from staged files to the last commit, without editing the commit message
     amend     = commit --amend --no-edit
@@ -268,31 +268,31 @@
     col      = checkout @{-1}
 
     # create and check out first local feature branch
-    cb1      = "!f() { $HOME/bin/git-create-and-checkout-first-local-feature-branch $@; }; f"
+    cb1      = "!f() { $HOME/.local/bin/git-create-and-checkout-first-local-feature-branch $@; }; f"
 
     # create and check out first local review branch
-    cb1r     = "!f() { $HOME/bin/git-create-and-checkout-first-local-feature-branch review/$(git rev-parse --abbrev-ref HEAD); }; f"
-    cbr1     = "!f() { $HOME/bin/git-create-and-checkout-first-local-feature-branch review/$(git rev-parse --abbrev-ref HEAD); }; f"
+    cb1r     = "!f() { $HOME/.local/bin/git-create-and-checkout-first-local-feature-branch review/$(git rev-parse --abbrev-ref HEAD); }; f"
+    cbr1     = "!f() { $HOME/.local/bin/git-create-and-checkout-first-local-feature-branch review/$(git rev-parse --abbrev-ref HEAD); }; f"
 
     # create and check out next local branch (when any local branch is checked out)
-    cbn      = "!f() { $HOME/bin/git-create-and-checkout-next-branch; }; f"
-    cbnext   = "!f() { $HOME/bin/git-create-and-checkout-next-branch; }; f"
+    cbn      = "!f() { $HOME/.local/bin/git-create-and-checkout-next-branch; }; f"
+    cbnext   = "!f() { $HOME/.local/bin/git-create-and-checkout-next-branch; }; f"
 
     # create and check out public branch (when any local branch is checked out)
-    cbpub    = "!f() { $HOME/bin/git-create-and-checkout-public-branch-from-local-branch $@; }; f"
-    cbpublic = "!f() { $HOME/bin/git-create-and-checkout-public-branch-from-local-branch $@; }; f"
+    cbpub    = "!f() { $HOME/.local/bin/git-create-and-checkout-public-branch-from-local-branch $@; }; f"
+    cbpublic = "!f() { $HOME/.local/bin/git-create-and-checkout-public-branch-from-local-branch $@; }; f"
 
     # check out next local branch (when any local branch is checked out)
-    con      = "!f() { $HOME/bin/git-checkout-next-branch; }; f"
-    conext   = "!f() { $HOME/bin/git-checkout-next-branch; }; f"
+    con      = "!f() { $HOME/.local/bin/git-checkout-next-branch; }; f"
+    conext   = "!f() { $HOME/.local/bin/git-checkout-next-branch; }; f"
 
     # check out previous local branch (when any local branch is checked out)
-    cop      = "!f() { $HOME/bin/git-checkout-previous-branch; }; f"
-    coprev   = "!f() { $HOME/bin/git-checkout-previous-branch; }; f"
+    cop      = "!f() { $HOME/.local/bin/git-checkout-previous-branch; }; f"
+    coprev   = "!f() { $HOME/.local/bin/git-checkout-previous-branch; }; f"
 
     # check out public branch (when any local branch is checked out)
-    copublic = "!f() { $HOME/bin/git-checkout-public-branch-from-local-branch $@; }; f"
-    copub    = "!f() { $HOME/bin/git-checkout-public-branch-from-local-branch $@; }; f"
+    copublic = "!f() { $HOME/.local/bin/git-checkout-public-branch-from-local-branch $@; }; f"
+    copub    = "!f() { $HOME/.local/bin/git-checkout-public-branch-from-local-branch $@; }; f"
 
     # checkout branch by picking from fuzzy search results interactively.
     # Requires `pick` installed. Taken from https://github.com/rafaelrinaldi/til/blob/master/git/list-branches-by-date.md
@@ -343,7 +343,7 @@
     dups    = diff -w @...@{upstream} --stat         # against current branch's remote branch, with stats
     dupu    = diff -w @...@{upstream} --stat -U1000  # against current branch's remote branch, with stats and context
 
-    dor     = "!f() { $HOME/bin/git-diff-origin-branch-with-same-name; }; f"
+    dor     = "!f() { $HOME/.local/bin/git-diff-origin-branch-with-same-name; }; f"
 
     dbase   = diff --base   -w
     dours   = diff --ours   -w
@@ -394,7 +394,7 @@
 
     # .gitkeep files ensure that empty directories are maintained
     # keep (touch empty .gitkeep files in each empty directory, recursively)
-    keepdirs = "!f() { $HOME/bin/git-touch-gitkeep-recursively; }; f"
+    keepdirs = "!f() { $HOME/.local/bin/git-touch-gitkeep-recursively; }; f"
 
     # ---------------------------------------------------------------------------------------------------------------------
     # lfs
@@ -402,10 +402,10 @@
 
     # Script for adding all files of a filetype and marking them as large binary files for tracking with git-lfs
     # Usage: git lfs-init-for-filetype fileExtension
-    lfsinitforfiletype = "!f() { $HOME/bin/git-lfs-init-for-filetype $@; }; f"
+    lfsinitforfiletype = "!f() { $HOME/.local/bin/git-lfs-init-for-filetype $@; }; f"
 
     # Add all PDF files to git-lfs
-    lfsinitpdf         = "!f() { $HOME/bin/git-lfs-init-for-filetype pdf; }; f"
+    lfsinitpdf         = "!f() { $HOME/.local/bin/git-lfs-init-for-filetype pdf; }; f"
 
     # ---------------------------------------------------------------------------------------------------------------------
     # log
@@ -635,8 +635,8 @@
     rebaes = rebase
 
     # Rebase commits and ensure their timestamps are in ascending order by changing those timestamps to now, now+delta, etc.
-    rbnow  = "!f() { $HOME/bin/git-rebase-interactive-autosquash-now $@; }; f"
-    rbnwo  = "!f() { $HOME/bin/git-rebase-interactive-autosquash-now $@; }; f"
+    rbnow  = "!f() { $HOME/.local/bin/git-rebase-interactive-autosquash-now $@; }; f"
+    rbnwo  = "!f() { $HOME/.local/bin/git-rebase-interactive-autosquash-now $@; }; f"
 
     # ---------------------------------------------------------------------------------------------------------------------
     # remote
@@ -743,11 +743,11 @@
 
     shmc = diff-tree --cc                                                 # show changes made in resolving a merge conflict (this command is only meaningful if given a merge conflict rev)
 
-    shc  = "!f() { $HOME/bin/git-show-children $@; }; f"                  # show children of a commit
-    shch = "!f() { $HOME/bin/git-show-children $@; }; f"                  # show children of a commit
+    shc  = "!f() { $HOME/.local/bin/git-show-children $@; }; f"                  # show children of a commit
+    shch = "!f() { $HOME/.local/bin/git-show-children $@; }; f"                  # show children of a commit
 
-    shrc  = "!f() { $HOME/bin/git-show-related-merged-commits $@; }; f"   # show related commits of a merge commit, or of a merged branch commit
-    shrcd  = "!f() { $HOME/bin/git-show-related-merged-commits $@ 'origin/develop'; }; f"   # show related commits of a merge commit, or of a merged branch commit
+    shrc  = "!f() { $HOME/.local/bin/git-show-related-merged-commits $@; }; f"   # show related commits of a merge commit, or of a merged branch commit
+    shrcd  = "!f() { $HOME/.local/bin/git-show-related-merged-commits $@ 'origin/develop'; }; f"   # show related commits of a merge commit, or of a merged branch commit
 
     shf  = !sh -c 'git show --pretty='' --name-only $0 | cat -'           # show files of a commit
     shno = !sh -c 'git show --pretty='' --name-only $0 | cat -'           # show files of a commit (mnemonic: name only)
@@ -770,7 +770,7 @@
     # ---------------------------------------------------------------------------------------------------------------------
 
     ppl = shortlog -n -s -e
-    ppl2 = "!f() { $HOME/bin/run-git-authors; }; f"
+    ppl2 = "!f() { $HOME/.local/bin/run-git-authors; }; f"
 
     pplforvim = -c 'core.pager=delta --paging=never' shortlog -n -s -e
 
@@ -816,7 +816,7 @@
     # -----
     #
     # TODO: Fix bug in this script that causes the appended [#100000] to be on the second line of the commit message
-    stamp = "!f() { $HOME/bin/git-pivotal-story-stamp $@; }; f"
+    stamp = "!f() { $HOME/.local/bin/git-pivotal-story-stamp $@; }; f"
 
     # ---------------------------------------------------------------------------------------------------------------------
     # tag

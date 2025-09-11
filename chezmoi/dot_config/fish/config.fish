@@ -83,7 +83,6 @@ if status is-interactive
     abbr --add dua 'dua interactive'
     abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
 
-
     fish_add_path --global "$HOME/code/dotfiles/bin"
     fish_add_path --global "$HOME/.codeium/windsurf/bin"
     fish_add_path --global "$HOME/.cargo/bin"
@@ -101,7 +100,6 @@ end
 # Based on https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
 if test (uname) = Darwin
     fish_add_path --prepend --global "$HOME/.local/bin"
-    fish_add_path --prepend --global "$HOME/bin"
     fish_add_path --prepend --global /run/current-system/sw/bin
     fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
 end
