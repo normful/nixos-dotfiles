@@ -1,3 +1,5 @@
+# vim ft=fish
+#
 # To create new aliases (not abbreviations):
 # 1. `alias hello 'echo hello'`
 # 2. `fs hello`
@@ -42,7 +44,7 @@ if status is-interactive
     abbr --add et "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config"
     abbr --add ew "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua"
 
-    abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish"
+    abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
 
     abbr --add cm 'chezmoi'
