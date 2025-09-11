@@ -1,5 +1,11 @@
-sourceDir = "{{ .chezmoi.sourceDir }}"
+{{ $customSourceDir := promptString "Enter the absolute path to nixos-dotfiles/chezmoi" -}}
+{{ $gitName := promptString "Enter your name to use in Git commits" -}}
+{{ $gitEmail := promptString "Enter your email to use in Git commits" -}}
+
+sourceDir = {{ $customSourceDir | quote }}
 
 [data]
   mac = {{ eq .chezmoi.os "darwin" }}
   linux = {{ eq .chezmoi.os "linux" }}
+  gitName = {{ $gitName | quote }}
+  gitEmail = {{ $gitEmail | quote }}
