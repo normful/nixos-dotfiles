@@ -17,6 +17,7 @@
     ../../modules/tailscale.nix
     ../../modules/vector.nix
     ../../modules/gh.nix
+    ../../modules/nixos-dotfiles.nix
     ./my-config.nix
   ];
 }
