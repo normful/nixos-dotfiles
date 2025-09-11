@@ -47,6 +47,7 @@ if status is-interactive
 
     abbr --add cm 'chezmoi'
     abbr --add cme 'chezmoi edit'
+    abbr --add cma 'chezmoi apply'
 
     abbr --add cld "bunx @anthropic-ai/claude-code"
     abbr --add claude "bunx @anthropic-ai/claude-code"
