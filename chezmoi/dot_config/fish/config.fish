@@ -43,7 +43,7 @@ if status is-interactive
     abbr --add ew "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua"
 
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish"
-    abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig"
+    abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
 
     abbr --add cm 'chezmoi'
     abbr --add cme 'chezmoi edit --apply'
