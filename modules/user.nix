@@ -5,12 +5,8 @@
   ...
 }:
 {
-  options = {
-    my.user.name = lib.mkOption {
-      type = lib.types.str;
-      description = "The name of the primary non-root user.";
-    };
-    my.user.sshPublicKey = lib.mkOption {
+  options.my = {
+    user.sshPublicKey = lib.mkOption {
       type = lib.types.str;
       description = "An SSH public key that is authorized to login to the primary non-root user.";
     };
