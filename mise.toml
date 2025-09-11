@@ -4,6 +4,7 @@ pulumi = "latest"
 gcloud = "latest"
 sops = "latest"
 age = "latest"
+cosign = "latest"
 
 [env]
 GCP_PROJECT_ID = "dev-vm-provisioning"
