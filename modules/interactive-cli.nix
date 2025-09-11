@@ -165,6 +165,9 @@ in
       environment.variables = {
         EDITOR = "nvim";
         GIT_EDITOR = "nvim";
+      }
+      // lib.optionalAttrs isLinux {
+        NH_FLAKE = config.my.flakePath;
       };
     }
     // lib.optionalAttrs isLinux {
