@@ -192,7 +192,7 @@ EOF
   echo "Running nixos-anywhere. If you have a passphrase on $GCE_PRIVATE_KEY_PATH, you will need to enter it shortly (you will be asked for the passphrase to a /tmp copy of your key)..."
 
   nix run github:nix-community/nixos-anywhere -- \
-    --flake ".#$GCP_VM_HOSTNAME" \
+    --flake ".#$GCP_VM_HOSTNAME-first-install" \
     --target-host "root@compute.$instance_id" \
     --build-on 'remote' \
     --ssh-option "ProxyCommand=$proxy_script" \

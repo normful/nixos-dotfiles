@@ -609,7 +609,7 @@ function test_run_nixos_anywhere_with_mocked_commands() {
 
     # Verify the nix command arguments
     local nix_args="$(cat "$nix_args_file")"
-    assert_contains "--flake .#$GCP_VM_HOSTNAME" "$nix_args"
+    assert_contains "--flake .#$GCP_VM_HOSTNAME-first-install" "$nix_args"
     assert_contains "--target-host root@compute.1234567890" "$nix_args"
     assert_contains "--build-on remote" "$nix_args"
     assert_contains "ProxyCommand=$TEST_TMP_DIR/mock_proxy_script" "$nix_args"
