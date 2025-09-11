@@ -1,12 +1,13 @@
-{{ $customSourceDir := promptString "Enter the absolute path to nixos-dotfiles/chezmoi" -}}
-{{ $gitName := promptString "Enter your name to use in Git commits" -}}
-{{ $gitEmail := promptString "Enter your email to use in Git commits" -}}
-
+{{ $customSourceDir := promptStringOnce . "customSourceDir" "What is the absolute path to nixos-dotfiles/chezmoi" "/Users/norman/code/nixos-dotfiles/chezmoi" -}}
+{{ $gitName := promptStringOnce . "gitName" "What name to use in Git commits" "Norman Sue" -}}
+{{ $gitEmail := promptStringOnce . "gitEmail" "What email to use in Git commits" "normful@users.noreply.github.com" -}}
+{{ $hasDisplay := promptBoolOnce . "hasDisplay" "Does this machine have a display" true -}}
 sourceDir = {{ $customSourceDir | quote }}
 
 [data]
   mac = {{ eq .chezmoi.os "darwin" }}
   linux = {{ eq .chezmoi.os "linux" }}
   windows = {{ eq .chezmoi.os "windows" }}
+  hasDisplay = {{ $hasDisplay }}
   gitName = {{ $gitName | quote }}
   gitEmail = {{ $gitEmail | quote }}
