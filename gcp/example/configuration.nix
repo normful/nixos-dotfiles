@@ -6,6 +6,7 @@
   imports = [
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
+    ../../modules/install-mode.nix
     ../../modules/disko-partitions.nix
     ../../modules/core.nix
     ../../modules/nix.nix
@@ -16,6 +17,7 @@
     ../../modules/tailscale.nix
     ../../modules/vector.nix
     ../../modules/gh.nix
+    ../../modules/nixos-dotfiles.nix
     ./my-config.nix
   ];
 }
