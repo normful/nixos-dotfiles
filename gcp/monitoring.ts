@@ -2,49 +2,53 @@ import * as gcp from "@pulumi/gcp";
 import { stack, alertEmail, projectId } from "./config";
 import { gcpProvider } from "./provider";
 
-export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
-  name: `${stack}/logins`,
-  description: "Count of systemd-logind new session events (user logins)",
-  filter: `
+export const loginMetric = new gcp.logging.Metric(
+  `${stack}-logins-metric`,
+  {
+    name: `${stack}/logins`,
+    description: "Count of systemd-logind new session events (user logins)",
+    filter: `
     resource.type="gce_instance"
     jsonPayload.host="${stack}"
     jsonPayload.SYSLOG_IDENTIFIER="systemd-logind"
     jsonPayload.message=~"New session .* of user .*"
   `,
-  metricDescriptor: {
-    metricKind: "DELTA",
-    valueType: "INT64",
-    displayName: `${stack} Login Events`,
-    labels: [
-      {
-        key: "user_id",
-        valueType: "STRING",
-        description: "System user ID from systemd-logind",
-      },
-      {
-        key: "session_id",
-        valueType: "STRING",
-        description: "systemd session identifier",
-      },
-      {
-        key: "timestamp",
-        valueType: "STRING",
-        description: "Login timestamp",
-      },
-      {
-        key: "host",
-        valueType: "STRING",
-        description: "Target host name",
-      },
-    ],
+    metricDescriptor: {
+      metricKind: "DELTA",
+      valueType: "INT64",
+      displayName: `${stack} Login Events`,
+      labels: [
+        {
+          key: "user_id",
+          valueType: "STRING",
+          description: "System user ID from systemd-logind",
+        },
+        {
+          key: "session_id",
+          valueType: "STRING",
+          description: "systemd session identifier",
+        },
+        {
+          key: "timestamp",
+          valueType: "STRING",
+          description: "Login timestamp",
+        },
+        {
+          key: "host",
+          valueType: "STRING",
+          description: "Target host name",
+        },
+      ],
+    },
+    labelExtractors: {
+      user_id: "EXTRACT(jsonPayload.USER_ID)",
+      session_id: "EXTRACT(jsonPayload.SESSION_ID)",
+      timestamp: "EXTRACT(jsonPayload.timestamp)",
+      host: "EXTRACT(jsonPayload.host)",
+    },
   },
-  labelExtractors: {
-    user_id: "EXTRACT(jsonPayload.USER_ID)",
-    session_id: "EXTRACT(jsonPayload.SESSION_ID)",
-    timestamp: "EXTRACT(jsonPayload.timestamp)",
-    host: "EXTRACT(jsonPayload.host)",
-  },
-}, { provider: gcpProvider });
+  { provider: gcpProvider },
+);
 
 export const sshConnectionMetric = new gcp.logging.Metric(
   `${stack}-ssh-conns-metric`,
@@ -174,17 +178,21 @@ export const instanceLifecycleMetric = new gcp.logging.Metric(
   { provider: gcpProvider },
 );
 
-export const loggingApiKey = new gcp.projects.ApiKey(`${stack}-logging-api-key`, {
-  name: `${stack}-logging-key`,
-  displayName: `${stack} Logging API Key`,
-  restrictions: {
-    apiTargets: [
-      {
-        service: "logging.googleapis.com",
-      },
-    ],
+export const loggingApiKey = new gcp.projects.ApiKey(
+  `${stack}-logging-api-key`,
+  {
+    name: `${stack}-logging-key`,
+    displayName: `${stack} Logging API Key`,
+    restrictions: {
+      apiTargets: [
+        {
+          service: "logging.googleapis.com",
+        },
+      ],
+    },
   },
-}, { provider: gcpProvider });
+  { provider: gcpProvider },
+);
 
 export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
   `email-notification-channel`,
@@ -270,10 +278,10 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
   { provider: gcpProvider },
 );
 
+export const loggingApiKeyValue = loggingApiKey.keyString;
 export const loginMetricName = loginMetric.name;
 export const sshConnectionMetricName = sshConnectionMetric.name;
 export const instanceLifecycleMetricName = instanceLifecycleMetric.name;
-export const loggingApiKeyValue = loggingApiKey.keyString;
 export const emailNotificationChannelName = emailNotificationChannel.name;
 export const loginAlertPolicyName = loginAlertPolicy.name;
 export const instanceLifecycleAlertPolicyName =
