@@ -8,6 +8,7 @@
     inputs.sops-nix.nixosModules.sops
     ../../modules/disko-partitions.nix
     ../../modules/core.nix
+    ../../modules/install-mode.nix
     ../../modules/nix.nix
     ../../modules/nh.nix
     ../../modules/user.nix
