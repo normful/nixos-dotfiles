@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ../../modules/overall-options.nix
     ./my-config.nix
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops

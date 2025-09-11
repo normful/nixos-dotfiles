@@ -11,41 +11,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  options.my = {
-    hostname = lib.mkOption {
-      type = lib.types.str;
-      description = "The hostname to use for this machine.";
-    };
-
-    isFirstInstall = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Whether this is the first installation of the system";
-    };
-
-    flakePath = lib.mkOption {
-      description = "Path to the system flake";
-      type = lib.types.str;
-      default =
-        if config.my.isFirstInstall then
-          "/etc/nixos"
-        else
-          "/home/${config.my.user.name}/code/nixos-dotfiles";
-    };
-
-    enableInteractiveCli = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable tools for interactive command line interface usage";
-    };
-
-    enableFullNeovim = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Install Neovim configured with many extras";
-    };
-  };
-
   config = {
     networking.hostName = config.my.hostname;
 
