@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./my-config.nix
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
     ../../modules/disko-partitions.nix
@@ -18,9 +19,6 @@
     ../../modules/vector.nix
     ../../modules/gh.nix
     ../../modules/nixos-dotfiles.nix
-    ./my-config.nix
-  ]
-  ++ lib.optionals config.my.enableInteractiveCli [
     ../../modules/interactive-cli.nix
   ];
 }
