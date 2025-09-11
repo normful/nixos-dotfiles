@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  pkgs-unstable,
+  pkgs-pinned-unstable,
   ...
 }:
 
@@ -13,7 +13,7 @@ with lib;
   };
 
   config = mkIf config.my.golang.enable {
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs-pinned-unstable; [
       go
       gopls
       delve

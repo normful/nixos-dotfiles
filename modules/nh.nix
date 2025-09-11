@@ -1,7 +1,5 @@
 {
   pkgs-stable,
-  config,
-  lib,
   ...
 }:
 {
