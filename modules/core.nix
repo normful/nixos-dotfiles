@@ -11,19 +11,19 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  options = {
-    my.hostname = lib.mkOption {
+  options.my = {
+    hostname = lib.mkOption {
       type = lib.types.str;
       description = "The hostname to use for this machine.";
     };
 
-    my.isFirstInstall = lib.mkOption {
+    isFirstInstall = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Whether this is the first installation of the system";
     };
 
-    my.flakePath = lib.mkOption {
+    flakePath = lib.mkOption {
       description = "Path to the system flake";
       type = lib.types.str;
       default =
@@ -31,6 +31,12 @@
           "/etc/nixos"
         else
           "/home/${config.my.user.name}/code/nixos-dotfiles";
+    };
+
+    enableInteractiveCli = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable tools for interactive command line interface usage";
     };
   };
 
