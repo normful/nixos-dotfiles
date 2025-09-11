@@ -1,30 +1,38 @@
 import * as gcp from "@pulumi/gcp";
 import { projectId, region, zone, commonLabels } from "./config";
 
-/**
- * GCP Provider with billing project configuration.
- * This provider should be used for all GCP resources to ensure proper billing attribution.
- * 
- * Key configuration options:
- * - project: The GCP project ID for resources
- * - billingProject: The project to bill API calls to (useful for shared VPC scenarios)
- * - region/zone: Default region and zone for resources
- * - defaultLabels: Labels automatically applied to all resources
- * - addPulumiAttributionLabel: Adds Pulumi attribution to resources
- */
 export const gcpProvider = new gcp.Provider("gcp-provider", {
-  project: projectId,
-  billingProject: projectId, // Set billing project to the same as the project
   region: region,
   zone: zone,
   defaultLabels: commonLabels,
   addPulumiAttributionLabel: true,
-  
-  // You can specify a different billing project here if needed:
-  // billingProject: "your-billing-project-id",
-  
-  // Authentication can be configured via environment variables:
-  // - GOOGLE_APPLICATION_CREDENTIALS (path to service account key)
-  // - GOOGLE_PROJECT, GOOGLE_REGION, GOOGLE_ZONE
-  // - Or use credentials property for explicit service account content
+
+  /*
+   The following 3 lines of config resolves these kinds of errors:
+
+  gcp:projects:ApiKey (coral-logging-api-key):
+    error:   sdk-v2/provider2.go:572: sdk.helper_schema: Error creating Key: failed to create a diff: failed to retrieve Key resource: googleapi: Error 403: Your application is authenticating by using local Application Default Credentials. The apikeys.googleapis.com API requires a quota project, which is not set by default. To learn how to set your quota project, see https://cloud.google.com/docs/authentication/adc-troubleshooting/user-creds .
+    Details:
+    [
+      {
+        "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+        "domain": "googleapis.com",
+        "metadata": {
+          "consumer": "projects/764086051850",
+          "service": "apikeys.googleapis.com"
+        },
+        "reason": "SERVICE_DISABLED"
+      },
+      {
+        "@type": "type.googleapis.com/google.rpc.LocalizedMessage",
+        "locale": "en-US",
+        "message": "Your application is authenticating by using local Application Default Credentials. The apikeys.googleapis.com API requires a quota project, which is not set by default. To learn how to set your quota project, see https://cloud.google.com/docs/authentication/adc-troubleshooting/user-creds ."
+      }
+    ]: provider=google-beta@8.41.1
+
+  based on answer at https://stackoverflow.com/a/79051624
+*/
+  project: projectId,
+  billingProject: projectId,
+  userProjectOverride: true,
 });
