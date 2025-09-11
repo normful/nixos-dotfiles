@@ -8,172 +8,165 @@ let
   isLinux = pkgs-pinned-unstable.stdenv.isLinux;
 in
 {
-  config =
-    lib.mkIf config.my.enableInteractiveCli {
-      environment.systemPackages = (
-        with pkgs-pinned-unstable;
-        [
-          chezmoi
+  config = lib.mkIf config.my.enableInteractiveCli {
+    environment.systemPackages = (
+      with pkgs-pinned-unstable;
+      [
+        chezmoi
 
-          mise
+        mise
 
-          #################################################################################
-          # Basic utilities
-          #################################################################################
+        #################################################################################
+        # Basic utilities
+        #################################################################################
 
-          # https://www.gnu.org/software/coreutils/manual/html_node/index.html
-          # https://www.mankier.com/package/coreutils-common
-          coreutils-full
+        # https://www.gnu.org/software/coreutils/manual/html_node/index.html
+        # https://www.mankier.com/package/coreutils-common
+        coreutils-full
 
-          # https://uutils.github.io/coreutils/docs/
-          # uutils-coreutils-noprefix
+        # https://uutils.github.io/coreutils/docs/
+        # uutils-coreutils-noprefix
 
-          killall
+        killall
 
-          # https://www.gnu.org/software/sed/
-          # https://www.mankier.com/1/sed
-          gnused
+        # https://www.gnu.org/software/sed/
+        # https://www.mankier.com/1/sed
+        gnused
 
-          # rm replacement
-          # https://github.com/MilesCranmer/rip2
-          rip2
+        # rm replacement
+        # https://github.com/MilesCranmer/rip2
+        rip2
 
-          # https://github.com/eth-p/bat-extras/blob/master/doc/batwatch.md
-          bat-extras.batwatch
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batwatch.md
+        bat-extras.batwatch
 
-          # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
-          bat-extras.batpipe
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
+        bat-extras.batpipe
 
-          #################################################################################
-          # Shell history
-          #################################################################################
+        #################################################################################
+        # Shell history
+        #################################################################################
 
-          # hh
-          hstr
+        # hh
+        hstr
 
-          #################################################################################
-          # View processes
-          #################################################################################
+        #################################################################################
+        # View processes
+        #################################################################################
 
-          # https://github.com/dalance/procs#usage
-          procs
+        # https://github.com/dalance/procs#usage
+        procs
 
-          #################################################################################
-          # Viewing files and directories
-          #################################################################################
+        #################################################################################
+        # Viewing files and directories
+        #################################################################################
 
-          # https://github.com/eza-community/eza
-          eza
+        # https://github.com/eza-community/eza
+        eza
 
-          # https://dystroy.org/broot/
-          broot
+        # https://dystroy.org/broot/
+        broot
 
-          # https://github.com/bootandy/dust
-          dust
+        # https://github.com/bootandy/dust
+        dust
 
-          # https://github.com/Byron/dua-cli/
-          dua
+        # https://github.com/Byron/dua-cli/
+        dua
 
-          # https://yazi-rs.github.io/docs/quick-start
-          yazi
+        # https://yazi-rs.github.io/docs/quick-start
+        yazi
 
-          #################################################################################
-          # Navigating directories
-          #################################################################################
+        #################################################################################
+        # Navigating directories
+        #################################################################################
 
-          # https://github.com/ajeetdsouza/zoxide
-          zoxide
+        # https://github.com/ajeetdsouza/zoxide
+        zoxide
 
-          #################################################################################
-          # Finding files
-          #################################################################################
+        #################################################################################
+        # Finding files
+        #################################################################################
 
-          # https://www.mankier.com/1/find
-          # https://www.mankier.com/1/xargs
-          findutils
+        # https://www.mankier.com/1/find
+        # https://www.mankier.com/1/xargs
+        findutils
 
-          # https://github.com/sharkdp/fd
-          fd
+        # https://github.com/sharkdp/fd
+        fd
 
-          # https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md
-          bat-extras.batgrep
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batgrep.md
+        bat-extras.batgrep
 
-          # https://junegunn.github.io/fzf/
-          fzf
+        # https://junegunn.github.io/fzf/
+        fzf
 
-          # https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
-          ripgrep
+        # https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
+        ripgrep
 
-          # https://github.com/phiresky/ripgrep-all
-          ripgrep-all
+        # https://github.com/phiresky/ripgrep-all
+        ripgrep-all
 
-          # https://ugrep.com
-          ugrep
+        # https://ugrep.com
+        ugrep
 
-          #################################################################################
-          # View processes
-          #################################################################################
+        #################################################################################
+        # View processes
+        #################################################################################
 
-          # https://htop.dev
-          htop
+        # https://htop.dev
+        htop
 
-          # https://github.com/dalance/procs#usage
-          procs
+        # https://github.com/dalance/procs#usage
+        procs
 
-          #################################################################################
-          # Pagers
-          #################################################################################
+        #################################################################################
+        # Pagers
+        #################################################################################
 
-          # https://github.com/sharkdp/bat#how-to-use
-          bat
+        # https://github.com/sharkdp/bat#how-to-use
+        bat
 
-          # https://github.com/dandavison/delta
-          delta
+        # https://github.com/dandavison/delta
+        delta
 
-          # https://github.com/lucc/nvimpager
-          nvimpager
+        # https://github.com/lucc/nvimpager
+        nvimpager
 
-          # https://github.com/eth-p/bat-extras/blob/master/doc/prettybat.md
-          bat-extras.prettybat
+        # https://github.com/eth-p/bat-extras/blob/master/doc/prettybat.md
+        bat-extras.prettybat
 
-          # https://github.com/eth-p/bat-extras/blob/master/doc/batman.md
-          bat-extras.batman
+        # https://github.com/eth-p/bat-extras/blob/master/doc/batman.md
+        bat-extras.batman
 
-          #################################################################################
-          # Diffs
-          #################################################################################
+        #################################################################################
+        # Diffs
+        #################################################################################
 
-          # https://www.gnu.org/software/diffutils/diffutils.html
-          diffutils
+        # https://www.gnu.org/software/diffutils/diffutils.html
+        diffutils
 
-          # https://difftastic.wilfred.me.uk
-          difftastic
+        # https://difftastic.wilfred.me.uk
+        difftastic
 
-          #################################################################################
-          # Git support tools
-          #################################################################################
+        #################################################################################
+        # Git support tools
+        #################################################################################
 
-          git-lfs
-        ]
-        ++ lib.optionals isLinux [
-          nh
-          nix-output-monitor
-          nvd
-        ]
-      );
+        git-lfs
+      ]
+      ++ lib.optionals isLinux [
+        nh
+        nix-output-monitor
+        nvd
+      ]
+    );
 
-      environment.variables = {
-        EDITOR = "nvim";
-        GIT_EDITOR = "nvim";
-      }
-      // lib.optionalAttrs isLinux {
-        NH_FLAKE = config.my.flakePath;
-      };
+    environment.variables = {
+      EDITOR = "nvim";
+      GIT_EDITOR = "nvim";
     }
     // lib.optionalAttrs isLinux {
-      programs.nh = {
-        enable = true;
-        flake = config.my.flakePath;
-      };
+      NH_FLAKE = config.my.flakePath;
     };
+  };
 }
