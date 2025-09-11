@@ -42,7 +42,10 @@
       ]);
 
     sops = {
-      defaultSopsFile = "/etc/nixos/secrets/gcp_${config.my.hostname}.yaml";
+      defaultSopsFile = 
+        if config.my.isFirstInstall
+        then "/etc/nixos/secrets/gcp_${config.my.hostname}.yaml"
+        else "/home/${config.my.user.name}/code/nixos-dotfiles/secrets/gcp_${config.my.hostname}.yaml";
       age.keyFile = "/root/.config/sops/age/keys.txt";
       validateSopsFiles = false;
     };
