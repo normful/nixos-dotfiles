@@ -25,18 +25,21 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     - `GCE_PRIVATE_KEY_PATH`. Path to the Google Compute Engine key for using `gcloud compute ssh`. Usually ~/.ssh/google_compute_engine
     - `IAP_USER_EMAIL`. Google account email to use with Identity Aware Proxy for tunneled SSH access to the new virtual machine
 1. `mise run new` to create new copies of config Pulumi and Nix files for the new VM
-1. Create a new Tailscale auth key:
-    1. Log into Tailscale admin console
-    1. Create a Non-reusable, Pre-approved, Tagged auth key. It'll produce `tskey-auth-...`
-1. Create a hash your desired sudo password for the new non-root user on the VM.
-    - Run `mkpasswd -m sha-512`. It'll produce `$...`
-1. `mise run secrets` to edit [`secrets/gcp_<hostname>.yaml`](./secrets/) with `sops`
-    - Paste in your recently created secrets:
-        ```yaml
-        hashedUserPassword: $...
-        tailscaleAuthKey: tskey-auth-...
-        ```
-    - Save and close the file
+1. Create secrets and add them to the secrets file.
+    1. Create a new Tailscale auth key:
+        1. Log into Tailscale admin console
+        1. Create a Non-reusable, Pre-approved, Tagged auth key. It'll produce `tskey-auth-...`
+    1. Create a hash your desired sudo password for the new non-root user on the VM.
+        - Run `mkpasswd -m sha-512`. It'll produce `$...`
+    1. At <https://github.com/settings/tokens/new>, create a new GitHub Personal Access Token (classic) with the scopes: `repo`, `read:org`, `gist`. It'll produce `ghp_...`
+    1. `mise run secrets` to edit [`secrets/gcp_<hostname>.yaml`](./secrets/) with `sops`
+        - Paste in your recently created secrets:
+            ```yaml
+            hashedUserPassword: $...
+            tailscaleAuthKey: tskey-auth-...
+            githubClassicPersonalAccessToken: gcp_...
+            ```
+        - Save and close the file
 1. Add the new hostname to [`flake.nix`](./flake.nix), under `linuxHostnames`
 1. If you are not Norman, you probably also want to change:
     - `Pulumi.<hostname>.yaml`
