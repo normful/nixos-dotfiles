@@ -31,7 +31,7 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
         1. Create a Non-reusable, Pre-approved, Tagged auth key. It'll produce `tskey-auth-...`
     1. Create a hash your desired sudo password for the new non-root user on the VM.
         - Run `mkpasswd -m sha-512`. It'll produce `$...`
-    1. At <https://github.com/settings/tokens/new>, create a new GitHub Personal Access Token (classic) with the scopes: `repo`, `read:org`, `gist`. It'll produce `ghp_...`
+    1. At <https://github.com/settings/tokens/new>, create a new GitHub Personal Access Token (classic) with the scopes: `repo`, `admin:public_key`, `read:org`, `gist`. It'll produce `ghp_...`
     1. `mise run secrets` to edit [`secrets/gcp_<hostname>.yaml`](./secrets/) with `sops`
         - Paste in your recently created secrets:
             ```yaml
