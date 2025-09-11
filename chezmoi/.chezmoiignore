@@ -1,11 +1,6 @@
 {{/* vim: set filetype=gotemplate : */}}
 **/.DS_Store
 
-{{/* Config that should not be installed on macOS */}}
-{{ if .mac -}}
-
-{{ end -}}
-
 {{/* Config that should not be installed on non-macOS machines */}}
 {{ if not .mac -}}
 .config/ghostty/
@@ -15,4 +10,8 @@
 .local/bin/convert-all-wav-to-mp3.sh
 .local/bin/copy-sdcard-to-video-footage-dirs.sh
 .local/bin/mirror-android
+{{ end -}}
+
+{{/* Config that should not be installed on macOS */}}
+{{ if .mac -}}
 {{ end -}}
