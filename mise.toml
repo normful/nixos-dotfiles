@@ -33,7 +33,7 @@ alias = "check1"
 [tasks."gcp:first-up"]
 description = "Initially launch a bigger GCE VM instance for doing the initial NixOS install with lots of RAM (most important) and CPU"
 depends = [ "gcp:check:pulumi" ]
-env.IS_FIRST_NIXOS_INSTALL=1
+env.USE_BIGGER_INSTANCE=1
 run = "pulumi up --yes --skip-preview"
 alias = "up1"
 

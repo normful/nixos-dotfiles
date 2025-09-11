@@ -85,7 +85,7 @@ export const bootDisk = new gcp.compute.Disk(
 
 // Choose machine type based on whether this is the first NixOS install
 // Use more powerful instance for initial builds which are resource-intensive
-const selectedMachineType = process.env.IS_FIRST_NIXOS_INSTALL
+const selectedMachineType = process.env.USE_BIGGER_INSTANCE
   ? firstMachineType
   : machineTypeFromConfig;
 
