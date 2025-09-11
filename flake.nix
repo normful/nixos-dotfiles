@@ -38,7 +38,7 @@
       });
 
       createGcpConfig =
-        hostname:
+        hostname: configFile:
         let
           vmConfig = vmConfigs.${hostname};
         in
@@ -56,12 +56,15 @@
             };
           };
           modules = [
-            ./gcp/${hostname}/configuration.nix
+            ./gcp/${hostname}/${configFile}
           ];
         };
     in
     {
-      nixosConfigurations = genAttrs (builtins.attrNames vmConfigs) createGcpConfig;
+      nixosConfigurations = {
+        coral = createGcpConfig "coral" "configuration.nix";
+        coral-first-install = createGcpConfig "coral" "first-install-configuration.nix";
+      };
 
       darwinConfigurations.cyan = darwinSystem rec {
         system = "aarch64-darwin";
