@@ -27,10 +27,10 @@ in
     ]
     ++ (with pkgs-pinned-unstable; [
       tree-sitter
+      gcc
       gnumake
       deno
       go
-      zig
     ]);
   };
 }

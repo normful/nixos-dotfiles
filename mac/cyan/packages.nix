@@ -51,9 +51,6 @@ in
   # Tools for multiple languages
   #################################################################################
 
-  # https://gcc.gnu.org
-  gcc
-
   # https://just.systems/man/en/
   just
 
