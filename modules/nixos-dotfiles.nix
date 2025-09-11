@@ -15,7 +15,10 @@
       Group = "users";
       RemainAfterExit = true;
     };
-    path = [ pkgs-stable.git ];
+    path = [
+      pkgs-stable.git
+      pkgs-stable.openssh
+    ];
     script = ''
       CODE_DIR="/home/${config.my.user.name}/code"
       REPO_DIR="$CODE_DIR/nixos-dotfiles"
