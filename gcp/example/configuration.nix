@@ -6,11 +6,9 @@
   imports = [
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
-    ../../modules/install-mode.nix
     ../../modules/disko-partitions.nix
     ../../modules/core.nix
     ../../modules/nix.nix
-    ../../modules/nh.nix
     ../../modules/user.nix
     ../../modules/openssh-server.nix
     ../../modules/security.nix
@@ -18,6 +16,7 @@
     ../../modules/vector.nix
     ../../modules/gh.nix
     ../../modules/nixos-dotfiles.nix
+    ../../modules/interactive-cli.nix
     ./my-config.nix
   ];
 }
