@@ -1,5 +1,6 @@
 import * as gcp from "@pulumi/gcp";
 import { stack, alertEmail, projectId } from "./config";
+import { gcpProvider } from "./provider";
 
 export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
   name: `${stack}/logins`,
@@ -43,7 +44,7 @@ export const loginMetric = new gcp.logging.Metric(`${stack}-logins-metric`, {
     timestamp: "EXTRACT(jsonPayload.timestamp)",
     host: "EXTRACT(jsonPayload.host)",
   },
-});
+}, { provider: gcpProvider });
 
 export const sshConnectionMetric = new gcp.logging.Metric(
   `${stack}-ssh-conns-metric`,
@@ -107,6 +108,7 @@ export const sshConnectionMetric = new gcp.logging.Metric(
       host: "EXTRACT(jsonPayload.host)",
     },
   },
+  { provider: gcpProvider },
 );
 
 export const instanceLifecycleMetric = new gcp.logging.Metric(
@@ -169,6 +171,7 @@ export const instanceLifecycleMetric = new gcp.logging.Metric(
       operation_id: "EXTRACT(protoPayload.response.name)",
     },
   },
+  { provider: gcpProvider },
 );
 
 export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
@@ -180,6 +183,7 @@ export const emailNotificationChannel = new gcp.monitoring.NotificationChannel(
       email_address: alertEmail,
     },
   },
+  { provider: gcpProvider },
 );
 
 export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
@@ -215,6 +219,7 @@ export const loginAlertPolicy = new gcp.monitoring.AlertPolicy(
     },
     notificationChannels: [emailNotificationChannel.name],
   },
+  { provider: gcpProvider },
 );
 
 export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
@@ -250,6 +255,7 @@ export const instanceLifecycleAlertPolicy = new gcp.monitoring.AlertPolicy(
     },
     notificationChannels: [emailNotificationChannel.name],
   },
+  { provider: gcpProvider },
 );
 
 export const loginMetricName = loginMetric.name;

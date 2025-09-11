@@ -7,7 +7,7 @@ export const network = new gcp.compute.Network(`${stack}-vpc`, {
   routingMode: "REGIONAL",
   autoCreateSubnetworks: false,
   deleteDefaultRoutesOnCreate: false,
-});
+}, { provider: gcpProvider });
 
 export const subnetwork = new gcp.compute.Subnetwork(`${stack}-subnet`, {
   network: network.id,
@@ -19,19 +19,19 @@ export const subnetwork = new gcp.compute.Subnetwork(`${stack}-subnet`, {
     aggregationInterval: "INTERVAL_5_SEC",
     metadata: "INCLUDE_ALL_METADATA",
   },
-});
+}, { provider: gcpProvider });
 
 export const publicNatIpAddress = new gcp.compute.Address(`${stack}-nat-ip-1`, {
   region: region,
   addressType: "EXTERNAL",
   description: "Static public IP address for Cloud NAT (public NAT)",
   labels: commonLabels,
-});
+}, { provider: gcpProvider });
 
 const router = new gcp.compute.Router(`${stack}-router`, {
   region: region,
   network: network.id,
-});
+}, { provider: gcpProvider });
 
 export const publicNatGateway = new gcp.compute.RouterNat(`${stack}-nat`, {
   region: region,
@@ -51,7 +51,7 @@ export const publicNatGateway = new gcp.compute.RouterNat(`${stack}-nat`, {
     enable: true,
     filter: "ALL",
   },
-});
+}, { provider: gcpProvider });
 
 export const networkName = network.name;
 export const subnetworkName = subnetwork.name;
