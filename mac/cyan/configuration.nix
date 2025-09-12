@@ -42,6 +42,7 @@
     my.enableJsonTools = true;
     my.enableGitTools = true;
     my.enableAudioVideoTools = true;
+    my.enableImageTools = true;
 
     system.stateVersion = 4;
 

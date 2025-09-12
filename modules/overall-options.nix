@@ -192,5 +192,11 @@ in
       description = "Audio and video processing tools";
       default = false;
     };
+
+    enableImageTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Image processing and manipulation tools";
+      default = false;
+    };
   };
 }
