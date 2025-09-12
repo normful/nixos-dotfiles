@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ../../modules/overall-options.nix
     ./my-config.nix
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
@@ -19,5 +20,6 @@
     ../../modules/nixos-dotfiles.nix
     ../../modules/interactive-cli.nix
     ../../modules/neovim.nix
+    ../../modules/optional-packages-without-config.nix
   ];
 }
