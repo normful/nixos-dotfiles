@@ -92,8 +92,8 @@ in
         rsync
         rclone
         lftp
-        better-adb-sync
         restic
+        (callPackage ../../packages/better-adb-sync { })
       ])
       ++ (optionals config.my.enablePdfTools [
         ghostscript
@@ -129,6 +129,10 @@ in
         inkscape
         imagemagick
         pngcrush
+      ])
+      ++ (optionals config.my.enableScreenSharingTools [
+        scrcpy
+        remmina
       ]);
   };
 }
