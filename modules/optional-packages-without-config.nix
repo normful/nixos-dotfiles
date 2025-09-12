@@ -77,6 +77,7 @@ in
         colima
         docker
         docker-compose
+        lazydocker
       ])
       ++ (optionals config.my.enableNetworkingTools [
         dogdns
