@@ -93,7 +93,7 @@ in
         rclone
         lftp
         restic
-        (callPackage ../../packages/better-adb-sync { })
+        (callPackage ../packages/better-adb-sync { })
       ])
       ++ (optionals config.my.enablePdfTools [
         ghostscript
