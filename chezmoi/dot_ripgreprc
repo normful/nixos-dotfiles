@@ -16,37 +16,45 @@
 --follow
 
 # Search hidden files and directories.
-#
 # Note that if a hidden file or a directory is whitelisted in an ignore file, then it will be
 # searched even if this flag isn't provided.
 # Similarly if a hidden file or directory is given explicitly as an argument to ripgrep.
-#
 # A file or directory is considered hidden if its base name starts with a dot character (.).
 # On operating systems which support a "hidden" file attribute, like Windows, files with this
 # attribute are also considered hidden.
 --hidden
 
-# Manual filtering settings
-# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#manual-filtering-globs
-
 # Files such as .gitignore, .ignore and .rgignore will not be respected.
 --no-ignore
 
---glob=!.git/*
---glob=!node_modules/*
---glob=!*.{lock}
---glob=!{package-lock.json}
---glob=!.svn/*
---glob=!.venv/*
---glob=!Trash/*
---glob=!vendor/*
---glob=!temp/*
---glob=!dist/*
---glob=!__pycache__/*
+
+# Include or exclude files and directories for searching that match the given glob.
+# This always overrides any other ignore logic. Multiple glob flags may be used.
+# Globbing rules match .gitignore globs.
+# Precede a glob with a ! to exclude it.
+# If multiple globs match a file or directory, the glob given later in the command line takes precedence.
+#
+# When this flag is set, every file and directory is applied to it to test for a match.
+# For example, if you only want to search in a particular directory foo,
+# then -g foo is incorrect because foo/bar does not match the glob foo.
+# Instead, you should use -g 'foo/**'.
+#
+# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#manual-filtering-globs
+--glob=!.git/**
+--glob=!node_modules/**
+--glob=!*.lock
+--glob=!**/package-lock.json
+--glob=!.svn/**
+--glob=!.venv/**
+--glob=!Trash/**
+--glob=!vendor/**
+--glob=!temp/**
+--glob=!dist/**
+--glob=!__pycache__/**
 --glob=!*.pyc
---glob=!.nix-build-*
---glob=!result/*
---glob=!result-*/
+--glob=!.nix-build-**
+--glob=!result/**
+--glob=!result-*/**
 
 # ========================================
 # OUTPUT OPTIONS
@@ -62,6 +70,14 @@
 --max-columns-preview
 
 --no-line-number
+
+# Sort by file path.
+# Always single-threaded.
+# The order is determined by sorting files in each directory entry during traversal.
+# This means that given the files a/b and a+, the latter will sort after the former even though + would normally sort before /.
+# To sort results in reverse or descending order, use the --sortr flag.  Also, this flag overrides --sortr.
+# Note that sorting results currently always forces ripgrep to abandon parallelism and run in a single thread.
+# --sort=path
 
 #--colors=line:fg:0xf2,0xc2,0x60
 #--colors=match:bg:0x2b,0x83,0xa6
