@@ -124,6 +124,11 @@ in
         ffmpeg
         vorbis-tools
         musikcube
+      ])
+      ++ (optionals config.my.enableImageTools [
+        inkscape
+        imagemagick
+        pngcrush
       ]);
   };
 }
