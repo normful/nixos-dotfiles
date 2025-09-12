@@ -11,22 +11,22 @@ in
   options.my = {
     hostname = lib.mkOption {
       type = lib.types.str;
-      description = "The hostname to use for this machine.";
+      description = "Machine hostname";
     };
 
     user.name = lib.mkOption {
       type = lib.types.str;
-      description = "The name of the primary non-root user.";
+      description = "Primary user name";
     };
 
     isFirstInstall = lib.mkOption {
       type = lib.types.bool;
-      description = "Whether this is the first installation of the system";
+      description = "First system install";
       default = false;
     };
 
     flakePath = lib.mkOption {
-      description = "Path to the system flake";
+      description = "System flake path";
       type = lib.types.str;
       default =
         if isDarwin then
@@ -39,145 +39,145 @@ in
 
     enableInteractiveCli = lib.mkOption {
       type = lib.types.bool;
-      description = "Enable tools for interactive command line interface usage";
+      description = "Interactive CLI tools";
       default = false;
     };
 
     enableFullNeovim = lib.mkOption {
       type = lib.types.bool;
-      description = "Install Neovim configured with many extras";
+      description = "Full Neovim setup";
       default = false;
     };
 
     enableAiCodingAgents = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages for AI coding agents";
+      description = "AI coding agent packages";
       default = false;
     };
 
     enableLangTsJs = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to TypeScript and JavaScript development";
+      description = "TypeScript/JavaScript packages";
       default = false;
     };
 
     enableLangGo = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Go development";
+      description = "Go development packages";
       default = false;
     };
 
     enableLangRust = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Rust development";
+      description = "Rust development packages";
       default = false;
     };
 
     enableLangPython = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Python development";
+      description = "Python development packages";
       default = false;
     };
 
     enableLangBash = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Bash development";
+      description = "Bash development packages";
       default = false;
     };
 
     enableLangRuby = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Ruby development";
+      description = "Ruby development packages";
       default = false;
     };
 
     enableLangCss = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to CSS development";
+      description = "CSS development packages";
       default = false;
     };
 
     enableLangPhp = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to PHP development";
+      description = "PHP development packages";
       default = false;
     };
 
     enableLangLua = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Lua development";
+      description = "Lua development packages";
       default = false;
     };
 
     enableLangNix = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Nix development";
+      description = "Nix development packages";
       default = false;
     };
 
     enableLangGleam = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Gleam development";
+      description = "Gleam development packages";
       default = false;
     };
 
     enableLangErlang = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Erlang development";
+      description = "Erlang development packages";
       default = false;
     };
 
     enableLangUml = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to UML development";
+      description = "UML development packages";
       default = false;
     };
 
     enableLangTypst = lib.mkOption {
       type = lib.types.bool;
-      description = "Install packages related to Typst development";
+      description = "Typst development packages";
       default = false;
     };
 
     enableDocker = lib.mkOption {
       type = lib.types.bool;
-      description = "Install Docker and related container tools";
+      description = "Docker and container tools";
       default = false;
     };
 
     enableNetworkingTools = lib.mkOption {
       type = lib.types.bool;
-      description = "Install networking and DNS tools";
+      description = "Networking and DNS tools";
       default = false;
     };
 
     enableFileSyncTools = lib.mkOption {
       type = lib.types.bool;
-      description = "Install file synchronization and backup tools";
+      description = "File sync and backup tools";
       default = false;
     };
 
     enablePdfTools = lib.mkOption {
       type = lib.types.bool;
-      description = "Install PDF processing and manipulation tools";
+      description = "PDF processing tools";
       default = false;
     };
 
     enableLogTools = lib.mkOption {
       type = lib.types.bool;
-      description = "Install log file viewing and analysis tools";
+      description = "Log viewing and analysis tools";
       default = false;
     };
 
     enableJujutsu = lib.mkOption {
       type = lib.types.bool;
-      description = "Install Jujutsu VCS and related tools";
+      description = "Jujutsu VCS tools";
       default = false;
     };
 
     enableJsonTools = lib.mkOption {
       type = lib.types.bool;
-      description = "Install JSON processing and manipulation tools";
+      description = "JSON processing tools";
       default = false;
     };
   };
