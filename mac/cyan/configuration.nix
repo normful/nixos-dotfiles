@@ -43,6 +43,7 @@
     my.enableGitTools = true;
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
+    my.enableScreenSharingTools = true;
 
     system.stateVersion = 4;
 

@@ -198,5 +198,11 @@ in
       description = "Image processing and manipulation tools";
       default = false;
     };
+
+    enableScreenSharingTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Screen sharing and remote access tools";
+      default = false;
+    };
   };
 }

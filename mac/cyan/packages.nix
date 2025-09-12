@@ -1,7 +1,6 @@
 { pkgs-stable, pkgs-pinned-unstable, ... }:
 
 let
-  better-adb-sync = pkgs-stable.callPackage ../../packages/better-adb-sync { };
   carbonyl = pkgs-pinned-unstable.callPackage ../../packages/carbonyl { };
 in
 (with pkgs-stable; [
@@ -18,8 +17,6 @@ in
     fish for interactive usage
     xonsh for scripting
   */
-
-
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #~~~~TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,16 +57,12 @@ in
   # https://github.com/pemistahl/grex?tab=readme-ov-file#51-the-command-line-tool
   grex
 
-
   #################################################################################
   # TOML
   #################################################################################
 
   # https://taplo.tamasfe.dev/cli/introduction.html
   taplo
-
-
-
 
   #################################################################################
   # Typesetting (TeX, LaTeX, Typst)
@@ -81,19 +74,6 @@ in
   # https://pandoc.org/MANUAL.html
   pandoc
 
-
-
-
-
-  #################################################################################
-  # Screen sharing
-  #################################################################################
-
-  # https://github.com/Genymobile/scrcpy
-  scrcpy
-
-  # https://wiki.archlinux.org/title/Remmina
-  remmina
 
   #################################################################################
   # Secrets management
@@ -180,7 +160,6 @@ in
   #################################################################################
   # Other AI-powered tools
   #################################################################################
-
 
   # https://repomix.com
   repomix
