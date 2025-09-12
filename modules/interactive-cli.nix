@@ -164,6 +164,7 @@ in
     environment.variables = {
       EDITOR = "nvim";
       GIT_EDITOR = "nvim";
+      RIPGREP_CONFIG_PATH = "$HOME/.ripgreprc";
     }
     // lib.optionalAttrs isLinux {
       NH_FLAKE = config.my.flakePath;
