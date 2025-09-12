@@ -41,6 +41,7 @@
     my.enableJujutsu = true;
     my.enableJsonTools = true;
     my.enableGitTools = true;
+    my.enableAudioVideoTools = true;
 
     system.stateVersion = 4;
 

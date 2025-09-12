@@ -186,5 +186,11 @@ in
       description = "Git version control tools";
       default = false;
     };
+
+    enableAudioVideoTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Audio and video processing tools";
+      default = false;
+    };
   };
 }
