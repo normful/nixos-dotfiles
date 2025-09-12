@@ -1,11 +1,37 @@
+# ========================================
+# SEARCH OPTIONS
+# ========================================
+
+# Search case insensitively if the pattern is all lowercase. Otherwise, search case sensitively.
 --smart-case
+
+# ========================================
+# FILTER OPTIONS
+# ========================================
+
+# This flag instructs ripgrep to follow symbolic links while traversing directories.
+# This behavior is disabled by default.
+# Note that ripgrep will check for symbolic link loops and report errors if it finds one.
+# ripgrep will also report errors for broken links.
 --follow
+
+# Search hidden files and directories.
+#
+# Note that if a hidden file or a directory is whitelisted in an ignore file, then it will be
+# searched even if this flag isn't provided.
+# Similarly if a hidden file or directory is given explicitly as an argument to ripgrep.
+#
+# A file or directory is considered hidden if its base name starts with a dot character (.).
+# On operating systems which support a "hidden" file attribute, like Windows, files with this
+# attribute are also considered hidden.
+--hidden
 
 # Manual filtering settings
 # https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#manual-filtering-globs
 
---hidden
+# Files such as .gitignore, .ignore and .rgignore will not be respected.
 --no-ignore
+
 --glob=!.git/*
 --glob=!node_modules/*
 --glob=!*.{lock}
@@ -22,60 +48,31 @@
 --glob=!result/*
 --glob=!result-*/
 
-## Display settings
+# ========================================
+# OUTPUT OPTIONS
+# ========================================
 
---max-columns=150
---max-columns-preview
---color=always
---colors=line:fg:0xf2,0xc2,0x60
---colors=match:bg:0x2b,0x83,0xa6
---colors=match:fg:0xff,0xff,0xff
---colors=match:style:nobold
---colors=path:bg:0x3b,0x3b,0x3b
---colors=path:fg:white
---context=2
 --hyperlink-format=default
---line-number
+
+# Omit lines longer than this limit in bytes.
+# Instead of printing long lines, only the number of matches in that line is printed.
 --max-columns=150
---sort=path
 
-## Type additions
+# Prints a preview for lines exceeding the configured max column limit.
+--max-columns-preview
 
---type-add
-nix:*.nix
+--no-line-number
 
---type-add
-web:*.{html,css,js,jsx,ts,tsx,vue,svelte}
+#--colors=line:fg:0xf2,0xc2,0x60
+#--colors=match:bg:0x2b,0x83,0xa6
+#--colors=match:fg:0xff,0xff,0xff
+#--colors=match:style:nobold
+#--colors=path:bg:0x3b,0x3b,0x3b
+#--colors=path:fg:white
 
---type-add
-config:*.{json,yaml,yml,toml,ini,conf}
+# ========================================
+# TYPE ADDITIONS
+# ========================================
 
---type-add
-style:*.{css,sass,less,stylus}
-
---type-add
-pug:*.{pug,jade}
-
---type-add
-tmpl:*.{html,hbs,pug}
-
---type-add
-dts:*.d.ts
-
---type-add
-spec:*.{spec,test}.{ts,tsx,js,jsx}
-
---type-add
-test:*.{spec,test}.{ts,tsx,js,jsx}
-
---type-add
-tsx:*.tsx
-
---type-add
-stories:**/*.stories.{ts,tsx,js,jsx,mdx}
-
---type-add
-jsx:*.jsx
-
---type-add
-gql:*.{graphql,gql}
+# Most like you don't need to add any `type-add` flags here because `rg` has many built in already.
+# `rg --type-list` shows them all.
