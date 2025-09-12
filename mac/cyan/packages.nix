@@ -20,25 +20,12 @@ in
   */
 
   #################################################################################
-  # Bash
-  #################################################################################
-
-  bats # TODO: add to `modules`
-  shfmt # TODO: add to `modules`
-
-  #################################################################################
   # Git
   #################################################################################
 
   git
   gh
 
-  #################################################################################
-  # Jujutsu TODO: add to `modules`
-  #################################################################################
-
-  jujutsu
-  lazyjj
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #~~~~TODO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,26 +59,6 @@ in
   espanso
 
   #################################################################################
-  # Ruby
-  #################################################################################
-
-  (ruby.withPackages (
-    pks: with pks; [
-      rubocop
-      nokogiri
-      pry
-      neovim
-    ]
-  ))
-
-  #################################################################################
-  # PHP
-  #################################################################################
-
-  php84Extensions.xdebug
-  intelephense
-
-  #################################################################################
   # Regular expressions
   #################################################################################
 
@@ -99,28 +66,6 @@ in
   # https://github.com/pemistahl/grex?tab=readme-ov-file#51-the-command-line-tool
   grex
 
-  #################################################################################
-  # JSON
-  #################################################################################
-
-  # https://jqlang.org
-  jq
-
-  # https://jless.io/user-guide
-  jless
-
-  # https://github.com/adamritter/fastgron
-  fastgron
-
-  # https://github.com/Stranger6667/jsonschema
-  jsonschema-cli
-
-  #################################################################################
-  # CSS
-  #################################################################################
-
-  # https://stylelint.io/user-guide/configure
-  stylelint
 
   #################################################################################
   # TOML
@@ -129,29 +74,6 @@ in
   # https://taplo.tamasfe.dev/cli/introduction.html
   taplo
 
-  #################################################################################
-  # Nix
-  #################################################################################
-
-  # https://taplo.tamasfe.dev/cli/introduction.html
-  nixfmt-rfc-style
-
-  #################################################################################
-  # Log files
-  #################################################################################
-
-  # https://docs.lnav.org/en/latest/index.html
-  lnav
-
-  # https://github.com/pamburus/hl
-  hl-log-viewer
-
-  #################################################################################
-  # UML Diagrams
-  #################################################################################
-
-  # https://plantuml.com
-  plantuml
 
   #################################################################################
   # Images
@@ -191,101 +113,12 @@ in
   # https://www.tug.org/texlive/doc.html
   texliveSmall
 
-  # https://github.com/typst/typst
-  typst
-
-  # https://github.com/Myriad-Dreamin/tinymist
-  tinymist
-
-  # https://github.com/Bzero/typstwriter
-  typstwriter
-
   # https://pandoc.org/MANUAL.html
   pandoc
 
-  #################################################################################
-  # PDF
-  #################################################################################
 
-  # https://ghostscript.readthedocs.io/en/latest/Use.html
-  ghostscript
 
-  # https://qpdf.readthedocs.io/en/stable/
-  qpdf
 
-  /*
-    Use Ghostscript when:
-
-    Converting PDFs to images or other formats
-    Processing PostScript files
-    Need aggressive compression for web delivery
-    Working with mixed document types
-    Dealing with rendering-related issues
-
-    Use qpdf when:
-
-    Need to preserve exact PDF structure and quality
-    Performing encryption/security operations
-    Splitting, merging, or reorganizing pages frequently
-    Need detailed PDF inspection and debugging
-    Working with large files where performance matters
-    Repairing corrupted PDFs
-  */
-
-  # GUI to visually diff PDFs
-  # https://vslavik.github.io/diff-pdf/
-  diff-pdf
-
-  #################################################################################
-  # DNS lookups
-  #################################################################################
-
-  # https://github.com/ogham/dog
-  dogdns
-
-  # https://github.com/ameshkov/dnslookup
-  dnslookup
-
-  # https://mhost.pustina.de/docs/usage_examples
-  mhost
-
-  #################################################################################
-  # Downloading files
-  #################################################################################
-
-  # https://everything.curl.dev
-  # https://www.mankier.com/1/curl
-  curl
-
-  # https://rockdaboot.github.io/wget2/md_wget2_manual.html
-  wget2
-
-  # https://github.com/ducaale/xh#usage
-  xh
-
-  #################################################################################
-  # gRPC
-  #################################################################################
-
-  # https://github.com/fullstorydev/grpcurl?tab=readme-ov-file#usage
-  grpcurl
-
-  #################################################################################
-  # Syncing files
-  #################################################################################
-
-  # https://download.samba.org/pub/rsync/rsync.1
-  # https://www.mankier.com/1/rsync
-  rsync
-
-  # https://rclone.org
-  rclone
-
-  # https://lftp.yar.ru/lftp-man.html
-  lftp
-
-  # https://github.com/jb2170/better-adb-sync
-  better-adb-sync
 
   #################################################################################
   # Screen sharing
@@ -326,12 +159,6 @@ in
   # https://sources.debian.org/src/whois/5.6.4/mkpasswd.c
   mkpasswd
 
-  # https://restic.readthedocs.io/en/stable/
-  restic
-
-  # https://github.com/abiosoft/colima#usage
-  colima
-
   # https://www.getzola.org/documentation/getting-started/cli-usage/
   zola
 
@@ -340,9 +167,6 @@ in
 
   # https://docs.cointop.sh
   cointop
-
-  # https://www.tcpdump.org/manpages/tcpdump.1.html
-  tcpdump
 
   # https://github.com/tuxera/ntfs-3g
   ntfs3g
@@ -361,75 +185,6 @@ in
 ])
 
 ++ (with pkgs-pinned-unstable; [
-  #################################################################################
-  # Nix
-  #################################################################################
-
-  nix-prefetch-github
-
-  #################################################################################
-  # Rust
-  #################################################################################
-
-  rustup
-
-  #################################################################################
-  # TypeScript and JavaScript
-  #################################################################################
-
-  nodejs
-
-  # https://bun.sh
-  bun
-
-  yarn
-  nodePackages.prettier
-  prettierd
-  eslint_d
-
-  #################################################################################
-  # Python
-  #################################################################################
-
-  uv
-  (python312.withPackages (
-    pks: with pks; [
-      isort
-      pyflakes
-      pylint
-      pynvim
-      numpy
-    ]
-  ))
-  poetry
-
-  #################################################################################
-  # Golang
-  #################################################################################
-
-  go
-  gopls
-  gotools
-  protoc-gen-go
-  cobra-cli
-  golangci-lint
-
-  #################################################################################
-  # Gleam
-  #################################################################################
-
-  # https://gleam.run/documentation/
-  gleam
-
-  #################################################################################
-  # Erlang
-  #################################################################################
-
-  # https://www.erlang.org/doc/man_index.html
-  beam.packages.erlang_28.erlang
-
-  # https://rebar3.org/docs/
-  beam.packages.erlang_28.rebar3
 
   #################################################################################
   # AI coding agents from the big companies

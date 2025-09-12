@@ -20,5 +20,6 @@
     ../../modules/nixos-dotfiles.nix
     ../../modules/interactive-cli.nix
     ../../modules/neovim.nix
+    ../../modules/optional-packages-without-config.nix
   ];
 }

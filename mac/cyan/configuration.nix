@@ -9,6 +9,7 @@
     ../../modules/overall-options.nix
     ../../modules/interactive-cli.nix
     ../../modules/neovim.nix
+    ../../modules/optional-packages-without-config.nix
   ];
 
   config = {
@@ -16,6 +17,29 @@
 
     my.enableInteractiveCli = true;
     my.enableFullNeovim = true;
+
+    my.enableLangTsJs = true;
+    my.enableLangGo = true;
+    my.enableLangRust = true;
+    my.enableLangPython = true;
+    my.enableLangBash = true;
+    my.enableLangRuby = true;
+    my.enableLangCss = true;
+    my.enableLangPhp = true;
+    my.enableLangLua = true;
+    my.enableLangNix = true;
+    my.enableLangGleam = true;
+    my.enableLangErlang = true;
+    my.enableLangUml = true;
+    my.enableLangTypst = true;
+
+    my.enableDocker = true;
+    my.enableNetworkingTools = true;
+    my.enableFileSyncTools = true;
+    my.enablePdfTools = true;
+    my.enableLogTools = true;
+    my.enableJujutsu = true;
+    my.enableJsonTools = true;
 
     system.stateVersion = 4;
 
