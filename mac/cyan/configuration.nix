@@ -40,6 +40,7 @@
     my.enableLogTools = true;
     my.enableJujutsu = true;
     my.enableJsonTools = true;
+    my.enableGitTools = true;
 
     system.stateVersion = 4;
 

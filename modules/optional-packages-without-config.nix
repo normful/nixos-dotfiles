@@ -113,6 +113,12 @@ in
         jless
         fastgron
         jsonschema-cli
+      ])
+      ++ (optionals config.my.enableGitTools [
+        git
+        gh
+        git-lfs
+        opencommit
       ]);
   };
 }
