@@ -82,23 +82,6 @@ in
   # https://pmt.sourceforge.io/pngcrush/
   pngcrush
 
-  #################################################################################
-  # Audio and video libraries
-  #################################################################################
-
-  # https://www.ffmpeg.org/documentation.html
-  ffmpeg
-
-  # https://xiph.org/vorbis/
-  vorbis-tools
-
-  #################################################################################
-  # Audio and video players
-  #################################################################################
-
-  # https://musikcube.com
-  # I like this one more than cmus, and more than many others I tried
-  musikcube
 
   #################################################################################
   # Typesetting (TeX, LaTeX, Typst)

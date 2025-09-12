@@ -119,6 +119,11 @@ in
         gh
         git-lfs
         opencommit
+      ])
+      ++ (optionals config.my.enableAudioVideoTools [
+        ffmpeg
+        vorbis-tools
+        musikcube
       ]);
   };
 }
