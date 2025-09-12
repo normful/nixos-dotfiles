@@ -180,5 +180,11 @@ in
       description = "JSON processing tools";
       default = false;
     };
+
+    enableGitTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Git version control tools";
+      default = false;
+    };
   };
 }
