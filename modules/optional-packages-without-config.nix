@@ -51,7 +51,7 @@ in
       ])
       ++ (optionals config.my.enableLangPhp [
         php84Extensions.xdebug
-        pkgs-stable.php84Packages.php-cs-fixer
+        php83Packages.php-cs-fixer
         intelephense
       ])
       ++ (optionals config.my.enableLangNix [
