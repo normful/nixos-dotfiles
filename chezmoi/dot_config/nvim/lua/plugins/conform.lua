@@ -21,7 +21,8 @@ return {
       css = { 'prettierd', 'stylelint' },
       scss = { 'prettierd', 'stylelint' },
       ruby = { 'rubocop', 'rubyfmt' },
-      php = { 'php_cs_fixer' },
+      -- Temporarily disabled
+      -- php = { 'php_cs_fixer' },
       python = { 'ruff_format' },
       go = { 'gofmt', 'goimports' },
       gleam = { 'gleam' },
