@@ -34,8 +34,6 @@ in
       ++ (optionals config.my.enableLangPython [
         uv
         poetry
-        python3Minimal
-        python313Packages.numpy
       ])
       ++ (optionals config.my.enableLangBash [
         bats
@@ -74,10 +72,12 @@ in
         typstwriter
       ])
       ++ (optionals config.my.enableDocker [
-        colima
         docker
         docker-compose
         lazydocker
+      ])
+      ++ (optionals (config.my.enableDocker && pkgs-pinned-unstable.stdenv.isDarwin) [
+        colima
       ])
       ++ (optionals config.my.enableNetworkingTools [
         dogdns
