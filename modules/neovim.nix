@@ -31,11 +31,12 @@ in
           gcc
           gnumake
           go
-          lua54Packages.luarocks
-          lua5_4_compat
+          luajit
+          luajitPackages.luarocks
           php
           php84Packages.composer
-          python3Minimal
+          python313
+          python313Packages.pip
           stylua
           tree-sitter
           unzip
