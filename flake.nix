@@ -75,7 +75,6 @@
           system = "x86_64-linux";
           modules = [
             ./wsl/duro/configuration.nix
-            inputs.nixos-wsl.nixosModules.default
           ];
           specialArgs = {
             inherit inputs;
