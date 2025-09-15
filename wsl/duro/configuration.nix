@@ -11,5 +11,7 @@
     ../../modules/nix.nix
     ../../modules/user-ssh-keypair.nix
     ../../modules/interactive-cli.nix
+    ../../modules/neovim.nix
+    ../../modules/optional-packages-without-config.nix
   ];
 }
