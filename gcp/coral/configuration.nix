@@ -12,6 +12,7 @@
     ../../modules/core.nix
     ../../modules/nix.nix
     ../../modules/user.nix
+    ../../modules/user-ssh-keypair.nix
     ../../modules/openssh-server.nix
     ../../modules/security.nix
     ../../modules/tailscale.nix
