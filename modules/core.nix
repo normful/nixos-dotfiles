@@ -31,8 +31,5 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-
-    time.timeZone = "UTC";
-    i18n.defaultLocale = "en_US.UTF-8";
   };
 }
