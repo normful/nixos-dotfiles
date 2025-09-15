@@ -4,9 +4,12 @@
 }:
 {
   imports = [
-    inputs.nixos-wsl-2505.nixosModules.default
     ../../modules/overall-options.nix
-    ../../modules/interactive-cli.nix
     ./my-config.nix
+    inputs.nixos-wsl-2505.nixosModules.default
+    ../../modules/core-wsl.nix
+    ../../modules/nix.nix
+    ../../modules/user-ssh-keypair.nix
+    ../../modules/interactive-cli.nix
   ];
 }
