@@ -1,10 +1,8 @@
 { ... }:
 {
-  wsl.enable = true;
-  wsl.defaultUser = "norman";
+  my.user.name = "norman";
+  my.hostname = "duro";
+  my.enableInteractiveCli = true;
 
   system.stateVersion = "25.05"; # Don't change this after initial installation
-
-  my.user.name = "norman";
-  my.enableInteractiveCli = true;
 }
