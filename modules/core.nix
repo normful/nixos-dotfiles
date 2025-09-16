@@ -2,7 +2,7 @@
   config,
   modulesPath,
   lib,
-  pkgs-stable,
+  pkgs-pinned-unstable,
   ...
 }:
 {
@@ -14,7 +14,7 @@
   config = {
     networking.hostName = config.my.hostname;
 
-    environment.systemPackages = with pkgs-stable; [
+    environment.systemPackages = with pkgs-pinned-unstable; [
       curl
       git
       sops
