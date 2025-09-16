@@ -61,37 +61,58 @@ if status is-interactive
     abbr --add cma 'chezmoi apply -v'
     abbr --add cmt 'chezmoi chattr +template'
 
-    abbr --add cld "bunx @anthropic-ai/claude-code"
-    abbr --add claude "bunx @anthropic-ai/claude-code"
-    abbr --add gemini "bunx @google/gemini-cli"
-    abbr --add qwen "bunx @qwen-code/qwen-code@latest"
-    if command -v opencode >/dev/null 2>&1
-        abbr --add oc "opencode"
+    if not command -v claude >/dev/null 2>&1
+        abbr --add cld "bunx @anthropic-ai/claude-code"
+        abbr --add claude "bunx @anthropic-ai/claude-code"
     else
-        abbr --add oc "bunx opencode-ai"
+        abbr --add cld "claude"
     end
-    abbr --add crush "bunx @charmland/crush"
-    abbr --add codex "bunx @openai/codex"
 
-    abbr --add cf 'cargo fmt'
-    abbr --add cl 'cargo clippy'
-    abbr --add ck 'cargo check'
+    if not command -v opencode >/dev/null 2>&1
+        abbr --add oc "bunx opencode-ai"
+    else
+        abbr --add oc "opencode"
+    end
 
-    abbr --add cb 'cargo build'
-    abbr --add cbr 'cargo build --release'
+    if not command -v gemini >/dev/null 2>&1
+        abbr --add gemini "bunx @google/gemini-cli"
+    end
 
-    abbr --add cr 'cargo run'
-    abbr --add crr 'cargo run --release'
+    if not command -v qwen >/dev/null 2>&1
+        abbr --add qwen "bunx @qwen-code/qwen-code@latest"
+    end
 
-    abbr --add ct 'cargo test'
-    abbr --add ctn 'cargo test -- --nocapture'
+    if not command -v crush >/dev/null 2>&1
+        abbr --add crush "bunx @charmland/crush"
+    end
 
-    abbr --add cdo 'cargo doc --open'
+    if not command -v codex >/dev/null 2>&1
+        abbr --add codex "bunx @openai/codex"
+    end
 
-    abbr --add nrb 'npm run build'
-    abbr --add nrs 'npm run start'
+    if command -v cargo >/dev/null 2>&1
+        fish_add_path --global "$HOME/.cargo/bin"
 
-    fish_add_path --global "$HOME/.cargo/bin"
+        abbr --add cf 'cargo fmt'
+        abbr --add cl 'cargo clippy'
+        abbr --add ck 'cargo check'
+
+        abbr --add cb 'cargo build'
+        abbr --add cbr 'cargo build --release'
+
+        abbr --add cr 'cargo run'
+        abbr --add crr 'cargo run --release'
+
+        abbr --add ct 'cargo test'
+        abbr --add ctn 'cargo test -- --nocapture'
+
+        abbr --add cdo 'cargo doc --open'
+    end
+
+    if command -v npm >/dev/null 2>&1
+        abbr --add nrb 'npm run build'
+        abbr --add nrs 'npm run start'
+    end
 
     {{ if .mac -}}
     source "$HOME/.api_keys.fish"
@@ -107,7 +128,9 @@ if status is-interactive
     abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
     {{ end -}}
 
-    mise activate fish | source
+    if command -v mise >/dev/null 2>&1
+        mise activate fish | source
+    end
 end
 
 function __should_na --on-event fish_prompt
