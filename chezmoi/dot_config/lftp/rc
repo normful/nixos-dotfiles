@@ -48,7 +48,7 @@ set xfer:auto-rename no
 set xfer:verify yes
 set xfer:verify-command ""
 
-set mirror:exclude-regex "\\.git|\\.gitattributes|\\.gitignore|\\.(glb|md|json|DS_Store|env|tmp|temp|log|bak|sh|txt)$"
+set mirror:exclude-regex "\\.git|\\.gitattributes|\\.gitignore|\\.claude|\\.crush|\\.AppleDouble|\\.(glb|md|json|DS_Store|env|tmp|temp|log|bak|sh|txt)$"
 
 set mirror:use-pget-n 5
 set mirror:order name
