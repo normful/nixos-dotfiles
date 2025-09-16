@@ -65,7 +65,11 @@ if status is-interactive
     abbr --add claude "bunx @anthropic-ai/claude-code"
     abbr --add gemini "bunx @google/gemini-cli"
     abbr --add qwen "bunx @qwen-code/qwen-code@latest"
-    abbr --add oc "bunx opencode-ai"
+    if command -v opencode >/dev/null 2>&1
+        abbr --add oc "opencode"
+    else
+        abbr --add oc "bunx opencode-ai"
+    end
     abbr --add crush "bunx @charmland/crush"
     abbr --add codex "bunx @openai/codex"
 
