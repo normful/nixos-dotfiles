@@ -153,7 +153,13 @@ in
 
     enableFileSyncTools = lib.mkOption {
       type = lib.types.bool;
-      description = "File sync and backup tools";
+      description = "File sync tools";
+      default = false;
+    };
+
+    enableBackupTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Backup tools";
       default = false;
     };
 

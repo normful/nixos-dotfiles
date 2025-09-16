@@ -7,12 +7,16 @@
 }:
 let
   optionals = lib.optionals;
+  isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
 in
 {
   config = {
     environment.systemPackages =
       with pkgs-pinned-unstable;
-      (optionals config.my.enableLangTsJs [
+      (optionals config.my.enableAiCodingAgents [
+        opencode
+      ])
+      ++ (optionals config.my.enableLangTsJs [
         nodejs
         bun
         yarn
@@ -33,7 +37,6 @@ in
       ])
       ++ (optionals config.my.enableLangPython [
         uv
-        poetry
       ])
       ++ (optionals config.my.enableLangBash [
         bats
@@ -76,8 +79,12 @@ in
         docker-compose
         lazydocker
       ])
-      ++ (optionals (config.my.enableDocker && pkgs-pinned-unstable.stdenv.isDarwin) [
+      ++ (optionals (config.my.enableDocker && isDarwin) [
         colima
+      ])
+      ++ (optionals config.my.enableLogTools [
+        lnav
+        hl-log-viewer
       ])
       ++ (optionals config.my.enableNetworkingTools [
         dogdns
@@ -91,19 +98,17 @@ in
       ])
       ++ (optionals config.my.enableFileSyncTools [
         rsync
-        rclone
         lftp
+      ])
+      ++ (optionals config.my.enableBackupTools [
         restic
+        rclone
         (callPackage ../packages/better-adb-sync { })
       ])
       ++ (optionals config.my.enablePdfTools [
         ghostscript
         qpdf
         diff-pdf
-      ])
-      ++ (optionals config.my.enableLogTools [
-        lnav
-        hl-log-viewer
       ])
       ++ (optionals config.my.enableJujutsu [
         jujutsu

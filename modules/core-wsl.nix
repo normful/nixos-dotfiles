@@ -12,7 +12,6 @@
   environment.systemPackages = with pkgs-stable; [
     curl
     git
-    sops
-    age
+    opencode
   ];
 }
