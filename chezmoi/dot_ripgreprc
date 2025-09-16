@@ -64,7 +64,7 @@
 
 # Omit lines longer than this limit in bytes.
 # Instead of printing long lines, only the number of matches in that line is printed.
---max-columns=150
+--max-columns=250
 
 # Prints a preview for lines exceeding the configured max column limit.
 --max-columns-preview
