@@ -57,14 +57,14 @@ run = [
 ]
 alias = "check1"
 
-[tasks."gcp:check:nix"]
+[tasks."check:nix"]
 description = "Check syntax of Nix configuration"
 run = "nix flake check --all-systems"
 alias = "check2"
 
 [tasks."gcp:install"]
 description = "Install NixOS on an existing running VM that was provisioned by Pulumi"
-depends = [ "gcp:check:nix" ]
+depends = [ "check:nix" ]
 run = "./gcp/install-nixos.sh"
 alias = [
   "install",

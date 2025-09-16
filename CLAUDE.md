@@ -6,7 +6,7 @@ This repository uses `mise` as a task runner with the following key commands:
 
 **Formatting & Validation:**
 - `mise run format` (or `mise fmt`) - Run Nix autoformatting using `nixfmt-rfc-style`
-- `mise run gcp:check:nix` (or `mise check2`) - Check syntax of Nix configuration
+- `mise run check:nix` (or `mise check2`) - Check syntax of Nix configuration
 - `mise run gcp:check:pulumi` (or `mise check1`) - Check Pulumi infrastructure TypeScript
 - `mise run gcp:test:bash` - Run bashunit tests for the installation script
 
