@@ -64,7 +64,11 @@ if status is-interactive
     {{ if .mac -}}
     abbr --add mm 'sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
     {{ else if .linux -}}
-    abbr --add mm 'sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
+    if command -v nh >/dev/null 2>&1
+        abbr --add mm 'nh os switch $HOME/code/nixos-dotfiles --hostname (hostname -s)'
+    else
+        abbr --add mm 'sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
+    end
     {{ end -}}
 
     if not command -v claude >/dev/null 2>&1
