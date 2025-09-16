@@ -79,6 +79,12 @@ in
       default = false;
     };
 
+    enableLangC = lib.mkOption {
+      type = lib.types.bool;
+      description = "C/C++ development packages";
+      default = false;
+    };
+
     enableLangBash = lib.mkOption {
       type = lib.types.bool;
       description = "Bash development packages";

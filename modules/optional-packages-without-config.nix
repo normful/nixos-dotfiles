@@ -20,6 +20,7 @@ in
         nodejs
         bun
         yarn
+        deno
         nodePackages.prettier
         prettierd
         eslint_d
@@ -38,6 +39,10 @@ in
       ++ (optionals config.my.enableLangPython [
         uv
       ])
+      ++ (optionals config.my.enableLangC [
+        gcc
+        gnumake
+      ])
       ++ (optionals config.my.enableLangBash [
         bats
         shfmt
@@ -51,8 +56,10 @@ in
         stylelint
       ])
       ++ (optionals config.my.enableLangPhp [
+        php
+        php84Packages.composer
+        php84Packages.php-cs-fixer
         php84Extensions.xdebug
-        php83Packages.php-cs-fixer
         intelephense
       ])
       ++ (optionals config.my.enableLangNix [
@@ -91,10 +98,9 @@ in
         dnslookup
         mhost
         tcpdump
-        curl
-        wget2
         xh
         grpcurl
+        wget2
       ])
       ++ (optionals config.my.enableFileSyncTools [
         rsync

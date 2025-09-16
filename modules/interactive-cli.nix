@@ -43,6 +43,10 @@ in
         # https://github.com/eth-p/bat-extras/blob/master/doc/batpipe.md
         bat-extras.batpipe
 
+        wget
+
+        unzip
+
         #################################################################################
         # Shell history
         #################################################################################
