@@ -16,7 +16,11 @@ main() {
         git add -A
     fi
 
-    opencommit --yes
+    if [[ -n "$OCO_API_KEY" ]]; then
+        opencommit --yes
+    else
+        git commit -m "wip"
+    fi
 }
 
 main "$@"
