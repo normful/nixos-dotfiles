@@ -10,6 +10,10 @@ set -U fish_greeting ""
 
 if status is-interactive
     set -g fish_key_bindings fish_vi_key_bindings
+
+    # TODO: Make it work with wezterm
+    # bind alt-f accept-autosuggestion
+
     set --export HISTFILE ~/.config/fish/hh.history
     set --export HSTR_CONFIG hicolor,prompt-bottom
     set --export TELEMETRY_ENABLED false
