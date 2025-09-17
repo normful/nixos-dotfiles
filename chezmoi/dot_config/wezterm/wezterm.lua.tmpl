@@ -47,6 +47,9 @@ config.keys = {
 
   -- Paste
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'V', action = act.PasteFrom('Clipboard') },
+  {{ if .windows -}}
+  { mods = 'CTRL', key = 'V', action = act.PasteFrom('Clipboard') },
+  {{ end -}}
 
   -- Send CTRL+C (for quitting some programs)
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'c', action = act({ SendString = '\x03' }) },
@@ -126,6 +129,31 @@ config.key_tables = {
     -- Exits the resize pane mode
     { key = 'Escape', action = 'PopKeyTable' },
     { key = 'Enter', action = 'PopKeyTable' },
+  },
+}
+
+----------------------------
+-- Mouse bindings
+----------------------------
+
+config.mouse_bindings = {
+  {
+    event = { Down = { streak = 3, button = 'Left' } },
+    action = wezterm.action.SelectTextAtMouseCursor 'SemanticZone',
+    mods = 'NONE',
+  },
+  {
+    event = { Down = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = wezterm.action_callback(function(window, pane)
+      local has_selection = window:get_selection_text_for_pane(pane) ~= ""
+      if has_selection then
+        window:perform_action(act.CopyTo("ClipboardAndPrimarySelection"), pane)
+        window:perform_action(act.ClearSelection, pane)
+      else
+        window:perform_action(act({ PasteFrom = "Clipboard" }), pane)
+      end
+    end),
   },
 }
 
@@ -359,6 +387,10 @@ config.adjust_window_size_when_changing_font_size = false
 ------------------------------
 -- Other
 ------------------------------
+
+{{ if .windows -}}
+config.default_domain = "WSL:NixOS"
+{{ end -}}
 
 config.max_fps = 120
 config.audible_bell = 'Disabled'
