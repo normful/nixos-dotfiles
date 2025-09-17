@@ -61,6 +61,8 @@ if status is-interactive
     abbr --add cma 'chezmoi apply -v'
     abbr --add cmt 'chezmoi chattr +template'
 
+    abbr --add catjis 'iconv -f shift-jis -t utf-8'
+
     {{ if .mac -}}
     abbr --add mm 'sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
     {{ else if .linux -}}
