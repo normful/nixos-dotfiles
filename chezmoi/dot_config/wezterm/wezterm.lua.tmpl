@@ -161,9 +161,8 @@ config.mouse_bindings = {
 -- Appearance: Font
 ------------------------------
 
-config.font_size = 20.0
-
 {{ if .mac -}}
+config.font_size = 20.0
 config.font = wezterm.font_with_fallback({
   { family = 'Inconsolata Nerd Font Mono', weight = 'Regular', italic = false },
   { family = 'Symbols Nerd Font Mono', scale = 1 },
@@ -172,6 +171,7 @@ config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
 {{ end -}}
 
 {{ if .windows -}}
+config.font_size = 17.0
 config.font = wezterm.font_with_fallback({
   { family = 'Cascadia Code', weight = 'Regular', italic = false },
 })
@@ -362,9 +362,8 @@ end)
 config.initial_cols = 200
 config.initial_rows = 70
 
-config.window_decorations = 'RESIZE'
-
 {{ if .mac -}}
+config.window_decorations = 'RESIZE'
 config.window_padding = {
   left = '10px',
   right = '0px',
@@ -374,6 +373,7 @@ config.window_padding = {
 {{ end }}
 
 {{ if .windows -}}
+config.window_decorations = 'RESIZE | TITLE'
 config.window_padding = {
   left = '50px',
   right = '50px',
@@ -392,7 +392,12 @@ config.adjust_window_size_when_changing_font_size = false
 config.default_domain = "WSL:NixOS"
 {{ end -}}
 
+{{ if .windows -}}
+config.max_fps = 40
+{{ else -}}
 config.max_fps = 120
+{{ end -}}
+
 config.audible_bell = 'Disabled'
 config.use_ime = true
 config.enable_kitty_keyboard = true
