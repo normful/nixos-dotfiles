@@ -11,7 +11,9 @@
     autocrlf     = input
     safecrlf     = false
     excludesfile = $HOME/.gitignore_global
+    {{ if not .windows -}}
     pager        = delta
+    {{ end -}}
     ignorecase   = false
 	quotePath = false
 [commit]
@@ -35,6 +37,7 @@
     frag         = "#EE82EE bold"
     old          = "red bold"
     new          = "green bold"
+{{ if not .windows -}}
 [delta]
     features     = decorations line-numbers
     syntax-theme = Monokai Extended Origin
@@ -46,6 +49,7 @@
     hunk-header-decoration-style = none
 [interactive]
     diffFilter = delta --color-only
+{{ end -}}
 [apply]
     whitespace = nowarn
 [branch]
