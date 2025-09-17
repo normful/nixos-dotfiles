@@ -12,7 +12,7 @@ config.disable_default_key_bindings = false
 config.leader = { mods = 'CTRL', key = 'a', timeout_milliseconds = 500 }
 config.keys = {
   -- Reload config
-  { mods = 'CMD', key = 'r', action = act.ReloadConfiguration },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'r', action = act.ReloadConfiguration },
 
   -- Toggle full screen
   { mods = 'CTRL', key = 'F10', action = 'ToggleFullScreen' },
@@ -42,62 +42,66 @@ config.keys = {
   -- Panes: close
   { mods = 'LEADER', key = 'x', action = act.CloseCurrentPane({ confirm = true }) },
 
-  { mods = 'CMD', key = '=', action = act.IncreaseFontSize },
-  { mods = 'CMD', key = '-', action = act.DecreaseFontSize },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '=', action = act.IncreaseFontSize },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '-', action = act.DecreaseFontSize },
 
   -- Paste
-  { mods = 'CMD', key = 'V', action = act.PasteFrom('Clipboard') },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'V', action = act.PasteFrom('Clipboard') },
 
   -- Send CTRL+C (for quitting some programs)
-  { mods = 'CMD', key = 'c', action = act({ SendString = '\x03' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'c', action = act({ SendString = '\x03' }) },
 
   -- Send CTRL+D (for quitting some programs)
-  { mods = 'CMD', key = 'd', action = act({ SendString = '\x04' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'd', action = act({ SendString = '\x04' }) },
 
   -- Send CTRL+O (for vim/nvim jump motions: https://neovim.io/doc/user/motion.html--jump-motions)
-  { mods = 'CMD', key = 'o', action = act({ SendString = '\x0f' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'o', action = act({ SendString = '\x0f' }) },
 
   -- Send CTRL+I (for vim/nvim jump motions: https://neovim.io/doc/user/motion.html--jump-motions)
-  { mods = 'CMD', key = 'i', action = act({ SendString = '\t' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'i', action = act({ SendString = '\t' }) },
 
   -- Send CTRL+N (for selecting next item in vim completion menu)
-  { mods = 'CMD', key = 'n', action = act({ SendString = '\x0e' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'n', action = act({ SendString = '\x0e' }) },
 
   -- Send CTRL+P (for selecting previous item in vim completion menu)
-  { mods = 'CMD', key = 'p', action = act({ SendString = '\x10' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'p', action = act({ SendString = '\x10' }) },
 
   -- Send CTRL+S (for fish pager-toggle-search https://www.youtube.com/watch?v=dnj-Hpg7Qlo&t=20s)
-  { mods = 'CMD', key = '`', action = act({ SendString = '\x13' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '`', action = act({ SendString = '\x13' }) },
 
   -- F-13... were copied from http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 
   -- Send F-13
-  { mods = 'CMD', key = 'd', action = act({ SendString = '\x1b[25~' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'd', action = act({ SendString = '\x1b[25~' }) },
 
   -- Send F-14
-  { mods = 'CMD', key = 'u', action = act({ SendString = '\x1b[26~' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'u', action = act({ SendString = '\x1b[26~' }) },
 
   -- Send F-15
-  { mods = 'CMD', key = 'w', action = act({ SendString = '\x1b[28~' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'w', action = act({ SendString = '\x1b[28~' }) },
 
   -- Send F-16
-  { mods = 'CMD', key = 'b', action = act({ SendString = '\x1b[29~' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'b', action = act({ SendString = '\x1b[29~' }) },
 
   -- Send F-17
-  { mods = 'CMD', key = 'e', action = act({ SendString = '\x1b[31~' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'e', action = act({ SendString = '\x1b[31~' }) },
 
   -- Send F-18
-  { mods = 'CMD', key = 'x', action = act({ SendString = '\x1b[32~' }) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'x', action = act({ SendString = '\x1b[32~' }) },
 
   -----------------------------------------
   -- Keyboard Mappings For Special Features
   -----------------------------------------
 
   -- This is similar to Kitty terminal's "hints" kitten
-  { mods = 'CMD|SHIFT', key = 'h', action = act.QuickSelect },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}|SHIFT', key = 'h', action = act.QuickSelect },
 
   -- TODO(norman): Read https://wezfurlong.org/wezterm/scrollback.html#searching-the-scrollback and customize the search_mode key table
-  { mods = 'CMD|SHIFT', key = 'W', action = wezterm.action.Search({ Regex = '[a-f0-9]{6,}' }) },
+  {
+    mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}|SHIFT',
+    key = 'W',
+    action = wezterm.action.Search({ Regex = '[a-f0-9]{6,}' }),
+  },
 
   -- TODO(norman): Read https://wezfurlong.org/wezterm/copymode.html#configurable-key-assignments
   { mods = 'LEADER', key = '[', action = act.ActivateCopyMode },
