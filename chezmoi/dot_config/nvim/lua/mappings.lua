@@ -63,7 +63,9 @@ map('n', 'U', '<Cmd>echoerr "Use [Right Command + u] to scroll up"<CR>', { desc 
 
 map('n', 'Y', 'yy', { desc = 'Yank whole line' })
 
-map('n', '<Leader>em', '<Cmd>100vsplit ~/code/nixos-dotfiles/mac/cyan/packages.nix<CR>', { desc = 'Edit Nix config' })
+map('n', '<Leader>em', '<Cmd>100vsplit ~/code/nixos-dotfiles/mac/cyan/packages.nix<CR>', { desc = 'Edit cyan Nix config' })
+map('n', '<Leader>ed', '<Cmd>100vsplit ~/code/nixos-dotfiles/wsl/duro/my-config.nix<CR>', { desc = 'Edit duro Nix config' })
+
 map('n', '<Leader>eg', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl<CR>', { desc = 'Edit gitconfig' })
 map(
   'n',
@@ -75,7 +77,12 @@ map(
 map('n', '<Leader>ek', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf<CR>', { desc = 'Edit kitty config' })
 map('n', '<Leader>et', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config<CR>', { desc = 'Edit ghostty config' })
 ]]
-map('n', '<Leader>ef', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl<CR>', { desc = 'Edit fish config' })
+map(
+  'n',
+  '<Leader>ef',
+  '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl<CR>',
+  { desc = 'Edit fish config' }
+)
 
 -- First set of mappings, intended for use with Neovide
 map('n', '<D-d>', '20j', { desc = '[Cmd+d] Scroll down 20 lines' })
