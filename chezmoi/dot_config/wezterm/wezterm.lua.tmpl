@@ -134,11 +134,19 @@ config.key_tables = {
 ------------------------------
 
 config.font_size = 20.0
+{{ if .mac -}}
 config.font = wezterm.font_with_fallback({
   { family = 'Inconsolata Nerd Font Mono', weight = 'Regular', italic = false },
   { family = 'Symbols Nerd Font Mono', scale = 1 },
 })
 config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
+{{ end }}
+
+{{ if .windows }}
+config.font = wezterm.font_with_fallback({
+  { family = 'Cascadia Code', weight = 'Regular', italic = false },
+})
+{{ end }}
 
 -- Visual test text for fonts
 -- oO08 iIlL1 g9qCGQ ~-+=>;_
