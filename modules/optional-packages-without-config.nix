@@ -89,6 +89,9 @@ in
       ++ (optionals (config.my.enableDocker && isDarwin) [
         colima
       ])
+      ++ (optionals config.my.enableSqlTools [
+        sql-studio
+      ])
       ++ (optionals config.my.enableLogTools [
         lnav
         hl-log-viewer

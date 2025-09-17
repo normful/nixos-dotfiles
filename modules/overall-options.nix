@@ -151,6 +151,12 @@ in
       default = false;
     };
 
+    enableSqlTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "SQL tools and clients";
+      default = false;
+    };
+
     enableNetworkingTools = lib.mkOption {
       type = lib.types.bool;
       description = "Networking and DNS tools";
