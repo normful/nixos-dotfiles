@@ -70,7 +70,7 @@ map('n', '<Leader>eg', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_gitconf
 map(
   'n',
   '<Leader>ew',
-  '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua<CR>',
+  '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua.tmpl<CR>',
   { desc = 'Edit wezterm config' }
 )
 --[[
