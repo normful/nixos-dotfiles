@@ -215,11 +215,11 @@ config.color_scheme = active_color_scheme
 
 config.enable_tab_bar = true
 config.show_tabs_in_tab_bar = true
-config.tab_bar_at_bottom = {{- if .windows }}false{{- else }}true{{- end }}
+config.tab_bar_at_bottom = {{ if .windows }}false{{- else }}true{{- end }}
 config.tab_max_width = 50
 
 config.hide_tab_bar_if_only_one_tab = false
-config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = {{ if .windows }}true{{- else }}false{{- end }}
 
 config.colors = {
   tab_bar = {
@@ -358,6 +358,9 @@ end)
 ------------------------------
 -- Appearance: Window
 ------------------------------
+  ---
+config.initial_cols = 200
+config.initial_rows = 70
 
 {{ if .mac -}}
 config.window_decorations = 'RESIZE'
@@ -367,8 +370,6 @@ config.window_padding = {
   top = 0,
   bottom = '10px',
 }
-config.initial_cols = 200
-config.initial_rows = 70
 {{ end }}
 
 {{ if .windows -}}
@@ -379,8 +380,6 @@ config.window_padding = {
   top = 0,
   bottom = 0,
 }
-config.initial_cols = 200
-config.initial_rows = 30
 {{ end -}}
 
 config.adjust_window_size_when_changing_font_size = false
