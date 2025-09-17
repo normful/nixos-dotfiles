@@ -359,9 +359,6 @@ end)
 -- Appearance: Window
 ------------------------------
 
-config.initial_cols = 200
-config.initial_rows = 70
-
 {{ if .mac -}}
 config.window_decorations = 'RESIZE'
 config.window_padding = {
@@ -370,6 +367,8 @@ config.window_padding = {
   top = 0,
   bottom = '10px',
 }
+config.initial_cols = 200
+config.initial_rows = 70
 {{ end }}
 
 {{ if .windows -}}
@@ -380,6 +379,8 @@ config.window_padding = {
   top = 0,
   bottom = 0,
 }
+config.initial_cols = 200
+config.initial_rows = 30
 {{ end -}}
 
 config.adjust_window_size_when_changing_font_size = false
