@@ -5,8 +5,9 @@
 {{/* i.e. config that is only needed on macOS machines */}}
 {{ if not .mac -}}
 .config/ghostty
+.config/kitty
+.config/helix
 .config/karabiner
-.config/wezterm
 .local/bin/convert-all-mp3-to-ogg.sh
 .local/bin/convert-all-wav-to-mp3.sh
 .local/bin/copy-sdcard-to-video-footage-dirs.sh
