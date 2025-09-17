@@ -134,19 +134,20 @@ config.key_tables = {
 ------------------------------
 
 config.font_size = 20.0
+
 {{ if .mac -}}
 config.font = wezterm.font_with_fallback({
   { family = 'Inconsolata Nerd Font Mono', weight = 'Regular', italic = false },
   { family = 'Symbols Nerd Font Mono', scale = 1 },
 })
 config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
-{{ end }}
+{{ end -}}
 
-{{ if .windows }}
+{{ if .windows -}}
 config.font = wezterm.font_with_fallback({
   { family = 'Cascadia Code', weight = 'Regular', italic = false },
 })
-{{ end }}
+{{ end -}}
 
 -- Visual test text for fonts
 -- oO08 iIlL1 g9qCGQ ~-+=>;_
@@ -334,12 +335,24 @@ config.initial_cols = 200
 config.initial_rows = 70
 
 config.window_decorations = 'RESIZE'
+
+{{ if .mac -}}
 config.window_padding = {
   left = '10px',
   right = '0px',
   top = 0,
   bottom = '10px',
 }
+{{ end }}
+
+{{ if .windows -}}
+config.window_padding = {
+  left = '50px',
+  right = '50px',
+  top = 0,
+  bottom = '40px',
+}
+{{ end -}}
 
 config.adjust_window_size_when_changing_font_size = false
 
