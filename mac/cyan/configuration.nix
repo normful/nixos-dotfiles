@@ -8,6 +8,7 @@
   imports = [
     ../../modules/overall-options.nix
     ../../modules/interactive-cli.nix
+    ../../modules/locale.nix
     ../../modules/neovim.nix
     ../../modules/optional-packages-without-config.nix
   ];
