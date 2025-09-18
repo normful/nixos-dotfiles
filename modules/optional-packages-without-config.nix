@@ -89,8 +89,15 @@ in
       ++ (optionals (config.my.enableDocker && isDarwin) [
         colima
       ])
-      ++ (optionals config.my.enableSqlTools [
+      ++ (optionals config.my.enableSqlDbTools [
         sql-studio
+        dbeaver-bin
+      ])
+      ++ (optionals config.my.enableMysqlMariaDbTools [
+        mycli
+      ])
+      ++ (optionals config.my.enablePostgresqlDbTools [
+        pgcli
       ])
       ++ (optionals config.my.enableLogTools [
         lnav

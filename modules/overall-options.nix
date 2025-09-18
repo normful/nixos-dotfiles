@@ -151,9 +151,21 @@ in
       default = false;
     };
 
-    enableSqlTools = lib.mkOption {
+    enableSqlDbTools = lib.mkOption {
       type = lib.types.bool;
-      description = "SQL tools and clients";
+      description = "Multidialect SQL database tools and clients";
+      default = false;
+    };
+
+    enableMysqlMariaDbTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "MySQL and MariaDB database tools";
+      default = false;
+    };
+
+    enablePostgresqlDbTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "PostgreSQL database tools";
       default = false;
     };
 
