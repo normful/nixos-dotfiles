@@ -33,6 +33,8 @@
     my.enableLangErlang = true;
     my.enableLangUml = true;
     my.enableLangTypst = true;
+    my.enableMarkdownCliTools = true;
+    my.enableMarkdownGuiTools = true;
 
     my.enableDocker = true;
     my.enableSqlDbTools = true;

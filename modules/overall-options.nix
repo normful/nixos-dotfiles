@@ -145,6 +145,18 @@ in
       default = false;
     };
 
+    enableMarkdownCliTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Markdown CLI tools and processors";
+      default = false;
+    };
+
+    enableMarkdownGuiTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Markdown GUI editors and viewers";
+      default = false;
+    };
+
     enableDocker = lib.mkOption {
       type = lib.types.bool;
       description = "Docker and container tools";
