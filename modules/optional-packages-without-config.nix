@@ -8,6 +8,7 @@
 let
   optionals = lib.optionals;
   isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
+  isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
 in
 {
   config = {
@@ -90,15 +91,17 @@ in
         mermaid-cli
         gtree
         mdq
-        percollate
         codebraid
       ])
       ++ (optionals config.my.enableMarkdownGuiTools [
+        folio
+      ])
+      ++ (optionals (config.my.enableMarkdownGuiTools && isX86_64Linux) [
+        percollate
         typora
         apostrophe
         zettlr
         notable
-        folio
       ])
       ++ (optionals config.my.enableDocker [
         docker
