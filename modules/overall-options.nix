@@ -133,9 +133,9 @@ in
       default = false;
     };
 
-    enableLangUml = lib.mkOption {
+    enableDiagramTools = lib.mkOption {
       type = lib.types.bool;
-      description = "UML development packages";
+      description = "Diagrams and UML packages";
       default = false;
     };
 

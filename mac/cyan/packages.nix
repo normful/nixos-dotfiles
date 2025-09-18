@@ -117,9 +117,6 @@ in
   # https://github.com/sharkdp/pastel#use-cases-and-demo
   pastel
 
-  # https://graphviz.org
-  graphviz
-
   # https://github.com/julienXX/terminal-notifier
   terminal-notifier
 
