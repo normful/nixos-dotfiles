@@ -81,6 +81,25 @@ in
         tinymist
         typstwriter
       ])
+      ++ (optionals config.my.enableMarkdownCliTools [
+        glow
+        mdcat
+        doctoc
+        mdp
+        panvimdoc
+        mermaid-cli
+        gtree
+        mdq
+        percollate
+        codebraid
+      ])
+      ++ (optionals config.my.enableMarkdownGuiTools [
+        typora
+        apostrophe
+        zettlr
+        notable
+        folio
+      ])
       ++ (optionals config.my.enableDocker [
         docker
         docker-compose
