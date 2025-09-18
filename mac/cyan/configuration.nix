@@ -31,7 +31,6 @@
     my.enableLangNix = true;
     my.enableLangGleam = true;
     my.enableLangErlang = true;
-    my.enableLangUml = true;
     my.enableLangTypst = true;
     my.enableMarkdownCliTools = true;
     my.enableMarkdownGuiTools = true;
@@ -46,6 +45,7 @@
     my.enableJujutsu = true;
     my.enableJsonTools = true;
     my.enableGitTools = true;
+    my.enableDiagramTools = true;
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
     my.enableScreenSharingTools = true;

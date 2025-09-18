@@ -74,8 +74,9 @@ in
         beam.packages.erlang_28.erlang
         beam.packages.erlang_28.rebar3
       ])
-      ++ (optionals config.my.enableLangUml [
+      ++ (optionals config.my.enableDiagramTools [
         plantuml
+        graphviz
       ])
       ++ (optionals config.my.enableLangTypst [
         typst
