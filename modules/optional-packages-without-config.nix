@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs-stable,
   pkgs-pinned-unstable,
   ...
 }:
@@ -16,6 +15,14 @@ in
       with pkgs-pinned-unstable;
       (optionals config.my.enableAiCodingAgents [
         opencode
+      ])
+      ++ (optionals config.my.enableMultiLangTools [
+        just
+        cloc
+        cmake
+        just
+        modd
+        efm-langserver
       ])
       ++ (optionals config.my.enableLangTsJs [
         nodejs

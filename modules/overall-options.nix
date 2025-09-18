@@ -55,6 +55,12 @@ in
       default = false;
     };
 
+    enableMultiLangTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Tools for multiple languages";
+      default = false;
+    };
+
     enableLangTsJs = lib.mkOption {
       type = lib.types.bool;
       description = "TypeScript/JavaScript packages";

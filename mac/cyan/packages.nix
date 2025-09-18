@@ -29,21 +29,6 @@ in
   # Tools for multiple languages
   #################################################################################
 
-  # https://just.systems/man/en/
-  just
-
-  # https://cmake.org/cmake/help/latest/
-  cmake
-
-  # https://docs.ctags.io/en/latest/
-  universal-ctags
-
-  # https://github.com/mattn/efm-langserver
-  efm-langserver
-
-  # https://github.com/cortesi/modd
-  modd
-
   # https://espanso.org/docs/get-started/
   # https://espanso.org/docs/packages/basics/
   # https://hub.espanso.org/search
