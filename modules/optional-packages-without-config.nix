@@ -47,6 +47,7 @@ in
       ++ (optionals config.my.enableLangBash [
         bats
         shfmt
+        parallel
       ])
       ++ (optionals config.my.enableLangRuby [
         ruby
