@@ -35,7 +35,8 @@
     my.enableLangTypst = true;
 
     my.enableDocker = true;
-    my.enableSqlTools = true;
+    my.enableSqlDbTools = true;
+    my.enableMysqlMariaDbTools = true;
     my.enableNetworkingTools = true;
     my.enableFileSyncTools = true;
     my.enablePdfTools = true;
