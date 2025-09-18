@@ -20,7 +20,8 @@ main() {
         # Check if there are many changes
         change_count=$(git diff --cached --numstat | wc -l)
         if [[ $change_count -gt 20 ]]; then
-            git commit -m "no auto-generated commit message (large commit)"
+            git reset HEAD
+            git ce
         else
             opencommit --yes
         fi
