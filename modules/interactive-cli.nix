@@ -67,8 +67,14 @@ in
         # Viewing files and directories
         #################################################################################
 
+        # https://github.com/Old-Man-Programmer/tree
+        tree
+
         # https://github.com/eza-community/eza
         eza
+
+        # https://yazi-rs.github.io/docs/quick-start
+        yazi
 
         # https://dystroy.org/broot/
         broot
@@ -78,9 +84,6 @@ in
 
         # https://github.com/Byron/dua-cli/
         dua
-
-        # https://yazi-rs.github.io/docs/quick-start
-        yazi
 
         #################################################################################
         # Navigating directories
