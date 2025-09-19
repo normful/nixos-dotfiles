@@ -82,8 +82,6 @@ local function configure_lspconfig()
     -- Spelling and grammar checker
     harper_ls = {
       filetypes = {
-        'gitcommit',
-        'markdown',
         'neorg',
       },
       settings = {
