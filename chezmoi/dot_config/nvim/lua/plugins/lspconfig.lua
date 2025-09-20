@@ -2,6 +2,7 @@ local function configure_lspconfig()
   require('mason').setup()
 
   require('mason-lspconfig').setup({
+    -- Visit https://mason-registry.dev/registry/list to see all installable by Mason
     ensure_installed = { 'rust_analyzer' },
     automatic_enable = false,
   })
@@ -70,7 +71,34 @@ local function configure_lspconfig()
     gleam = {},
 
     -- PHP
-    intelephense = {},
+    intelephense = {
+      settings = {
+        intelephense = {
+          -- See https://github.com/bmewburn/vscode-intelephense/wiki/Installation#configuration-options
+          files = {
+            associations = {
+              '*.php',
+              '*.phtml',
+              '*.html',
+            },
+          },
+          environment = {
+            includePaths = {
+              'vendor',
+              -- 'stubs/stubs.php',
+            },
+            phpVersion = '7.4.33',
+          },
+          codeLens = {
+            references = { enable = true },
+            implementations = { enable = true },
+            usages = { enable = true },
+            overrides = { enable = true },
+            parent = { enable = true },
+          },
+        },
+      },
+    },
     -- Purposely not using: psalm, phpactor
 
     -- Python
@@ -112,7 +140,11 @@ return {
     { 'hrsh7th/cmp-nvim-lsp' },
   },
   init = function()
+    -- Note to self!
+    -- Toggle this boolean below manually when you want to see
+    -- more verbose logging temporarily in :LspLog
     local enable_lsp_log = false
+
     vim.lsp.set_log_level(enable_lsp_log and 'debug' or 'off')
   end,
   config = configure_lspconfig,
