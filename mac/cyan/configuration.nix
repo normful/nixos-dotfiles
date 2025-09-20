@@ -35,6 +35,7 @@
     my.enableLangTypst = true;
     my.enableMarkdownCliTools = true;
     my.enableMarkdownGuiTools = true;
+    my.enableConfigLangsTools = true;
 
     my.enableDocker = true;
     my.enableSqlDbTools = true;
@@ -44,7 +45,6 @@
     my.enablePdfTools = true;
     my.enableLogTools = true;
     my.enableJujutsu = true;
-    my.enableJsonTools = true;
     my.enableGitTools = true;
     my.enableDiagramTools = true;
     my.enableAudioVideoTools = true;

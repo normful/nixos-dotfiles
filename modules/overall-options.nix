@@ -163,6 +163,12 @@ in
       default = false;
     };
 
+    enableConfigLangsTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "JSON, YAML, TOML, XML, CSV tools";
+      default = false;
+    };
+
     enableDocker = lib.mkOption {
       type = lib.types.bool;
       description = "Docker and container tools";
@@ -220,12 +226,6 @@ in
     enableJujutsu = lib.mkOption {
       type = lib.types.bool;
       description = "Jujutsu VCS tools";
-      default = false;
-    };
-
-    enableJsonTools = lib.mkOption {
-      type = lib.types.bool;
-      description = "JSON processing tools";
       default = false;
     };
 
