@@ -113,6 +113,19 @@ in
         zettlr
         notable
       ])
+      ++ (optionals config.my.enableConfigLangsTools [
+        otree
+        jless
+
+        jq
+        yq-go
+        go-toml
+        dasel
+        taplo
+
+        fastgron
+        jsonschema-cli
+      ])
       ++ (optionals config.my.enableDocker [
         docker
         docker-compose
@@ -161,12 +174,6 @@ in
       ++ (optionals config.my.enableJujutsu [
         jujutsu
         lazyjj
-      ])
-      ++ (optionals config.my.enableJsonTools [
-        jq
-        jless
-        fastgron
-        jsonschema-cli
       ])
       ++ (optionals config.my.enableGitTools [
         git

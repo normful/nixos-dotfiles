@@ -17,7 +17,7 @@
   my.enableNetworkingTools = true;
   my.enableFileSyncTools = true;
   my.enableLogTools = true;
-  my.enableJsonTools = true;
+  my.enableConfigLangsTools = true;
   my.enableGitTools = true;
 
   system.stateVersion = "25.05"; # Don't change this after initial installation
