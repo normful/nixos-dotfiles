@@ -80,6 +80,7 @@ local function configure_lspconfig()
               '*.php',
               '*.phtml',
               '*.html',
+              '*.inc',
             },
           },
           environment = {

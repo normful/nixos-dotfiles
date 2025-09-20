@@ -84,4 +84,13 @@ nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   once = true,
   desc = 'Override filetype for html to php',
 })
+
+nvim_create_augroup('override_inc_ft_augroup', { clear = true })
+nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.inc',
+  group = 'override_inc_ft_augroup',
+  command = [[set filetype=php]],
+  once = true,
+  desc = 'Override filetype for inc to php',
+})
 {{ end -}}
