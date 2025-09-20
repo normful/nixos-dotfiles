@@ -1,0 +1,3 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- .chezmoi.stdin | replaceAllRegex "trace_lsp_communication: false" "trace_lsp_communication: true" -}}
+{{- /* vim: set ft=none: */ -}}
