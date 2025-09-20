@@ -26,6 +26,14 @@ M.on_attach = function(client, bufnr)
   map('n', '<Leader>di', require('telescope.builtin').diagnostics, opts('List diagnostics in buffer'))
   map('n', '<Leader>re', require('nvchad.lsp.renamer'), opts('Rename'))
   map({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts('Code action'))
+  map('n', '<Leader>cl', vim.lsp.codelens.run, opts('Run codelens'))
+
+  -- Workspace management
+  map('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, opts('Add workspace folder'))
+  map('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, opts('Remove workspace folder'))
+  map('n', '<Leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts('List workspace folders'))
 
   -- Additional lines in previous on_attach.
   -- TODO(norman): Decide whether these are still needed
