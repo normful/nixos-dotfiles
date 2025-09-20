@@ -9,6 +9,7 @@ if status is-interactive
     set --export HISTFILE ~/.config/fish/hh.history
     set --export HSTR_CONFIG hicolor,prompt-bottom
     set --export TELEMETRY_ENABLED false
+    set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
 
     abbr --add c clear
     abbr --add q exit
