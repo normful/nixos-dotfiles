@@ -34,3 +34,6 @@ sourceDir = {{ $customSourceDir | quote }}
   gitName = {{ $gitName | quote }}
   gitEmail = {{ $gitEmail | quote }}
   customSourceDir = {{ $customSourceDir | quote }}
+
+[keepassxc]
+  database = "{{ .chezmoi.destDir }}/keeshare/chezmoi.kdbx"
