@@ -96,6 +96,10 @@ return {
         return false
       end
 
+      if string.find(vim.bo.filetype, 'chezmoitmpl') then
+        return true
+      end
+
       if string.sub(file_name, -7) == '.min.js' then
         vim.schedule(function()
           vim.notify('Treesitter disabled for minified JS file', vim.log.levels.WARN, { title = 'Treesitter Performance' })
