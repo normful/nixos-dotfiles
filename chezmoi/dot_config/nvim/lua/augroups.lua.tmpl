@@ -1,3 +1,5 @@
+-- vim: ft=lua
+
 local nvim_create_augroup = vim.api.nvim_create_augroup
 local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
@@ -74,3 +76,14 @@ nvim_create_autocmd('FileType', {
   once = true,
   desc = 'Run this TS file with ts-node',
 })
+
+{{ if eq .chezmoi.hostname "cyan" -}}
+nvim_create_augroup('override_html_ft_augroup', { clear = true })
+nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.html',
+  group = 'override_html_ft_augroup',
+  command = [[set filetype=php]],
+  once = true,
+  desc = 'Override filetype for html to php',
+})
+{{ end -}}
