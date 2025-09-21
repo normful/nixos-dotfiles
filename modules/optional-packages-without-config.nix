@@ -171,6 +171,9 @@ in
         qpdf
         diff-pdf
       ])
+      ++ (optionals config.my.enableWindowsTools [
+        dos2unix
+      ])
       ++ (optionals config.my.enableJujutsu [
         jujutsu
         lazyjj

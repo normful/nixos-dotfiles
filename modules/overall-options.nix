@@ -217,6 +217,12 @@ in
       default = false;
     };
 
+    enableWindowsTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Windows compatibility tools";
+      default = false;
+    };
+
     enableLogTools = lib.mkOption {
       type = lib.types.bool;
       description = "Log viewing and analysis tools";

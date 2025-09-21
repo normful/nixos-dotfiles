@@ -43,6 +43,7 @@
     my.enableNetworkingTools = true;
     my.enableFileSyncTools = true;
     my.enablePdfTools = true;
+    my.enableWindowsTools = true;
     my.enableLogTools = true;
     my.enableJujutsu = true;
     my.enableGitTools = true;
