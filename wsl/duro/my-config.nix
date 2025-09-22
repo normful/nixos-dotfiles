@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs-pinned-unstable, ... }:
 {
   my.user.name = "norman";
   my.hostname = "duro";
@@ -19,6 +19,10 @@
   my.enableLogTools = true;
   my.enableConfigLangsTools = true;
   my.enableGitTools = true;
+
+  environment.systemPackages = [
+    pkgs-pinned-unstable.mariadb_118
+  ];
 
   system.stateVersion = "25.05"; # Don't change this after initial installation
 }
