@@ -127,10 +127,12 @@ in
         jsonschema-cli
       ])
       ++ (optionals config.my.enableDocker [
-        colima
         docker
         docker-compose
         lazydocker
+      ])
+      ++ (optionals (config.my.enableDocker && isDarwin) [
+        colima
       ])
       ++ (optionals config.my.enableSqlDbTools [
         sql-studio
