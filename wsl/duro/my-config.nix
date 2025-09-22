@@ -19,6 +19,7 @@
   my.enableLogTools = true;
   my.enableConfigLangsTools = true;
   my.enableGitTools = true;
+  my.enableSqlDbTools = true;
 
   environment.systemPackages = [
     pkgs-pinned-unstable.mariadb_118
