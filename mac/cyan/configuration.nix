@@ -155,8 +155,6 @@
             "/Applications/Ghostty.app"
             "/Applications/Vivaldi.app"
             "/Applications/Notion.app"
-            "/Applications/Claude.app"
-            "/Applications/ChatGPT.app"
             "/Applications/Jan.app"
             "/Applications/superwhisper.app"
             "/Applications/KeePassXC.app"
