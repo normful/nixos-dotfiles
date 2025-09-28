@@ -1,0 +1,25 @@
+{
+  "title": "Vivaldi New Tab with Focus",
+  "rules": [
+    {
+      "description": "Focus Vivaldi and Open New Tab (Cmd+N)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": ["left_command"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "#!/bin/bash\n\n# Focus or launch Vivaldi\nosascript -e 'tell application \"Vivaldi\" to activate'\n\n# Wait briefly for activation (adjust if needed)\nsleep 0.3\n\n# Open new tab\nosascript -e 'tell application \"Vivaldi\"\nif (count of windows) = 0 then make new window\nmake new tab at end of tabs of front window\nend tell'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
