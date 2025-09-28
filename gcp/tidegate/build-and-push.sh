@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Ensure we return to original directory on exit
+trap 'popd' EXIT
+
 IMAGE_NAME="tidegate"
 TAG="1.2.1"
 PULUMI_STACK="$(pulumi stack --show-name 2>/dev/null)"
@@ -42,6 +45,8 @@ GCP_AR_REPO_REGION="${GCP_AR_REPO_REGION:-$(get_region)}"
 # ============================================================================
 
 main() {
+  pushd "$(dirname "$0")"
+
   echo "Running golangci-lint..."
   golangci-lint run --timeout=5m
 
@@ -62,7 +67,7 @@ main() {
   echo "Pushing image to $full_image_name..."
   docker push "$full_image_name"
 
-  echo "Successfully built and pushed $full_image_name"
+   echo "Successfully built and pushed $full_image_name"
 }
 
 main "$@"

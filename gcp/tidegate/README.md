@@ -1,6 +1,6 @@
 # Tidegate
 
-A Go utility for managing Google Cloud Platform resources.
+Like a tide that comes and goes tidegate manages GCP NAT gateways that come and go.
 
 ## Environment Variables
 
