@@ -4,12 +4,17 @@ config:
   gcp:project: GCP_PROJECT_ID_PLACEHOLDER
   gcp:zone: asia-northeast2-a
   nixos-gce:region: asia-northeast2
-  nixos-gce:bigMachineType: n2d-highmem-8
-  nixos-gce:smallMachineType: n2d-highcpu-2
+  # Example command to find machine types in a specific zone
+  # gcloud compute machine-types list --zones asia-northeast2-c
+  #
+  # Compare prices at https://gcpinstances.doit.com/
+  nixos-gce:bigMachineType: n4-highcpu-32
+  nixos-gce:smallMachineType: n4-standard-4
   nixos-gce:imageProject: ubuntu-os-cloud
   # To find other alternatives for imageFamily, run:
   # gcloud compute images list --project=ubuntu-os-cloud --filter="family~ubuntu-minimal AND architecture=X86_64" --format="value(family)" | sort | uniq
   nixos-gce:imageFamily: ubuntu-minimal-2504-amd64
   nixos-gce:bootDiskSizeGB: "30"
+  # https://cloud.google.com/compute/docs/disks/hyperdisks lists which machine series supports hyperdisk-balanced
   nixos-gce:bootDiskType: hyperdisk-balanced
   nixos-gce:alertEmail: your-email@example.com

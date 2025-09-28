@@ -60,7 +60,7 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     ```
     These are normal. To resolve them, wait a bit and `mise run up1` a second or third time until everything is created.
 1. `./gcp/tidegate/build-and-push.sh` to build and push the tidegate Docker image.
-1. `mise run logkey` to add an API key into [`secrets/gcp_<hostname>.yaml`](./secrets/) with `sops`
+1. `mise run up2` to do the second initial launch that includes the VM instance.
 1. `mise run i` install NixOS on the new VM
     1. You will be prompted to paste in your `age` private key. It will be copied to the new VM
         ```sh
@@ -74,4 +74,4 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
         Enter passphrase for "/tmp/tmp.V0q68MsW8t/nixos-anywhere":
         ```
         You can ignore the `Warning: Identity file /tmp/tmp.V0q68MsW8t/nixos-anywhere not accessible: No such file or directory.`
-1. At this point, the system has been installed initially, but is running a fairly beefy instance. Do `mise run up2` to downsize the VM. Later, if you want to run a bigger instance again, you can run `mise run up1` also.
+1. At this point, the system has been installed initially, but is running a fairly beefy instance. Do `mise run up` to downsize the VM. Later, if you want to run a bigger instance again, you can run `mise run up2` also.

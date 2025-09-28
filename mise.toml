@@ -32,18 +32,24 @@ run = "bun tsc --noEmit"
 alias = "check1"
 
 [tasks."gcp:first-up"]
-description = "Initially launch a bigger GCE VM instance for doing the initial NixOS install with lots of RAM (most important) and CPU"
+description = "Create various GCP resources first, except the ones that depend on these initial GCP resources"
 depends = [ "gcp:check:pulumi" ]
-env.USE_BIGGER_INSTANCE=1
 env.INITIAL_PULUMI_PARTIAL_SETUP=1
 run = "pulumi up --yes --skip-preview"
 alias = "up1"
 
-[tasks."gcp:up"]
-description = "Create/update the GCP resources"
+[tasks."gcp:second-up"]
+description = "Launch a bigger GCE VM instance for doing the initial NixOS install with lots of RAM (most important) and CPU"
 depends = [ "gcp:check:pulumi" ]
+env.USE_BIGGER_INSTANCE=1
 run = "pulumi up --yes --skip-preview"
 alias = "up2"
+
+[tasks."gcp:up"]
+description = "Create/update all GCP resources"
+depends = [ "gcp:check:pulumi" ]
+run = "pulumi up --yes --skip-preview"
+alias = "up3"
 
 [tasks."gcp:edit-secrets"]
 description = "Edit sops secrets for GCP VM"

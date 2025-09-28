@@ -17,8 +17,9 @@ This repository uses `mise` as a task runner with the following key commands:
 **GCP Infrastructure & Deployment:**
 
 - `mise run gcp:new` (or `mise new`) - Create new Pulumi stack for new VM
-- `mise run gcp:first-up` (or `mise up1`) - Initial launch with larger instance for NixOS install
-- `mise run gcp:up` (or `mise up2`) - Create/update GCP resources with regular instance size
+- `mise run gcp:first-up` (or `mise up1`) - Initial setup of some GCP resources
+- `mise run gcp:second-up` (or `mise up2`) - Second setup with additional large instance for NixOS install
+- `mise run gcp:up` (or `mise up3`) - Create/update all GCP resources with regular instance size
 - `mise run gcp:install` (or `mise i`) - Install NixOS on provisioned VM using nixos-anywhere
 - `mise run gcp:down` - Delete GCP resources (except protected ones)
 - `mise run gcp:info` - Show Pulumi stack outputs (instance details, SSH commands)
