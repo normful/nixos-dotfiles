@@ -4,7 +4,7 @@ config:
   gcp:project: dev-vm-provisioning
   gcp:zone: asia-northeast2-a
   nixos-gce:region: asia-northeast2
-  nixos-gce:bigMachineType: t2d-standard-32
+  nixos-gce:bigMachineType: n2d-highcpu-32
   nixos-gce:smallMachineType: n2d-highcpu-16
   nixos-gce:imageProject: ubuntu-os-cloud
   # To find other alternatives for imageFamily, run:
