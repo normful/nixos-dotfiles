@@ -10,6 +10,6 @@ config:
   # To find other alternatives for imageFamily, run:
   # gcloud compute images list --project=ubuntu-os-cloud --filter="family~ubuntu-minimal AND architecture=X86_64" --format="value(family)" | sort | uniq
   nixos-gce:imageFamily: ubuntu-minimal-2504-amd64
-  nixos-gce:bootDiskSizeGB: "60"
+  nixos-gce:bootDiskSizeGB: "30"
   nixos-gce:bootDiskType: hyperdisk-balanced
   nixos-gce:alertEmail: normful@gmail.com
