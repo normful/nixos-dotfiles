@@ -45,6 +45,13 @@ env.USE_BIGGER_INSTANCE=1
 run = "pulumi up --yes --skip-preview"
 alias = "up2"
 
+[tasks."gcp:nat-create"]
+description = "Manually trigger the NAT IP manager create job"
+run = """
+#!/usr/bin/env bash
+gcloud scheduler jobs run $(pulumi stack --show-name)-nat-ip-manager-scheduler-create --location=$(pulumi config get nixos-gce:region)
+"""
+
 [tasks."gcp:up"]
 description = "Create/update all GCP resources"
 depends = [ "gcp:check:pulumi" ]

@@ -67,8 +67,8 @@
     {
       nixosConfigurations = {
         # NixOS on Google Cloud Platform virtual machines
-        coral = createGcpConfig "coral" "configuration.nix";
-        coral-first-install = createGcpConfig "coral" "first-install-configuration.nix";
+        jute = createGcpConfig "jute" "configuration.nix";
+        jute-first-install = createGcpConfig "jute" "first-install-configuration.nix";
 
         # NixOS on Windows, in Windows Subsystem for Linux
         duro = nixosSystem2505 rec {

@@ -176,5 +176,5 @@ export const natIpManagerSchedulerCreate = createNatIpManagerScheduler(
 );
 export const natIpManagerSchedulerDelete = createNatIpManagerScheduler(
   "DELETE",
-  23,
+  2,
 );
