@@ -1,18 +1,14 @@
 import * as gcp from "@pulumi/gcp";
 import * as pulumi from "@pulumi/pulumi";
 import {
+  bigMachineType,
   bootDiskSizeGB,
   bootDiskType,
-  enableInstanceScheduling,
-  enableWeeklySnapshots,
-  firstMachineType,
   imageFamily,
   imageProject,
-  machineType as machineTypeFromConfig,
   projectId,
   region,
-  serviceAccountScopes,
-  snapshotRetentionDays,
+  smallMachineType,
   sshPublicKey,
   stack,
   zone,
@@ -22,54 +18,33 @@ import { network, subnetwork } from "./network";
 import { vmTag } from "./firewall";
 import { gcpProvider } from "./provider";
 
-export const snapshotPolicy = enableWeeklySnapshots
-  ? new gcp.compute.ResourcePolicy(
-      `${stack}-weekly-boot-disk-snapshot`,
-      {
-        region: region,
-        snapshotSchedulePolicy: {
-          schedule: {
-            weeklySchedule: {
-              dayOfWeeks: [
-                {
-                  day: "SATURDAY",
-                  startTime: "19:00", // UTC
-                },
-              ],
-            },
-          },
-          retentionPolicy: {
-            maxRetentionDays: snapshotRetentionDays,
-          },
-        },
+export const autoStartStopPolicy = new gcp.compute.ResourcePolicy(
+  `${stack}-daily-start-stop-policy`,
+  {
+    region: region,
+    description: "Run instance daily 9-20 JST",
+    instanceSchedulePolicy: {
+      vmStartSchedule: {
+        schedule: "0 9 * * *",
       },
-      { protect: true, provider: gcpProvider },
-    )
-  : undefined;
-
-// https://www.pulumi.com/registry/packages/gcp/api-docs/compute/resourcepolicy/#resource-policy-instance-schedule-policy
-export const autoStartStopPolicy = enableInstanceScheduling
-  ? new gcp.compute.ResourcePolicy(`${stack}-daily-start-stop-instance`, {
-      region: region,
-      description: "Run instance daily 9-20 JST",
-      instanceSchedulePolicy: {
-        vmStartSchedule: {
-          schedule: "0 9 * * *",
-        },
-        vmStopSchedule: {
-          schedule: "0 20 * * *",
-        },
-        timeZone: "Asia/Tokyo",
+      vmStopSchedule: {
+        schedule: "0 20 * * *",
       },
-    }, { provider: gcpProvider })
-  : undefined;
+      timeZone: "Asia/Tokyo",
+    },
+  },
+  { provider: gcpProvider },
+);
 
 // e.g. a free Ubuntu image, only for initial use
-const recentNonNixosLinuxImage = gcp.compute.getImage({
-  project: imageProject,
-  family: imageFamily,
-  mostRecent: true,
-}, { provider: gcpProvider });
+const recentNonNixosLinuxImage = gcp.compute.getImage(
+  {
+    project: imageProject,
+    family: imageFamily,
+    mostRecent: true,
+  },
+  { provider: gcpProvider },
+);
 
 export const bootDisk = new gcp.compute.Disk(
   `${stack}-boot-disk`,
@@ -78,7 +53,6 @@ export const bootDisk = new gcp.compute.Disk(
     size: bootDiskSizeGB,
     type: bootDiskType,
     zone: zone,
-    resourcePolicies: snapshotPolicy ? [snapshotPolicy.selfLink] : undefined,
     labels: commonLabels,
   },
   { protect: true, provider: gcpProvider },
@@ -87,48 +61,49 @@ export const bootDisk = new gcp.compute.Disk(
 // Choose machine type based on whether this is the first NixOS install
 // Use more powerful instance for initial builds which are resource-intensive
 const selectedMachineType = process.env.USE_BIGGER_INSTANCE
-  ? firstMachineType
-  : machineTypeFromConfig;
+  ? bigMachineType
+  : smallMachineType;
 
-export const instance = new gcp.compute.Instance(stack, {
-  machineType: selectedMachineType,
-  bootDisk: {
-    source: bootDisk.selfLink,
-    autoDelete: false,
+export const instance = new gcp.compute.Instance(
+  stack,
+  {
+    machineType: selectedMachineType,
+    bootDisk: {
+      source: bootDisk.selfLink,
+      autoDelete: false,
+    },
+    networkInterfaces: [{ network: network.id, subnetwork: subnetwork.id }],
+    tags: [vmTag],
+    metadata: {
+      "ssh-keys": `root:${sshPublicKey}`,
+    },
+    serviceAccount: {
+      scopes: [
+        "https://www.googleapis.com/auth/compute",
+        "https://www.googleapis.com/auth/logging.write",
+        "https://www.googleapis.com/auth/monitoring.write",
+      ],
+    },
+    allowStoppingForUpdate: true,
+    deletionProtection: false,
+    scheduling: {
+      preemptible: true,
+      automaticRestart: false,
+    },
+    shieldedInstanceConfig: {
+      enableIntegrityMonitoring: true,
+      enableVtpm: true,
+      enableSecureBoot: false,
+    },
+    enableDisplay: true,
+    resourcePolicies: autoStartStopPolicy?.selfLink,
+    labels: commonLabels,
   },
-  networkInterfaces: [{ network: network.id, subnetwork: subnetwork.id }],
-  tags: [vmTag],
-  metadata: {
-    "ssh-keys": `root:${sshPublicKey}`,
-  },
-  serviceAccount: {
-    scopes: serviceAccountScopes,
-  },
-  allowStoppingForUpdate: true,
-  deletionProtection: false,
-  scheduling: {
-    preemptible: true,
-    automaticRestart: false,
-  },
-  shieldedInstanceConfig: {
-    enableIntegrityMonitoring: true,
-    enableVtpm: true,
-    enableSecureBoot: false,
-  },
-  enableDisplay: true,
-  resourcePolicies: autoStartStopPolicy?.selfLink,
-  labels: commonLabels,
-}, { provider: gcpProvider });
+  { provider: gcpProvider },
+);
 
 export const instanceName = instance.name;
-export const instanceId = instance.instanceId;
-export const bootDiskName = bootDisk.name;
-export const machineType = instance.machineType;
-export const vmInternalIp = instance.networkInterfaces.apply(
-  (ni) => ni[0].networkIp,
-);
 export const deployedZone = instance.zone;
-export const deployedRegion = subnetwork.region;
 
 export const sshRootCommand = pulumi.interpolate`CLOUDSDK_PYTHON_SITEPACKAGES=1 gcloud compute ssh root@${instanceName} --zone=${deployedZone} --tunnel-through-iap (use before first NixOS install)`;
 export const sshUserCommand = pulumi.interpolate`CLOUDSDK_PYTHON_SITEPACKAGES=1 gcloud compute ssh ${process.env.USER}@${instanceName} --zone=${deployedZone} --tunnel-through-iap --strict-host-key-checking=no (use after first NixOS install)`;

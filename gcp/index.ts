@@ -1,35 +1,15 @@
-import { projectId } from "./config";
-import "./provider";
-
 import "./network";
-import "./firewall";
+import "./artifact-registry";
+import "./nat-ip-manager-scheduler";
 import "./compute";
-import "./iam";
-import "./monitoring";
+import "./firewall";
+import "./iap-iam";
+import "./login-alerts";
+import "./instance-start-stop-alerts";
 
-export { projectId };
-export { gcpProvider } from "./provider";
+export { projectId } from "./config";
+export { deployedZone, instanceName } from "./compute";
 export {
-  networkName,
-  subnetworkName,
-  publicNatGatewayName,
-  publicNatGatewayIpAddress,
-} from "./network";
-export {
-  instanceName,
-  instanceId,
-  bootDiskName,
-  machineType,
-  vmInternalIp,
-  deployedZone,
-  deployedRegion,
-  sshRootCommand,
-  sshUserCommand,
-  consoleUrl,
-} from "./compute";
-export {
-  loginMetricName,
-  sshConnectionMetricName,
-  emailNotificationChannelName,
-  loginAlertPolicyName,
-} from "./monitoring";
+  artifactRegistryRepositoryUrl,
+  artifactRegistryServiceAccountKeyValue,
+} from "./artifact-registry";

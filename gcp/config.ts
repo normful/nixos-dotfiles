@@ -51,11 +51,11 @@ export const zone = gcpConfig.require("zone", {
   pattern: /^[a-z]+-[a-z]+[0-9]-[a-z]$/,
 });
 
-export const machineType = config.require("machineType", {
+export const smallMachineType = config.require("smallMachineType", {
   pattern: /^[a-z][a-z0-9-]*$/,
 });
 
-export const firstMachineType = config.require("firstMachineType", {
+export const bigMachineType = config.require("bigMachineType", {
   pattern: /^[a-z][a-z0-9-]*$/,
 });
 
@@ -77,34 +77,11 @@ export const bootDiskSizeGB = getValidatedBootDiskSizeGB();
 export const sshPublicKey = getSshPublicKey();
 export const projectId = gcpConfig.require("project");
 
-// Network configuration
 export const subnetCidrRange = config.get("subnetCidrRange") || "10.0.1.0/24";
 
-// Service account scopes configuration
-export const serviceAccountScopes = (config.getObject(
-  "serviceAccountScopes",
-) as string[] | undefined) || [
-  "https://www.googleapis.com/auth/compute",
-  "https://www.googleapis.com/auth/logging.write",
-  "https://www.googleapis.com/auth/monitoring.write",
-];
-
-// Snapshot retention configuration (in days)
-export const snapshotRetentionDays =
-  config.getNumber("snapshotRetentionDays") || 2;
-
-// Instance scheduling configuration
-export const enableInstanceScheduling =
-  config.getBoolean("enableInstanceScheduling") ?? true;
-
-// Boot disk snapshot configuration
-export const enableWeeklySnapshots =
-  config.getBoolean("enableWeeklySnapshots") ?? false;
-
 // Identity-Aware Proxy TCP forwarding IP range configuration
-// Default is the well-known GCP IAP range, but can be overridden if GCP updates it
-export const iapTcpForwardingRange =
-  config.get("iapTcpForwardingRange") || "35.235.240.0/20";
+// Well-known GCP IAP range
+export const iapTcpForwardingRange = "35.235.240.0/20";
 
 // Email configuration for monitoring alerts
 export const alertEmail = config.require("alertEmail", {

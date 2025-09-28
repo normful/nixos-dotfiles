@@ -34,7 +34,7 @@
       darwinSystem = inputs.nix-darwin.lib.darwinSystem;
 
       gcpLinuxHostnames = [
-        "coral"
+        "myth"
       ];
 
       gcpVmConfigs = genAttrs gcpLinuxHostnames (name: {

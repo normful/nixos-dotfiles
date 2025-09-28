@@ -1,15 +1,15 @@
 config:
   pulumi:disable-default-providers:
     - gcp
-  gcp:project: GCP_PROJECT_ID_PLACEHOLDER
+  gcp:project: dev-vm-provisioning
   gcp:zone: asia-northeast2-a
   nixos-gce:region: asia-northeast2
-  nixos-gce:bigMachineType: n2d-highmem-8
-  nixos-gce:smallMachineType: n2d-highcpu-2
+  nixos-gce:bigMachineType: t2d-standard-32
+  nixos-gce:smallMachineType: n2d-highcpu-16
   nixos-gce:imageProject: ubuntu-os-cloud
   # To find other alternatives for imageFamily, run:
   # gcloud compute images list --project=ubuntu-os-cloud --filter="family~ubuntu-minimal AND architecture=X86_64" --format="value(family)" | sort | uniq
   nixos-gce:imageFamily: ubuntu-minimal-2504-amd64
   nixos-gce:bootDiskSizeGB: "60"
   nixos-gce:bootDiskType: hyperdisk-balanced
-  nixos-gce:alertEmail: your-email@example.com
+  nixos-gce:alertEmail: normful@gmail.com
