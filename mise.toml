@@ -8,7 +8,7 @@ cosign = "latest"
 
 [env]
 GCP_PROJECT_ID = "dev-vm-provisioning"
-GCP_VM_HOSTNAME = "myth"
+GCP_VM_HOSTNAME = "jute"
 GCP_VM_USERNAME = "norman"
 SSH_PUBLIC_KEY_PATH = "/Users/norman/.ssh/id_ed25519.pub"
 GCE_PRIVATE_KEY_PATH = "/Users/norman/.ssh/google_compute_engine"
