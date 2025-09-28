@@ -182,6 +182,7 @@ in
         git
         gh
         git-lfs
+        git-filter-repo
         opencommit
       ])
       ++ (optionals config.my.enableAudioVideoTools [
