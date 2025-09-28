@@ -160,7 +160,6 @@
             "/Applications/KeePassXC.app"
             "/Applications/LINE.app"
             "/Applications/Spark.app"
-            "/Applications/DeepL.app"
             "/Applications/Google Chrome.app"
             "/Applications/Firefox.app"
             "/Applications/Insta360 Studio.app"
