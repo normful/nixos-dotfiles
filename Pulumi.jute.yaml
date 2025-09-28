@@ -2,16 +2,16 @@ config:
   pulumi:disable-default-providers:
     - gcp
   gcp:project: dev-vm-provisioning
-  gcp:zone: asia-northeast2-c
-  nixos-gce:region: asia-northeast2
+  gcp:zone: asia-northeast1-b
+  nixos-gce:region: asia-northeast1
   # Example command to find machine types in a specific zone
   # gcloud compute machine-types list --zones asia-northeast2-c
   #
   # Compare prices at https://gcloud-compute.com/instances.html
   #
   # But you are limited to quotas in https://console.cloud.google.com/iam-admin/quotas with the metric name: compute.googleapis.com/cpus_per_vm_family
-  nixos-gce:bigMachineType: c4-standard-32
-  nixos-gce:smallMachineType: c4-standard-4
+  nixos-gce:bigMachineType: c4d-highcpu-32
+  nixos-gce:smallMachineType: c4d-standard-4
   nixos-gce:imageProject: ubuntu-os-cloud
   # To find other alternatives for imageFamily, run:
   # gcloud compute images list --project=ubuntu-os-cloud --filter="family~ubuntu-minimal AND architecture=X86_64" --format="value(family)" | sort | uniq
