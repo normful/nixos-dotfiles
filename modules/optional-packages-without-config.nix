@@ -128,6 +128,7 @@ in
       ])
       ++ (optionals config.my.enableDocker [
         docker
+        docker-buildx
         docker-compose
         lazydocker
       ])
