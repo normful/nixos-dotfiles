@@ -53,35 +53,37 @@ export const natIpManagerRoleBinding = new gcp.projects.IAMMember(
   },
 );
 
-export const natIpManagerJob = new gcp.cloudrunv2.Job(
-  `${stack}-nat-ip-manager-job`,
-  {
-    location: region,
-    deletionProtection: false,
-    template: {
-      template: {
-        serviceAccount: natIpManagerServiceAccount.email,
-        containers: [
-          {
-            image: pulumi.interpolate`${artifactRegistryRepositoryUrl}/${dockerImage}:${dockerTag}`,
-            resources: {
-              limits: {
-                cpu: "1",
-                memory: "512Mi",
+export const natIpManagerJob = process.env.INITIAL_PULUMI_PARTIAL_SETUP
+  ? undefined
+  : new gcp.cloudrunv2.Job(
+      `${stack}-nat-ip-manager-job`,
+      {
+        location: region,
+        deletionProtection: false,
+        template: {
+          template: {
+            serviceAccount: natIpManagerServiceAccount.email,
+            containers: [
+              {
+                image: pulumi.interpolate`${artifactRegistryRepositoryUrl}/${dockerImage}:${dockerTag}`,
+                resources: {
+                  limits: {
+                    cpu: "1",
+                    memory: "512Mi",
+                  },
+                },
+                envs: [
+                  { name: "GOOGLE_CLOUD_PROJECT_ID", value: projectId },
+                  { name: "GOOGLE_CLOUD_REGION", value: region },
+                  { name: "PULUMI_STACK_NAME", value: stack },
+                ],
               },
-            },
-            envs: [
-              { name: "GOOGLE_CLOUD_PROJECT_ID", value: projectId },
-              { name: "GOOGLE_CLOUD_REGION", value: region },
-              { name: "PULUMI_STACK_NAME", value: stack },
             ],
           },
-        ],
+        },
       },
-    },
-  },
-  { provider: gcpProvider },
-);
+      { provider: gcpProvider },
+    );
 
 export const natIpManagerSchedulerCustomRole = new gcp.projects.IAMCustomRole(
   `${stack}_nat_ip_manager_scheduler_role`,
@@ -105,30 +107,36 @@ export const natIpManagerSchedulerServiceAccount =
     { provider: gcpProvider },
   );
 
-export const natIpManagerIamPolicy = new gcp.cloudrunv2.JobIamPolicy(
-  `${stack}-nat-ip-manager-invoker`,
-  {
-    location: region,
-    project: projectId,
-    name: natIpManagerJob.name,
-    policyData: natIpManagerSchedulerServiceAccount.email.apply((email) =>
-      JSON.stringify({
-        bindings: [
-          {
-            role: `projects/${projectId}/roles/${stack}_nat_ip_manager_scheduler_role`,
-            members: [`serviceAccount:${email}`],
-          },
-        ],
-      }),
-    ),
-  },
-  {
-    provider: gcpProvider,
-    dependsOn: [natIpManagerJob, natIpManagerSchedulerCustomRole],
-  },
-);
+export const natIpManagerIamPolicy = process.env.INITIAL_PULUMI_PARTIAL_SETUP
+  ? undefined
+  : new gcp.cloudrunv2.JobIamPolicy(
+      `${stack}-nat-ip-manager-invoker`,
+      {
+        location: region,
+        project: projectId,
+        name: natIpManagerJob!.name,
+        policyData: natIpManagerSchedulerServiceAccount.email.apply((email) =>
+          JSON.stringify({
+            bindings: [
+              {
+                role: `projects/${projectId}/roles/${stack}_nat_ip_manager_scheduler_role`,
+                members: [`serviceAccount:${email}`],
+              },
+            ],
+          }),
+        ),
+      },
+      {
+        provider: gcpProvider,
+        dependsOn: [natIpManagerJob!, natIpManagerSchedulerCustomRole],
+      },
+    );
 
 function createNatIpManagerScheduler(operation: string, hour: number) {
+  if (process.env.INITIAL_PULUMI_PARTIAL_SETUP) {
+    return undefined;
+  }
+
   return new gcp.cloudscheduler.Job(
     `${stack}-nat-ip-manager-scheduler-${operation.toLowerCase()}`,
     {
@@ -137,7 +145,7 @@ function createNatIpManagerScheduler(operation: string, hour: number) {
       schedule: `0 ${hour} * * *`,
       timeZone: "Asia/Tokyo",
       httpTarget: {
-        uri: natIpManagerJob.name.apply(
+        uri: natIpManagerJob!.name.apply(
           (name) =>
             `https://run.googleapis.com/v2/projects/${projectId}/locations/${region}/jobs/${name}:run`,
         ),
@@ -158,7 +166,7 @@ function createNatIpManagerScheduler(operation: string, hour: number) {
         },
       },
     },
-    { provider: gcpProvider, dependsOn: [natIpManagerIamPolicy] },
+    { provider: gcpProvider, dependsOn: [natIpManagerIamPolicy!] },
   );
 }
 
