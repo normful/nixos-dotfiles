@@ -121,8 +121,6 @@ font-feature = -dlig
 # ___________
 # ===========
 
-theme = Raycast_Dark
-
 window-theme = dark
 window-width = 200
 window-height = 70
