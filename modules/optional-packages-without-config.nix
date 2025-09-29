@@ -181,7 +181,6 @@ in
       ])
       ++ (optionals config.my.enableGitTools [
         git
-        gh
         git-lfs
         git-filter-repo
         opencommit
