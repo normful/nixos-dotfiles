@@ -10,6 +10,7 @@ if status is-interactive
     set --export HSTR_CONFIG hicolor,prompt-bottom
     set --export TELEMETRY_ENABLED false
     set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
+    set --export XAI_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
 
     abbr --add c clear
     abbr --add q exit
@@ -94,6 +95,10 @@ if status is-interactive
 
     if not command -v codex >/dev/null 2>&1
         abbr --add codex "bunx @openai/codex"
+    end
+
+    if not command -v grok >/dev/null 2>&1
+        abbr --add grok "bunx @vibe-kit/grok-cli"
     end
 
     if command -v cargo >/dev/null 2>&1
