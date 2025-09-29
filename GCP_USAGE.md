@@ -62,6 +62,9 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
 1. `./gcp/tidegate/build-and-push.sh` to build and push the tidegate Docker image, which creates and deletes a NAT gateway.
 1. `mise run up2` to do the second initial launch that includes the VM instance.
 1. `mise run gcp:nat-create` to create the NAT gateway.
+1. (Maybe needed, if you run into kexec errors): `pulumi stack output sshRootCommand` and run the command to SSH as root user into the Ubuntu machine:
+    - `root# apt-get update`
+    - `root# apt-get install kexec-tools linux-crashdump`
 1. `mise run i` install NixOS on the new VM
     1. You will be prompted to paste in your `age` private key. It will be copied to the new VM
         ```sh
