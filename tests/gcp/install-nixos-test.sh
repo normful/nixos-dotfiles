@@ -525,6 +525,12 @@ function test_copy_nixos_config() {
     mkdir -p "$TEST_TMP_DIR/modules"
     echo "shared module" > "$TEST_TMP_DIR/modules/core.nix"
 
+    mkdir -p "$TEST_TMP_DIR/packages/neovim"
+    echo "neovim package" > "$TEST_TMP_DIR/packages/neovim/default.nix"
+
+    mkdir -p "$TEST_TMP_DIR/chezmoi"
+    echo "chezmoi ignore" > "$TEST_TMP_DIR/chezmoi/.chezmoiignore"
+
     copy_nixos_config "$dest_dir"
 
     # Verify all files are copied
@@ -534,6 +540,8 @@ function test_copy_nixos_config() {
     assert_file_exists "$dest_dir/gcp/test-config/config.nix"
     assert_file_exists "$dest_dir/secrets/test.yaml"
     assert_file_exists "$dest_dir/modules/core.nix"
+    assert_file_exists "$dest_dir/packages/neovim/default.nix"
+    assert_file_exists "$dest_dir/chezmoi/.chezmoiignore"
 
     # Verify content is copied correctly
     assert_same "flake content" "$(cat "$dest_dir/flake.nix")"
