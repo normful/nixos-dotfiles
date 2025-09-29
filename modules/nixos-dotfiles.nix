@@ -32,7 +32,7 @@
       fi
 
       echo "Cloning nixos-dotfiles repository to $REPO_DIR"
-      git clone git@github.com:normful/nixos-dotfiles.git "$REPO_DIR"
+      GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git clone git@github.com:normful/nixos-dotfiles.git "$REPO_DIR"
 
       if [ $? -eq 0 ]; then
         echo "Repository successfully cloned to $REPO_DIR"
