@@ -10,13 +10,13 @@ config:
   # Compare prices at https://gcloud-compute.com/instances.html
   #
   # But you are limited to quotas in https://console.cloud.google.com/iam-admin/quotas with the metric name: compute.googleapis.com/cpus_per_vm_family
-  nixos-gce:bigMachineType: c4d-standard-8
+  nixos-gce:bigMachineType: c4d-standard-16
   nixos-gce:smallMachineType: c4d-standard-2
   nixos-gce:imageProject: ubuntu-os-cloud
   # To find other alternatives for imageFamily, run:
   # gcloud compute images list --project=ubuntu-os-cloud --filter="family~ubuntu-minimal AND architecture=X86_64" --format="value(family)" | sort | uniq
   nixos-gce:imageFamily: ubuntu-minimal-2504-amd64
-  nixos-gce:bootDiskSizeGB: "30"
+  nixos-gce:bootDiskSizeGB: "40"
   # https://cloud.google.com/compute/docs/disks/hyperdisks lists which machine series supports hyperdisk-balanced
   nixos-gce:bootDiskType: hyperdisk-balanced
   nixos-gce:alertEmail: normful@gmail.com
