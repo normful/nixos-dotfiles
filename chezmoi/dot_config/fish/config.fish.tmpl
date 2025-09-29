@@ -11,6 +11,7 @@ if status is-interactive
     set --export TELEMETRY_ENABLED false
     set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
     set --export XAI_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
+    set --export GROK_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
 
     abbr --add c clear
     abbr --add q exit
@@ -53,7 +54,7 @@ if status is-interactive
     abbr --add cm 'chezmoi'
     abbr --add cmd 'chezmoi diff'
     abbr --add cme 'chezmoi edit --apply'
-    abbr --add cma 'chezmoi apply -v'
+    abbr --add cma 'chezmoi apply'
     abbr --add cmt 'chezmoi chattr +template'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
