@@ -1,10 +1,10 @@
 { ... }:
 {
   # You do not need to change these by hand. install-nixos.sh will edit these later
-  my.gcpProjectId = "GCP_PROJECT_ID_PLACEHOLDER";
-  my.hostname = "GCP_VM_HOSTNAME_PLACEHOLDER";
-  my.user.name = "GCP_VM_USERNAME_PLACEHOLDER";
-  my.user.sshPublicKey = "SSH_PUBLIC_KEY_PLACEHOLDER";
+  my.gcpProjectId = "dev-vm-provisioning";
+  my.hostname = "jute";
+  my.user.name = "norman";
+  my.user.sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL1lqGCwLgpCJ3ge0pVGTj+8k4x7e/6+MT23XrRc9SQd norman_mbp_m1_pro";
 
   nix.settings.download-buffer-size = 4294967296; # 4 GiB
   system.stateVersion = "24.11"; # Don't change this after initial installation
