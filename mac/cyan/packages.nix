@@ -85,6 +85,8 @@ in
   # https://sources.debian.org/src/whois/5.6.4/mkpasswd.c
   mkpasswd
 
+  keepassxc
+
   # https://www.getzola.org/documentation/getting-started/cli-usage/
   zola
 
