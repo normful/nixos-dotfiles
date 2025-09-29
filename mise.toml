@@ -78,7 +78,6 @@ alias = "check2"
 
 [tasks."gcp:install"]
 description = "Install NixOS on an existing running VM that was provisioned by Pulumi"
-depends = [ "check:nix" ]
 run = "./gcp/install-nixos.sh"
 alias = [
   "install",
