@@ -19,6 +19,7 @@
       git
       sops
       age
+      keepassxc
     ];
 
     sops = {
