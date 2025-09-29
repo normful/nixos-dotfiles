@@ -40,7 +40,7 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
             githubClassicPersonalAccessToken: ghp_...
             ```
         - Save and close the file
-1. Add the new hostname to [`flake.nix`](./flake.nix), under `linuxHostnames` and `nixosConfigurations`
+1. Add the new hostname to [`flake.nix`](./flake.nix), under `nixosConfigurations`
 1. If you are not Norman, you probably also want to change:
     - `Pulumi.<hostname>.yaml`
         - `gcp:project`
@@ -59,7 +59,7 @@ Each time you want to launch a new Google Compute Engine VM machine and install 
     If a metric was created recently, it could take up to 10 minutes to become available. Please try again soon.
     ```
     These are normal. To resolve them, wait a bit and `mise run up1` a second or third time until everything is created.
-1. `./gcp/tidegate/build-and-push.sh` to build and push the tidegate Docker image.
+1. `./gcp/tidegate/build-and-push.sh` to build and push the tidegate Docker image, which creates and deletes a NAT gateway.
 1. `mise run up2` to do the second initial launch that includes the VM instance.
 1. `mise run gcp:nat-create` to create the NAT gateway.
 1. `mise run i` install NixOS on the new VM

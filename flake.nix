@@ -33,21 +33,10 @@
       nixosSystem2505 = nixpkgs-2505.lib.nixosSystem;
       darwinSystem = inputs.nix-darwin.lib.darwinSystem;
 
-      gcpLinuxHostnames = [
-        "jute"
-      ];
-
-      gcpVmConfigs = genAttrs gcpLinuxHostnames (name: {
-        system = "x86_64-linux";
-      });
-
       createGcpConfig =
         hostname: configFile:
-        let
-          vmConfig = gcpVmConfigs.${hostname};
-        in
         nixosSystem2411 rec {
-          system = vmConfig.system;
+          system = "x86_64-linux";
           modules = [
             ./gcp/${hostname}/${configFile}
           ];
