@@ -15,6 +15,7 @@ in
       with pkgs-pinned-unstable;
       (optionals config.my.enableAiCodingAgents [
         opencode
+        (callPackage ../packages/grok-cli { })
       ])
       ++ (optionals config.my.enableMultiLangTools [
         just
