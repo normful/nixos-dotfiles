@@ -13,4 +13,9 @@ import "./firewall";
 import "./iap-iam";
 import "./login-alerts";
 import "./instance-start-stop-alerts";
-export { deployedZone, instanceName } from "./compute";
+export {
+  deployedZone,
+  instanceName,
+  sshRootCommand,
+  sshUserCommand,
+} from "./compute";
