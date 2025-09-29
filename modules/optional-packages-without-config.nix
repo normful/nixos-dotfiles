@@ -126,15 +126,44 @@ in
 
         fastgron
         jsonschema-cli
+
+        cue
       ])
       ++ (optionals config.my.enableDocker [
         docker
         docker-buildx
         docker-compose
         lazydocker
+
+        devpod
+        devpod-desktop
       ])
       ++ (optionals (config.my.enableDocker && isDarwin) [
         colima
+      ])
+      ++ (optionals config.my.enableKubernetes [
+        minikube
+        kind
+        k3d
+
+        kubernetes-helm
+        helmfile
+        kube-linter
+
+        kubectl
+        k9s
+        kubetail
+
+        kubescape
+        kubesec
+        kubeshark
+
+        timoni
+
+        werf
+        nelm
+
+        devspace
       ])
       ++ (optionals config.my.enableSqlDbTools [
         sql-studio

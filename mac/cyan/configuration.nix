@@ -39,6 +39,7 @@
     my.enableConfigLangsTools = true;
 
     my.enableDocker = true;
+    my.enableKubernetes = true;
     my.enableSqlDbTools = true;
     my.enableMysqlMariaDbTools = true;
     my.enableNetworkingTools = true;

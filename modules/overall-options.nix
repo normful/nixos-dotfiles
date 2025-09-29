@@ -175,6 +175,12 @@ in
       default = false;
     };
 
+    enableKubernetes = lib.mkOption {
+      type = lib.types.bool;
+      description = "Kubernetes and related tools";
+      default = false;
+    };
+
     enableSqlDbTools = lib.mkOption {
       type = lib.types.bool;
       description = "Multidialect SQL database tools and clients";
