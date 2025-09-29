@@ -55,7 +55,7 @@ export const bootDisk = new gcp.compute.Disk(
     zone: zone,
     labels: commonLabels,
   },
-  { protect: false, provider: gcpProvider },
+  { protect: true, provider: gcpProvider },
 );
 
 // Choose machine type based on whether this is the first NixOS install
