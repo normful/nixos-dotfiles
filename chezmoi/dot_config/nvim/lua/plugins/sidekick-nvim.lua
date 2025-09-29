@@ -1,8 +1,7 @@
 return {
   'folke/sidekick.nvim',
-  opts = {
-    -- add any options here
-  },
+  ---@class sidekick.Config
+  opts = {},
   keys = {
     {
       '<tab>',
@@ -16,7 +15,7 @@ return {
       desc = 'Goto/Apply Next Edit Suggestion',
     },
     {
-      '<leader>aa',
+      '<leader>sa',
       function()
         require('sidekick.cli').toggle({ focus = true })
       end,
@@ -24,7 +23,7 @@ return {
       mode = { 'n', 'v' },
     },
     {
-      '<leader>ac',
+      '<leader>sc',
       function()
         require('sidekick.cli').toggle({ name = 'claude', focus = true })
       end,
@@ -32,7 +31,7 @@ return {
       mode = { 'n', 'v' },
     },
     {
-      '<leader>ag',
+      '<leader>sg',
       function()
         require('sidekick.cli').toggle({ name = 'grok', focus = true })
       end,
@@ -40,7 +39,7 @@ return {
       mode = { 'n', 'v' },
     },
     {
-      '<leader>ap',
+      '<leader>sp',
       function()
         require('sidekick.cli').select_prompt()
       end,
