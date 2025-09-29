@@ -5,7 +5,8 @@ local function configure_lspconfig()
     -- Visit https://mason-registry.dev/registry/list to see all installable by Mason
     -- Equivalently: see https://github.com/search?q=repo%3Amason-org%2Fmason-registry+neovim%3A+lspconfig%3A&type=code
     ensure_installed = {
-      -- vim.lsp.enable is called for these, further down in this file
+      -- Some tools are installed by Nix, so they're not listed here
+
       'nil_ls',
       'bashls',
       'dockerls',
@@ -14,17 +15,12 @@ local function configure_lspconfig()
       'eslint',
       'biome',
       'cssls',
-      'gopls',
       'golangci_lint_ls',
-      'tmpl',
       'elp',
-      'gleam',
-      'intelephense',
       'basedpyright',
       'harper_ls',
       'copilot',
 
-      -- vim.lsp.enable is NOT called for these
       'rust_analyzer',
     },
     automatic_enable = false,
