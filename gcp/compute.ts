@@ -22,13 +22,13 @@ export const autoStartStopPolicy = new gcp.compute.ResourcePolicy(
   `${stack}-daily-start-stop-policy`,
   {
     region: region,
-    description: "Run instance daily 9-20 JST",
+    description: "Run instance daily 20-2 JST",
     instanceSchedulePolicy: {
       vmStartSchedule: {
-        schedule: "0 9 * * *",
+        schedule: "0 20 * * *",
       },
       vmStopSchedule: {
-        schedule: "0 20 * * *",
+        schedule: "0 2 * * *",
       },
       timeZone: "Asia/Tokyo",
     },
