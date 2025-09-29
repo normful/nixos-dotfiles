@@ -3,7 +3,30 @@ local function configure_lspconfig()
 
   require('mason-lspconfig').setup({
     -- Visit https://mason-registry.dev/registry/list to see all installable by Mason
-    ensure_installed = { 'rust_analyzer' },
+    -- Equivalently: see https://github.com/search?q=repo%3Amason-org%2Fmason-registry+neovim%3A+lspconfig%3A&type=code
+    ensure_installed = {
+      -- vim.lsp.enable is called for these, further down in this file
+      'nil_ls',
+      'bashls',
+      'dockerls',
+      'docker_compose_language_service',
+      'ts_ls',
+      'eslint',
+      'biome',
+      'cssls',
+      'gopls',
+      'golangci_lint_ls',
+      'tmpl',
+      'elp',
+      'gleam',
+      'intelephense',
+      'basedpyright',
+      'harper_ls',
+      'copilot',
+
+      -- vim.lsp.enable is NOT called for these
+      'rust_analyzer',
+    },
     automatic_enable = false,
   })
 
@@ -36,7 +59,6 @@ local function configure_lspconfig()
 
   -- See https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
   -- for all language servers you can configure below.
-  -- Configuring will result in installation because of `automatic_installation = true` above.
   --
   -- Structure: server_name = { specific_options }
   -- Use an empty table {} for servers using only default options.
@@ -122,6 +144,8 @@ local function configure_lspconfig()
         },
       },
     },
+
+    copilot = {},
   }
 
   for server_name, server_specific_opts in pairs(language_servers) do
