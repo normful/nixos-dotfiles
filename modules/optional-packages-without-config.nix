@@ -7,6 +7,7 @@
 let
   optionals = lib.optionals;
   isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
+  isLinux = pkgs-pinned-unstable.stdenv.isLinux;
   isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
 in
 {
@@ -224,6 +225,9 @@ in
         inkscape
         imagemagick
         pngcrush
+      ])
+      ++ (optionals (config.my.enableImageTools && isLinux) [
+        darktable
       ])
       ++ (optionals config.my.enableScreenSharingTools [
         scrcpy
