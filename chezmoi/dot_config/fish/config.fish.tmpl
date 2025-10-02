@@ -76,11 +76,7 @@ if status is-interactive
         abbr --add cld "claude"
     end
 
-    if not command -v opencode >/dev/null 2>&1
-        abbr --add oc "bunx opencode-ai"
-    else
-        abbr --add oc "opencode"
-    end
+    abbr --add oc "bunx opencode-ai"
 
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"
