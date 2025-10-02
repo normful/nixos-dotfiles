@@ -264,5 +264,17 @@ in
       description = "Screen sharing and remote access tools";
       default = false;
     };
+
+    enableFonts = lib.mkOption {
+      type = lib.types.bool;
+      description = "Fonts I like";
+      default = false;
+    };
+
+    enableJapaneseFonts = lib.mkOption {
+      type = lib.types.bool;
+      description = "Japanese fonts I like";
+      default = false;
+    };
   };
 }

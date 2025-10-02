@@ -235,5 +235,30 @@ in
         scrcpy
         remmina
       ]);
+
+    fonts.packages =
+      with pkgs-pinned-unstable;
+      (optionals config.my.enableFonts [
+        annotation-mono
+        atkinson-hyperlegible-next
+        hasklig
+        hubot-sans
+        mona-sans
+        nerd-fonts._0xproto
+        nerd-fonts.inconsolata
+        nerd-fonts.monaspace
+        nerd-fonts.recursive-mono
+        pecita
+        recursive
+        tt2020
+      ])
+      ++ (optionals config.my.enableJapaneseFonts [
+        biz-ud-gothic
+        dotcolon-fonts
+        explex-nf
+        hachimarupop
+        moralerspace-hwjpdoc
+        noto-fonts-cjk-sans
+      ]);
   };
 }

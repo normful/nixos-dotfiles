@@ -54,6 +54,8 @@
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
     my.enableScreenSharingTools = true;
+    my.enableFonts = true;
+    my.enableJapaneseFonts = true;
 
     system.stateVersion = 4;
 
