@@ -44,6 +44,7 @@
     my.enableMysqlMariaDbTools = true;
     my.enableNetworkingTools = true;
     my.enableFileSyncTools = true;
+    my.enableBackupTools = true;
     my.enablePdfTools = true;
     my.enableWindowsTools = true;
     my.enableLogTools = true;
