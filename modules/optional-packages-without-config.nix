@@ -137,10 +137,12 @@ in
         lazydocker
 
         devpod
-        devpod-desktop
       ])
       ++ (optionals (config.my.enableDocker && isDarwin) [
         colima
+      ])
+      ++ (optionals (config.my.enableDocker && isLinux) [
+        devpod-desktop
       ])
       ++ (optionals config.my.enableKubernetes [
         minikube
