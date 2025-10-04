@@ -160,6 +160,8 @@
             "/Applications/Ghostty.app"
             "/Applications/Vivaldi.app"
             "/Applications/Orion.app"
+            "/Applications/Glide.app"
+            "/Applications/Comet.app"
             "/Applications/Notion.app"
             "/Applications/Jan.app"
             "/Applications/superwhisper.app"
