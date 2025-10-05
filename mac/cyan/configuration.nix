@@ -106,7 +106,7 @@
       "/Applications/superwhisper.app"
 
       # Others
-      "/Applications/KeePassXC.app"
+      "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
       "/Applications/Insta360 Studio.app"
