@@ -156,16 +156,25 @@
           mouse-over-hilite-stack = false;
           mru-spaces = false;
           persistent-apps = [
+            # Terminals
             "/Applications/WezTerm.app"
             "/Applications/Warp.app"
             "/Applications/Ghostty.app"
+
+            # Browsers
             "/Applications/Vivaldi.app"
+            "/Applications/Comet.app"
             "/Applications/Orion.app"
             "/Applications/Glide.app"
-            "/Applications/Comet.app"
+
+            # Notes
             "/Applications/Notion.app"
+
+            # AI tools
             "/Applications/Jan.app"
             "/Applications/superwhisper.app"
+
+            # Others
             "/Applications/KeePassXC.app"
             "/Applications/LINE.app"
             "/Applications/Spark.app"
