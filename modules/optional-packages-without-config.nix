@@ -115,6 +115,9 @@ in
         zettlr
         notable
       ])
+      ++ (optionals config.my.enablePkmTools [
+        zk
+      ])
       ++ (optionals config.my.enableConfigLangsTools [
         otree
         jless

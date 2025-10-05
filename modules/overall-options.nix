@@ -163,6 +163,12 @@ in
       default = false;
     };
 
+    enablePkmTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Personal knowledge management tools";
+      default = false;
+    };
+
     enableConfigLangsTools = lib.mkOption {
       type = lib.types.bool;
       description = "JSON, YAML, TOML, XML, CSV tools";

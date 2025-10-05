@@ -36,6 +36,7 @@
     my.enableLangTypst = true;
     my.enableMarkdownCliTools = true;
     my.enableMarkdownGuiTools = true;
+    my.enablePkmTools = true;
     my.enableConfigLangsTools = true;
 
     my.enableDocker = true;
