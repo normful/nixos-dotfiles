@@ -16,6 +16,9 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/15f067638e2887c58c4b6ba1bdb65a0b61dc58c5";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable-2511";
 
+    nix-casks.url = "github:atahanyorganci/nix-casks/archive";
+    nix-casks.inputs.nixpkgs.follows = "nixpkgs-unstable-2511";
+
     nixos-wsl-2505.url = "github:nix-community/nixos-wsl/release-25.05";
     nixos-wsl-2505.inputs.nixpkgs.follows = "nixpkgs-2505";
   };

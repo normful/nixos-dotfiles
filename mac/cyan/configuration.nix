@@ -2,6 +2,7 @@
   pkgs-stable,
   pkgs-pinned-unstable,
   config,
+  inputs,
   ...
 }:
 {
@@ -59,25 +60,31 @@
     my.enableFonts = true;
     my.enableJapaneseFonts = true;
 
-    environment.systemPackages = with pkgs-pinned-unstable; [
-      tailscale
-      sops
-      age
-      mise
-      mkpasswd
-      keepassxc
-      zola
-      pandoc
-      terminal-notifier
-      texliveSmall
-      repomix
-      mariadb_118
+    environment.systemPackages =
+      with pkgs-pinned-unstable;
+      [
+        tailscale
+        sops
+        age
+        mise
+        mkpasswd
+        keepassxc
+        zola
+        pandoc
+        terminal-notifier
+        texliveSmall
+        repomix
+        mariadb_118
 
-      infisical
-      espanso
-      grex
-      xonsh
-    ];
+        infisical
+        espanso
+        grex
+        xonsh
+      ]
+      ++ (with inputs.nix-casks.packages.${pkgs.system}; [
+        key-codes
+        vlc
+      ]);
 
     system.defaults.dock.persistent-apps = [
       # Terminals

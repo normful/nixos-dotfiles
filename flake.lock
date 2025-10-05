@@ -36,6 +36,27 @@
         "type": "github"
       }
     },
+    "nix-casks": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable-2511"
+        ]
+      },
+      "locked": {
+        "lastModified": 1755561666,
+        "narHash": "sha256-DpuLhPoHhjg3J7sCbkJzb1eX/CentuYGBThT1dlHbxQ=",
+        "owner": "atahanyorganci",
+        "repo": "nix-casks",
+        "rev": "fd58452687296ca1e8616ed94503bccaa70afffa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "atahanyorganci",
+        "ref": "archive",
+        "repo": "nix-casks",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -130,6 +151,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "nix-casks": "nix-casks",
         "nix-darwin": "nix-darwin",
         "nixos-wsl-2505": "nixos-wsl-2505",
         "nixpkgs-2411": "nixpkgs-2411",
