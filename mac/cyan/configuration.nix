@@ -54,9 +54,59 @@
     my.enableDiagramTools = true;
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
+    my.enableColorTools = true;
     my.enableScreenSharingTools = true;
     my.enableFonts = true;
     my.enableJapaneseFonts = true;
+
+    environment.systemPackages = with pkgs-pinned-unstable; [
+      tailscale
+      sops
+      age
+      mise
+      mkpasswd
+      keepassxc
+      zola
+      pandoc
+      terminal-notifier
+      texliveSmall
+      repomix
+      mariadb_118
+
+      infisical
+      espanso
+      grex
+      xonsh
+    ];
+
+    system.defaults.dock.persistent-apps = [
+      # Terminals
+      "/Applications/WezTerm.app"
+      "/Applications/Warp.app"
+      "/Applications/Ghostty.app"
+
+      # Browsers
+      "/Applications/Vivaldi.app"
+      "/Applications/Comet.app"
+      "/Applications/Orion.app"
+      "/Applications/Glide.app"
+
+      # Notes
+      "/Applications/Notion.app"
+
+      # AI tools
+      "/Applications/Jan.app"
+      "/Applications/superwhisper.app"
+
+      # Others
+      "/Applications/KeePassXC.app"
+      "/Applications/LINE.app"
+      "/Applications/Spark.app"
+      "/Applications/Insta360 Studio.app"
+      "/Applications/FileZilla.app"
+      "/Applications/QuickShade.app"
+      "/System/Applications/System Settings.app"
+    ];
 
     system.stateVersion = 4;
 
@@ -102,13 +152,11 @@
     };
 
     environment = {
-      darwinConfig = "\$HOME/code/nixos-dotfiles/macbook-pro-18-3-config.nix";
       variables = {
         EDITOR = "nvim";
         GIT_EDITOR = "nvim";
       };
       shells = [ pkgs-stable.fish ];
-      systemPackages = import ./packages.nix { inherit pkgs-stable pkgs-pinned-unstable; };
     };
 
     programs = {
@@ -155,34 +203,6 @@
           minimize-to-application = true;
           mouse-over-hilite-stack = false;
           mru-spaces = false;
-          persistent-apps = [
-            # Terminals
-            "/Applications/WezTerm.app"
-            "/Applications/Warp.app"
-            "/Applications/Ghostty.app"
-
-            # Browsers
-            "/Applications/Vivaldi.app"
-            "/Applications/Comet.app"
-            "/Applications/Orion.app"
-            "/Applications/Glide.app"
-
-            # Notes
-            "/Applications/Notion.app"
-
-            # AI tools
-            "/Applications/Jan.app"
-            "/Applications/superwhisper.app"
-
-            # Others
-            "/Applications/KeePassXC.app"
-            "/Applications/LINE.app"
-            "/Applications/Spark.app"
-            "/Applications/Insta360 Studio.app"
-            "/Applications/FileZilla.app"
-            "/Applications/QuickShade.app"
-            "/System/Applications/System Settings.app"
-          ];
           show-process-indicators = true;
           show-recents = false;
           tilesize = 48;

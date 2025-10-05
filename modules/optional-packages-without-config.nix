@@ -25,6 +25,7 @@ in
         just
         modd
         efm-langserver
+        hyperfine
       ])
       ++ (optionals config.my.enableLangTsJs [
         nodejs
@@ -233,6 +234,9 @@ in
       ])
       ++ (optionals (config.my.enableImageTools && isLinux) [
         darktable
+      ])
+      ++ (optionals config.my.enableColorTools [
+        pastel
       ])
       ++ (optionals config.my.enableScreenSharingTools [
         scrcpy

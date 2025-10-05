@@ -265,6 +265,12 @@ in
       default = false;
     };
 
+    enableColorTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Color tools";
+      default = false;
+    };
+
     enableScreenSharingTools = lib.mkOption {
       type = lib.types.bool;
       description = "Screen sharing and remote access tools";
