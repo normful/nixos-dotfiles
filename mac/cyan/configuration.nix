@@ -158,11 +158,11 @@
       }
 
       # Apps I'm temporarily trying to use a bit more
-      "/Applications/Nix Apps/ChatALL.app"
       "/Applications/Nix Apps/Orion.app"
       "/Applications/Glide.app"
       "/Applications/Nix Apps/RustRover.app"
       "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
+      "/Applications/Nix Apps/ChatALL.app"
     ];
 
     system.stateVersion = 4;
