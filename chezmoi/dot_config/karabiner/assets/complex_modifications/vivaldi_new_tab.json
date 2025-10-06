@@ -2,7 +2,7 @@
   "title": "Vivaldi New Tab with Focus",
   "rules": [
     {
-      "description": "Focus Vivaldi and Open New Tab (Cmd+Shift+N)",
+      "description": "Cmd+Shift+N: Focus Vivaldi and Open New Tab",
       "manipulators": [
         {
           "type": "basic",

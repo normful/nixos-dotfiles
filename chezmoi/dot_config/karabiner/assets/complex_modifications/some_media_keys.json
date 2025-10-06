@@ -2,7 +2,7 @@
   "title": "Right Option + Right Shift + some Function Keys to some Media Keys",
   "rules": [
     {
-      "description": "right_option + right_shift + f1 to display_brightness_decrement",
+      "description": "right_option + right_shift + f1: display_brightness_decrement",
       "manipulators": [
         {
           "type": "basic",
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "description": "right_option + right_shift + f2 to display_brightness_increment",
+      "description": "right_option + right_shift + f2: display_brightness_increment",
       "manipulators": [
         {
           "type": "basic",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "description": "right_option + right_shift + f10 to mute",
+      "description": "right_option + right_shift + f10: mute",
       "manipulators": [
         {
           "type": "basic",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "description": "right_option + right_shift + f11 to volume_decrement",
+      "description": "right_option + right_shift + f11: volume_decrement",
       "manipulators": [
         {
           "type": "basic",
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "description": "right_option + right_shift + f12 to volume_increment",
+      "description": "right_option + right_shift + f12: volume_increment",
       "manipulators": [
         {
           "type": "basic",

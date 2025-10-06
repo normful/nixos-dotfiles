@@ -2,7 +2,7 @@
   "title": "Toggle between WezTerm and Vivaldi",
   "rules": [
     {
-      "description": "If in WezTerm, focus Vivaldi (Cmd+`)",
+      "description": "Cmd+`: If in WezTerm, focus Vivaldi",
       "manipulators": [
         {
           "type": "basic",
@@ -30,7 +30,7 @@
       ]
     },
     {
-      "description": "If not in WezTerm, focus WezTerm (Cmd+`)",
+      "description": "Cmd+`: If not in WezTerm, focus WezTerm",
       "manipulators": [
         {
           "type": "basic",
