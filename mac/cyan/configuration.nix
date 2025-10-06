@@ -103,7 +103,6 @@
         neovide
         notion-calendar
         orion
-        quiet
         rustrover
         slack
         superwhisper
@@ -161,7 +160,6 @@
       # Apps I'm temporarily trying to use a bit more
       "/Applications/Nix Apps/ChatALL.app"
       "/Applications/Nix Apps/Orion.app"
-      "/Applications/Nix Apps/Quiet.app"
       "/Applications/Glide.app"
       "/Applications/Nix Apps/RustRover.app"
       "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
