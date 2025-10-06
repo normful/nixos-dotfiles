@@ -2,6 +2,7 @@ set -U fish_greeting ""
 
 if status is-interactive
     set -g fish_key_bindings fish_vi_key_bindings
+    set -U fish_escape_delay_ms 10
 
     # TODO: Make it work with wezterm
     # bind alt-f accept-autosuggestion
