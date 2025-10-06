@@ -228,7 +228,6 @@ in
         musikcube
       ])
       ++ (optionals config.my.enableImageTools [
-        inkscape
         imagemagick
         pngcrush
       ])

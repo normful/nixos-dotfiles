@@ -77,33 +77,71 @@
         mariadb_118
 
         infisical
-        espanso
         grex
         xonsh
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
+        anki
+        brave-browser
+        chatall
+        chatgpt
+        claude
+        cursor
+        discord
+        docker
+        espanso
+        firefox_nightly
+        flux
+        ghostty
+        inkscape
+        iptvnator
+        keka
         key-codes
+        kitty
+        libreoffice
+        mp3gain-express
+        neovide
+        notion-calendar
+        orion
+        quiet
+        rustrover
+        slack
+        superwhisper
+        tor-browser
+        tunnelblick
+        ungoogled-chromium
+        visual-studio-code_insiders
         vlc
+        zed
+
+        # ---------------
+        # Failed to build
+        # ---------------
+        # audacity
+        # calibre
+        # conductor
+        # skype
+        # steam
+        # voiceink
+        # warp
       ]);
 
     system.defaults.dock.persistent-apps = [
       # Terminals
       "/Applications/WezTerm.app"
       "/Applications/Warp.app"
-      "/Applications/Ghostty.app"
+      "/Applications/Nix Apps/Ghostty.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
       "/Applications/Comet.app"
-      "/Applications/Orion.app"
-      "/Applications/Glide.app"
 
       # Notes
       "/Applications/Notion.app"
 
       # AI tools
       "/Applications/Jan.app"
-      "/Applications/superwhisper.app"
+      "/Applications/Nix Apps/superwhisper.app"
 
       # Others
       "/Applications/Nix Apps/KeePassXC.app"
@@ -113,6 +151,20 @@
       "/Applications/FileZilla.app"
       "/Applications/QuickShade.app"
       "/System/Applications/System Settings.app"
+
+      {
+        spacer = {
+          small = true;
+        };
+      }
+
+      # Apps I'm temporarily trying to use a bit more
+      "/Applications/Nix Apps/ChatALL.app"
+      "/Applications/Nix Apps/Orion.app"
+      "/Applications/Nix Apps/Quiet.app"
+      "/Applications/Glide.app"
+      "/Applications/Nix Apps/RustRover.app"
+      "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
     ];
 
     system.stateVersion = 4;
