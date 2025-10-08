@@ -68,11 +68,23 @@ in
         stylelint
       ])
       ++ (optionals config.my.enableLangPhp [
-        php
         php84Packages.composer
-        php84Extensions.xdebug
-        php83Packages.php-cs-fixer # Temporarily use 8.3 one because 8.4 Nix package is broken
+        php84Packages.php-cs-fixer # Temporarily use 8.3 one because 8.4 Nix package is broken
         intelephense
+        (pkgs-pinned-unstable.php.withExtensions (
+          { enabled, all }:
+          enabled
+          ++ (with all; [
+            curl
+            mbstring
+            mysqli
+            pcov
+            pdo
+            pdo_mysql
+            xdebug
+            zip
+          ])
+        ))
       ])
       ++ (optionals config.my.enableLangNix [
         nixfmt-rfc-style

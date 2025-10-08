@@ -123,6 +123,10 @@ if status is-interactive
         abbr --add nrs 'npm run start'
     end
 
+    if command -v composer >/dev/null 2>&1
+        abbr --add com composer
+    end
+
     {{ if .mac -}}
     source "$HOME/.api_keys.fish"
 
