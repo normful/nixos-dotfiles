@@ -1,4 +1,4 @@
-OCO_MODEL=google/gemini-2.5-flash-lite
+OCO_MODEL=google/gemini-2.5-flash-lite-preview-09-2025
 OCO_AI_PROVIDER=openrouter
 OCO_TOKENS_MAX_INPUT=40960
 OCO_TOKENS_MAX_OUTPUT=4096
