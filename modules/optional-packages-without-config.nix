@@ -42,6 +42,7 @@ in
         gotools
         protoc-gen-go
         cobra-cli
+        lefthook
         golangci-lint
       ])
       ++ (optionals config.my.enableLangRust [
