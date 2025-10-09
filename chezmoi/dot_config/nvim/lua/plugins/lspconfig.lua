@@ -106,7 +106,7 @@ local function configure_lspconfig()
               'vendor',
               -- 'stubs/stubs.php',
             },
-            phpVersion = '7.4.33',
+            phpVersion = '8.4.12',
           },
           codeLens = {
             references = { enable = true },
