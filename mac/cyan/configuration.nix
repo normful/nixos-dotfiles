@@ -165,6 +165,10 @@
       "/Applications/Nix Apps/ChatALL.app"
     ];
 
+    system.defaults.dock.persistent-others = [
+      "~/Downloads"
+    ];
+
     system.stateVersion = 4;
 
     nix = {
@@ -256,12 +260,15 @@
           autohide-delay = 0.0;
           autohide-time-modifier = 0.5;
           expose-animation-duration = 0.1;
-          mineffect = "scale";
+          launchanim = false;
+          mineffect = null;
           minimize-to-application = true;
           mouse-over-hilite-stack = false;
           mru-spaces = false;
+          orientation = "left";
           show-process-indicators = true;
           show-recents = false;
+          static-only = false;
           tilesize = 48;
           wvous-br-corner = 13; # Hot corner action for bottom right corner: Lock Screen
         };
