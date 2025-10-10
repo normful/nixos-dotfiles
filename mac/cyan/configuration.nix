@@ -140,29 +140,30 @@
 
       # AI tools
       "/Applications/Jan.app"
-      "/Applications/Nix Apps/superwhisper.app"
 
       # Others
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
-      "/Applications/Insta360 Studio.app"
       "/Applications/FileZilla.app"
       "/Applications/QuickShade.app"
       "/System/Applications/System Settings.app"
+      /*
+            {
+              spacer = {
+                small = true;
+              };
+            }
 
-      {
-        spacer = {
-          small = true;
-        };
-      }
-
-      # Apps I'm temporarily trying to use a bit more
-      "/Applications/Nix Apps/Orion.app"
-      "/Applications/Glide.app"
-      "/Applications/Nix Apps/RustRover.app"
-      "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
-      "/Applications/Nix Apps/ChatALL.app"
+            # Apps I'm temporarily trying to use a bit more
+            "/Applications/Nix Apps/superwhisper.app"
+            "/Applications/Insta360 Studio.app"
+            "/Applications/Nix Apps/Orion.app"
+            "/Applications/Glide.app"
+            "/Applications/Nix Apps/RustRover.app"
+            "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
+            "/Applications/Nix Apps/ChatALL.app"
+      */
     ];
 
     system.defaults.dock.persistent-others = [
