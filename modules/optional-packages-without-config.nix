@@ -9,6 +9,37 @@ let
   isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
   isLinux = pkgs-pinned-unstable.stdenv.isLinux;
   isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
+  phpEnv = (
+    pkgs-pinned-unstable.php84.buildEnv {
+      extensions = (
+        { enabled, all }:
+        enabled
+        ++ (with all; [
+          curl
+          mbstring
+          mysqli
+          pdo
+          pdo_mysql
+          pcov
+          xdebug
+          zip
+        ])
+      );
+
+      # Also read https://thephp.cc/articles/pcov-or-xdebug
+      # Only enable either pcov or xdebug. When pcov is enabled by configuration pcov.enabled=1: interoperability with Xdebug is not possible
+      extraConfig = ''
+        display_errors = On
+        display_startup_errors = On
+        error_reporting = E_ALL
+        memory_limit = 2G
+        opcache.interned_strings_buffer = 20
+        opcache.memory_consumption = 256M
+        xdebug.mode = Off
+        pcov.enabled = On
+      '';
+    }
+  );
 in
 {
   config = {
@@ -69,23 +100,10 @@ in
         stylelint
       ])
       ++ (optionals config.my.enableLangPhp [
-        php84Packages.composer
-        php84Packages.php-cs-fixer # Temporarily use 8.3 one because 8.4 Nix package is broken
+        phpEnv
+        phpEnv.packages.composer
+        phpEnv.packages.php-cs-fixer
         intelephense
-        (pkgs-pinned-unstable.php.withExtensions (
-          { enabled, all }:
-          enabled
-          ++ (with all; [
-            curl
-            mbstring
-            mysqli
-            pcov
-            pdo
-            pdo_mysql
-            xdebug
-            zip
-          ])
-        ))
       ])
       ++ (optionals config.my.enableLangNix [
         nixfmt-rfc-style
