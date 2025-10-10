@@ -156,6 +156,7 @@ in
 
         jq
         yq-go
+        yamllint
         go-toml
         dasel
         taplo
