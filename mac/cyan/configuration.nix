@@ -166,7 +166,8 @@
     ];
 
     system.defaults.dock.persistent-others = [
-      "~/Downloads"
+      "/Users/norman/code/CurrentlyReading-general"
+      "/Users/norman/code/CurrentlyReading-japanese"
     ];
 
     system.stateVersion = 4;
@@ -289,7 +290,10 @@
           EnableStandardClickToShowDesktop = false;
           EnableTiledWindowMargins = false;
           EnableTopTilingByEdgeDrag = false;
+          EnableTilingOptionAccelerator = true;
           GloballyEnabled = false;
+          StandardHideDesktopIcons = true;
+          StandardHideWidgets = true;
         };
       };
 
