@@ -236,6 +236,36 @@
 
     system = {
       defaults = {
+        loginwindow.GuestEnabled = false;
+
+        CustomUserPreferences = {
+          "com.apple.finder" = {
+            AppleShowAllExtensions = true;
+            DisableAllAnimations = true;
+            FXDefaultSearchScope = "SCcf"; # When searching, search the current folder by default
+            FXEnableExtensionChangeWarning = false;
+            NewWindowTargetPath = "file:///Users/${config.my.user.name}/Downloads/";
+            ShowExternalHardDrivesOnDesktop = false;
+            ShowHardDrivesOnDesktop = false;
+            ShowMountedServersOnDesktop = false;
+            ShowPathbar = true;
+            ShowRecentTags = false;
+            ShowRemovableMediaOnDesktop = false;
+            ShowStatusBar = true;
+            WarnOnEmptyTrash = false;
+            _FXSortFoldersFirst = true;
+          };
+          "com.apple.desktopservices" = {
+            # Avoid creating .DS_Store files on network or USB volumes
+            DSDontWriteNetworkStores = true;
+            DSDontWriteUSBStores = true;
+          };
+          "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+          "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
+          "com.apple.ImageCapture".disableHotPlug = true;
+          "com.apple.CrashReporter".DialogType = "none";
+        };
+
         NSGlobalDomain = {
           "com.apple.mouse.tapBehavior" = 1;
           "com.apple.sound.beep.feedback" = 0;
