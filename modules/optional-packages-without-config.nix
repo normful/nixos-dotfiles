@@ -20,7 +20,7 @@ let
           mysqli
           pdo
           pdo_mysql
-          pcov
+          # pcov
           xdebug
           zip
         ])
@@ -35,6 +35,7 @@ let
         memory_limit = 2G
         opcache.interned_strings_buffer = 20
         opcache.memory_consumption = 256M
+
         xdebug.mode = coverage
         pcov.enabled = Off
       '';
