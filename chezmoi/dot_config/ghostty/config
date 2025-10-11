@@ -122,6 +122,7 @@ font-feature = -dlig
 # ===========
 
 window-theme = dark
+theme = tokyonight_night
 window-width = 200
 window-height = 70
 window-padding-x = 0
