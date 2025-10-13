@@ -105,6 +105,7 @@
         orion
         rustrover
         slack
+        sol
         superwhisper
         tor-browser
         tunnelblick
@@ -128,7 +129,6 @@
     system.defaults.dock.persistent-apps = [
       # Terminals
       "/Applications/WezTerm.app"
-      "/Applications/Warp.app"
       "/Applications/Nix Apps/Ghostty.app"
 
       # Browsers
@@ -157,6 +157,7 @@
 
             # Apps I'm temporarily trying to use a bit more
             "/Applications/Nix Apps/superwhisper.app"
+            "/Applications/Warp.app"
             "/Applications/Insta360 Studio.app"
             "/Applications/Nix Apps/Orion.app"
             "/Applications/Glide.app"
@@ -248,10 +249,11 @@
             ShowExternalHardDrivesOnDesktop = false;
             ShowHardDrivesOnDesktop = false;
             ShowMountedServersOnDesktop = false;
-            ShowPathbar = true;
             ShowRecentTags = false;
             ShowRemovableMediaOnDesktop = false;
-            ShowStatusBar = true;
+            ShowStatusBar = false;
+            ShowPathbar = false;
+            ShowTabView = false;
             WarnOnEmptyTrash = false;
             _FXSortFoldersFirst = true;
           };
@@ -297,7 +299,7 @@
           minimize-to-application = true;
           mouse-over-hilite-stack = false;
           mru-spaces = false;
-          orientation = "left";
+          orientation = "right";
           show-process-indicators = true;
           show-recents = false;
           static-only = false;
