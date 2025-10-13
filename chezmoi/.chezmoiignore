@@ -7,7 +7,6 @@
 .config/ghostty
 .config/kitty
 .config/helix
-.config/karabiner
 .local/bin/convert-all-mp3-to-ogg.sh
 .local/bin/convert-all-wav-to-mp3.sh
 .local/bin/copy-sdcard-to-video-footage-dirs.sh

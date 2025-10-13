@@ -31,7 +31,6 @@ In alphabetical order:
 - `│   │   ├──` [ghostty/](chezmoi/dot_config/ghostty/) Ghostty terminal config
 - `│   │   ├──` [helix/](chezmoi/dot_config/helix/) Helix editor config
 - `│   │   ├──` [htop/](chezmoi/dot_config/htop/) htop process monitor config
-- `│   │   ├──` [karabiner/](chezmoi/dot_config/karabiner/) Karabiner-Elements key mapping config
 - `│   │   ├──` [kitty/](chezmoi/dot_config/kitty/) Kitty terminal config
 - `│   │   ├──` [lftp/](chezmoi/dot_config/lftp/) lftp FTP client config
 - `│   │   ├──` [nvim/](chezmoi/dot_config/nvim/) Neovim editor config
