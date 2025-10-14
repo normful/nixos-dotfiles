@@ -74,8 +74,10 @@
         terminal-notifier
         texliveSmall
         repomix
-        mariadb_118
 
+        # Packages I'm only installing on this computer for now
+        mariadb_118
+        emacs
         infisical
         grex
         xonsh
@@ -83,8 +85,6 @@
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         anki
         brave-browser
-        chatall
-        chatgpt
         claude
         cursor
         discord
@@ -135,6 +135,7 @@
 
       # Notes
       "/Applications/Notion.app"
+      "/Applications/Obsidian.app"
 
       # AI tools
       "/Applications/Jan.app"
