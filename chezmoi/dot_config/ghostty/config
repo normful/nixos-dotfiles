@@ -120,9 +120,9 @@ font-feature = calt=1,clig=0,liga=0,zero,ss01
 # ===========
 
 window-theme = dark
-theme = tokyonight_night
-window-width = 200
-window-height = 70
+theme = TokyoNight Storm
+window-width = 120
+window-height = 50
 window-padding-x = 0
 window-padding-y = 0
 
@@ -150,3 +150,5 @@ initial-window = true
 
 confirm-close-surface = false
 quit-after-last-window-closed = true
+
+auto-update = off
