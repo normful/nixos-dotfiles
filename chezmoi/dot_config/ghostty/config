@@ -54,8 +54,9 @@ keybind = ctrl+a>o=toggle_split_zoom
 keybind = ctrl+a>x=close_surface
 
 # Adjust font size
-keybind = cmd+minus=decrease_font_size:0.5
-keybind = cmd+equal=increase_font_size:0.5
+keybind = all:cmd+zero=reset_font_size
+keybind = all:cmd+minus=decrease_font_size:0.5
+keybind = all:cmd+equal=increase_font_size:0.5
 
 # Paste
 keybind = cmd+v=paste_from_clipboard
@@ -111,15 +112,19 @@ keybind = cmd+x=text:\x1b[32~
 # Quick terminal
 keybind = global:cmd+s=toggle_quick_terminal
 
-# ----------------------------
-# Appearance
-# ----------------------------
+# --------------------------------------
+# Appearance: Font
+# --------------------------------------
 
 font-size = 20
-font-thicken = true
+window-inherit-font-size = true
+font-thicken = false
 
-font-family = Inconsolata Nerd Font Mono
-font-feature = calt=1,clig=0,liga=0,zero,ss01
+# Despite this being WezTerm config, kitty's visual font previewer is very nice:
+# Open kitty and run /Applications/kitty.app/Contents/MacOS/kitty list-fonts
+
+font-family = Rec Mono Casual
+# font-feature = calt=1,clig=0,liga=0,zero,ss01
 
 # Visual test text for fonts
 # oO08 iIlL1 g9qCGQ ~-+=>;_
@@ -131,11 +136,21 @@ font-feature = calt=1,clig=0,liga=0,zero,ss01
 # ___________
 # ===========
 
-window-theme = dark
+# --------------------------------------
+# Appearance: Colour Themes
+# --------------------------------------
+
 # Launch visual theme picker with
 # /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
 # Many themes are built-in, so you most likely won't need to install any custom themes.
 theme = TokyoNight Storm
+
+window-theme = dark
+
+# --------------------------------------
+# Appearance: Window
+# --------------------------------------
+
 window-width = 120
 window-height = 50
 window-padding-x = 0
@@ -145,12 +160,12 @@ window-decoration = client
 fullscreen = false
 macos-non-native-fullscreen = false
 
-macos-titlebar-style = native
+macos-titlebar-style = transparent
 macos-titlebar-proxy-icon = hidden
 
-# ----------------------------
+# --------------------------------------
 # Other
-# ----------------------------
+# --------------------------------------
 
 copy-on-select = clipboard
 clipboard-read = ask

@@ -26,8 +26,10 @@ config.keys = {
 
   -- Tabs: open and navigate
   { mods = 'LEADER', key = 'c', action = act.SpawnTab('CurrentPaneDomain') },
-  { mods = 'LEADER', key = 'n', action = act.ActivateTabRelative(1) },
-  { mods = 'LEADER', key = 'p', action = act.ActivateTabRelative(-1) },
+  -- { mods = 'LEADER', key = 'n', action = act.ActivateTabRelative(1) },
+  -- { mods = 'LEADER', key = 'p', action = act.ActivateTabRelative(-1) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '[', action = act.ActivateTabRelative(-1) },
 
   -- Panes: open
   { mods = 'LEADER', key = 'v', action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }) },
@@ -49,8 +51,10 @@ config.keys = {
   -- Panes: close
   { mods = 'LEADER', key = 'x', action = act.CloseCurrentPane({ confirm = true }) },
 
-  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '=', action = act.IncreaseFontSize },
+  -- Adjust font size
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '0', action = act.ResetFontSize },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '-', action = act.DecreaseFontSize },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '=', action = act.IncreaseFontSize },
 
   -- Paste
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'V', action = act.PasteFrom('Clipboard') },
@@ -169,6 +173,9 @@ config.mouse_bindings = {
 
 ------------------------------
 -- Appearance: Font
+--
+-- Despite this being WezTerm config, kitty's visual font previewer is very nice:
+-- Open kitty and run /Applications/kitty.app/Contents/MacOS/kitty list-fonts
 ------------------------------
 
 {{ if .mac -}}
@@ -312,7 +319,7 @@ config.colors = {
 ------------------------------
 -- Appearance: Window
 ------------------------------
-  ---
+
 config.initial_cols = 200
 config.initial_rows = 70
 
