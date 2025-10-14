@@ -1,3 +1,15 @@
+#
+#       █████████  █████                        █████     █████
+#      ███░░░░░███░░███                        ░░███     ░░███
+#     ███     ░░░  ░███████    ██████   █████  ███████   ███████   █████ ████
+#    ░███          ░███░░███  ███░░███ ███░░  ░░░███░   ░░░███░   ░░███ ░███
+#    ░███    █████ ░███ ░███ ░███ ░███░░█████   ░███      ░███     ░███ ░███
+#    ░░███  ░░███  ░███ ░███ ░███ ░███ ░░░░███  ░███ ███  ░███ ███ ░███ ░███
+#     ░░█████████  ████ █████░░██████  ██████   ░░█████   ░░█████  ░░███████
+#      ░░░░░░░░░  ░░░░ ░░░░░  ░░░░░░  ░░░░░░     ░░░░░     ░░░░░    ░░░░░███
+#                                                                   ███ ░███
+#                                                                  ░░██████
+#                                                                   ░░░░░░
 # ----------------------------
 # Keyboard Mappings
 # ----------------------------
@@ -120,6 +132,9 @@ font-feature = calt=1,clig=0,liga=0,zero,ss01
 # ===========
 
 window-theme = dark
+# Launch visual theme picker with
+# /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
+# Many themes are built-in, so you most likely won't need to install any custom themes.
 theme = TokyoNight Storm
 window-width = 120
 window-height = 50
