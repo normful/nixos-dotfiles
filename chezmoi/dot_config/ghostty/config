@@ -123,7 +123,7 @@ font-thicken = false
 # Despite this being WezTerm config, kitty's visual font previewer is very nice:
 # Open kitty and run /Applications/kitty.app/Contents/MacOS/kitty list-fonts
 
-font-family = Rec Mono Casual
+font-family = Moralerspace Radon HWJPDOC
 # font-feature = calt=1,clig=0,liga=0,zero,ss01
 
 # Visual test text for fonts
@@ -148,20 +148,33 @@ theme = TokyoNight Storm
 window-theme = dark
 
 # --------------------------------------
+# Appearance: Tab bar
+# --------------------------------------
+
+window-show-tab-bar = always
+window-new-tab-position = current
+
+macos-titlebar-style = tabs          # 1 row
+# macos-titlebar-style = transparent # 2 rows: current tab's title and tab row
+# macos-titlebar-style = native      # seems ugly to me because of mismatching colors
+# macos-titlebar-style = hidden      # breaks tabbing feature altogether; new windows are launched
+
+macos-titlebar-proxy-icon = hidden
+
+# --------------------------------------
 # Appearance: Window
 # --------------------------------------
 
-window-width = 120
-window-height = 50
+window-width = 100
+window-height = 42
 window-padding-x = 0
 window-padding-y = 0
 
+macos-non-native-fullscreen = false
+macos-window-buttons = hidden
+
 window-decoration = client
 fullscreen = false
-macos-non-native-fullscreen = false
-
-macos-titlebar-style = transparent
-macos-titlebar-proxy-icon = hidden
 
 # --------------------------------------
 # Other
