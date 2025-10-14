@@ -73,10 +73,18 @@ map(
   '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua.tmpl<CR>',
   { desc = 'Edit wezterm config' }
 )
---[[
-map('n', '<Leader>ek', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf<CR>', { desc = 'Edit kitty config' })
-map('n', '<Leader>et', '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config<CR>', { desc = 'Edit ghostty config' })
-]]
+map(
+  'n',
+  '<Leader>ek',
+  '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf<CR>',
+  { desc = 'Edit kitty config' }
+)
+map(
+  'n',
+  '<Leader>et',
+  '<Cmd>100vsplit ~/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config<CR>',
+  { desc = 'Edit ghostty config' }
+)
 map(
   'n',
   '<Leader>ef',
