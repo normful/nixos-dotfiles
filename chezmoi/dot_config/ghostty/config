@@ -107,9 +107,7 @@ font-size = 20
 font-thicken = true
 
 font-family = Inconsolata Nerd Font Mono
-font-feature = -calt
-font-feature = -liga
-font-feature = -dlig
+font-feature = calt=1,clig=0,liga=0,zero,ss01
 
 # Visual test text for fonts
 # oO08 iIlL1 g9qCGQ ~-+=>;_

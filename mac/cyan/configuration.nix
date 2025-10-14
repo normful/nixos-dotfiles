@@ -89,15 +89,12 @@
         cursor
         discord
         docker
-        espanso
         firefox_nightly
         flux
-        ghostty
         inkscape
         iptvnator
         keka
         key-codes
-        kitty
         libreoffice
         mp3gain-express
         neovide
@@ -129,7 +126,8 @@
     system.defaults.dock.persistent-apps = [
       # Terminals
       "/Applications/WezTerm.app"
-      "/Applications/Nix Apps/Ghostty.app"
+      "/Applications/Ghostty.app"
+      "/Applications/kitty.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
