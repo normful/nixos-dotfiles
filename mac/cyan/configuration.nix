@@ -127,7 +127,7 @@
       # Terminals
       "/Applications/WezTerm.app"
       "/Applications/Ghostty.app"
-      "/Applications/kitty.app"
+      # "/Applications/kitty.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
