@@ -69,13 +69,7 @@ return {
       desc = 'Find by filename',
     },
     {
-      '<Leader>fi',
-      '<Cmd>lua require("telescope.builtin").git_files()<CR>',
-      mode = { 'n', 't' },
-      desc = 'Find by filename',
-    },
-    {
-      '<Leader>fia',
+      '<Localleader>af',
       '<Cmd>lua require("telescope.builtin").find_files({cwd="~/code"})<CR>',
       mode = { 'n', 't' },
       desc = 'Find by filename (all repos)',
