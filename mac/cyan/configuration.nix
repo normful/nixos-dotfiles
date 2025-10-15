@@ -81,6 +81,7 @@
         infisical
         grex
         xonsh
+        thumbs
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         anki
