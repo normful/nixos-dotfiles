@@ -122,7 +122,7 @@ font-thicken = false
 # Despite this being WezTerm config, kitty's visual font previewer is very nice:
 # Open kitty and run /Applications/kitty.app/Contents/MacOS/kitty list-fonts
 
-font-family = Moralerspace Radon HWJPDOC
+font-family = Explex Console NF
 # font-feature = calt=1,clig=0,liga=0,zero,ss01
 
 # Visual test text for fonts
@@ -142,7 +142,9 @@ font-family = Moralerspace Radon HWJPDOC
 # Launch visual theme picker with
 # /Applications/Ghostty.app/Contents/MacOS/ghostty +list-themes
 # Many themes are built-in, so you most likely won't need to install any custom themes.
-theme = TokyoNight Storm
+# theme = TokyoNight Storm
+theme = Rapture
+# theme = Snazzy
 
 window-theme = dark
 
@@ -153,10 +155,17 @@ window-theme = dark
 window-show-tab-bar = always
 window-new-tab-position = current
 
-macos-titlebar-style = tabs          # 1 row
-# macos-titlebar-style = transparent # 2 rows: current tab's title and tab row
-# macos-titlebar-style = native      # seems ugly to me because of mismatching colors
-# macos-titlebar-style = hidden      # breaks tabbing feature altogether; new windows are launched
+# 1 row
+macos-titlebar-style = tabs
+
+# 2 rows: current tab's title and tab row
+# macos-titlebar-style = transparent
+
+# seems ugly to me because of mismatching colors
+# macos-titlebar-style = native
+
+# breaks tabbing feature altogether; new windows are launched
+# macos-titlebar-style = hidden
 
 macos-titlebar-proxy-icon = hidden
 
