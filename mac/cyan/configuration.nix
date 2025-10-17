@@ -299,7 +299,7 @@
           minimize-to-application = true;
           mouse-over-hilite-stack = false;
           mru-spaces = false;
-          orientation = "right";
+          orientation = "left";
           show-process-indicators = true;
           show-recents = false;
           static-only = false;

@@ -13,7 +13,6 @@ if status is-interactive
     set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
     set --export XAI_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
     set --export GROK_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
-  # set --export OPENCODE_CONFIG ~/code/ai-agents-configs/opencode/combined.json
 
     abbr --add c clear
     abbr --add q exit
@@ -79,6 +78,7 @@ if status is-interactive
     end
 
     abbr --add oc "bunx opencode-ai"
+    abbr --add occ "OPENCODE_CONFIG=/Users/norman/code/ai-agents-configs/opencode/combined.json bunx opencode-ai"
 
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"
