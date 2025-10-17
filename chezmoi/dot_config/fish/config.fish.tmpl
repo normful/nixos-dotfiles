@@ -77,8 +77,7 @@ if status is-interactive
         abbr --add cld "claude"
     end
 
-    abbr --add oc "bunx opencode-ai"
-    abbr --add occ "OPENCODE_CONFIG=/Users/norman/code/ai-agents-configs/opencode/combined.json bunx opencode-ai"
+    abbr --add oc "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai"
 
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"
