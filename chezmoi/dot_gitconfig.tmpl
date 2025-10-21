@@ -244,6 +244,7 @@
 
     # commit with same message and timestamp as some ref
     cc        = commit -C
+    ncc       = commit -n -C
 
     # amend HEAD's timestamp to now without changing commit message
     amendnow    = "!f() { git commit --amend --no-edit --date=\"$(date)\"; }; f"
@@ -720,6 +721,7 @@
     # Example usage: git squashto base
     squashto      = !sh -c 'git reset --soft \"$0\" && git commit -m \"squashed\"'
     sqto          = !sh -c 'git reset --soft \"$0\" && git commit -m \"squashed\"'
+    sqot          = !sh -c 'git reset --soft \"$0\" && git commit -m \"squashed\"'
 
     # ---------------------------------------------------------------------------------------------------------------------
     # show
