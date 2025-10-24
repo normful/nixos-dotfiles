@@ -107,21 +107,9 @@
         superwhisper
         tor-browser
         tunnelblick
-        ungoogled-chromium
         visual-studio-code_insiders
         vlc
         zed
-
-        # ---------------
-        # Failed to build
-        # ---------------
-        # audacity
-        # calibre
-        # conductor
-        # skype
-        # steam
-        # voiceink
-        # warp
       ]);
 
     system.defaults.dock.persistent-apps = [
@@ -133,15 +121,14 @@
       # Browsers
       "/Applications/Vivaldi.app"
       "/Applications/Comet.app"
+      "/Applications/ChatGPT Atlas.app"
 
       # Notes
       "/Applications/Notion.app"
       "/Applications/Obsidian.app"
 
-      # AI tools
-      "/Applications/Jan.app"
-
       # Others
+      "/Applications/Jan.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
@@ -299,7 +286,7 @@
           minimize-to-application = true;
           mouse-over-hilite-stack = false;
           mru-spaces = false;
-          orientation = "left";
+          orientation = "right";
           show-process-indicators = true;
           show-recents = false;
           static-only = false;
