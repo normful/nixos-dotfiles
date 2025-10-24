@@ -36,18 +36,27 @@ in
         ++ (optionals (!config.my.enableLangTsJs) (with pkgs-pinned-unstable; [ deno ]))
         ++ (optionals (!config.my.enableLangRust) (with pkgs-pinned-unstable; [ cargo ]))
         ++ (optionals (!config.my.enableLangGo) (with pkgs-pinned-unstable; [ go ]))
-        ++ (optionals (!config.my.enableLangPhp) (with pkgs-pinned-unstable; [
-          php
-          php84Packages.composer
-        ]))
-        ++ (optionals (!config.my.enableLangPython) (with pkgs-pinned-unstable; [
-          python313
-          python313Packages.pip
-        ]))
-        ++ (optionals (!config.my.enableLangC) (with pkgs-pinned-unstable; [
-          gcc
-          gnumake
-        ]))
+        ++ (optionals (!config.my.enableLangPhp) (
+          with pkgs-pinned-unstable;
+          [
+            php
+            php84Packages.composer
+          ]
+        ))
+        ++ (optionals (!config.my.enableLangPython) (
+          with pkgs-pinned-unstable;
+          [
+            python313
+            python313Packages.pip
+          ]
+        ))
+        ++ (optionals (!config.my.enableLangC) (
+          with pkgs-pinned-unstable;
+          [
+            gcc
+            gnumake
+          ]
+        ))
       else
         [ pkgs-pinned-unstable.neovim ];
   };
