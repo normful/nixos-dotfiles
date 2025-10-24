@@ -109,6 +109,6 @@ end
 
 return {
   'jakewvincent/mkdnflow.nvim',
-  ft = { 'markdown' },
+  event = 'VeryLazy',
   config = configure_mkdnflow_nvim,
 }

@@ -80,6 +80,6 @@ end
 
 return {
   'MeanderingProgrammer/render-markdown.nvim',
-  ft = { 'markdown' },
+  event = 'VeryLazy',
   config = configure_render_markdown_nvim,
 }

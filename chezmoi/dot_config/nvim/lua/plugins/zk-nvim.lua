@@ -10,7 +10,7 @@ end
 return {
   'zk-org/zk-nvim',
   config = configure_zk_nvim,
-  ft = { 'markdown' },
+  event = 'VeryLazy',
   keys = {
     ----------------------------
     -- Create a new note

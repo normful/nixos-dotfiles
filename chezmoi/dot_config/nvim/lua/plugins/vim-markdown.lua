@@ -8,4 +8,5 @@ return {
   'preservim/vim-markdown',
   config = configure_vim_markdown,
   ft = 'markdown',
+  enabled = false,
 }
