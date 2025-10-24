@@ -3,31 +3,63 @@
 set -o errexit
 set -o pipefail
 
+# Resolves the given path to its canonical absolute path, handling symlinks.
+# Falls back to cd/pwd if readlink -f is unavailable.
+resolve_path() {
+  readlink -f "$1" 2>/dev/null || (cd "$1" 2>/dev/null && pwd) || echo "$1"
+}
+
+# Checks if the current working directory is within any of the skipped folders or their subfolders.
+# Returns 0 (success/true) if the current directory matches a skipped folder, 1 (failure/false) otherwise.
+is_in_skipped_folder() {
+  declare -a SKIPED_FOLDERS=(
+    "$HOME/code/alcove"
+    "$HOME/code/notes"
+  )
+
+  local current_folder_resolved=$(resolve_path "$PWD")
+  for folder in "${SKIPED_FOLDERS[@]}"; do
+    [[ -d "$folder" ]] || continue
+
+    local folder_resolved=$(resolve_path "$folder")
+    if [[ "$current_folder_resolved" == "$folder_resolved" || "$current_folder_resolved" == "$folder_resolved"/* ]]; then
+      return 0  # Found in skipped folder
+    fi
+  done
+  return 1  # Not in any skipped folder
+}
+
 main() {
-    if ! git ls-files >& /dev/null; then
-        echo "Error: This script must be run within a git repository."
-        exit 1
-    fi
+  if ! git ls-files >& /dev/null; then
+    echo "Error: This script must be run within a git repository."
+    exit 1
+  fi
 
-    if ! git diff --cached --quiet; then
-        # Use staged files
-        :
-    else
-        git add -A
-    fi
+  if ! git diff --cached --quiet; then
+    # Use the already-staged files, and don't stage any more
+    :
+  else
+    # Staged all files
+    git add -A
+  fi
 
-    if [[ -n "$OCO_API_KEY" ]]; then
-        # Check if there are many changes
-        change_count=$(git diff --cached --numstat | wc -l)
-        if [[ $change_count -gt 20 ]]; then
-            git reset HEAD
-            git ce
-        else
-            opencommit --yes
-        fi
+  if is_in_skipped_folder; then
+    git commit -m "wip"
+    exit 0
+  fi
+
+  if [[ -n "$OCO_API_KEY" ]]; then
+    # Check if there are many changes
+    change_count=$(git diff --cached --numstat | wc -l)
+    if [[ $change_count -gt 20 ]]; then
+      git reset HEAD
+      git ce
     else
-        git commit -m "wip"
+      opencommit --yes
     fi
+  else
+    git commit -m "wip"
+  fi
 }
 
 main "$@"
