@@ -19,7 +19,7 @@ local function configure_lspconfig()
       'elp',
       'basedpyright',
       'harper_ls',
-      'copilot',
+      -- 'marksman', Purposely not using marksman for Markdown because it had more downsides than upsides
 
       'rust_analyzer',
     },
@@ -140,8 +140,6 @@ local function configure_lspconfig()
         },
       },
     },
-
-    copilot = {},
   }
 
   for server_name, server_specific_opts in pairs(language_servers) do

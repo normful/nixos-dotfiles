@@ -33,6 +33,7 @@ end
 
 return {
   'nvim-telescope/telescope.nvim',
+  lazy = false,
   opts = function(_, conf)
     local zoxide_utils = require('telescope._extensions.zoxide.utils')
     conf.extensions = {

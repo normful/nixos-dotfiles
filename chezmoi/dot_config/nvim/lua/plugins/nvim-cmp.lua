@@ -149,6 +149,12 @@ return {
       }),
     })
 
+    cmp.setup.filetype({ 'markdown' }, {
+      sources = cmp.config.sources({
+        { name = 'mkdnflow' },
+      }),
+    })
+
     return conf
   end,
 }

@@ -5,19 +5,22 @@ local function create_map_command(key, command)
   return string.format([[map <buffer> %s %s]], key, command)
 end
 
-nvim_create_augroup('help_augroup', { clear = true })
-nvim_create_autocmd('FileType', {
-  pattern = 'help',
-  group = 'help_augroup',
+-- TODO: Clean up the `group` usage here
+-- TODO: Clean up autocmd events specified here
+
+local help_augroup = nvim_create_augroup('help_augroup', { clear = true })
+nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+  pattern = { '*.txt' },
+  group = help_augroup,
   command = create_map_command('<C-i>', '<C-]>'),
   once = true,
   desc = 'Map Ctrl-i (Wezterm sends on Cmd-i) to Ctrl-] in help files',
 })
 
-nvim_create_augroup('env_augroup', { clear = true })
-nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+local env_augroup = nvim_create_augroup('env_augroup', { clear = true })
+nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
   pattern = '*.env',
-  group = 'env_augroup',
+  group = env_augroup,
   command = [[set filetype=config]],
   once = true,
   desc = 'Set filetype for .env files',
@@ -48,13 +51,27 @@ nvim_create_autocmd('FileType', {
   desc = 'Settings for gitrebase files',
 })
 
-nvim_create_augroup('markdown_augroup', { clear = true })
-nvim_create_autocmd('FileType', {
-  pattern = 'markdown',
-  group = 'markdown_augroup',
-  command = [[setlocal nospell]],
+local markdown_augroup = nvim_create_augroup('markdown_augroup', { clear = true })
+nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+  pattern = { '*.md', '*.rmd', '*.markdown' },
+  group = markdown_augroup,
   once = true,
-  desc = 'No spellcheck in Markdown files',
+  callback = function (ev)
+    vim.opt.spell = false
+    vim.opt.autowriteall = true
+
+    -- At some point, I thought it was better to not use nvim-ufo for folding in Markdown
+    -- require("ufo").detach()
+    -- But it seems like nvim-ufo is better than the other alternatives, so I'm sticking with it.
+
+    local buf_num = ev.buf
+
+    vim.api.nvim_buf_set_keymap(buf_num, 'n', 'mi', '<Cmd>MakeItalic<CR>', { desc = 'Make italic', noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(buf_num, 'n', 'mb', '<Cmd>MakeBold<CR>', { desc = 'Make bold', noremap = true, silent = true })
+
+    vim.api.nvim_buf_set_keymap(buf_num, 'n', '<Leader>zl', ':NormfulInsertLink<CR>', { desc = 'Insert link (to copied URL or local note)', noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(buf_num, 'v', '<Leader>zl', ':NormfulInsertLink<CR>', { desc = 'Insert link (to copied URL or local note)', noremap = true, silent = true })
+  end,
 })
 
 nvim_create_augroup('javascript_augroup', { clear = true })

@@ -1,5 +1,5 @@
 return {
-  'toppair/peek.nvim',
+  'normful/peek.nvim',
   build = 'deno task --quiet build:fast',
   opts = {
     theme = 'dark',
