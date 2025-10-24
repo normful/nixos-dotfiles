@@ -267,6 +267,9 @@ in
       ++ (optionals (config.my.enableImageTools && isLinux) [
         darktable
       ])
+      ++ (optionals (config.my.enableImageTools && isDarwin) [
+        pngpaste
+      ])
       ++ (optionals config.my.enableColorTools [
         pastel
       ])
