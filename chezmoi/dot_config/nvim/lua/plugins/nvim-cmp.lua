@@ -44,6 +44,7 @@ return {
     { 'rcarriga/cmp-dap', event = 'InsertEnter' },
     { 'SergioRibera/cmp-dotenv', event = 'InsertEnter' },
     { 'Snikimonkd/cmp-go-pkgs', event = 'InsertEnter' },
+    { 'jakewvincent/mkdnflow.nvim', event = 'InsertEnter' },
     {
       'windwp/nvim-autopairs',
       -- Included by NvChad in https://github.com/NvChad/NvChad/blob/29ebe31ea6a4edf351968c76a93285e6e108ea08/lua/nvchad/plugins/init.lua#L119-L132
@@ -149,6 +150,7 @@ return {
       }),
     })
 
+    -- Comes from https://github.com/jakewvincent/mkdnflow.nvim/blob/main/lua/mkdnflow/cmp.lua
     cmp.setup.filetype({ 'markdown' }, {
       sources = cmp.config.sources({
         { name = 'mkdnflow' },

@@ -1,5 +1,11 @@
 local function configure_colorizer()
-  require('colorizer').setup()
+  require('colorizer').setup({
+    '*',
+    markdown = {
+      rgb_fn = false,
+      names = true,
+    },
+  })
 end
 
 return {

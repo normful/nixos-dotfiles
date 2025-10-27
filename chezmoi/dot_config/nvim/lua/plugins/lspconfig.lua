@@ -162,7 +162,7 @@ return {
     -- Note to self!
     -- Toggle this boolean below manually when you want to see
     -- more verbose logging temporarily in :LspLog
-    local enable_lsp_log = false
+    local enable_lsp_log = true
 
     vim.lsp.set_log_level(enable_lsp_log and 'debug' or 'off')
   end,

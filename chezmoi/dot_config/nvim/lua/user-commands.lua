@@ -46,6 +46,10 @@ vim.api.nvim_create_user_command('NormfulInsertLink', function(opts)
     error('Command not available: ZkInsertLinkAtSelection')
   end
 
+  -- Detect if we're in visual mode
+  local mode = vim.api.nvim_get_mode().mode
+  local in_visual_mode = mode == 'v' or mode == 'V' or mode == '\22' -- \22 is Ctrl-V (visual block)
+
   -- Get clipboard content and define URL pattern for validation
   local clipboard = vim.fn.getreg('+')
   local url_pattern = '^https?://[^%s]+$'
@@ -60,9 +64,15 @@ vim.api.nvim_create_user_command('NormfulInsertLink', function(opts)
     or not string.match(clipboard, url_pattern)
   then
     -- No valid URL in clipboard: use Zk commands to create/select links
-    if opts.range == 2 then
-      -- Visual selection: use ZkInsertLinkAtSelection with visual range
-      vim.cmd("'<,'>ZkInsertLinkAtSelection")
+    if in_visual_mode then
+      -- Visual selection: exit visual mode first, then call ZkInsertLinkAtSelection
+      -- The '< and '> marks will be preserved and used by get_lsp_location_from_selection()
+      -- We MUST exit visual mode because zk's get_lsp_location_from_selection() expects
+      -- to be called from normal mode with '< and '> marks from a previous selection
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
+      vim.schedule(function()
+        require('zk.commands').get('ZkInsertLinkAtSelection')()
+      end)
     else
       -- No visual selection: use ZkInsertLink for interactive link creation
       vim.cmd('ZkInsertLink')
@@ -70,27 +80,17 @@ vim.api.nvim_create_user_command('NormfulInsertLink', function(opts)
     return
   end
 
-  -- Valid URL in clipboard: use mkdnflow for link insertion
-  local mkdnflow = require('mkdnflow')
-
-  if opts.range > 0 then
-    -- Some range selected: create link with selection as text
-    mkdnflow.links.createLink({
-      from_clipboard = true,
-      range = true,
-    })
-  else
-    -- No range: create link at cursor with clipboard URL
-    mkdnflow.links.createLink({
-      from_clipboard = true,
-    })
+  if vim.fn.exists(':MkdnCreateLinkFromClipboard') ~= 2 then
+    error('Command not available: MkdnCreateLinkFromClipboard')
   end
+
+  -- Valid URL in clipboard: use mkdnflow for link insertion
+  -- Call without range to let mkdnflow handle visual mode directly
+  vim.cmd('MkdnCreateLinkFromClipboard')
 
   -- Clear clipboard after successful link creation to prevent reuse
   vim.fn.setreg('+', '')
 end, {
   nargs = 0,
-
-  -- Allow range to be passed for visual selections
-  range = true,
+  -- Note: range not needed since we use <Cmd> mapping which keeps visual mode active
 })
