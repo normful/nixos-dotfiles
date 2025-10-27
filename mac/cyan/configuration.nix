@@ -82,11 +82,11 @@
         grex
         xonsh
         thumbs
+        emanote
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         anki
         brave-browser
-        claude
         cursor
         discord
         docker
