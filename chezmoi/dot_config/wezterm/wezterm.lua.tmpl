@@ -29,6 +29,14 @@ config.keys = {
   { mods = 'LEADER', key = 'n', action = act.SpawnTab('CurrentPaneDomain') },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '[', action = act.ActivateTabRelative(-1) },
+  { mods = 'LEADER', key = 't', action = act.ShowTabNavigator },
+
+  -- Current Tab: retitle
+  { mods = 'LEADER', key = ',', action = act.PromptInputLine({ description = 'Enter new title:', action = wezterm.action_callback(function(window, pane, line)
+      if line then
+        window:active_tab():set_title(line)
+      end
+    end), }), },
 
   -- Panes: open
   { mods = 'LEADER', key = 'v', action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }) },
@@ -106,18 +114,42 @@ config.keys = {
   -- Keyboard Mappings For Special Features
   -----------------------------------------
 
+  -- CMD+SHIFT+h activates Quick Select Mode
   -- This is similar to Kitty terminal's "hints" kitten
-  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}|SHIFT', key = 'h', action = act.QuickSelect },
+  {
+    mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}|SHIFT',
+    key = 'h',
+    action = act.QuickSelect,
+  },
 
-  -- TODO(norman): Read https://wezfurlong.org/wezterm/scrollback.html#searching-the-scrollback and customize the search_mode key table
+  -- CMD+SHIFT+o opens a URL with Quick Select Mode
+  {
+    mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}|SHIFT',
+    key = 'o',
+    action = wezterm.action.QuickSelectArgs({
+      label = 'open url',
+      patterns = {
+        'https?://\\S+',
+      },
+      skip_action_on_paste = true,
+      action = wezterm.action_callback(function(window, pane)
+        local url = window:get_selection_text_for_pane(pane)
+        wezterm.log_info('opening: ' .. url)
+        wezterm.open_with(url)
+      end),
+    }),
+  },
+
+  -- More info: https://wezfurlong.org/wezterm/copymode.html
+  { mods = 'LEADER', key = 'y', action = act.ActivateCopyMode },
+
+  -- TODO(norman): Read https://wezfurlong.org/wezterm/scrollback.html#searching-the-scrollback
+  -- and customize the search_mode key table, according to https://wezterm.org/scrollback.html#configurable-search-mode-key-assignments
   {
     mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}|SHIFT',
     key = 'W',
-    action = wezterm.action.Search({ Regex = '[a-f0-9]{6,}' }),
+    action = act.Search({ Regex = '[a-f0-9]{6,}' }),
   },
-
-  -- TODO(norman): Read https://wezfurlong.org/wezterm/copymode.html#configurable-key-assignments
-  { mods = 'LEADER', key = '[', action = act.ActivateCopyMode },
 
   -- TODO(norman): Read https://wezfurlong.org/wezterm/config/launch.html#the-launcher-menu
 
@@ -143,6 +175,36 @@ config.key_tables = {
     { key = 'Escape', action = 'PopKeyTable' },
     { key = 'Enter', action = 'PopKeyTable' },
   },
+  copy_mode = {
+    { key = 'y', mods = 'NONE', action = act.Multiple{ { CopyTo =  'ClipboardAndPrimarySelection' }, { Multiple = { 'ScrollToBottom', { CopyMode =  'Close' } } } } },
+
+    { key = 'Enter', mods = 'NONE', action = act.CopyMode 'MoveToStartOfNextLine' },
+
+    { key = 'V', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Line' } },
+    { key = 'V', mods = 'SHIFT', action = act.CopyMode{ SetSelectionMode =  'Line' } },
+    { key = 'v', mods = 'NONE', action = act.CopyMode{ SetSelectionMode =  'Cell' } },
+
+    { key = 'h', mods = 'NONE', action = act.CopyMode 'MoveLeft' },
+    { key = 'j', mods = 'NONE', action = act.CopyMode 'MoveDown' },
+    { key = 'k', mods = 'NONE', action = act.CopyMode 'MoveUp' },
+    { key = 'l', mods = 'NONE', action = act.CopyMode 'MoveRight' },
+
+    { key = 'g', mods = 'NONE', action = act.CopyMode 'MoveToScrollbackTop' },
+    { key = 'G', mods = 'NONE', action = act.CopyMode 'MoveToScrollbackBottom' },
+    { key = 'G', mods = 'SHIFT', action = act.CopyMode 'MoveToScrollbackBottom' },
+
+    { key = '^', mods = 'NONE', action = act.CopyMode 'MoveToStartOfLineContent' },
+    { key = '$', mods = 'NONE', action = act.CopyMode 'MoveToEndOfLineContent' },
+
+    { key = 'w', mods = 'NONE', action = act.CopyMode 'MoveForwardWord' },
+    { key = 'b', mods = 'NONE', action = act.CopyMode 'MoveBackwardWord' },
+
+    { key = 'u', mods = 'CTRL', action = act.CopyMode{ MoveByPage = (-0.5) } },
+    { key = 'd', mods = 'CTRL', action = act.CopyMode{ MoveByPage = (0.5) } },
+
+    { key = 'Escape', mods = 'NONE', action = act.Multiple{ 'ScrollToBottom', { CopyMode =  'Close' } } },
+    { key = 'q', mods = 'NONE', action = act.Multiple{ 'ScrollToBottom', { CopyMode =  'Close' } } },
+  },
 }
 
 ----------------------------
@@ -152,7 +214,7 @@ config.key_tables = {
 config.mouse_bindings = {
   {
     event = { Down = { streak = 3, button = 'Left' } },
-    action = wezterm.action.SelectTextAtMouseCursor 'SemanticZone',
+    action = act.SelectTextAtMouseCursor 'SemanticZone',
     mods = 'NONE',
   },
   {
@@ -180,7 +242,7 @@ config.mouse_bindings = {
 {{ if .mac -}}
 config.font_size = 20.0
 config.font = wezterm.font_with_fallback({
-  { family = 'Inconsolata Nerd Font Mono', weight = 'Regular', italic = false },
+  { family = 'Moralerspace Neon HWJPDOC', weight = 'Regular', italic = false },
   { family = 'Symbols Nerd Font Mono', scale = 1 },
 })
 config.harfbuzz_features = { 'calt=1', 'clig=0', 'liga=0', 'zero', 'ss01' }
@@ -309,10 +371,10 @@ config.colors = {
       -- can also be used for `new_tab_hover`.
     },
   },
-  quick_select_label_bg = { AnsiColor = 'Grey' },
-  quick_select_label_fg = { AnsiColor = 'Olive' },
-  quick_select_match_bg = { AnsiColor = 'Grey' },
-  quick_select_match_fg = { AnsiColor = 'Silver' },
+  quick_select_label_bg = { Color = '#ea8dde' },
+  quick_select_label_fg = { Color = '#44213b' },
+  quick_select_match_bg = { Color = '#ea8dde' },
+  quick_select_match_fg = { Color = '#cf40ab' },
 }
 
 ------------------------------
@@ -323,12 +385,12 @@ config.initial_cols = 200
 config.initial_rows = 70
 
 {{ if .mac -}}
-config.window_decorations = 'RESIZE'
+config.window_decorations = 'RESIZE|MACOS_USE_BACKGROUND_COLOR_AS_TITLEBAR_COLOR'
 config.window_padding = {
-  left = '10px',
-  right = '0px',
+  left = 0,
+  right = 0,
   top = 0,
-  bottom = '10px',
+  bottom = 0,
 }
 {{ end }}
 

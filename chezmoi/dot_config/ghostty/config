@@ -28,6 +28,9 @@ keybind = ctrl+a>n=new_tab
 keybind = cmd+]=next_tab
 keybind = cmd+[=previous_tab
 
+# Current Tab: retitle
+keybind = ctrl+a>,=prompt_surface_title
+
 # Splits: open
 keybind = ctrl+a>v=new_split:right
 keybind = ctrl+a>s=new_split:down
@@ -115,14 +118,14 @@ keybind = global:cmd+s=toggle_quick_terminal
 # Appearance: Font
 # --------------------------------------
 
-font-size = 20
+font-size = 18
 window-inherit-font-size = true
 font-thicken = false
 
 # Despite this being WezTerm config, kitty's visual font previewer is very nice:
 # Open kitty and run /Applications/kitty.app/Contents/MacOS/kitty list-fonts
 
-font-family = Explex Console NF
+font-family = Moralerspace Neon HWJPDOC
 # font-feature = calt=1,clig=0,liga=0,zero,ss01
 
 # Visual test text for fonts
@@ -174,7 +177,7 @@ macos-titlebar-proxy-icon = hidden
 # --------------------------------------
 
 window-width = 100
-window-height = 42
+window-height = 44
 window-padding-x = 0
 window-padding-y = 0
 
