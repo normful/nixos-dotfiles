@@ -70,14 +70,7 @@ if status is-interactive
     end
     {{ end -}}
 
-    if not command -v claude >/dev/null 2>&1
-        abbr --add cld "bunx @anthropic-ai/claude-code"
-        abbr --add claude "bunx @anthropic-ai/claude-code"
-    else
-        abbr --add cld "claude"
-    end
-
-    abbr --add oc "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai"
+    abbr --add oc "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
 
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"
@@ -133,6 +126,14 @@ if status is-interactive
     fish_add_path --global "$HOME/code/dotfiles/bin"
     fish_add_path --global "$HOME/.codeium/windsurf/bin"
     fish_add_path --global "/Applications/WezTerm.app/Contents/MacOS"
+    fish_add_path --global "$HOME/.bun/bin"
+
+    if not command -v claude >/dev/null 2>&1
+        abbr --add cld "bunx @anthropic-ai/claude-code"
+        abbr --add claude "bunx @anthropic-ai/claude-code"
+    else
+        abbr --add cld "claude"
+    end
 
     abbr --add es 'exercism submit'
     abbr --add mus "musikcube"
