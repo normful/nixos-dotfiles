@@ -17,17 +17,14 @@ return {
       prompt_for_file_name = false,
       file_name = '%Y%m%d-%H%M%S',
 
-      extension = 'jpg',
-
-      -- Using a custom `process_cmd` (either here in `default` for
-      -- all filetypes, or in filetype-specific config below)
-      -- can result in various errors. I'm purposely avoiding it for now.
+      extension = 'webp', ---@type string
+      process_cmd = 'convert - -quality 50 webp:-', ---@type string
     },
     filetypes = {
       markdown = {
         dir_path = './images',
         template = '![$FILE_NAME]($FILE_PATH)',
-        url_encode_path = true,
+        url_encode_path = false,
       },
 
       -- TODO: Actually try using these settings for typst and tex, and creating PDFs; I haven't yet
@@ -51,6 +48,6 @@ return {
     },
   },
   keys = {
-    { '<Leader>p', '<Cmd>PasteImage<CR>', desc = 'Paste image from system clipboard' },
+    { '<Leader>zp', '<Cmd>PasteImage<CR>', desc = 'Paste image from system clipboard' },
   },
 }
