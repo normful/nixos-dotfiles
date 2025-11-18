@@ -83,6 +83,7 @@
         xonsh
         thumbs
         emanote
+        putty
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         anki
@@ -103,7 +104,6 @@
         orion
         rustrover
         slack
-        sol
         superwhisper
         tor-browser
         tunnelblick
@@ -121,7 +121,6 @@
       # Browsers
       "/Applications/Vivaldi.app"
       "/Applications/Comet.app"
-      "/Applications/ChatGPT Atlas.app"
 
       # Notes
       "/Applications/Notion.app"
@@ -150,7 +149,6 @@
             "/Applications/Glide.app"
             "/Applications/Nix Apps/RustRover.app"
             "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
-            "/Applications/Nix Apps/ChatALL.app"
       */
     ];
 
@@ -291,7 +289,6 @@
           show-recents = false;
           static-only = false;
           tilesize = 48;
-          wvous-br-corner = 13; # Hot corner action for bottom right corner: Lock Screen
         };
 
         finder = {

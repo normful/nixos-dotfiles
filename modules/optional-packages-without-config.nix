@@ -137,6 +137,7 @@ in
         gtree
         mdq
         codebraid
+        presenterm
       ])
       ++ (optionals config.my.enableMarkdownGuiTools [
         folio
@@ -222,6 +223,7 @@ in
       ++ (optionals config.my.enableNetworkingTools [
         dogdns
         dnslookup
+        zdns
         mhost
         tcpdump
         xh
