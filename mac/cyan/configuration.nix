@@ -116,8 +116,8 @@
     system.defaults.dock.persistent-apps = [
       # Terminals
       "/Applications/WezTerm.app"
-      "/Applications/Ghostty.app"
       "/Applications/kitty.app"
+      "/Applications/Ghostty.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
