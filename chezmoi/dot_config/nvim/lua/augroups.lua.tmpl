@@ -5,6 +5,14 @@ local function create_map_command(key, command)
   return string.format([[map <buffer> %s %s]], key, command)
 end
 
+local function set_buf_keymaps(buf_num, keys, command, desc)
+  for _, key_config in ipairs(keys) do
+    local mode = key_config.mode or 'n'
+    local key = key_config.key
+    vim.api.nvim_buf_set_keymap(buf_num, mode, key, command, { desc = desc, noremap = true, silent = true })
+  end
+end
+
 -- TODO: Clean up the `group` usage here
 -- TODO: Clean up autocmd events specified here
 
@@ -63,8 +71,12 @@ nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
     vim.api.nvim_buf_set_keymap(buf_num, 'n', 'mi', '<Cmd>MakeItalic<CR>', { desc = 'Make italic', noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf_num, 'n', 'mb', '<Cmd>MakeBold<CR>', { desc = 'Make bold', noremap = true, silent = true })
 
-    vim.api.nvim_buf_set_keymap(buf_num, 'n', '<Leader>k', '<Cmd>NormfulInsertLink<CR>', { desc = 'Insert link (to copied URL or local note)', noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(buf_num, 'v', '<Leader>k', '<Cmd>NormfulInsertLink<CR>', { desc = 'Insert link (to copied URL or local note)', noremap = true, silent = true })
+    set_buf_keymaps(buf_num, {
+      { mode = 'n', key = '<Leader>k' },
+      { mode = 'v', key = '<Leader>k' },
+      { mode = 'n', key = '<Leader>zk' },
+      { mode = 'v', key = '<Leader>zk' },
+    }, '<Cmd>NormfulInsertLink<CR>', 'Insert link (to copied URL or local note)')
   end,
 })
 
