@@ -84,6 +84,7 @@
         thumbs
         emanote
         putty
+        oletools
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         anki
