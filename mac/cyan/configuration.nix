@@ -129,6 +129,7 @@
 
       # Others
       "/Applications/Jan.app"
+      "/Applications/Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"

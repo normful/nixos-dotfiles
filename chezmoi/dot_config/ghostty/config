@@ -202,6 +202,9 @@ scrollback-limit = 100_000_000
 
 shell-integration = fish
 
+# Explanation of what this does: https://ghostty.org/docs/help/terminfo#ssh
+shell-integration-features = ssh-terminfo,ssh-env
+
 initial-window = true
 
 confirm-close-surface = false
