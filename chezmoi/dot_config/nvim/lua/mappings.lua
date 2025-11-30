@@ -147,6 +147,13 @@ map('n', '<Leader>gll', open_term(term_id1, 'git llforvim "FILEPATH"'), { desc =
 map('n', '<Leader>glll', open_term(term_id1, 'git lllforvim "FILEPATH"'), { desc = 'git log this file with patches' })
 map('n', '<Leader>gppl', open_term(term_id1, 'git pplforvim "FILEPATH"'), { desc = 'git shortlog' })
 
+map(
+  'n',
+  '<LocalLeader>y',
+  '<Cmd>LookupYomitanDefinitions<CR>',
+  { desc = 'Opens a popup window using dictionary definitions from local Yomitan API server' }
+)
+
 map({ 'n', 'i', 'v' }, '<F12>', function()
   print('Debugging mode - press any key (ESC to exit)')
   local char = vim.fn.getchar()
