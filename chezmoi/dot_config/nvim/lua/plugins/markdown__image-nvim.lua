@@ -12,6 +12,6 @@ end
 
 return {
   '3rd/image.nvim',
-  ft = { 'markdown', 'norg', 'typst' },
+  ft = { 'markdown', 'norg' },
   config = configure_image_nvim,
 }
