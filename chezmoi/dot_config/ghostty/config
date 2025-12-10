@@ -112,7 +112,7 @@ keybind = cmd+x=text:\x1b[32~
 # --------------------------------------
 
 # Quick terminal
-keybind = global:cmd+s=toggle_quick_terminal
+# keybind = global:cmd+s=toggle_quick_terminal
 
 # --------------------------------------
 # Appearance: Font
