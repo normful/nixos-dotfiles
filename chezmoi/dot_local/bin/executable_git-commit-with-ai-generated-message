@@ -15,6 +15,7 @@ is_in_skipped_folder() {
   declare -a SKIPED_FOLDERS=(
     "$HOME/code/alcove"
     "$HOME/code/notes"
+    "$HOME/code/fip"
   )
 
   local current_folder_resolved=$(resolve_path "$PWD")
