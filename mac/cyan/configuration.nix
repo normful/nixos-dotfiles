@@ -85,25 +85,28 @@
         emanote
         putty
         oletools
+        yubikey-manager
+        gnuplot
+        breakpad
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
-        anki
+        # anki
         brave-browser
         cursor
         discord
-        docker
+        # docker
         firefox_nightly
         flux
-        inkscape
+        # inkscape
         iptvnator
         keka
         key-codes
         libreoffice
         mp3gain-express
         neovide
-        notion-calendar
-        orion
-        rustrover
+        # notion-calendar
+        # orion
+        # rustrover
         slack
         superwhisper
         tor-browser
@@ -129,7 +132,8 @@
 
       # Others
       "/Applications/Jan.app"
-      "/Applications/Calendar.app"
+      "/System/Applications/Calendar.app"
+      "/Applications/Notion Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
