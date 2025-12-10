@@ -75,7 +75,7 @@ return {
       '<Leader>zf',
       ":'<,'>ZkMatch<CR>",
       mode = 'v',
-      desc = 'Search notes using visual selection',
+      desc = 'Search notes using selection',
     },
 
     ----------------------------
