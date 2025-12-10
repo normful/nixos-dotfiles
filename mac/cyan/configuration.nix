@@ -82,7 +82,6 @@
         grex
         xonsh
         thumbs
-        emanote
         putty
         oletools
         yubikey-manager

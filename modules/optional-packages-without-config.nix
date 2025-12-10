@@ -118,7 +118,6 @@ in
         beam.packages.erlang_28.rebar3
       ])
       ++ (optionals config.my.enableDiagramTools [
-        temurin-jre-bin-24
         plantuml
         graphviz
       ])
