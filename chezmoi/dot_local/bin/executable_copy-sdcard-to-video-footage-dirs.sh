@@ -99,6 +99,7 @@ _get_all_yyyymmdd_from_source_filenames() {
     for filepath in "${temp_files[@]}"; do
         local filename
         filename=$(basename "$filepath")
+
         if [[ "$filename" =~ ^[A-Z]+_([0-9]{8})_.* ]]; then
             all_dates_found+=("${BASH_REMATCH[1]}")
         fi
@@ -169,6 +170,7 @@ _build_file_copy_lists_and_counts() {
     fi
 
     log_info "Analyzing files and preparing copy plan..."
+
     for filepath in "${sorted_source_files[@]}"; do
         local filename date_yyyymmdd_file year_file month_file day_file formatted_date_file_key dest_folder_path dest_full_path
         filename=$(basename "$filepath")
