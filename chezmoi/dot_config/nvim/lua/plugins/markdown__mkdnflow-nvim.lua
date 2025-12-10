@@ -194,4 +194,13 @@ return {
   'jakewvincent/mkdnflow.nvim',
   lazy = false,
   config = configure_mkdnflow_nvim,
+  keys = {
+    {
+      '<Leader>zl',
+      '0vg_<Cmd>MkdnEnter<CR>',
+      mode = 'n',
+      buffer = true,
+      desc = 'Create line link to new note',
+    },
+  },
 }
