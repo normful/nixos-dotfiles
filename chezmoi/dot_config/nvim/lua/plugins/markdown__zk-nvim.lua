@@ -107,5 +107,11 @@ return {
       ft = 'markdown',
       desc = 'Preview linked note',
     },
+    {
+      '<Leader>zi',
+      '<Cmd>ZkIndex<CR>',
+      mode = 'n',
+      desc = 'Reindex notes',
+    },
   },
 }
