@@ -206,6 +206,7 @@ in
         devspace
       ])
       ++ (optionals config.my.enableSqlDbTools [
+        duckdb
         sql-studio
         dbeaver-bin
       ])
