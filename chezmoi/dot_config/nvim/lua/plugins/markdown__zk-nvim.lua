@@ -18,7 +18,7 @@ return {
 
     {
       '<Leader>zn',
-      "<Cmd>ZkNew { title = vim.fn.input('New note title: ') }<CR>",
+      "<Cmd>lua require('zk').new({ notebook_path = vim.fn.expand('~/code/alcove'), title = vim.fn.input('New note title: ') })<CR>",
       mode = 'n',
       desc = 'New note',
     },
@@ -27,8 +27,8 @@ return {
     -- Working with other notes
     ----------------------------
 
-    -- See contents of <Leader>zl mapping in augroups.lua
-    -- This is just for configuring lazy loading of this plugin
+    -- See augroups.lua for code of <Leader>zl mapping
+    -- This config only is for plugin lazy loading
     { '<Leader>zl', mode = 'n', ft = 'markdown' },
     { '<Leader>zl', mode = 'v', ft = 'markdown' },
 
@@ -38,11 +38,11 @@ return {
       mode = 'v',
       buffer = true,
       ft = 'markdown',
-      desc = 'Move selected contents to new note',
+      desc = 'Move selected text to new note',
     },
 
-    -- Note: I purposely do not have a mapping for ZkNewFromTitleSelection
-    -- Instead, the more sophiscticated <CR> MkdnEnter mapping from mkdnflow.nvim does the same thing as ZkNewFromTitleSelection
+    -- Note: I purposely don't map and use ZkNewFromTitleSelection
+    -- Instead, the more sophisticated <CR> MkdnEnter mapping from mkdnflow.nvim does the same thing as ZkNewFromTitleSelection
 
     ----------------------------
     -- Open existing notes
@@ -50,7 +50,7 @@ return {
 
     {
       '<Leader>zo',
-      "<Cmd>ZkNotes { sort = { 'modified' } }<CR>",
+      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'modified' } }, { title = 'Recent notes' })<CR>",
       mode = 'n',
       desc = 'Open notes',
     },
@@ -65,16 +65,17 @@ return {
     -- Search existing notes
     ----------------------------
 
+    -- These are purposely using the same <Leader>zf, but in different modes
     {
       '<Leader>zf',
-      "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>",
-      mode = 'n',
-      desc = 'Search notes',
+      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'modified' }, match = { vim.fn.input('Search notes containing text: ') } }, { title = 'Search results' })<CR>",
+      mode = 'n', -- Normal mode mapping
+      desc = 'Search notes containing...',
     },
     {
       '<Leader>zf',
-      ":'<,'>ZkMatch<CR>",
-      mode = 'v',
+      ":'<,'>ZkMatch({ notebook_path = vim.fn.expand('~/code/alcove') })<CR>",
+      mode = 'v', -- Visual mode mapping
       desc = 'Search notes using selection',
     },
 
@@ -112,6 +113,12 @@ return {
       '<Cmd>ZkIndex<CR>',
       mode = 'n',
       desc = 'Reindex notes',
+    },
+    {
+      '<Leader>zb',
+      "<Cmd>ZkBuffers({ notebook_path = vim.fn.expand('~/code/alcove') })<CR>",
+      mode = 'n',
+      desc = 'Switch to other note buffer',
     },
   },
 }

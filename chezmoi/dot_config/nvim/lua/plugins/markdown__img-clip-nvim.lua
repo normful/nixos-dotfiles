@@ -18,7 +18,7 @@ return {
       file_name = '%Y%m%d-%H%M%S',
 
       extension = 'webp', ---@type string
-      process_cmd = 'convert - -quality 50 webp:-', ---@type string
+      process_cmd = 'convert - -quality 60 resize 30% -', ---@type string
     },
     filetypes = {
       markdown = {
