@@ -10,6 +10,7 @@ return {
   opts = function(_, conf)
     local languages_to_ensure_installed = {
       'bash',
+      'blade',
       'c',
       'cpp',
       'css',
@@ -83,7 +84,7 @@ return {
       ['property_identifier'] = 'TSProperty', -- Highlight the @property_identifier capture group with the "TSProperty" highlight group
     }
 
-    local MAX_LINE_LENGTH = 200 -- Lines longer than this will trigger disabling
+    local MAX_LINE_LENGTH = 500 -- Lines longer than this will trigger disabling
     local MAX_CHECK_LINES = 500 -- Check only the first N lines for performance
     local MAX_FILE_SIZE_MB = 1 -- Disable entirely for files larger than this (in MB)
 
