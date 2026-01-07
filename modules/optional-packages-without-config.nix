@@ -58,6 +58,7 @@ in
         modd
         efm-langserver
         hyperfine
+        unixtools.watch
       ])
       ++ (optionals config.my.enableLangTsJs [
         nodejs
