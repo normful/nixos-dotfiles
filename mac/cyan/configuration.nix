@@ -138,6 +138,8 @@
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
+      "/Applications/OptiCull.app"
+      "/Applications/darktable.app"
       "/Applications/FileZilla.app"
       "/Applications/QuickShade.app"
       "/System/Applications/System Settings.app"
