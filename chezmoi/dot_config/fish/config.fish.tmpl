@@ -116,10 +116,6 @@ if status is-interactive
         abbr --add nrs 'npm run start'
     end
 
-    if command -v composer >/dev/null 2>&1
-        abbr --add com composer
-    end
-
     {{ if .mac -}}
     source "$HOME/.api_keys.fish"
 
@@ -135,6 +131,14 @@ if status is-interactive
     else
         abbr --add cld "claude"
     end
+
+    if command -v composer >/dev/null 2>&1
+        fish_add_path --global "$HOME/.config/composer/vendor/bin"
+
+        abbr --add com composer
+    end
+
+    fish_add_path --global "$HOME/Library/Application Support/Herd/bin/"
 
     abbr --add es 'exercism submit'
     abbr --add mus "musikcube"
