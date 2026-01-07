@@ -87,6 +87,8 @@
         yubikey-manager
         gnuplot
         breakpad
+        antlr
+        jre25_minimal
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         # anki
