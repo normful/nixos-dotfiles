@@ -21,8 +21,8 @@ local function configure_telescope()
           -- <S-Tab>
 
           -- Right preview window scrolling
-          ['<F14>'] = actions.preview_scrolling_up, -- Wezterm sends this for CMD+u
-          ['<F13>'] = actions.preview_scrolling_down, -- Wezterm sends this for CMD+d
+          ['<F14>'] = actions.preview_scrolling_up, -- My terminals send this for CMD+u
+          ['<F13>'] = actions.preview_scrolling_down, -- My terminals send this for CMD+d
 
           ['<C-q>'] = actions.send_to_qflist,
         },

@@ -72,11 +72,13 @@ keybind = cmd+c=text:\x03
 # Send CTRL+D (for quitting some programs)
 keybind = cmd+d=text:\x04
 
-# Send CTRL+O (for vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions)
+# For vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions
+# Send CTRL+O
 keybind = cmd+o=text:\x0f
 
-# Send CTRL+I (for vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions)
-keybind = cmd+i=text:\t
+# For vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions
+# Send F-19. Don't send CTRL+I because CTRL+I normally is indistinguishable from Tab.
+keybind = cmd+i=text:\x1b[33~
 
 # Send CTRL+N (for selecting next item in vim completion menu)
 keybind = cmd+n=text:\x0e

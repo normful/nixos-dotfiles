@@ -20,8 +20,8 @@ local help_augroup = nvim_create_augroup('help_augroup', { clear = true })
 nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
   pattern = { '*.txt' },
   group = help_augroup,
-  command = create_map_command('<C-i>', '<C-]>'),
-  desc = 'Map Ctrl-i (Wezterm sends on Cmd-i) to Ctrl-] in help files',
+  command = create_map_command('<F19>', '<C-]>'),
+  desc = 'Map F19 to Ctrl-] in help files. My terminals send F19 when pressing Cmd+i',
 })
 
 local env_augroup = nvim_create_augroup('env_augroup', { clear = true })
@@ -70,6 +70,7 @@ nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
 
     vim.api.nvim_buf_set_keymap(buf_num, 'n', 'mi', '<Cmd>MakeItalic<CR>', { desc = 'Make italic', noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf_num, 'n', 'mb', '<Cmd>MakeBold<CR>', { desc = 'Make bold', noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(buf_num, 'n', '<F19>', '<Cmd>MkdnEnter<CR>', { desc = 'MkdnEnter', noremap = true, silent = true })
 
     set_buf_keymaps(buf_num, {
       { mode = 'n', key = '<Leader>k' },

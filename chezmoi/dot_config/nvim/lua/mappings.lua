@@ -98,8 +98,8 @@ map('n', '<D-u>', '20k', { desc = '[Cmd+u] Scroll up 20 lines' })
 map('n', '<D-w>', '<C-w>w', { desc = '[Cmd+w] Next window' })
 map('n', '<D-b>', '<Cmd>bnext<CR>', { desc = '[Cmd+b] Next buffer' })
 
--- Same copy of the above mappings, intended for use with nvim inside Wezterm
--- These rely on Wezterm mappings that send these function keys
+-- Same copy of the above mappings, intended for use with nvim inside one of my terminals
+-- These rely mappings in my terminals that send these function keys
 map('n', '<F13>', '20j', { desc = '[Cmd+d] Scroll down 20 lines' })
 map('n', '<F14>', '20k', { desc = '[Cmd+u] Scroll up 20 lines' })
 map('n', '<F15>', '<C-w>w', { desc = '[Cmd+w] Next window' })

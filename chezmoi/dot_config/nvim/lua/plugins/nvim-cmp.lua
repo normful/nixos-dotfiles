@@ -92,8 +92,8 @@ return {
     conf.mapping['<C-d>'] = nil
     conf.mapping['<C-f>'] = nil
 
-    conf.mapping['<F14>'] = cmp.mapping.scroll_docs(-4) -- Wezterm sends this for CMD+u
-    conf.mapping['<F13>'] = cmp.mapping.scroll_docs(4) -- Wezterm sends this for CMD+d
+    conf.mapping['<F14>'] = cmp.mapping.scroll_docs(-4) -- My terminals send this for CMD+u
+    conf.mapping['<F13>'] = cmp.mapping.scroll_docs(4) -- My terminals send this for CMD+d
 
     conf.preselect = cmp.PreselectMode.None
 
