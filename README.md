@@ -122,3 +122,21 @@ Although it worked, I realized that I prefer the simplicity of using nix-darwin 
 ## Why don't you use Home Manager?
 
 [Home Manager](https://github.com/nix-community/home-manager) adds another layer of unnecessary complexity for me. I can't remember all of the Nix options specific to Home Manager. And althought I could, I just don't want to spend unnecessary time reading through the Nix configuration in Home Manager.
+
+## Which terminal are you using?
+
+I use all 3: WezTerm, kitty, Ghostty.
+
+I configure them with nearly identical keymappings.
+
+For most scenarios, any one of them is sufficient for me. But they each have some special strengths:
+
+Kitty:
+- smoothest inline image rendering, using its [graphics protocol](https://sw.kovidgoyal.net/kitty/graphics-protocol/), which I use with [image.nvim](https://github.com/3rd/image.nvim)
+- [visual font selector](https://sw.kovidgoyal.net/kitty/kittens/choose-fonts/)
+
+WezTerm:
+- has the most features and special modes
+
+Ghostty:
+- no issues when SSH'ing into certain VMs
