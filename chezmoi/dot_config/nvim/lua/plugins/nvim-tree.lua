@@ -79,7 +79,12 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
   vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
 
-  vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
+  vim.keymap.set(
+    'n',
+    'a',
+    api.fs.create,
+    opts('Create file or dir (by typing in path with trailing slash, or path to new file in new dir)')
+  )
   vim.keymap.set('n', 'dd', api.fs.remove, opts('Delete'))
   vim.keymap.set('n', 're', api.fs.rename, opts('Rename'))
 
