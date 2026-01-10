@@ -49,4 +49,16 @@ vim.schedule(function()
   if vim.g.neovide then
     require('neovide')
   end
+
+  local is_opened_to_dir = vim.fn.isdirectory(vim.v.argv[3]) == 1
+
+  -- Watch directory for changes if started as `nvim <some_dir>`
+  if is_opened_to_dir then
+    vim.api.nvim_set_current_dir(vim.v.argv[3])
+    require('hotreload')
+    require('directory-watcher').setup({
+      path = vim.fn.getcwd(),
+      debounce = 100,
+    })
+  end
 end)
