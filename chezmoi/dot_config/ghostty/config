@@ -110,6 +110,14 @@ keybind = cmd+e=text:\x1b[31~
 keybind = cmd+x=text:\x1b[32~
 
 # --------------------------------------
+# Keyboard Mappings For
+# https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent
+# --------------------------------------
+
+keybind = alt+backspace=text:\x1b\x7f
+keybind = shift+enter=text:\n
+
+# --------------------------------------
 # Keyboard Mappings For Special Features
 # --------------------------------------
 
