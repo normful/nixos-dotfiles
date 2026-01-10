@@ -89,6 +89,7 @@
         breakpad
         antlr
         jre25_minimal
+        tmux
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         # anki
@@ -133,6 +134,7 @@
 
       # Others
       "/Applications/Jan.app"
+      "/Applications/OpenCode.app"
       "/System/Applications/Calendar.app"
       "/Applications/Notion Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
