@@ -264,7 +264,8 @@ def fetch_models_dot_dev_api_res() -> dict[str, Any]:
         context.verify_mode = ssl.CERT_NONE
         req = urllib.request.Request(MODELS_DEV_API, headers={"User-Agent": USER_AGENT})
         with urllib.request.urlopen(req, context=context) as response:
-            return json.load(response)
+            result: dict[str, Any] = json.load(response)
+            return result
     except Exception as e:
         print(f"Error fetching API: {e}", file=sys.stderr)
         sys.exit(1)
