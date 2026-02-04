@@ -4,7 +4,7 @@
 
     # To get latest unstable commit, run:
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
-    nixpkgs-unstable-2605.url = "github:NixOS/nixpkgs/677fbe97984e7af3175b6c121f3c39ee5c8d62c9";
+    nixpkgs-unstable-2605.url = "github:NixOS/nixpkgs/48698d12cc10555a4f3e3222d9c669b884a49dfe";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-2511";
