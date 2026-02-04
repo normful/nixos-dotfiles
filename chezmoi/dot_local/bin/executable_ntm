@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -o errexit -o pipefail
+
+TARGET_DIR="$HOME/.pi/agent/skills/curated-ai-skills/notion-task-manager"
+
+# Check if target directory exists
+if [[ ! -d "$TARGET_DIR" ]]; then
+	echo "Error: Directory $TARGET_DIR does not exist" >&2
+	exit 1
+fi
+
+# Push to target directory
+pushd "$TARGET_DIR" >/dev/null
+
+# Ensure we popd even if the script fails
+trap 'popd >/dev/null' EXIT
+
+# Get the script name (ntm) and pass it as the first argument to bun run
+SCRIPT_NAME=$(basename "$0")
+bun run "$SCRIPT_NAME" "$@"
