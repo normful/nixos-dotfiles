@@ -1,28 +1,3 @@
-[providers.google]
-outputToPiModelsJson = false
-models = ["gemini-3-flash-preview"]
-
-[providers.openrouter]
-outputToPiModelsJson = true
-authHeader = false
-models = [
-  "stepfun/step-3.5-flash:free",
-  "arcee-ai/trinity-large-preview:free",
-  "@preset/kimi25-high-reasoning", # Manually created preset to prefer providers with higher throughput
-]
-
-[providers.cerebras]
-outputToPiModelsJson = false
-models = ["qwen-3-235b-a22b-instruct-2507"]
-
-[providers.opencode]
-outputToPiModelsJson = false
-models = [
-  # "kimi-k2.5-free", Rate limits quickly exceeded
-  # "minimax-m2.1-free", Very high latency
-  "trinity-large-preview-free",
-]
-
 [providers.aihubmix]
 outputToPiModelsJson = true
 authHeader = true
@@ -33,3 +8,27 @@ name = "MiniMax-M2.1"
 
 [providers.aihubmix.model."kimi-k2.5"]
 compat = { supportsDeveloperRole = false }
+
+[providers.opencode]
+outputToPiModelsJson = false
+models = [
+  # "kimi-k2.5-free", Rate limits quickly exceeded
+  # "minimax-m2.1-free", Very high latency
+  "trinity-large-preview-free",
+]
+
+[providers.openrouter]
+outputToPiModelsJson = true
+models = [
+  "arcee-ai/trinity-large-preview:free",
+  "stepfun/step-3.5-flash:free",
+  "@preset/kimi25-high-reasoning", # Manually created preset to prefer providers with higher throughput
+]
+
+[providers.cerebras]
+outputToPiModelsJson = false
+models = ["qwen-3-235b-a22b-instruct-2507"]
+
+[providers.google]
+outputToPiModelsJson = false
+models = ["gemini-3-flash-preview"]

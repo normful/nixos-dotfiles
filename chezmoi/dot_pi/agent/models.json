@@ -1,62 +1,5 @@
 {
   "providers": {
-    "openrouter": {
-      "baseUrl": "https://openrouter.ai/api/v1",
-      "api": "openai-completions",
-      "apiKey": "OPENROUTER_API_KEY",
-      "authHeader": false,
-      "models": [
-        {
-          "id": "stepfun/step-3.5-flash:free",
-          "name": "Step 3.5 Flash (Free)",
-          "reasoning": true,
-          "input": [
-            "text"
-          ],
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "contextWindow": 256000,
-          "maxTokens": 64000
-        },
-        {
-          "id": "arcee-ai/trinity-large-preview:free",
-          "name": "Trinity Large Preview",
-          "reasoning": false,
-          "input": [
-            "text"
-          ],
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "contextWindow": 131072,
-          "maxTokens": 131072
-        },
-        {
-          "id": "@preset/kimi25-high-reasoning",
-          "name": "Kimi K2.5",
-          "reasoning": true,
-          "input": [
-            "text",
-            "image"
-          ],
-          "cost": {
-            "input": 0.6,
-            "output": 3,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "contextWindow": 262144,
-          "maxTokens": 262144
-        }
-      ]
-    },
     "aihubmix": {
       "baseUrl": "https://aihubmix.com/v1",
       "api": "openai-completions",
@@ -98,6 +41,63 @@
           "compat": {
             "supportsDeveloperRole": false
           }
+        }
+      ]
+    },
+    "openrouter": {
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "api": "openai-completions",
+      "apiKey": "OPENROUTER_API_KEY",
+      "authHeader": false,
+      "models": [
+        {
+          "id": "arcee-ai/trinity-large-preview:free",
+          "name": "Trinity Large Preview",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 131072,
+          "maxTokens": 131072
+        },
+        {
+          "id": "stepfun/step-3.5-flash:free",
+          "name": "Step 3.5 Flash (Free)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 256000,
+          "maxTokens": 64000
+        },
+        {
+          "id": "@preset/kimi25-high-reasoning",
+          "name": "Kimi K2.5",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.6,
+            "output": 3,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 262144
         }
       ]
     }
