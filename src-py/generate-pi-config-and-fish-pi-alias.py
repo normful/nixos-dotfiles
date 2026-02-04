@@ -379,14 +379,25 @@ def match_model(
         matched_data, original_id = target_provider_models_map[normalized_model_id]
         return (target_provider, matched_data, original_id)
 
-    # 2. Other providers exact match
+    # 2. Other providers exact match - find all, pick the one with smallest context window token limit
+    other_provider_matches: list[tuple[str, dict[str, Any], str]] = []
     for other_provider_name in all_provider_keys_sorted:
         if other_provider_name == target_provider:
             continue
         other_provider_models_map = provider_lower_models[other_provider_name]
         if normalized_model_id in other_provider_models_map:
             matched_data, original_id = other_provider_models_map[normalized_model_id]
-            return (other_provider_name, matched_data, original_id)
+            other_provider_matches.append(
+                (other_provider_name, matched_data, original_id)
+            )
+
+    if other_provider_matches:
+        # If multiple matches, choose the one with lowest .limit.context
+        if len(other_provider_matches) > 1:
+            other_provider_matches.sort(
+                key=lambda m: m[1].get("limit", {}).get("context", float("inf"))
+            )
+        return other_provider_matches[0]
 
     # 3. Fuzzy match - also try matching against model name without provider prefix
     best_distance: int | None = None
