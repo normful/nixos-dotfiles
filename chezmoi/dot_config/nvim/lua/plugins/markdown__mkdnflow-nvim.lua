@@ -161,13 +161,14 @@ local function configure_mkdnflow_nvim()
       },
       template = [[
 ---
-title: {{ title }}
+title: "{{ title }}"
 day: {{ day_of_week }}
 date: {{ iso_8601_date }}
 author:
     - Norman Sue
 tags: []
 aliases: []
+modified: {{ iso_8601_date }}
 ---
 
 # References

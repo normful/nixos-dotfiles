@@ -109,12 +109,6 @@ return {
       desc = 'Preview linked note',
     },
     {
-      '<Leader>zi',
-      '<Cmd>ZkIndex<CR>',
-      mode = 'n',
-      desc = 'Reindex notes',
-    },
-    {
       '<Leader>zb',
       "<Cmd>ZkBuffers({ notebook_path = vim.fn.expand('~/code/alcove') })<CR>",
       mode = 'n',

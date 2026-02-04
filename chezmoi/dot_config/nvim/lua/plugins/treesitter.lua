@@ -80,9 +80,11 @@ return {
         node_decremental = '<BS>',
       },
     }
-    conf.highlight.custom_captures = {
+
+    -- TODO(norman): Figure out equivalent latest config syntax for this.
+    --[[ conf.highlight.custom_captures = {
       ['property_identifier'] = 'TSProperty', -- Highlight the @property_identifier capture group with the "TSProperty" highlight group
-    }
+    } ]]
 
     local MAX_LINE_LENGTH = 500 -- Lines longer than this will trigger disabling
     local MAX_CHECK_LINES = 500 -- Check only the first N lines for performance
@@ -143,7 +145,8 @@ return {
       return false
     end
 
-    conf.highlight.disable = should_disable_treesitter
+    -- TODO(norman): Figure out equivalent latest config syntax for this.
+    -- conf.highlight.disable = should_disable_treesitter
 
     conf.textobjects = {
       select = {

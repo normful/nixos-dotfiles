@@ -5,6 +5,46 @@ vim.cmd([[command! -range Listfy <line1>,<line2>s/^\(\s*\)\(\w\+.*\)/\1- [ ] \2/
 vim.cmd([[command! -range Bulletfy <line1>,<line2>s/^\(\s*\)-\s\(\w\+.*\)/\1- [ ] \2/g]])
 vim.cmd([[command! -range=% WordFrequency <line1>,<line2>call normful#WordFrequency()]])
 vim.cmd([[command! NormfulGitBlame call normful#GitBlame()]])
+vim.api.nvim_create_user_command('NormfulGitStageAllAndCommit', function()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if bufname == '' then
+    vim.notify('NormfulGitStageAllAndCommit: Buffer has no file path', vim.log.levels.ERROR)
+    return
+  end
+
+  -- Get directory from buffer's file path
+  local cwd = vim.fn.fnamemodify(bufname, ':h')
+
+  -- Check if cwd is a valid directory
+  if vim.fn.isdirectory(cwd) == 0 then
+    vim.notify('NormfulGitStageAllAndCommit: Buffer has no file path', vim.log.levels.ERROR)
+    return
+  end
+
+  -- Check if cwd is a valid directory
+  if vim.fn.isdirectory(cwd) == 0 then
+    vim.notify('NormfulGitStageAllAndCommit: Not a valid directory: ' .. cwd, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Check if it's a git repository
+  if vim.fn.isdirectory(cwd .. '/.git') == 0 and vim.filereadable(cwd .. '/.git') == 0 then
+    vim.notify('NormfulGitStageAllAndCommit: Not a git repository: ' .. cwd, vim.log.levels.ERROR)
+    return
+  end
+
+  -- Run git w asynchronously
+  vim.fn.jobstart({ 'git', 'w' }, {
+    cwd = cwd,
+    on_exit = function(_, code, _)
+      if code == 0 then
+        vim.notify('NormfulGitStageAllAndCommit: Staged and committed in ' .. cwd, vim.log.levels.INFO)
+      else
+        vim.notify('NormfulGitStageAllAndCommit: git w failed (exit code ' .. code .. ')', vim.log.levels.ERROR)
+      end
+    end,
+  })
+end, { nargs = 0 })
 
 local term_id = 'my_toggle_term'
 vim.api.nvim_create_user_command('ToggleNvchadTerminal', function()
@@ -38,6 +78,8 @@ end, { nargs = 0 })
 -- Inserts links from clipboard or creates new Zk links
 -- Handles both normal and visual mode
 vim.api.nvim_create_user_command('NormfulInsertLink', function(opts)
+  vim.fn.system('cd $HOME/code/alcove && zk index')
+
   if vim.fn.exists(':ZkInsertLink') ~= 2 then
     error('Command not available: ZkInsertLink')
   end

@@ -138,7 +138,7 @@ map('n', '<Leader>gb', '<Cmd>normful#GitBlame<CR><F15><CR>', { desc = 'git blame
 
 map('n', '<Leader>gd', '<Cmd>Git diff<CR>', { desc = 'git diff' })
 
-map('n', '<Leader>gw', '<Cmd>Git w<CR><CR><CR>', { desc = 'git stage all and commit' })
+map('n', '<Leader>gw', '<Cmd>NormfulGitStageAllAndCommit<CR>', { desc = 'git stage all and commit (buffer dir)' })
 map('n', '<Leader>gsh', '<Cmd>Git show<CR><CR>', { desc = 'git show' })
 map('n', '<Leader>gs', '<Cmd>Git status<CR>', { desc = 'git status' })
 
@@ -146,6 +146,7 @@ map('n', '<Leader>gl', open_term(term_id1, 'git lforvim "FILEPATH"'), { desc = '
 map('n', '<Leader>gll', open_term(term_id1, 'git llforvim "FILEPATH"'), { desc = 'git log this file with stats' })
 map('n', '<Leader>glll', open_term(term_id1, 'git lllforvim "FILEPATH"'), { desc = 'git log this file with patches' })
 map('n', '<Leader>gppl', open_term(term_id1, 'git pplforvim "FILEPATH"'), { desc = 'git shortlog' })
+map('n', '<Leader>zi', '<Cmd>silent !cd $HOME/code/alcove && zk index<CR>', { desc = 'Index zk notes', noremap = true })
 
 map(
   'n',
