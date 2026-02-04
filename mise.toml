@@ -128,6 +128,7 @@ description = "Run Python linting and type checking"
 run = [
   "uv run ruff format -v 2>&1 | grep '::format'",
   "uv run ruff check",
+  "uv run zuban check",
   "uv run ty check",
   "uv run pyrefly check",
   "uv run basedpyright",
