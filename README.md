@@ -93,6 +93,9 @@ In alphabetical order:
 - `├──` [secrets/](secrets/) SOPS secrets encrypted with [age](https://github.com/FiloSottile/age)
 - `│   ├──` [gcp_coral.yaml](secrets/gcp_coral.yaml) Secrets for 'coral' (password hashes, tailscale)
 - `│   └──` [gcp_example.yaml](secrets/gcp_example.yaml) Template secrets for new VM stacks
+- `├──` [src-py/](src-py/) Python scripts
+- `│   ├──` [generate-pi-config-and-fish-pi-alias.py](src-py/generate-pi-config-and-fish-pi-alias.py) Generates models.json and pi.fish from TOML config
+- `│   └──` [models-config.toml](src-py/models-config.toml) Provider/model configuration with overrides
 - `├──` [stylua.toml](stylua.toml) StyLua formatter config (Lua files)
 - `├──` [tests/](tests/) Test suites
 - `│   └──` [gcp/](gcp/) Tests for [gcp/](gcp/)

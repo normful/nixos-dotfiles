@@ -9,6 +9,10 @@ This repository uses `mise` as a task runner with the following key commands:
 - `mise run check:nix` (or `mise check2`) - Check syntax of Nix configuration
 - `mise run gcp:check:pulumi` (or `mise check1`) - Check Pulumi infrastructure TypeScript
 - `mise run gcp:test:bash` - Run bashunit tests for the installation script
+- `mise run check:py` - Run Python linting and type checking for pi config generator
+
+**Python Scripts:**
+- `mise run pi:gen` - Run Python script to generate pi coding agent models.json and pi.fish abbreviation from models-config.toml
 
 **System Operations:**
 - `mise run cyan` - Apply nix-darwin changes to the macOS system
