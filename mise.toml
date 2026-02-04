@@ -114,20 +114,21 @@ alias = "cyan"
 description = "Update Nix flake"
 run = "nix flake update"
 
-[tasks."format"]
+[tasks."format:nix"]
 description = "Run autoformatting"
 run = "nix fmt"
 alias = "fmt"
 
-[tasks."config-pi"]
+[tasks."pi:gen"]
 description = "Generate models.json and pi.fish from models-config.toml using live model metadata"
 run = "uv run src-py/generate-pi-config-and-fish-pi-alias.py"
 
-[tasks."py:check"]
+[tasks."check:py"]
 description = "Run Python linting and type checking"
 run = [
   "uv run ruff format -v 2>&1 | grep '::format'",
   "uv run ruff check",
   "uv run ty check",
   "uv run pyrefly check",
+  "uv run basedpyright",
 ]

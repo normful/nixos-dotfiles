@@ -1,18 +1,22 @@
 [providers.google]
+outputToPiModelsJson = false
 models = ["gemini-3-flash-preview"]
 
 [providers.openrouter]
+outputToPiModelsJson = true
+authHeader = false
 models = [
   "stepfun/step-3.5-flash:free",
   "arcee-ai/trinity-large-preview:free",
-  "deepseek/deepseek-v3.2-speciale",
-  "@preset/kimi25-high-reasoning",
+  "@preset/kimi25-high-reasoning", # Manually created preset to prefer providers with higher throughput
 ]
 
 [providers.cerebras]
+outputToPiModelsJson = false
 models = ["qwen-3-235b-a22b-instruct-2507"]
 
 [providers.opencode]
+outputToPiModelsJson = false
 models = [
   # "kimi-k2.5-free", Rate limits quickly exceeded
   # "minimax-m2.1-free", Very high latency
@@ -20,6 +24,8 @@ models = [
 ]
 
 [providers.aihubmix]
+outputToPiModelsJson = true
+authHeader = true
 models = ["cc-minimax-m2.1", "kimi-k2.5"]
 
 [providers.aihubmix.model."cc-minimax-m2.1"]

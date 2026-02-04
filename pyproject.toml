@@ -8,6 +8,7 @@ dependencies = []
 
 [dependency-groups]
 dev = [
+    "basedpyright>=1.37.4",
     "pyrefly>=0.51.0",
     "ruff>=0.15.0",
     "ty>=0.0.14",
