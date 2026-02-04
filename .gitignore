@@ -1,12 +1,14 @@
 **/*.syntax
 **/.DS_Store
+**/.ruff_cache
+**/__pycache__
 *.syntax
 .DS_Store
-.crush/
 .claude/
+.crush/
 .grok/
 /bin/
 /lib/
 /node_modules/
-result
 gcp/tidegate/tidegate
+result

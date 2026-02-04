@@ -1,0 +1,14 @@
+[project]
+name = "nixos-dotfiles"
+version = "0.1.0"
+description = "Python scripts for these dotfiles"
+readme = "README.md"
+requires-python = ">=3.15"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pyrefly>=0.51.0",
+    "ruff>=0.15.0",
+    "ty>=0.0.14",
+]

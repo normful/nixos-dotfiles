@@ -1,0 +1,29 @@
+[providers.google]
+models = ["gemini-3-flash-preview"]
+
+[providers.openrouter]
+models = [
+  "stepfun/step-3.5-flash:free",
+  "arcee-ai/trinity-large-preview:free",
+  "deepseek/deepseek-v3.2-speciale",
+  "@preset/kimi25-high-reasoning",
+]
+
+[providers.cerebras]
+models = ["qwen-3-235b-a22b-instruct-2507"]
+
+[providers.opencode]
+models = [
+  # "kimi-k2.5-free", Rate limits quickly exceeded
+  # "minimax-m2.1-free", Very high latency
+  "trinity-large-preview-free",
+]
+
+[providers.aihubmix]
+models = ["cc-minimax-m2.1", "kimi-k2.5"]
+
+[providers.aihubmix.model."cc-minimax-m2.1"]
+name = "MiniMax-M2.1"
+
+[providers.aihubmix.model."kimi-k2.5"]
+compat = { supportsDeveloperRole = false }

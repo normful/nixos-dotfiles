@@ -73,14 +73,6 @@ if status is-interactive
     abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
     abbr --add oc "bunx opencode-ai@latest"
 
-    # Seems like --model flag is buggy.
-    # Use --models always instead
-    abbr --add pi "pi --models '"\
-        "opencode/minimax-m2.1-free," \
-        "opencode/glm-4.7-free," \
-        "opencode/big-pickle," \
-        "openrouter/x-ai/grok-code-fast-1'"
-
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"
     end
@@ -134,6 +126,7 @@ if status is-interactive
     fish_add_path --global "$HOME/.bun/bin"
     fish_add_path --global "$HOME/.antigravity/antigravity/bin"
     fish_add_path --global "$HOME/Documents/pi-darwin-arm64"
+    source $HOME/.config/fish/abbreviations/pi.fish
 
     if not command -v claude >/dev/null 2>&1
         abbr --add cld "bunx @anthropic-ai/claude-code"
