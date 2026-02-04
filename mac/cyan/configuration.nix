@@ -56,7 +56,7 @@
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
     my.enableColorTools = true;
-    my.enableScreenSharingTools = true;
+    my.enableScreenSharingTools = false;
     my.enableFonts = true;
     my.enableJapaneseFonts = true;
 
@@ -77,7 +77,6 @@
 
         # Packages I'm only installing on this computer for now
         mariadb_118
-        emacs
         infisical
         grex
         xonsh
@@ -90,6 +89,9 @@
         antlr
         jre25_minimal
         tmux
+        fswatch
+        lowfi
+        pnpm_9
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.system}; [
         # anki

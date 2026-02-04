@@ -222,7 +222,7 @@ in
         hl-log-viewer
       ])
       ++ (optionals config.my.enableNetworkingTools [
-        dogdns
+        doggo
         dnslookup
         zdns
         mhost
