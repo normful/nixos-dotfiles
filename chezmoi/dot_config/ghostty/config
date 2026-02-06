@@ -67,7 +67,8 @@ keybind = all:cmd+equal=increase_font_size:0.5
 keybind = cmd+v=paste_from_clipboard
 
 # IMPORTANT: DO NOT PLACE ANY COMMENTS TO THE RIGHT OF THE KEYBINDS
-# Run `kitty +kitten show_key` to get key escape codes, even for ghostty
+# Run `kitty +kitten show_key` or `/Applications/kitty.app/Contents/MacOS/kitty +kitten show_key`
+# to get key escape codes, even for ghostty
 
 # Send CTRL+C (for quitting some programs)
 keybind = cmd+c=text:\x03
