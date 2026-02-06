@@ -63,6 +63,10 @@ config.keys = {
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '-', action = act.DecreaseFontSize },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '=', action = act.IncreaseFontSize },
 
+  -- Scrolling
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'k', action = act.ScrollByPage(-1) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'j', action = act.ScrollByPage(1) },
+
   -- Paste
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'V', action = act.PasteFrom('Clipboard') },
   {{ if .windows -}}
