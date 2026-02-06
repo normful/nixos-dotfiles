@@ -1,4 +1,4 @@
-abbr --add pi "bunx @mariozechner/pi-coding-agent --models '"\
+abbr --add pi "pi --models '"\
 "aihubmix/cc-minimax-m2.1," \
 "aihubmix/kimi-k2.5," \
 "opencode/trinity-large-preview-free," \
