@@ -1,0 +1,9 @@
+{
+  "undo": ["alt+u"],
+
+  "suspend": [],
+  "externalEditor": ["alt+v"],
+
+  "cycleModelForward": [],
+  "cycleModelBackward": []
+}

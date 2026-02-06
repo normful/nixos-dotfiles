@@ -1,0 +1,14 @@
+{
+  "lastChangelogVersion": "0.52.6",
+  "defaultProvider": "aihubmix",
+  "defaultModel": "cc-minimax-m2.1",
+  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "low",
+  "quietStartup": true,
+  "collapseChangelog": true,
+  "editorPaddingX": 2,
+  "showHardwareCursor": true,
+  "hideThinkingBlock": false,
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "all"
+}
