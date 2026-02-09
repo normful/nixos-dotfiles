@@ -108,7 +108,7 @@ in
         intelephense
       ])
       ++ (optionals config.my.enableLangNix [
-        nixfmt-rfc-style
+        nixfmt
         nix-prefetch-github
       ])
       ++ (optionals config.my.enableLangGleam [

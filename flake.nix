@@ -107,7 +107,7 @@
       };
 
       formatter = genAttrs [ "aarch64-darwin" "x86_64-linux" ] (
-        system: nixpkgs-2511.legacyPackages.${system}.nixfmt-rfc-style
+        system: nixpkgs-2511.packages.${system}.nixfmt
       );
     };
 }
