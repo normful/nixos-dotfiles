@@ -92,6 +92,7 @@
         fswatch
         lowfi
         pnpm_9
+        goreleaser
       ]
       ++ [
         inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
