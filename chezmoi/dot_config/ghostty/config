@@ -146,6 +146,9 @@ font-thicken = false
 font-family = Moralerspace Neon HWJPDOC
 # font-feature = calt=1,clig=0,liga=0,zero,ss01
 
+adjust-underline-position = 20%
+adjust-underline-thickness = 5%
+
 # Visual test text for fonts
 # oO08 iIlL1 g9qCGQ ~-+=>;_
 # â é ù ï ø ç Ã Ē Æ œ
