@@ -93,7 +93,10 @@
         lowfi
         pnpm_9
       ]
-      ++ (with inputs.nix-casks.packages.${pkgs.system}; [
+      ++ [
+        inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ]
+      ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         # anki
         brave-browser
         cursor
@@ -176,6 +179,12 @@
       package = pkgs-stable.nixVersions.latest;
       settings = {
         max-jobs = 10; # Apple M1 Pro has 10 CPU cores (8 performance + 2 efficiency)
+        substituters = [
+          "https://cache.flox.dev"
+        ];
+        trusted-public-keys = [
+          "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
+        ];
       };
       extraOptions = ''
         experimental-features = nix-command flakes
