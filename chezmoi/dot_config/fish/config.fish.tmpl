@@ -11,8 +11,7 @@ if status is-interactive
     set --export HSTR_CONFIG hicolor,prompt-bottom
     set --export TELEMETRY_ENABLED false
     set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
-    set --export XAI_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
-    set --export GROK_API_KEY {{ (keepassxc "x-ai-api-key").Password }}
+    set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
     abbr --add c clear
     abbr --add q exit
