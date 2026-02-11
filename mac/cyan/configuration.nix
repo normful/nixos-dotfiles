@@ -100,30 +100,31 @@
         inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
+        ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
         # anki
-        brave-browser
-        cursor
-        discord
+        # brave-browser
+        # cursor
+        # discord
         # docker
-        firefox_nightly
+        # firefox_nightly
         flux
         # inkscape
-        iptvnator
+        # iptvnator
         keka
         key-codes
-        libreoffice
+        # libreoffice
         mp3gain-express
         neovide
         # notion-calendar
         # orion
         # rustrover
-        slack
-        superwhisper
-        tor-browser
-        tunnelblick
-        visual-studio-code_insiders
+        # slack
+        # superwhisper
+        # tor-browser
+        # tunnelblick
+        # visual-studio-code_insiders
         vlc
-        zed
+        # zed
       ]);
 
     system.defaults.dock.persistent-apps = [
