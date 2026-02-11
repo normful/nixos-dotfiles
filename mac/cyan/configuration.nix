@@ -93,6 +93,8 @@
         lowfi
         pnpm_9
         goreleaser
+        (callPackage ../../packages/beads { })
+        (callPackage ../../packages/grepai { })
       ]
       ++ [
         inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
