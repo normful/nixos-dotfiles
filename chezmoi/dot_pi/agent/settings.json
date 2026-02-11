@@ -1,8 +1,7 @@
 {
-  "lastChangelogVersion": "0.52.6",
+  "lastChangelogVersion": "0.52.9",
   "defaultProvider": "aihubmix",
   "defaultModel": "cc-minimax-m2.1",
-  "defaultThinkingLevel": "low",
   "defaultThinkingLevel": "low",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -10,5 +9,23 @@
   "showHardwareCursor": true,
   "hideThinkingBlock": false,
   "steeringMode": "one-at-a-time",
-  "followUpMode": "all"
+  "followUpMode": "all",
+  "skills": [
+    "-skills/curated-ai-skills/brainstorming/SKILL.md",
+    "+skills/pi-skills/brave-search/SKILL.md",
+    "-skills/curated-ai-skills/configure-neovim/SKILL.md",
+    "-skills/curated-ai-skills/dispatching-parallel-agents/SKILL.md",
+    "-skills/curated-ai-skills/executing-plans/SKILL.md",
+    "-skills/curated-ai-skills/writing-kotlin/SKILL.md",
+    "-skills/pi-skills/vscode/SKILL.md",
+    "-skills/curated-ai-skills/using-tmux-for-interactive-commands/SKILL.md",
+    "-skills/curated-ai-skills/using-superpowers/SKILL.md",
+    "-skills/curated-ai-skills/using-git-worktrees/SKILL.md",
+    "-skills/curated-ai-skills/typst/SKILL.md",
+    "-skills/curated-ai-skills/nano-banana-pro/SKILL.md",
+    "-skills/pi-skills/gmcli/SKILL.md",
+    "-skills/pi-skills/gdcli/SKILL.md",
+    "-skills/pi-skills/gccli/SKILL.md",
+    "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md"
+  ]
 }
