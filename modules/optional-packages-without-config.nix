@@ -119,7 +119,10 @@ in
         beam.packages.erlang_28.rebar3
       ])
       ++ (optionals config.my.enableDiagramTools [
+        mermaid-cli
         plantuml
+        d2
+        gnuplot
         graphviz
       ])
       ++ (optionals config.my.enableLangTypst [
