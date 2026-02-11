@@ -96,9 +96,6 @@
         (callPackage ../../packages/beads { })
         (callPackage ../../packages/grepai { })
       ]
-      ++ [
-        inputs.flox.packages.${pkgs.stdenv.hostPlatform.system}.default
-      ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
         # anki
@@ -183,12 +180,6 @@
       package = pkgs-stable.nixVersions.latest;
       settings = {
         max-jobs = 10; # Apple M1 Pro has 10 CPU cores (8 performance + 2 efficiency)
-        substituters = [
-          "https://cache.flox.dev"
-        ];
-        trusted-public-keys = [
-          "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
-        ];
       };
       extraOptions = ''
         experimental-features = nix-command flakes

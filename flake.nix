@@ -20,20 +20,12 @@
 
     nixos-wsl-2511.url = "github:nix-community/nixos-wsl/release-25.11";
     nixos-wsl-2511.inputs.nixpkgs.follows = "nixpkgs-2511";
-
-    flox.url = "github:flox/flox/latest";
-  };
-
-  nixConfig = {
-    extra-trusted-substituters = [ "https://cache.flox.dev" ];
-    extra-trusted-public-keys = [ "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs=" ];
   };
 
   outputs =
     inputs@{
       nixpkgs-2511,
       nixpkgs-unstable-2605,
-      flox,
       ...
     }:
     let
