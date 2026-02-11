@@ -25,7 +25,7 @@ local function configure_render_markdown_nvim()
       bullet = true,
       right_pad = 2,
       unchecked = {
-        icon = '⬜',
+        icon = '⏹️',
       },
       checked = {
         icon = '✅',
@@ -33,19 +33,19 @@ local function configure_render_markdown_nvim()
       custom = {
         progressing = {
           raw = '[.]',
-          rendered = '🫧',
+          rendered = '♿️',
           highlight = 'RenderMarkdownProgressing',
           scope_highlight = nil,
         },
         urgent = {
           raw = '[!]',
-          rendered = '🔥',
+          rendered = '🆘',
           highlight = 'RenderMarkdownUrgent',
           scope_highlight = nil,
         },
         uncertain = {
           raw = '[?]',
-          rendered = '🤷',
+          rendered = 'ℹ️',
           highlight = 'RenderMarkdownUncertain',
           scope_highlight = nil,
         },
@@ -57,7 +57,7 @@ local function configure_render_markdown_nvim()
         },
         stopped = {
           raw = '[=]',
-          rendered = '🛑',
+          rendered = '⏸️',
           highlight = 'RenderMarkdownStopped',
           scope_highlight = nil,
         },
