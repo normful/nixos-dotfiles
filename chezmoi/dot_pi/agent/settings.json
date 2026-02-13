@@ -27,5 +27,8 @@
     "-skills/pi-skills/gdcli/SKILL.md",
     "-skills/pi-skills/gccli/SKILL.md",
     "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md"
-  ]
+  ],
+  "hooks": {
+    "paths": ["git:https://github.com/cv/pi-bd"]
+  }
 }
