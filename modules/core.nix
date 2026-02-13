@@ -1,7 +1,6 @@
 {
   config,
   modulesPath,
-  lib,
   pkgs-pinned-unstable,
   ...
 }:
