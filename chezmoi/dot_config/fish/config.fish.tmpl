@@ -69,8 +69,8 @@ if status is-interactive
     end
     {{ end -}}
 
-    abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
-    abbr --add oc "bunx opencode-ai@latest"
+    # abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
+    # abbr --add oc "bunx opencode-ai@latest"
 
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"

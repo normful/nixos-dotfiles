@@ -20,7 +20,6 @@
     my.enableInteractiveCli = true;
     my.enableFullNeovim = true;
 
-    my.enableAiCodingAgents = true;
     my.enableMultiLangTools = true;
     my.enableLangTsJs = true;
     my.enableLangGo = true;
@@ -143,7 +142,6 @@
 
       # Others
       "/Applications/Jan.app"
-      "/Applications/OpenCode.app"
       "/System/Applications/Calendar.app"
       "/Applications/Notion Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"

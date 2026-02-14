@@ -5,7 +5,6 @@
 
   my.enableInteractiveCli = true;
   my.enableFullNeovim = true;
-  my.enableAiCodingAgents = true;
   my.enableLangTsJs = true;
   my.enableLangGo = true;
   my.enableLangPython = true;
