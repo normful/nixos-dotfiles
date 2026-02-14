@@ -95,6 +95,7 @@
         goreleaser
         (callPackage ../../packages/beads { })
         (callPackage ../../packages/grepai { })
+        (callPackage ../../packages/gastown { })
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
         direnv
       ]
