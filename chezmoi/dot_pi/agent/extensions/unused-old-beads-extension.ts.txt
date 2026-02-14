@@ -1,0 +1,22 @@
+import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+
+export default function (pi: ExtensionAPI) {
+  pi.on("session_start", async (_event, ctx) => {
+    const { stdout, code } = await pi.exec("bd", ["prime"], {
+      timeout: 5000,
+    });
+
+    if (code !== 0 || !stdout.trim()) {
+      ctx.ui.notify("bd detected but prime failed", "warning");
+      return;
+    }
+
+    pi.sendMessage({
+      customType: "bd-context",
+      content: stdout.trim(),
+      display: true,
+    });
+
+    ctx.ui.notify("bd context loaded", "info");
+  });
+}
