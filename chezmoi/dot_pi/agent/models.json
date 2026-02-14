@@ -26,6 +26,25 @@
           }
         },
         {
+          "id": "coding-minimax-m2.5",
+          "name": "Coding MiniMax-M2.5",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0.6,
+            "output": 4.8,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "compat": {
+            "supportsDeveloperRole": false
+          }
+        },
+        {
           "id": "kimi-k2.5",
           "name": "Kimi K2.5",
           "reasoning": true,
