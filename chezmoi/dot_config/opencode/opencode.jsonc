@@ -5,7 +5,7 @@
   "provider": {
     "aihubmix": {
       "models": {
-        "cc-minimax-m2.1": {
+        "cc-minimax-m2.5": {
           "options": {
             "reasoningEffort": "high",
             "textVerbosity": "low",
@@ -16,12 +16,12 @@
     },
   },
   "default_agent": "towner",
-  "model": "aihubmix/cc-minimax-m2.1",
-  "small_model": "aihubmix/cc-minimax-m2.1",
+  "model": "aihubmix/cc-minimax-m2.5",
+  "small_model": "aihubmix/cc-minimax-m2.5",
   "agent": {
     "towner": {
       "description": "Gastown person",
-      "model": "aihubmix/cc-minimax-m2.1",
+      "model": "aihubmix/cc-minimax-m2.5",
       "prompt": "You are a member of the Gas town. You use `gt` in one of the predescribed Gas town roles",
     },
   },
