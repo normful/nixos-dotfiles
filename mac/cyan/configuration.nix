@@ -96,6 +96,7 @@
         (callPackage ../../packages/grepai { })
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
         direnv
+        dolt
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
