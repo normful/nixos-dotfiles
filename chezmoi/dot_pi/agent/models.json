@@ -20,7 +20,10 @@
             "cacheWrite": 0
           },
           "contextWindow": 204800,
-          "maxTokens": 131072
+          "maxTokens": 131072,
+          "compat": {
+            "supportsDeveloperRole": false
+          }
         },
         {
           "id": "kimi-k2.5",
