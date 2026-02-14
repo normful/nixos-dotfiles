@@ -12,19 +12,19 @@ let
   platforms = {
     x86_64-darwin = {
       url = "https://github.com/steveyegge/gastown/releases/download/v${version}/${pname}_${version}_darwin_amd64.tar.gz";
-      hash = "sha256-01d548058e7bf6bd2cb56d03d3a690f9ed4cb0e25a941a0e48724618c6f585e5";
+      hash = "sha256-AdVIBY579r0stW0D06aQ+e1MsOJalBoOSHJGGMb1heU=";
     };
     aarch64-darwin = {
       url = "https://github.com/steveyegge/gastown/releases/download/v${version}/${pname}_${version}_darwin_arm64.tar.gz";
-      hash = "sha256-4043e23d8beed28c09dffade011dcfaa7b56c3995746643e44ab86cb52393d46";
+      hash = "sha256-QEPiPYvu0owJ3/reAR3PqntWw5lXRmQ+RKuGy1I5PUY=";
     };
     x86_64-linux = {
       url = "https://github.com/steveyegge/gastown/releases/download/v${version}/${pname}_${version}_linux_amd64.tar.gz";
-      hash = "sha256-438245c0ac91a42eead4a1b1b744b505a1f7042a274239e659980f67b7886780";
+      hash = "sha256-Q4JFwKyRpC7q1KGxt0S1BaH3BConQjnmWZgPZ7eIZ4A=";
     };
     aarch64-linux = {
       url = "https://github.com/steveyegge/gastown/releases/download/v${version}/${pname}_${version}_linux_arm64.tar.gz";
-      hash = "sha256-b3d57a3c80229079aeb236dc059b190fe40ee3229030ca4a43fc47f32bbd9145";
+      hash = "sha256-s9V6PIAikHmusjbcBZsZD+QO4yKQMMpKQ/xH8yu9kUU=";
     };
   };
 in
@@ -41,6 +41,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [];
   dontBuild = true;
   dontConfigure = true;
+  sourceRoot = ".";
 
   installPhase = ''
     mkdir -p $out/bin
