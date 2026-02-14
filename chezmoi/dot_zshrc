@@ -1,3 +1,7 @@
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 fpath=("$HOME/.config/zsh/functions" "$HOME/.config/zsh/completions" $fpath)
 
 # --- Gas Town Integration (managed by gt) ---
