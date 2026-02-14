@@ -1,10 +1,13 @@
 {
   lib,
-  stdenvNoDarwin,
+  stdenv,
   fetchurl,
 }:
 
 let
+  pname = "gastown";
+  version = "0.5.0";
+
   # Platform-specific URLs and hashes for gastown v0.5.0
   platforms = {
     x86_64-darwin = {
@@ -25,12 +28,11 @@ let
     };
   };
 in
-stdenvNoDarwin.mkDerivation rec {
-  pname = "gastown";
-  version = "0.5.0";
+stdenv.mkDerivation {
+  inherit pname version;
 
   src = let
-    current = platforms.${stdenvNoDarwin.hostPlatform.system};
+    current = platforms.${stdenv.hostPlatform.system};
   in fetchurl {
     url = current.url;
     sha256 = current.hash;
