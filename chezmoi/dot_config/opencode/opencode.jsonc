@@ -1,5 +1,18 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "tokyonight",
+  "theme": "kanagawa",
   "autoupdate": false,
+  "provider": {
+    "aihubmix": {
+      "models": {
+        "cc-minimax-m2.1": {
+          "options": {
+            "reasoningEffort": "high",
+            "textVerbosity": "low",
+            "reasoningSummary": "auto",
+          },
+        },
+      },
+    },
+  },
 }
