@@ -1,5 +1,5 @@
 abbr --add pi "pi --models '"\
-"aihubmix/cc-minimax-m2.1," \
+"aihubmix/cc-minimax-m2.5," \
 "aihubmix/kimi-k2.5," \
 "opencode/trinity-large-preview-free," \
 "openrouter/arcee-ai/trinity-large-preview:free," \
