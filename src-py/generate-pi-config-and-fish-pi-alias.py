@@ -361,6 +361,7 @@ def match_model(
       1. Exact case-insensitive in target_provider
       2. Exact case-insensitive in any other provider
       3. Fuzzy match (Levenshtein) across all providers
+      4. Substring/contains match across all providers (fallback)
 
     Special handling for @preset/model-id on OpenRouter:
       - Extracts text before first hyphen after @preset/
@@ -428,6 +429,55 @@ def match_model(
 
     if best_distance is not None and best_distance <= max_distance:
         return best_match_result
+
+    # 4. Substring/contains fallback - extract core model identifier and search
+    # This handles cases like "coding-minimax-m2.5" matching "minimax-m2.5" in other providers
+    # Extract core identifiers: "minimax-m2.5" from "coding-minimax-m2.5"
+    core_identifiers: list[str] = []
+
+    # If the model_id has a prefix like "coding-", "cc-", etc., extract the part after the first dash-separated segment
+    if "-" in normalized_model_id:
+        # Try removing common prefixes: coding-, cc-, llm-, etc.
+        parts = normalized_model_id.split("-")
+        if len(parts) >= 2:
+            # Try stripping first part (e.g., "coding" from "coding-minimax-m2.5")
+            potential_core = "-".join(parts[1:])
+            if potential_core:
+                core_identifiers.append(potential_core)
+        # Also add the full id for searching within
+        core_identifiers.append(normalized_model_id)
+    else:
+        core_identifiers.append(normalized_model_id)
+
+    # Also try extracting just the version number part (e.g., "m2.5" from "minimax-m2.5")
+    for core in list(core_identifiers):
+        # Find patterns like "m2.5", "m2.1", "m3" etc.
+        import re
+        version_matches = re.findall(r'm\d+\.?\d*', core)
+        core_identifiers.extend(version_matches)
+
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_cores = []
+    for c in core_identifiers:
+        if c not in seen:
+            seen.add(c)
+            unique_cores.append(c)
+
+    # Search for models that contain any of the core identifiers
+    best_contains_match: tuple[str, dict[str, Any], str] | None = None
+    for prov, mdata, orig_id, mid_lower in all_models_flat:
+        for core in unique_cores:
+            if core in mid_lower and len(core) >= 3:  # Only match if core is at least 3 chars
+                # Found a contains match - return the first one found
+                # (could be improved to pick best by context window)
+                best_contains_match = (prov, mdata, orig_id)
+                break
+        if best_contains_match:
+            break
+
+    if best_contains_match:
+        return best_contains_match
 
     return None
 
