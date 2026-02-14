@@ -17,11 +17,20 @@ buildGoModule {
     hash = "sha256-OBacuL4Smb3gXVSlqmdMWUAy/Ky77ivupugc2dNgLc0=";
   };
 
-  vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  vendorHash = "sha256-ripY9vrYgVW8bngAyMLh0LkU/Xx1UUaLgmAA7/EmWQU=";
 
-  ldflags =[
+  enableGoModuleCache = true;
 
-  ]
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/steveyegge/gastown/internal/cmd.Version=VersionTODO"
+    "-X github.com/steveyegge/gastown/internal/cmd.Build=BuildTODO"
+    "-X github.com/steveyegge/gastown/internal/cmd.Commit=CommitTODO"
+    "-X github.com/steveyegge/gastown/internal/cmd.Branch=main"
+  ];
+
+  CGO_ENABLED = 1;
 
   subPackages = [ "cmd/gt" ];
 
