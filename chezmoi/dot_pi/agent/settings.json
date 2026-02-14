@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.52.10",
+  "lastChangelogVersion": "0.52.12",
   "defaultProvider": "aihubmix",
-  "defaultModel": "cc-minimax-m2.1",
-  "defaultThinkingLevel": "low",
+  "defaultModel": "cc-minimax-m2.5",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 2,
