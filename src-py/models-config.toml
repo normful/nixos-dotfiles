@@ -5,9 +5,11 @@ models = ["cc-minimax-m2.5", "coding-minimax-m2.5", "kimi-k2.5"]
 
 [providers.aihubmix.model."cc-minimax-m2.5"]
 name = "Claude Code MiniMax-M2.5"
+compat = { supportsDeveloperRole = false }
 
 [providers.aihubmix.model."coding-minimax-m2.5"]
 name = "Coding MiniMax-M2.5"
+compat = { supportsDeveloperRole = false }
 
 [providers.aihubmix.model."kimi-k2.5"]
 compat = { supportsDeveloperRole = false }
