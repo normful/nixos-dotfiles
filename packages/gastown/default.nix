@@ -1,12 +1,15 @@
 {
   lib,
   stdenv,
-  buildGoModule,
+
+  darwin,
+  # apple-sdk_14,
+  # buildGoModule,
   fetchFromGitHub,
   git,
 }:
 
-buildGoModule {
+stdenv.mkDerivation {
   pname = "gastown";
   version = "unstable";
 
@@ -19,39 +22,28 @@ buildGoModule {
 
   vendorHash = "sha256-ripY9vrYgVW8bngAyMLh0LkU/Xx1UUaLgmAA7/EmWQU=";
 
-  enableGoModuleCache = true;
-
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/steveyegge/gastown/internal/cmd.Version=VersionTODO"
-    "-X github.com/steveyegge/gastown/internal/cmd.Build=BuildTODO"
-    "-X github.com/steveyegge/gastown/internal/cmd.Commit=CommitTODO"
-    "-X github.com/steveyegge/gastown/internal/cmd.Branch=main"
-  ];
-
-  CGO_ENABLED = 1;
-
   subPackages = [ "cmd/gt" ];
 
-  nativeBuildInputs = [ git ];
-
-  preBuild = ''
-    go generate ./...
-  '';
+  nativeBuildInputs = [
+    git
+    darwin.sigtool
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
     cp gt $out/bin/
   '';
 
+  postFixup = ''
+    codesign --entitlements vf.entitlements -f -s - $out/bin/gt
+  '';
+
   meta = with lib; {
     description = "Multi-agent orchestration system for Claude Code with persistent work tracking";
     homepage = "https://github.com/steveyegge/gastown";
     license = licenses.mit;
-    platforms = [
-      "aarch64-darwin"
-    ];
+    platforms = lib.platforms.darwin;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
     mainProgram = "gt";
   };
 }
