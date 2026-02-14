@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.52.9",
+  "lastChangelogVersion": "0.52.10",
   "defaultProvider": "aihubmix",
   "defaultModel": "cc-minimax-m2.1",
   "defaultThinkingLevel": "low",
@@ -28,7 +28,7 @@
     "-skills/pi-skills/gccli/SKILL.md",
     "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md"
   ],
-  "hooks": {
-    "paths": ["git:https://github.com/cv/pi-bd"]
-  }
+  "packages": [
+    "git:github.com/tmustier/pi-extensions"
+  ]
 }
