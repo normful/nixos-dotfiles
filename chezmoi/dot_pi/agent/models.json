@@ -7,19 +7,19 @@
       "authHeader": true,
       "models": [
         {
-          "id": "cc-minimax-m2.1",
-          "name": "MiniMax-M2.1",
-          "reasoning": false,
+          "id": "cc-minimax-m2.5",
+          "name": "Claude Code MiniMax-M2.5",
+          "reasoning": true,
           "input": [
             "text"
           ],
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
+            "input": 0,
+            "output": 0,
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 1000000,
+          "contextWindow": 204800,
           "maxTokens": 131072
         },
         {
@@ -68,7 +68,7 @@
         },
         {
           "id": "stepfun/step-3.5-flash:free",
-          "name": "Step 3.5 Flash (Free)",
+          "name": "Step 3.5 Flash (free)",
           "reasoning": true,
           "input": [
             "text"
@@ -80,24 +80,23 @@
             "cacheWrite": 0
           },
           "contextWindow": 256000,
-          "maxTokens": 64000
+          "maxTokens": 256000
         },
         {
           "id": "@preset/kimi25-high-reasoning",
-          "name": "Kimi K2.5",
-          "reasoning": true,
+          "name": "Kimi-K2",
+          "reasoning": false,
           "input": [
-            "text",
-            "image"
+            "text"
           ],
           "cost": {
-            "input": 0.6,
-            "output": 3,
+            "input": 0,
+            "output": 0,
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "contextWindow": 262144,
-          "maxTokens": 262144
+          "contextWindow": 128000,
+          "maxTokens": 64000
         }
       ]
     }
