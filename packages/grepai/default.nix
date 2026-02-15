@@ -1,33 +1,33 @@
 {
+  fetchurl,
+  stdenv,
   lib,
-  buildGoModule,
-  fetchFromGitHub,
-  ...
 }:
 
-buildGoModule rec {
+stdenv.mkDerivation rec {
   pname = "grepai";
-  version = "0.30.0";
+  version = "0.31.0";
 
-  src = fetchFromGitHub {
-    owner = "yoanbernabeu";
-    repo = "grepai";
-    rev = "v${version}";
-    hash = "sha256-FeaPjzPmgbUrNcjV9CyXUqz0jp6oC11ukUnkszpL5Cc=";
+  src = fetchurl {
+    url = "https://github.com/yoanbernabeu/grepai/releases/download/v${version}/grepai_0.31.0_darwin_arm64.tar.gz";
+    sha256 = "sha256-24a080471d33ad1033d302acf6145f8e8d051eff89a70e030603681156e1e592";
   };
 
-  vendorHash = "sha256-uHsx6l7k7ur295+DFGNUAvRG3j8K6uOKipyVCNtd0hs=";
+  unpackPhase = ''
+    tar xzf $src
+  '';
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  installPhase = ''
+    mkdir -p $out/bin
+    cp grepai $out/bin/grepai
+    chmod +x $out/bin/grepai
+  '';
 
   meta = with lib; {
     description = "AI-powered semantic code search tool";
     homepage = "https://github.com/yoanbernabeu/grepai";
     license = licenses.mit;
     mainProgram = "grepai";
+    platforms = platforms.darwinArm64;
   };
 }
