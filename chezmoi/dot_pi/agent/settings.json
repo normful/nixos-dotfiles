@@ -54,7 +54,8 @@
       ]
     },
     "https://github.com/Graffioh/pi-screenshots-picker",
-    "https://github.com/nicobailon/pi-mcp-adapter"
+    "https://github.com/nicobailon/pi-mcp-adapter",
+    "https://github.com/nicobailon/pi-web-access"
   ],
   "pi-screenshots": {
     "sources": [
