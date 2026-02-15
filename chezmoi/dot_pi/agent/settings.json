@@ -30,14 +30,15 @@
     "-skills/curated-ai-skills/writing-plans/SKILL.md",
     "+skills/curated-ai-skills/writing-skills/SKILL.md",
     "-skills/pi-skills/youtube-transcript/SKILL.md",
-    "+skills/curated-ai-skills/verification-before-completion/SKILL.md",
     "+skills/curated-ai-skills/stop-slop/SKILL.md",
     "-skills/curated-ai-skills/nix-package/SKILL.md",
     "-skills/curated-ai-skills/receiving-code-review/SKILL.md",
     "-skills/curated-ai-skills/requesting-code-review/SKILL.md",
     "-skills/curated-ai-skills/subagent-driven-development/SKILL.md",
     "-skills/curated-ai-skills/systematic-debugging/SKILL.md",
-    "-skills/curated-ai-skills/test-driven-development/SKILL.md"
+    "-skills/curated-ai-skills/test-driven-development/SKILL.md",
+    "-skills/pi-skills/transcribe/SKILL.md",
+    "-skills/curated-ai-skills/verification-before-completion/SKILL.md"
   ],
   "packages": [
     {
