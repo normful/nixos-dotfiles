@@ -10,7 +10,7 @@ let
   isLinux = pkgs-pinned-unstable.stdenv.isLinux;
   isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
   phpEnv = (
-    pkgs-pinned-unstable.php84.buildEnv {
+    pkgs-pinned-unstable.php85.buildEnv {
       extensions = (
         { enabled, all }:
         enabled
@@ -20,8 +20,8 @@ let
           mysqli
           pdo
           pdo_mysql
-          # pcov
-          xdebug
+          pcov
+          # xdebug
           zip
         ])
       );
@@ -36,8 +36,8 @@ let
         opcache.interned_strings_buffer = 20
         opcache.memory_consumption = 256M
 
-        xdebug.mode = coverage
-        pcov.enabled = Off
+        xdebug.mode = Off
+        pcov.enabled = On
       '';
     }
   );

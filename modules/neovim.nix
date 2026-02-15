@@ -39,8 +39,8 @@ in
         ++ (optionals (!config.my.enableLangPhp) (
           with pkgs-pinned-unstable;
           [
-            php
-            php84Packages.composer
+            php85
+            php85Packages.composer
           ]
         ))
         ++ (optionals (!config.my.enableLangPython) (
