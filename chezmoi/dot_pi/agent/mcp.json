@@ -6,31 +6,7 @@
         "-y",
         "chrome-devtools-mcp@latest"
       ],
-      "directTools": [
-        "click",
-        "close_page",
-        "drag",
-        "emulate",
-        "evaluate_script",
-        "fill",
-        "fill_form",
-        "get_console_message",
-        "get_network_request",
-        "handle_dialog",
-        "hover",
-        "list_console_messages",
-        "list_network_requests",
-        "list_pages",
-        "navigate_page",
-        "new_page",
-        "press_key",
-        "resize_page",
-        "select_page",
-        "take_screenshot",
-        "take_snapshot",
-        "upload_file",
-        "wait_for"
-      ]
+      "directTools": true,
     },
     "laravel-boost": {
       "command": "php",
