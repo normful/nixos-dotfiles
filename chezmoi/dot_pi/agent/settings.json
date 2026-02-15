@@ -30,7 +30,6 @@
     "-skills/curated-ai-skills/writing-plans/SKILL.md",
     "+skills/curated-ai-skills/writing-skills/SKILL.md",
     "-skills/pi-skills/youtube-transcript/SKILL.md",
-    "+skills/curated-ai-skills/stop-slop/SKILL.md",
     "-skills/curated-ai-skills/nix-package/SKILL.md",
     "-skills/curated-ai-skills/receiving-code-review/SKILL.md",
     "-skills/curated-ai-skills/requesting-code-review/SKILL.md",
@@ -38,7 +37,8 @@
     "-skills/curated-ai-skills/systematic-debugging/SKILL.md",
     "-skills/curated-ai-skills/test-driven-development/SKILL.md",
     "-skills/pi-skills/transcribe/SKILL.md",
-    "-skills/curated-ai-skills/verification-before-completion/SKILL.md"
+    "-skills/curated-ai-skills/verification-before-completion/SKILL.md",
+    "-skills/curated-ai-skills/stop-slop/SKILL.md"
   ],
   "packages": [
     {
@@ -55,7 +55,24 @@
     },
     "https://github.com/Graffioh/pi-screenshots-picker",
     "https://github.com/nicobailon/pi-mcp-adapter",
-    "https://github.com/nicobailon/pi-web-access"
+    "https://github.com/nicobailon/pi-web-access",
+    "https://github.com/nicobailon/pi-model-switch",
+    {
+      "source": "https://github.com/aliou/pi-extensions",
+      "themes": [
+        "-themes/jellybeans/jellybeans-mono-light.json",
+        "-themes/jellybeans/jellybeans-mono.json"
+      ],
+      "extensions": [
+        "-extensions/the-dumb-zone/index.ts",
+        "-extensions/processes/index.ts",
+        "-extensions/subagents/index.ts",
+        "-extensions/presenter/index.ts",
+        "-extensions/neovim/index.ts",
+        "-extensions/introspection/index.ts",
+        "-extensions/breadcrumbs/index.ts"
+      ]
+    }
   ],
   "pi-screenshots": {
     "sources": [
