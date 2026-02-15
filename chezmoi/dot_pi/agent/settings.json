@@ -53,5 +53,10 @@
         "-arcade/mario-not/mario-not.ts"
       ]
     }
-  ]
+  ],
+  "pi-screenshots": {
+    "sources": [
+      "~/Downloads/Screenshot*.png"
+    ]
+  }
 }
