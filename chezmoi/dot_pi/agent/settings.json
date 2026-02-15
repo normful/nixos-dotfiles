@@ -65,12 +65,12 @@
       ],
       "extensions": [
         "-extensions/the-dumb-zone/index.ts",
-        "-extensions/processes/index.ts",
         "-extensions/subagents/index.ts",
         "-extensions/presenter/index.ts",
         "-extensions/neovim/index.ts",
         "-extensions/introspection/index.ts",
-        "-extensions/breadcrumbs/index.ts"
+        "-extensions/breadcrumbs/index.ts",
+        "+extensions/processes/index.ts"
       ]
     }
   ],
