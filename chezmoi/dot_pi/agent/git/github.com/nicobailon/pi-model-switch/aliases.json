@@ -1,0 +1,6 @@
+{
+  "cheap": ["google/gemini-2.5-flash-lite-preview-09-2025"],
+  "fast": ["google/gemini-2.5-flash-lite-preview-09-2025"],
+  "coding": ["aihubmix/cc-minimax-m2.5"],
+  "budget": ["aihubmix/cc-minimax-m2.5"]
+}
