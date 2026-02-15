@@ -20,14 +20,15 @@ let
           mysqli
           pdo
           pdo_mysql
-          pcov
-          # xdebug
+          # pcov
+          xdebug
           zip
         ])
       );
 
       # Also read https://thephp.cc/articles/pcov-or-xdebug
-      # Only enable either pcov or xdebug. When pcov is enabled by configuration pcov.enabled=1: interoperability with Xdebug is not possible
+      # Only enable either pcov or xdebug.
+      # When pcov is enabled by configuration pcov.enabled = On, interoperability with Xdebug is not possible
       extraConfig = ''
         display_errors = On
         display_startup_errors = On
@@ -36,8 +37,8 @@ let
         opcache.interned_strings_buffer = 20
         opcache.memory_consumption = 256M
 
-        xdebug.mode = Off
-        pcov.enabled = On
+        pcov.enabled = Off
+        xdebug.mode = coverage
       '';
     }
   );
