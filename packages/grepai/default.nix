@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/yoanbernabeu/grepai/releases/download/v${version}/grepai_0.31.0_darwin_arm64.tar.gz";
-    sha256 = "sha256-24a080471d33ad1033d302acf6145f8e8d051eff89a70e030603681156e1e592";
+    sha256 = "24a080471d33ad1033d302acf6145f8e8d051eff89a70e030603681156e1e592";
   };
 
   unpackPhase = ''
