@@ -26,9 +26,31 @@
     "-skills/pi-skills/gmcli/SKILL.md",
     "-skills/pi-skills/gdcli/SKILL.md",
     "-skills/pi-skills/gccli/SKILL.md",
-    "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md"
+    "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md",
+    "-skills/curated-ai-skills/writing-plans/SKILL.md",
+    "+skills/curated-ai-skills/writing-skills/SKILL.md",
+    "-skills/pi-skills/youtube-transcript/SKILL.md",
+    "+skills/curated-ai-skills/verification-before-completion/SKILL.md",
+    "+skills/curated-ai-skills/stop-slop/SKILL.md",
+    "-skills/curated-ai-skills/nix-package/SKILL.md",
+    "-skills/curated-ai-skills/receiving-code-review/SKILL.md",
+    "-skills/curated-ai-skills/requesting-code-review/SKILL.md",
+    "-skills/curated-ai-skills/subagent-driven-development/SKILL.md",
+    "-skills/curated-ai-skills/systematic-debugging/SKILL.md",
+    "-skills/curated-ai-skills/test-driven-development/SKILL.md"
   ],
   "packages": [
-    "git:github.com/tmustier/pi-extensions"
+    {
+      "source": "git:github.com/tmustier/pi-extensions",
+      "extensions": [
+        "-arcade/spice-invaders.ts",
+        "-arcade/tetris.ts",
+        "-agent-guidance/agent-guidance.ts",
+        "-usage-extension/index.ts",
+        "-arcade/ping.ts",
+        "-arcade/picman.ts",
+        "-arcade/mario-not/mario-not.ts"
+      ]
+    }
   ]
 }
