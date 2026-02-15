@@ -672,7 +672,7 @@ def write_pi_fish(models: list[tuple[str, str]], path: Path) -> None:
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w") as f:
-            f.write('abbr --add pi "pi --models \'"\\\n')
+            f.write('abbr --add pim "pi --models \'"\\\n')
             total = len(models)
             for idx, (prov, model_id) in enumerate(models):
                 is_last = idx == total - 1
