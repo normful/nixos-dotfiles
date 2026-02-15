@@ -52,7 +52,9 @@
         "-arcade/picman.ts",
         "-arcade/mario-not/mario-not.ts"
       ]
-    }
+    },
+    "https://github.com/Graffioh/pi-screenshots-picker",
+    "https://github.com/nicobailon/pi-mcp-adapter"
   ],
   "pi-screenshots": {
     "sources": [
