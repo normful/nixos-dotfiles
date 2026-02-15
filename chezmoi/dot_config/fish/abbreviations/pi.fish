@@ -1,4 +1,4 @@
-abbr --add pi "pi --models '"\
+abbr --add pim "pi --models '"\
 "aihubmix/cc-minimax-m2.5," \
 "aihubmix/coding-minimax-m2.5," \
 "aihubmix/kimi-k2.5," \
