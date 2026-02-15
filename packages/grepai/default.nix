@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/yoanbernabeu/grepai";
     license = licenses.mit;
     mainProgram = "grepai";
-    platforms = platforms.darwinArm64;
+    platforms = ["aarch64-darwin"];
   };
 }
