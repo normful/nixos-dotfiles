@@ -9,7 +9,7 @@
   "showHardwareCursor": true,
   "hideThinkingBlock": false,
   "steeringMode": "one-at-a-time",
-  "followUpMode": "all",
+  "followUpMode": "one-at-a-time",
   "skills": [
     "-skills/curated-ai-skills/brainstorming/SKILL.md",
     "+skills/pi-skills/brave-search/SKILL.md",
