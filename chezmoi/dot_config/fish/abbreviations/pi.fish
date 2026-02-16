@@ -1,6 +1,6 @@
 abbr --add pim "pi --models '"\
 "aihubmix/cc-minimax-m2.5," \
-"aihubmix/coding-minimax-m2.5," \
+"aihubmix/cc-glm-5," \
 "aihubmix/kimi-k2.5," \
 "opencode/trinity-large-preview-free," \
 "openrouter/arcee-ai/trinity-large-preview:free," \

@@ -1,17 +1,18 @@
 [providers.aihubmix]
 outputToPiModelsJson = true
 authHeader = true
-models = ["cc-minimax-m2.5", "coding-minimax-m2.5", "kimi-k2.5"]
+models = ["cc-minimax-m2.5", "cc-glm-5", "kimi-k2.5"]
 
 [providers.aihubmix.model."cc-minimax-m2.5"]
 name = "Claude Code MiniMax-M2.5"
 compat = { supportsDeveloperRole = false }
 
-[providers.aihubmix.model."coding-minimax-m2.5"]
-name = "Coding MiniMax-M2.5"
+[providers.aihubmix.model."cc-glm-5"]
+name = "Claude Code GLM-5"
 compat = { supportsDeveloperRole = false }
 
 [providers.aihubmix.model."kimi-k2.5"]
+name = "Kimi K2.5"
 compat = { supportsDeveloperRole = false }
 
 [providers.opencode]

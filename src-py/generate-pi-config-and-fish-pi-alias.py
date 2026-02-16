@@ -46,6 +46,7 @@ PI_FISH_PATH = (
 )
 
 MODELS_DEV_API = "https://models.dev/api.json"
+AIHUBMIX_API = "https://aihubmix.com/api/v1/models"
 MAX_LEVENSHTEIN_DISTANCE = 3
 
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -73,6 +74,10 @@ class ProviderConfig(TypedDict):
 
 LowerModelMap = dict[str, tuple[dict[str, Any], str]]
 FlatModel = tuple[str, dict[str, Any], str, str]
+
+# Type for aihubmix API model data
+AihubmixModelData = dict[str, Any]
+AihubmixModelMap = dict[str, AihubmixModelData]
 
 # Model override keys that can be specified in TOML
 MODEL_OVERRIDE_KEYS: set[str] = {
@@ -269,6 +274,107 @@ def fetch_models_dot_dev_api_res() -> dict[str, Any]:
     except Exception as e:
         print(f"Error fetching API: {e}", file=sys.stderr)
         sys.exit(1)
+
+
+def fetch_aihubmix_api_res() -> AihubmixModelMap:
+    """Fetch the aihubmix API JSON and return a map of model_id -> model data."""
+    try:
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+        req = urllib.request.Request(AIHUBMIX_API, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(req, context=context) as response:
+            result: dict[str, Any] = json.load(response)
+            # aihubmix returns {"data": [...models...]}
+            data_list: list[dict[str, Any]] = result.get("data", [])
+            model_map: AihubmixModelMap = {}
+            for model in data_list:
+                model_id = model.get("model_id")
+                if model_id:
+                    model_map[model_id] = model
+            return model_map
+    except Exception as e:
+        print(f"Error fetching aihubmix API: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+def match_model_in_models_dev_only(
+    model_id: str,
+    provider_lower_models: dict[str, LowerModelMap],
+    all_models_flat: list[FlatModel],
+    all_provider_keys_sorted: list[str],
+    max_distance: int,
+) -> tuple[str, dict[str, Any], str] | None:
+    """
+    Find the best match for model_id using ONLY models.dev data.
+    This is used as a fallback for aihubmix provider.
+    Same search order as match_model, but searches across ALL providers in models.dev.
+    """
+    normalized_model_id = model_id.lower()
+
+    # 1. Exact match in any provider
+    for provider_name in all_provider_keys_sorted:
+        provider_models_map = provider_lower_models[provider_name]
+        if normalized_model_id in provider_models_map:
+            matched_data, original_id = provider_models_map[normalized_model_id]
+            return (provider_name, matched_data, original_id)
+
+    # 2. Fuzzy match (Levenshtein) across all providers
+    best_distance: int | None = None
+    best_match_result: tuple[str, dict[str, Any], str] | None = None
+
+    stripped_normalized_model_id = (
+        extract_model_name_from_id(normalized_model_id)
+        if "/" in normalized_model_id
+        else None
+    )
+
+    for prov, mdata, orig_id, mid_lower in all_models_flat:
+        dist = levenshtein(normalized_model_id, mid_lower)
+        if best_distance is None or dist < best_distance:
+            best_distance = dist
+            best_match_result = (prov, mdata, orig_id)
+
+        if stripped_normalized_model_id is not None:
+            mid_name_only = extract_model_name_from_id(mid_lower)
+            dist_stripped = levenshtein(stripped_normalized_model_id, mid_name_only)
+            if dist_stripped < best_distance:
+                best_distance = dist_stripped
+                best_match_result = (prov, mdata, orig_id)
+
+    if best_distance is not None and best_distance <= max_distance:
+        return best_match_result
+
+    # 3. Substring/contains fallback
+    core_identifiers: list[str] = []
+    if "-" in normalized_model_id:
+        parts = normalized_model_id.split("-")
+        if len(parts) >= 2:
+            potential_core = "-".join(parts[1:])
+            if potential_core:
+                core_identifiers.append(potential_core)
+        core_identifiers.append(normalized_model_id)
+    else:
+        core_identifiers.append(normalized_model_id)
+
+    for core in list(core_identifiers):
+        import re
+        version_matches = re.findall(r'm\d+\.?\d*', core)
+        core_identifiers.extend(version_matches)
+
+    seen = set()
+    unique_cores = []
+    for c in core_identifiers:
+        if c not in seen:
+            seen.add(c)
+            unique_cores.append(c)
+
+    for prov, mdata, orig_id, mid_lower in all_models_flat:
+        for core in unique_cores:
+            if core in mid_lower and len(core) >= 3:
+                return (prov, mdata, orig_id)
+
+    return None
 
 
 def process_provider_entry(
@@ -528,6 +634,167 @@ def transform_model(
     return model_entry
 
 
+def parse_aihubmix_modalities(input_modalities_str: str | None) -> list[str] | None:
+    """Parse aihubmix input_modalities string (e.g., 'text,image,video') to list."""
+    if not input_modalities_str:
+        return None
+    modalities = [m.strip() for m in input_modalities_str.split(",")]
+    # Map to supported types
+    supported: list[str] = []
+    for m in modalities:
+        if m in ("text", "image"):
+            supported.append(m)
+    return supported if supported else None
+
+
+def transform_model_aihubmix(
+    model_id: str,
+    aihubmix_data: AihubmixModelData | None,
+    fallback_data: dict[str, Any] | None,
+    overrides: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Transform aihubmix model with fallback to models.dev for missing properties.
+
+    For each property, the fallback chain is:
+    - TOML override → aihubmix data → models.dev fallback → default
+
+    For cost, we prefer aihubmix data (more accurate for this provider).
+    """
+    if overrides is None:
+        overrides = {}
+
+    # --- name ---
+    # TOML → fallback.name → model_id
+    name = overrides.get("name")
+    if not name and fallback_data:
+        name = fallback_data.get("name")
+    if not name:
+        name = model_id
+
+    # --- reasoning ---
+    # TOML → aihubmix features (has "thinking") → fallback.reasoning → True
+    reasoning = overrides.get("reasoning")
+    if reasoning is None:
+        aihubmix_features = aihubmix_data.get("features", "") if aihubmix_data else ""
+        if "thinking" in aihubmix_features:
+            reasoning = True
+        elif fallback_data:
+            reasoning = fallback_data.get("reasoning", True)
+        else:
+            reasoning = True
+
+    # --- input (modalities) ---
+    # aihubmix input_modalities → fallback.modalities.input → ["text"]
+    input_modalities: list[str] = ["text"]
+    if aihubmix_data:
+        parsed = parse_aihubmix_modalities(aihubmix_data.get("input_modalities"))
+        if parsed:
+            input_modalities = parsed
+    if input_modalities == ["text"] and fallback_data:
+        fallback_input = fallback_data.get("modalities", {}).get("input", [])
+        if fallback_input:
+            input_modalities = [t for t in fallback_input if t in ("text", "image")]
+    # Apply override
+    if "input" in overrides:
+        input_modalities = overrides["input"]
+
+    # --- cost ---
+    # Prefer aihubmix (more accurate for this provider), fallback to models.dev
+    cost: dict[str, float] = {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0}
+    if aihubmix_data:
+        pricing = aihubmix_data.get("pricing", {})
+        if pricing:
+            cost = {
+                "input": pricing.get("input", 0),
+                "output": pricing.get("output", 0),
+                "cacheRead": pricing.get("cache_read", 0),
+                "cacheWrite": pricing.get("cache_write", 0),
+            }
+    # If aihubmix has zeros, try fallback
+    if cost["input"] == 0 and cost["output"] == 0 and fallback_data:
+        fallback_cost = fallback_data.get("cost", {})
+        if fallback_cost:
+            cost = {
+                "input": fallback_cost.get("input", 0),
+                "output": fallback_cost.get("output", 0),
+                "cacheRead": fallback_cost.get("cacheRead", 0),
+                "cacheWrite": fallback_cost.get("cacheWrite", 0),
+            }
+    # Apply override
+    if "cost" in overrides:
+        cost = overrides["cost"]
+
+    # --- contextWindow ---
+    # TOML → (aihubmix.context_length if > 0) → fallback.contextWindow → 0
+    context_window = overrides.get("contextWindow")
+    if context_window is None and aihubmix_data:
+        aihubmix_context = aihubmix_data.get("context_length", 0)
+        if aihubmix_context > 0:
+            context_window = aihubmix_context
+    if context_window is None and fallback_data:
+        context_window = fallback_data.get("limit", {}).get("context", 0)
+    if context_window is None:
+        context_window = 0
+
+    # --- maxTokens ---
+    # TOML → (aihubmix.max_output if > 0) → fallback.maxTokens → 0
+    max_tokens = overrides.get("maxTokens")
+    if max_tokens is None and aihubmix_data:
+        aihubmix_max_output = aihubmix_data.get("max_output", 0)
+        if aihubmix_max_output > 0:
+            max_tokens = aihubmix_max_output
+    if max_tokens is None and fallback_data:
+        max_tokens = fallback_data.get("limit", {}).get("output", 0)
+    if max_tokens is None:
+        max_tokens = 0
+
+    # --- compat ---
+    # Build from: TOML overrides + infer from aihubmix features → fallback.compat
+    compat: dict[str, Any] = {}
+
+    # Direct compat keys from overrides
+    direct_compat_keys = overrides.keys() & COMPAT_OVERRIDE_KEYS
+    for key in direct_compat_keys:
+        compat[key] = overrides[key]
+
+    # Nested compat dict from overrides
+    if "compat" in overrides and isinstance(overrides["compat"], dict):
+        for key in COMPAT_OVERRIDE_KEYS:
+            if key in overrides["compat"] and key not in compat:
+                compat[key] = overrides["compat"][key]
+
+    # Infer from aihubmix features
+    if aihubmix_data:
+        aihubmix_features = aihubmix_data.get("features", "") or ""
+        # If features contain "thinking" but no thinkingFormat set, set default
+        if "thinking" in aihubmix_features and "thinkingFormat" not in compat:
+            # Could try to infer based on model name, but default to True
+            compat["requiresThinkingAsText"] = True
+
+    # Fall back to models.dev compat
+    if fallback_data and compat:
+        fallback_compat = fallback_data.get("compat", {})
+        for key in COMPAT_OVERRIDE_KEYS:
+            if key not in compat and key in fallback_compat:
+                compat[key] = fallback_compat[key]
+
+    # Build output dict
+    model_entry: dict[str, Any] = {
+        "id": model_id,
+        "name": name,
+        "reasoning": reasoning,
+        "input": input_modalities,
+        "cost": cost,
+        "contextWindow": context_window,
+        "maxTokens": max_tokens,
+    }
+
+    if compat:
+        model_entry["compat"] = compat
+
+    return model_entry
+
+
 def process_provider_models(
     current_provider_name: str,
     filtered_model_list: list[str],
@@ -570,6 +837,59 @@ def process_provider_models(
     return provider_models_entry_list, pi_models_order
 
 
+def process_aihubmix_models(
+    filtered_model_list: list[str],
+    model_override_configs: dict[str, dict[str, Any]],
+    aihubmix_model_map: AihubmixModelMap,
+    provider_lower_models: dict[str, LowerModelMap],
+    all_models_flat: list[FlatModel],
+    all_provider_keys_sorted: list[str],
+    max_distance: int,
+) -> tuple[list[dict[str, Any]], list[tuple[str, str]]]:
+    """Process aihubmix models with fallback to models.dev for missing properties."""
+    provider_models_entry_list: list[dict[str, Any]] = []
+    pi_models_order: list[tuple[str, str]] = []
+
+    for model_id in filtered_model_list:
+        overrides = model_override_configs.get(model_id, {})
+
+        # 1. Get aihubmix data (direct lookup)
+        aihubmix_data = aihubmix_model_map.get(model_id)
+
+        # 2. Get fallback data from models.dev (for missing properties)
+        fallback = match_model_in_models_dev_only(
+            model_id=model_id,
+            provider_lower_models=provider_lower_models,
+            all_models_flat=all_models_flat,
+            all_provider_keys_sorted=all_provider_keys_sorted,
+            max_distance=max_distance,
+        )
+        fallback_data = fallback[1] if fallback else None
+
+        # 3. If no aihubmix data and no fallback, warn and skip
+        if not aihubmix_data and not fallback_data:
+            warning(
+                f"Could not find model '{model_id}' for provider 'aihubmix' in either aihubmix API or models.dev. Skipping."
+            )
+            continue
+
+        # 4. Transform with fallback chain
+        final_model = transform_model_aihubmix(
+            model_id=model_id,
+            aihubmix_data=aihubmix_data,
+            fallback_data=fallback_data,
+            overrides=overrides,
+        )
+
+        # Add to provider models list
+        provider_models_entry_list.append(final_model)
+
+        # Always add to pi_models_order for pi.fish
+        pi_models_order.append(("aihubmix", model_id))
+
+    return provider_models_entry_list, pi_models_order
+
+
 def generate_outputs(
     toml_config_providers: dict[str, Any],
     provider_meta: dict[str, ProviderMeta],
@@ -577,6 +897,7 @@ def generate_outputs(
     all_models_flat: list[FlatModel],
     all_provider_keys_sorted: list[str],
     max_distance: int,
+    aihubmix_model_map: AihubmixModelMap,
 ) -> tuple[dict[str, Any], list[tuple[str, str]]]:
     """
     Process config providers and models.
@@ -633,15 +954,27 @@ def generate_outputs(
             "model", {}
         )
 
-        provider_models_entry_list, provider_pi_order = process_provider_models(
-            current_provider_name=current_provider_name,
-            filtered_model_list=filtered_model_list,
-            model_override_configs=model_override_configs,
-            provider_lower_models=provider_lower_models,
-            all_models_flat=all_models_flat,
-            all_provider_keys_sorted=all_provider_keys_sorted,
-            max_distance=max_distance,
-        )
+        # Special handling for aihubmix: use aihubmix API with models.dev fallback
+        if current_provider_name == "aihubmix":
+            provider_models_entry_list, provider_pi_order = process_aihubmix_models(
+                filtered_model_list=filtered_model_list,
+                model_override_configs=model_override_configs,
+                aihubmix_model_map=aihubmix_model_map,
+                provider_lower_models=provider_lower_models,
+                all_models_flat=all_models_flat,
+                all_provider_keys_sorted=all_provider_keys_sorted,
+                max_distance=max_distance,
+            )
+        else:
+            provider_models_entry_list, provider_pi_order = process_provider_models(
+                current_provider_name=current_provider_name,
+                filtered_model_list=filtered_model_list,
+                model_override_configs=model_override_configs,
+                provider_lower_models=provider_lower_models,
+                all_models_flat=all_models_flat,
+                all_provider_keys_sorted=all_provider_keys_sorted,
+                max_distance=max_distance,
+            )
 
         # Always add to pi_models_order (all providers for CLI completion)
         pi_models_order.extend(provider_pi_order)
@@ -706,7 +1039,10 @@ def main() -> None:
         print("Error: No providers defined in config.", file=sys.stderr)
         sys.exit(1)
 
+    # Fetch APIs
     api_data = fetch_models_dot_dev_api_res()
+    aihubmix_model_map = fetch_aihubmix_api_res()
+
     provider_meta, provider_lower_models, all_models_flat = index_providers(api_data)
     all_provider_keys_sorted = sorted(api_data.keys())
 
@@ -717,6 +1053,7 @@ def main() -> None:
         all_models_flat=all_models_flat,
         all_provider_keys_sorted=all_provider_keys_sorted,
         max_distance=MAX_LEVENSHTEIN_DISTANCE,
+        aihubmix_model_map=aihubmix_model_map,
     )
 
     write_json({"providers": outputs}, PI_CODING_AGENT_MODELS_JSON_PATH)
