@@ -165,6 +165,9 @@ in
 
         fastgron
         jsonschema-cli
+        # I'm not using
+        # source-meta-json-schema
+        # and instead preferring jsonschema-cli for now, because jsonschema-cli looks faster
 
         cue
       ])
