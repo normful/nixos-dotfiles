@@ -1,6 +1,7 @@
 **/*.syntax
 **/.DS_Store
 **/.ruff_cache
+**/.ralph/
 **/__pycache__
 *.syntax
 .DS_Store
