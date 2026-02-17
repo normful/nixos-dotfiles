@@ -50,6 +50,7 @@ if status is-interactive
 
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
+    abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
 
     abbr --add cm 'chezmoi'
     abbr --add cmd 'chezmoi diff'
@@ -69,8 +70,8 @@ if status is-interactive
     end
     {{ end -}}
 
-    abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
-    abbr --add oc "bunx opencode-ai@latest"
+    # abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
+    # abbr --add oc "bunx opencode-ai@latest"
 
     if not command -v gemini >/dev/null 2>&1
         abbr --add gemini "bunx @google/gemini-cli"
@@ -140,11 +141,8 @@ if status is-interactive
         abbr --add com composer
     end
 
-    fish_add_path --global "$HOME/Library/Application Support/Herd/bin/"
-
     abbr --add es 'exercism submit'
     abbr --add mus "musikcube"
-    abbr --add gt 'gleam test'
     abbr --add zs 'zola serve'
     abbr --add dua 'dua interactive'
     abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
@@ -155,6 +153,10 @@ if status is-interactive
 
     if command -v mise >/dev/null 2>&1
         mise activate fish | source
+    end
+
+    if command -v direnv >/dev/null 2>&1
+        direnv hook fish | source
     end
 end
 
