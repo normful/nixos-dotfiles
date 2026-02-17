@@ -1,0 +1,247 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["typer", "rich"]
+# ///
+
+"""
+run-in-tmux: Create a new tmux session for a project and run a command inside it.
+"""
+
+__version__ = "0.3.0"
+
+import hashlib
+import subprocess
+import sys
+from pathlib import Path
+
+import typer
+from rich.console import Console
+
+app = typer.Typer(add_completion=False)
+console = Console()
+
+
+def get_version() -> str:
+    return __version__
+
+
+def get_git_root() -> Path | None:
+    """Get the root directory of the current Git repository."""
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return Path(result.stdout.strip())
+    except subprocess.CalledProcessError:
+        return None
+
+
+def get_repo_name(path: Path) -> str:
+    """Get short slug from repo basename (first 16 chars, lowercase)."""
+    return path.name[:16].lower()
+
+
+def generate_session_name(repo_path: Path, commands: list[str]) -> str:
+    """Generate unique session name: <slug>-<hash> where hash = MD5(repo_path + commands)."""
+    # Combine repo absolute path with all commands concatenated
+    combined = str(repo_path.absolute()) + "".join(commands)
+    # MD5 hash
+    md5_hash = hashlib.md5(combined.encode()).hexdigest()
+    # Truncate to 8 chars
+    short_hash = md5_hash[:8]
+    # Get repo slug (first 8 chars of basename)
+    slug = get_repo_name(repo_path)
+    return f"{slug}-{short_hash}"
+
+
+def session_exists(session_name: str) -> bool:
+    """Check if a tmux session with the given name already exists."""
+    result = subprocess.run(
+        ["tmux", "has-session", "-t", session_name],
+        capture_output=True,
+    )
+    return result.returncode == 0
+
+
+def create_tmux_session(session_name: str, working_dir: Path, commands: list[str]) -> bool:
+    """Create a new tmux session with each command in its own split pane."""
+    try:
+        # Create session with first command in pane 0
+        # -s: session name
+        # -c: working directory
+        subprocess.run(
+            ["tmux", "new-session", "-d", "-s", session_name, "-c", str(working_dir)],
+            check=True,
+        )
+        # Send first command to pane 0
+        subprocess.run(
+            ["tmux", "send-keys", "-t", f"{session_name}.0", commands[0], "C-m"],
+            check=True,
+        )
+        
+        # For each subsequent command, create a new pane and run the command
+        for i, cmd in enumerate(commands[1:], start=1):
+            # Split the window horizontally
+            subprocess.run(
+                ["tmux", "split-window", "-h", "-t", session_name],
+                check=True,
+            )
+            # Select the new pane and send the command
+            subprocess.run(
+                ["tmux", "send-keys", "-t", f"{session_name}.{i}", cmd, "C-m"],
+                check=True,
+            )
+        
+        # Arrange panes in a tiled layout
+        subprocess.run(
+            ["tmux", "select-layout", "-t", session_name, "tiled"],
+            check=True,
+        )
+        
+        return True
+    except subprocess.CalledProcessError as e:
+        return False
+
+
+def output_human(session_name: str, commands: list[str], working_dir: Path) -> None:
+    """Output human-readable confirmation."""
+    console.print(f"[green]✓[/green] Session created: [bold]{session_name}[/bold]")
+    console.print(f"  Commands ({len(commands)}):")
+    for i, cmd in enumerate(commands, 1):
+        console.print(f"    {i}. {cmd}")
+    console.print(f"  Working directory: {working_dir}")
+    console.print()
+    console.print("[bold]Attach to session:[/bold]")
+    console.print(f"  tmux attach -t {session_name}")
+    console.print()
+    console.print("[bold]Peek pane output:[/bold]")
+    for i in range(len(commands)):
+        console.print(f"  tmux capture-pane -t {session_name}.{i} -p")
+    console.print()
+    console.print("[bold]Kill session:[/bold]")
+    console.print(f"  tmux kill-session -t {session_name}")
+
+
+def output_json(session_name: str, commands: list[str], working_dir: Path) -> None:
+    """Output JSON for scripting."""
+    import json
+    output = {
+        "success": True,
+        "session_name": session_name,
+        "commands": commands,
+        "panes": len(commands),
+        "working_directory": str(working_dir),
+        "attach_command": f"tmux attach -t {session_name}",
+        "peek_commands": [f"tmux capture-pane -t {session_name}.{i} -p" for i in range(len(commands))],
+        "kill_command": f"tmux kill-session -t {session_name}"
+    }
+    print(json.dumps(output))
+
+
+def output_plain(session_name: str, commands: list[str], working_dir: Path) -> None:
+    """Output line-based plain text."""
+    print(session_name)
+    for cmd in commands:
+        print(cmd)
+    print(str(working_dir))
+    print(f"tmux attach -t {session_name}")
+    for i in range(len(commands)):
+        print(f"tmux capture-pane -t {session_name}.{i} -p")
+    print(f"tmux kill-session -t {session_name}")
+
+
+def error_exit(message: str, json_output: bool = False) -> None:
+    """Print error to both stdout and stderr, exit with code 1."""
+    if json_output:
+        import json
+        print(json.dumps({"success": False, "error": message}), file=sys.stderr)
+    else:
+        # Use styled output for stderr - use Console with stderr, force color
+        err_console = Console(stderr=True, force_terminal=True, no_color=console.no_color)
+        err_console.print(f"[red]Error:[/red] {message}")
+    raise typer.Exit(code=1)
+
+
+@app.command()
+def main(
+    command: list[str] | None = typer.Option(
+        None, "--command", "-c",
+        help="Command to run inside tmux session. Repeat for multiple sequential commands."
+    ),
+    json: bool = typer.Option(False, "--json", help="Output JSON to stdout"),
+    plain: bool = typer.Option(False, "--plain", help="Line-based plain text output"),
+    quiet: bool = typer.Option(False, "-q", "--quiet", help="Suppress non-essential output"),
+    verbose: bool = typer.Option(False, "-v", "--verbose", help="Show debug details"),
+    no_color: bool = typer.Option(False, "--no-color", help="Disable colored output"),
+    version: bool = typer.Option(False, "--version", help="Show version and exit"),
+):
+    """
+    Create a new tmux session for a project and run commands in separate panes.
+    
+    Each command runs in its own split pane of the first window.
+    
+    Examples:
+    
+        run-in-tmux -c "npm run dev"
+        run-in-tmux -c "npm run dev" -c "npm test"
+        run-in-tmux -c "echo one" -c "echo two" -c "echo three"
+    """
+    # Handle version flag first
+    if version:
+        print(get_version())
+        raise typer.Exit(code=0)
+
+    # Handle no-color
+    if no_color:
+        console.no_color = True
+
+    # Validate required --command
+    if command is None or len(command) == 0:
+        error_exit(
+            "--command is required. Usage: run-in-tmux -c \"npm test\"",
+            False
+        )
+
+    # Check if in a git repo
+    git_root = get_git_root()
+    if git_root is None:
+        error_exit("not in a git repository. Run from a project root.", json)
+
+    if verbose:
+        console.print(f"[dim]Git root: {git_root}[/dim]")
+
+    # Generate session name
+    session_name = generate_session_name(git_root, command)
+
+    if verbose:
+        console.print(f"[dim]Session name: {session_name}[/dim]")
+
+    # Check if session already exists
+    if session_exists(session_name):
+        error_exit(
+            f"session {session_name} already exists.\nUse tmux attach -t {session_name} to reconnect.",
+            json
+        )
+
+    # Create the tmux session
+    success = create_tmux_session(session_name, git_root, command)
+    if not success:
+        error_exit("failed to create tmux session.", json)
+
+    # Output based on flags
+    if json:
+        output_json(session_name, command, git_root)
+    elif plain:
+        output_plain(session_name, command, git_root)
+    else:
+        output_human(session_name, command, git_root)
+
+    raise typer.Exit(code=0)
+
+
+if __name__ == "__main__":
+    app()
