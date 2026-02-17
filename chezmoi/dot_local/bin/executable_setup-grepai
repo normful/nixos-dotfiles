@@ -1,0 +1,56 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["pyyaml"]
+# ///
+
+import subprocess
+import yaml
+from pathlib import Path
+
+
+def main():
+    # Run grepai init
+    subprocess.run(
+        ["grepai", "init", "--provider", "ollama", "--backend", "gob"], check=True
+    )
+
+    # Path to config file (in CWD)
+    config_path = Path.cwd() / ".grepai" / "config.yaml"
+
+    # Read existing config or create empty dict
+    if config_path.exists():
+        with open(config_path, "r") as f:
+            config = yaml.safe_load(f) or {}
+    else:
+        config = {}
+
+    # Overwrite with required fields
+    config["embedder"] = {
+        "provider": "ollama",
+        "model": "bge-m3",
+        "endpoint": "http://localhost:11434",
+        "dimensions": 1024,
+        "parallelism": 8,
+    }
+    config["store"] = {
+        "backend": "gob",
+    }
+    config["chunking"] = {
+        "size": 512,
+        "overlap": 50,
+    }
+
+    # Write back to file
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(config_path, "w") as f:
+        yaml.dump(config, f, default_flow_style=False, sort_keys=False)
+
+    print(f"\033[1;93mUpdated {config_path}\033[0m")
+    print(f"  \033[1;93mModel: ollama/bge-m3 (dimensions: 1024, parallelism: 8)\033[0m")
+
+
+if __name__ == "__main__":
+    main()
+
+# vim: ft=python
