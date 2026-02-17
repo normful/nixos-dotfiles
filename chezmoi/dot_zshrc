@@ -1,0 +1,9 @@
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+fpath=("$HOME/.config/zsh/functions" "$HOME/.config/zsh/completions" $fpath)
+
+# --- Gas Town Integration (managed by gt) ---
+[[ -f "/Users/norman/.config/gastown/shell-hook.sh" ]] && source "/Users/norman/.config/gastown/shell-hook.sh"
+# --- End Gas Town ---
