@@ -107,14 +107,20 @@ vim.api.nvim_create_user_command('NormfulInsertLink', function(opts)
   then
     -- No valid URL in clipboard: use Zk commands to create/select links
     if in_visual_mode then
-      -- Visual selection: exit visual mode first, then call ZkInsertLinkAtSelection
-      -- The '< and '> marks will be preserved and used by get_lsp_location_from_selection()
-      -- We MUST exit visual mode because zk's get_lsp_location_from_selection() expects
-      -- to be called from normal mode with '< and '> marks from a previous selection
+      -- Visual selection: get the visual marks BEFORE exiting visual mode
+      -- The zk plugin's get_lsp_location_from_selection() needs '< and '> marks
+      local start_pos = vim.fn.getpos("'<")
+      local end_pos = vim.fn.getpos("'>")
+
+      -- Exit visual mode
       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
-      vim.schedule(function()
-        require('zk.commands').get('ZkInsertLinkAtSelection')()
-      end)
+
+      -- Restore the marks so zk can use them
+      vim.fn.setpos("'<", start_pos)
+      vim.fn.setpos("'>", end_pos)
+
+      -- Call ZkInsertLinkAtSelection directly (not deferred) to ensure marks are valid
+      require('zk.commands').get('ZkInsertLinkAtSelection')()
     else
       -- No visual selection: use ZkInsertLink for interactive link creation
       vim.cmd('ZkInsertLink')
