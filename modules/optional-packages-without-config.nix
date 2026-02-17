@@ -10,7 +10,7 @@ let
   isLinux = pkgs-pinned-unstable.stdenv.isLinux;
   isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
   phpEnv = (
-    pkgs-pinned-unstable.php84.buildEnv {
+    pkgs-pinned-unstable.php85.buildEnv {
       extensions = (
         { enabled, all }:
         enabled
@@ -27,7 +27,8 @@ let
       );
 
       # Also read https://thephp.cc/articles/pcov-or-xdebug
-      # Only enable either pcov or xdebug. When pcov is enabled by configuration pcov.enabled=1: interoperability with Xdebug is not possible
+      # Only enable either pcov or xdebug.
+      # When pcov is enabled by configuration pcov.enabled = On, interoperability with Xdebug is not possible
       extraConfig = ''
         display_errors = On
         display_startup_errors = On
@@ -36,8 +37,8 @@ let
         opcache.interned_strings_buffer = 20
         opcache.memory_consumption = 256M
 
-        xdebug.mode = coverage
         pcov.enabled = Off
+        xdebug.mode = coverage
       '';
     }
   );
@@ -46,11 +47,7 @@ in
   config = {
     environment.systemPackages =
       with pkgs-pinned-unstable;
-      (optionals config.my.enableAiCodingAgents [
-        opencode
-        (callPackage ../packages/grok-cli { })
-      ])
-      ++ (optionals config.my.enableMultiLangTools [
+      (optionals config.my.enableMultiLangTools [
         just
         cloc
         cmake
@@ -168,6 +165,9 @@ in
 
         fastgron
         jsonschema-cli
+        # I'm not using
+        # source-meta-json-schema
+        # and instead preferring jsonschema-cli for now, because jsonschema-cli looks faster
 
         cue
       ])
@@ -259,12 +259,14 @@ in
         git
         git-lfs
         git-filter-repo
+        git-cliff
         opencommit
       ])
       ++ (optionals config.my.enableAudioVideoTools [
         ffmpeg
         vorbis-tools
         musikcube
+        asciinema_3
       ])
       ++ (optionals config.my.enableImageTools [
         imagemagick

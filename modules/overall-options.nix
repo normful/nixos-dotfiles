@@ -49,12 +49,6 @@ in
       default = false;
     };
 
-    enableAiCodingAgents = lib.mkOption {
-      type = lib.types.bool;
-      description = "AI coding agent packages";
-      default = false;
-    };
-
     enableMultiLangTools = lib.mkOption {
       type = lib.types.bool;
       description = "Tools for multiple languages";
