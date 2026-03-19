@@ -1,22 +1,20 @@
 {
-  "lastChangelogVersion": "0.52.12",
-  "defaultProvider": "aihubmix",
-  "defaultModel": "cc-minimax-m2.5",
+  "lastChangelogVersion": "0.60.0",
+  "defaultProvider": "aihubmix-am",
+  "defaultModel": "cc-glm-5",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
-  "editorPaddingX": 2,
+  "editorPaddingX": 3,
   "showHardwareCursor": true,
   "hideThinkingBlock": false,
   "steeringMode": "one-at-a-time",
-  "followUpMode": "all",
+  "followUpMode": "one-at-a-time",
   "skills": [
     "-skills/curated-ai-skills/brainstorming/SKILL.md",
-    "+skills/pi-skills/brave-search/SKILL.md",
     "-skills/curated-ai-skills/configure-neovim/SKILL.md",
     "-skills/curated-ai-skills/dispatching-parallel-agents/SKILL.md",
     "-skills/curated-ai-skills/executing-plans/SKILL.md",
-    "-skills/curated-ai-skills/writing-kotlin/SKILL.md",
     "-skills/pi-skills/vscode/SKILL.md",
     "-skills/curated-ai-skills/using-tmux-for-interactive-commands/SKILL.md",
     "-skills/curated-ai-skills/using-superpowers/SKILL.md",
@@ -28,7 +26,6 @@
     "-skills/pi-skills/gccli/SKILL.md",
     "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md",
     "-skills/curated-ai-skills/writing-plans/SKILL.md",
-    "+skills/curated-ai-skills/writing-skills/SKILL.md",
     "-skills/pi-skills/youtube-transcript/SKILL.md",
     "-skills/curated-ai-skills/nix-package/SKILL.md",
     "-skills/curated-ai-skills/receiving-code-review/SKILL.md",
@@ -39,62 +36,78 @@
     "-skills/pi-skills/transcribe/SKILL.md",
     "-skills/curated-ai-skills/verification-before-completion/SKILL.md",
     "-skills/curated-ai-skills/stop-slop/SKILL.md",
-    "+skills/curated-ai-skills/skill-creator/SKILL.md",
-    "-skills/curated-ai-skills/run-clean-pi-with-one-extension-for-demo/SKILL.md"
+    "-skills/curated-ai-skills/run-clean-pi-with-one-extension-for-demo/SKILL.md",
+    "-skills/curated-ai-skills/writing-kotlin/SKILL.md",
+    "-skills/pi-skills/brave-search/SKILL.md",
+    "-skills/curated-ai-skills/finding-duplicate-functions/SKILL.md",
+    "-skills/curated-ai-skills/schematic/SKILL.md",
+    "-skills/curated-ai-skills/make-pi-extensions/SKILL.md",
+    "-skills/curated-ai-skills/notion-task-manager/SKILL.md",
+    "-skills/curated-ai-skills/prek/SKILL.md",
+    "-skills/curated-ai-skills/prompt-creator/SKILL.md",
+    "-skills/curated-ai-skills/mcp-cli/SKILL.md",
+    "-skills/curated-ai-skills/create-cli/SKILL.md",
+    "-skills/curated-ai-skills/writing-skills/SKILL.md",
+    "-skills/curated-ai-skills/skill-creator/SKILL.md",
+    "-skills/curated-ai-skills/single-py-script/SKILL.md",
+    "-skills/curated-ai-skills/grepai/SKILL.md",
+    "-skills/curated-ai-skills/pyramid-summaries/SKILL.md",
+    "+skills/curated-ai-skills/playwright-cli/SKILL.md",
+    "-skills/pi-skills/browser-tools/SKILL.md"
   ],
   "packages": [
     {
-      "source": "git:github.com/tmustier/pi-extensions",
+      "source": "https://github.com/Graffioh/pi-screenshots-picker",
       "extensions": [
-        "-arcade/spice-invaders.ts",
-        "-usage-extension/index.ts",
-        "-arcade/ping.ts",
-        "-arcade/picman.ts",
-        "-arcade/mario-not/mario-not.ts",
-        "-arcade/tetris.ts",
-        "-agent-guidance/agent-guidance.ts"
-      ],
-      "skills": [
-        "-extending-pi/skill-creator/SKILL.md",
-        "+ralph-wiggum/SKILL.md"
+        "+index.ts"
       ]
     },
-    "https://github.com/Graffioh/pi-screenshots-picker",
-    "https://github.com/nicobailon/pi-mcp-adapter",
     {
-      "source": "https://github.com/nicobailon/pi-web-access",
-      "skills": [
-        "-skills/librarian/SKILL.md"
-      ]
-    },
-    "https://github.com/nicobailon/pi-model-switch",
-    {
-      "source": "https://github.com/aliou/pi-extensions",
-      "themes": [
-        "-themes/jellybeans/jellybeans-mono-light.json",
-        "-themes/jellybeans/jellybeans-mono.json"
-      ],
+      "source": "https://github.com/nicobailon/pi-mcp-adapter",
       "extensions": [
-        "-extensions/the-dumb-zone/index.ts",
-        "-extensions/subagents/index.ts",
-        "-extensions/presenter/index.ts",
-        "-extensions/neovim/index.ts",
-        "-extensions/introspection/index.ts",
-        "-extensions/breadcrumbs/index.ts",
-        "+extensions/processes/index.ts",
-        "-extensions/planning/index.ts"
-      ],
-      "prompts": [
-        "-prompts/nix/create-shell.md",
-        "-prompts/nix/vendor.md"
+        "+index.ts"
       ]
     },
     {
       "source": "https://github.com/normful/picadillo",
+      "extensions": [
+        "-extensions/overstory.ts",
+        "-extensions/mulch.ts",
+        "-extensions/gastown.ts",
+        "+extensions/parrot.ts"
+      ],
       "skills": [
+        "-skills/mulch/SKILL.md",
         "-skills/run-in-tmux/SKILL.md"
       ]
-    }
+    },
+    {
+      "source": "https://github.com/pasky/pi-side-agents",
+      "extensions": [
+        "-extensions/side-agents.ts"
+      ],
+      "skills": [
+        "-skills/agent-setup/SKILL.md"
+      ]
+    },
+    {
+      "source": "https://github.com/manojlds/ralphi",
+      "skills": [
+        "-skills/ralphi-prd/SKILL.md",
+        "-skills/ralphi-loop/SKILL.md",
+        "-skills/ralphi-init/SKILL.md",
+        "-skills/ralphi-convert/SKILL.md"
+      ],
+      "extensions": [
+        "-extensions/ralphi/index.ts"
+      ]
+    },
+    "https://github.com/burggraf/pi-teams",
+    "https://github.com/manojlds/pi-scheduler",
+    "https://github.com/arpagon/pi-rewind",
+    "https://github.com/mjakl/pi-kagi-search",
+    "https://github.com/mjakl/pi-subagent",
+    "https://github.com/ogulcancelik/pi-extensions"
   ],
   "pi-screenshots": {
     "sources": [
@@ -103,6 +116,19 @@
   },
   "prompts": [
     "-prompts/setup-pi-extension-demo.md",
-    "+prompts/code-review.md"
-  ]
+    "+prompts/code-review.md",
+    "+prompts/check-completion.md",
+    "+prompts/run-bdd-test.md"
+  ],
+  "extensions": [
+    "-extensions/gastown.ts",
+    "-extensions/mulch.ts",
+    "-extensions/overstory.ts",
+    "-extensions/respond.ts",
+    "-extensions/parrot.ts"
+  ],
+  "transport": "auto",
+  "doubleEscapeAction": "tree",
+  "theme": "dark",
+  "treeFilterMode": "default"
 }
