@@ -214,9 +214,11 @@ in
         sql-studio
         dbeaver-bin
       ])
-      ++ (optionals config.my.enableMysqlMariaDbTools [
-        mycli
-      ])
+      /*
+        ++ (optionals config.my.enableMysqlMariaDbTools [
+          mycli
+        ])
+      */
       ++ (optionals config.my.enablePostgresqlDbTools [
         pgcli
       ])
