@@ -81,22 +81,27 @@
         xonsh
         thumbs
         putty
-        oletools
+        # oletools
         yubikey-manager
         gnuplot
         breakpad
         antlr
         jre25_minimal
         tmux
+        zellij
         fswatch
         lowfi
         pnpm_9
         goreleaser
         (callPackage ../../packages/beads { })
         (callPackage ../../packages/grepai { })
+        (callPackage ../../packages/lightpanda { })
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
         direnv
         dolt
+        brush
+        rumdl
+        tuios
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
@@ -131,6 +136,7 @@
       "/Applications/WezTerm.app"
       "/Applications/kitty.app"
       "/Applications/Ghostty.app"
+      "/Applications/cmux NIGHTLY.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
@@ -160,13 +166,10 @@
             }
 
             # Apps I'm temporarily trying to use a bit more
-            "/Applications/Nix Apps/superwhisper.app"
             "/Applications/Warp.app"
             "/Applications/Insta360 Studio.app"
-            "/Applications/Nix Apps/Orion.app"
-            "/Applications/Glide.app"
-            "/Applications/Nix Apps/RustRover.app"
-            "/Applications/Nix Apps/Visual Studio Code - Insiders.app"
+            "/Applications/Orion.app"
+            "/Applications/RustRover.app"
       */
     ];
 
