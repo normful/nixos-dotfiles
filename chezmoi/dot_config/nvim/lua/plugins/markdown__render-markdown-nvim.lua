@@ -72,7 +72,7 @@ local function configure_render_markdown_nvim()
 
   vim.api.nvim_set_hl(0, 'RenderMarkdownH1Bg', { link = 'Directory' })
   vim.api.nvim_set_hl(0, 'RenderMarkdownH2Bg', { link = 'Constant' })
-  vim.api.nvim_set_hl(0, 'RenderMarkdownH3Bg', { link = 'Define' })
+  vim.api.nvim_set_hl(0, 'RenderMarkdownH3Bg', { link = 'DiagnosticWarn' })
   vim.api.nvim_set_hl(0, 'RenderMarkdownH4Bg', { link = 'Exception' })
   vim.api.nvim_set_hl(0, 'RenderMarkdownH5Bg', { link = 'String' })
   vim.api.nvim_set_hl(0, 'RenderMarkdownH6Bg', { link = 'DiagnosticHint' })

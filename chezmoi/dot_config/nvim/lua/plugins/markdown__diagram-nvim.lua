@@ -25,7 +25,6 @@ end
 
 return {
   '3rd/diagram.nvim',
-  ft = { 'markdown' },
   dependencies = { { '3rd/image.nvim' } },
   config = configure_diagram_nvim,
   cond = function()
