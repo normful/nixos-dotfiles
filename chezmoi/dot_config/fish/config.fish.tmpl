@@ -51,6 +51,7 @@ if status is-interactive
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
     abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
+    abbr --add eps "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
 
     abbr --add cm 'chezmoi'
     abbr --add cmd 'chezmoi diff'
@@ -147,9 +148,21 @@ if status is-interactive
     abbr --add dua 'dua interactive'
     abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
 
+    abbr --add mdglow "glow"
+
     abbr --add epush "nvim ~/code/dotfiles/bin/_push_and_pull_android.sh"
     abbr --add epull "nvim ~/code/dotfiles/bin/_push_and_pull_android.sh"
+    abbr --add pireviewja "pi --provider aihubmix-am --model cc-glm-5 -p '/review-japanese-in-diff"
+
+    if not command -v pandoc >/dev/null 2>&1
+        abbr --add pandoc "pandoc --pdf-engine=xelatex"
+    end
+
     {{ end -}}
+
+    abbr --add pimakeskill "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/writing-skills/ --skill ~/.pi/agent/skills/curated-ai-skills/skill-creator/"
+    abbr --add pimakepycli "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/single-py-script/ --skill ~/.pi/agent/skills/curated-ai-skills/create-cli/"
+    abbr --add pinotion "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/notion-task-manager/"
 
     if command -v mise >/dev/null 2>&1
         mise activate fish | source
