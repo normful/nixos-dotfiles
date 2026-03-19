@@ -24,10 +24,6 @@
 # attribute are also considered hidden.
 --hidden
 
-# Files such as .gitignore, .ignore and .rgignore will not be respected.
---no-ignore
-
-
 # Include or exclude files and directories for searching that match the given glob.
 # This always overrides any other ignore logic. Multiple glob flags may be used.
 # Globbing rules match .gitignore globs.
