@@ -1,13 +1,15 @@
 # See https://ianthehenry.com/posts/how-to-configure-tmux/ for more explanation
 # And https://github.com/ianthehenry/dotfiles/blob/master/.tmux.conf
 
-# Set globally: prefix key as M-w (Alt/Opt-w)
-set -g prefix M-w
+set -g prefix C-k
 
 set -g history-limit 5000
 set -gs escape-time 1
 set -g mouse on
 set -g mode-keys vi
+
+set -g extended-keys on
+set -g extended-keys-format csi-u
 
 {{ if .mac -}}
 set -g copy-command "pbcopy"
