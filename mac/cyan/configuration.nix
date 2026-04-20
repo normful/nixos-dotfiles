@@ -74,34 +74,31 @@
         texliveSmall
         repomix
 
+        tmux
+        oxlint
+        oxfmt
+        rumdl
+        gnuplot
+        lowfi
+        pnpm
+        goreleaser
+
         # Packages I'm only installing on this computer for now
         mariadb_118
         infisical
         grex
-        xonsh
         thumbs
-        putty
-        # oletools
         yubikey-manager
-        gnuplot
-        breakpad
-        antlr
         jre25_minimal
-        tmux
-        zellij
         fswatch
-        lowfi
-        pnpm_9
-        goreleaser
-        (callPackage ../../packages/beads { })
         (callPackage ../../packages/grepai { })
         (callPackage ../../packages/lightpanda { })
+        (callPackage ../../packages/tree-sitter { })
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
         direnv
         dolt
-        brush
-        rumdl
         tuios
+        sqlite-web
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
@@ -129,6 +126,35 @@
         # visual-studio-code_insiders
         vlc
         # zed
+      ])
+      ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
+        # AI Coding Agents
+        jules
+
+        # Claude Code Ecosystem
+        sandbox-runtime
+
+        # Usage Analytics
+        ccusage-pi
+
+        # Workflow & Project Management
+        # beads-rust
+        beads-viewer
+        openspec # Small
+        cc-sdd # Large
+        spec-kit # Large
+        workmux
+
+        # Code Review
+        tuicr
+
+        # Utilities
+        agent-browser
+        ck
+        gno
+        qmd
+        rtk
+        showboat
       ]);
 
     system.defaults.dock.persistent-apps = [
@@ -136,7 +162,6 @@
       "/Applications/WezTerm.app"
       "/Applications/kitty.app"
       "/Applications/Ghostty.app"
-      "/Applications/cmux NIGHTLY.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
@@ -147,9 +172,7 @@
       "/Applications/Obsidian.app"
 
       # Others
-      "/Applications/Jan.app"
       "/System/Applications/Calendar.app"
-      "/Applications/Notion Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
@@ -166,9 +189,7 @@
             }
 
             # Apps I'm temporarily trying to use a bit more
-            "/Applications/Warp.app"
             "/Applications/Insta360 Studio.app"
-            "/Applications/Orion.app"
             "/Applications/RustRover.app"
       */
     ];
@@ -232,6 +253,22 @@
     programs = {
       fish = {
         enable = true;
+      };
+
+      # Also see:
+      # https://github.com/nix-darwin/nix-darwin/blob/master/modules/programs/tmux.nix
+      # https://github.com/ScopeCreep-zip/kalilix/blob/e526cd72ef2686143ae83460d380aa04dacede34/modules/programs/tmux/config.nix
+      tmux = {
+        enable = true;
+        extraConfig = ''
+          # Load user config
+          if-shell '[ -f ~/.config/tmux/tmux.conf ]' 'source-file ~/.config/tmux/tmux.conf'
+
+          # Only write plugin-specific config here
+          set -g @thumbs-key F
+          set -g @thumbs-command 'echo -n {} | pbcopy; tmux display-message "Copied {}"'
+          run-shell "${pkgs-pinned-unstable.tmuxPlugins.tmux-thumbs.rtp}"
+        '';
       };
     };
 
@@ -346,6 +383,32 @@
       };
 
       primaryUser = config.my.user.name;
+    };
+
+    launchd.daemons.my-pmset-settings = {
+      script = ''
+        # Low Power Mode (throttles CPU, network keepalives, background processes): 0 = disabled, 1 = enabled
+        /usr/bin/pmset -c lowpowermode 0
+
+        # Wake on Ethernet magic packet: 0 = disabled, 1 = enabled
+        # Allows the machine to be woken remotely over the network
+        /usr/bin/pmset -c womp 1
+
+        # System sleep timer: value in minutes, or 0 to disable sleep entirely
+        # Set to 0 so the machine never sleeps on AC power
+        /usr/bin/pmset -c sleep 0
+
+        # Disk spindown timer: value in minutes, or 0 to disable
+        # Set to 0 to prevent disk sleeping, which can interfere with system wakefulness on AC
+        /usr/bin/pmset -c disksleep 0
+
+        # Power Nap: 0 = disabled, 1 = enabled (allows background network activity during display sleep)
+        /usr/bin/pmset -c powernap 1
+      '';
+      serviceConfig = {
+        RunAtLoad = true; # apply settings immediately when the daemon loads at boot
+        KeepAlive = false; # run once and exit, no need to keep the process running
+      };
     };
   };
 }

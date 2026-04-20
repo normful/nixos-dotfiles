@@ -28,8 +28,8 @@ keybind = cmd+r=reload_config
 # Tabs: open and navigate
 keybind = ctrl+a>c=new_tab
 keybind = ctrl+a>n=new_tab
-keybind = cmd+]=next_tab
 keybind = cmd+[=previous_tab
+keybind = cmd+]=next_tab
 
 # Current Tab: retitle
 keybind = ctrl+a>,=prompt_surface_title
@@ -96,6 +96,9 @@ keybind = cmd+p=text:\x10
 
 # Send CTRL+S (for fish pager-toggle-search https://www.youtube.com/watch?v=dnj-Hpg7Qlo&t=20s)
 keybind = cmd+`=text:\x13
+
+# Send ALT+L
+keybind = cmd+l=text:\x1bl
 
 # F-13... were copied from http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 
@@ -207,6 +210,7 @@ macos-window-buttons = hidden
 
 window-decoration = client
 fullscreen = false
+maximize = true
 
 # --------------------------------------
 # Other
@@ -219,7 +223,20 @@ clipboard-trim-trailing-spaces = true
 clipboard-paste-protection = true
 app-notifications = no-clipboard-copy
 
-scrollback-limit = 100_000_000
+link-previews = true
+
+scrollback-limit = 1_000_000
+
+notify-on-command-finish = unfocused
+notify-on-command-finish-after = 10m
+notify-on-command-finish-action = bell,no-notify
+bell-features = no-system,no-audio,no-attention,no-title,border
+
+macos-shortcuts = deny
+
+window-inherit-working-directory = false
+tab-inherit-working-directory = true
+split-inherit-working-directory = true
 
 shell-integration = fish
 

@@ -10,7 +10,6 @@ return {
     'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',
     'theHamsta/nvim-dap-virtual-text',
-    'nvim-treesitter/nvim-treesitter',
   },
   config = configure_go_nvim,
   ft = { 'go', 'gomod' },

@@ -1,0 +1,23 @@
+#!/bin/bash
+# Usage: run-silent "description" command [args...]
+#
+# Useful for minimizing tokens sent to AI agent tool calls
+
+desc="$1"
+shift
+
+err_tmp=$(mktemp)
+out_tmp=$(mktemp)
+"$@" > "$out_tmp" 2> "$err_tmp"
+code=$?
+
+if (( code == 0 )); then
+    printf '✔ %s\n' "$desc"
+    rm -f "$err_tmp" "$out_tmp"
+else
+    printf '✗ %s failed\n' "$desc"
+    [[ -s "$err_tmp" ]] && printf 'stderr:\n%s\n' "$(cat "$err_tmp")"
+    [[ -s "$out_tmp" ]] && printf 'stdout:\n%s\n' "$(cat "$out_tmp")"
+    rm -f "$err_tmp" "$out_tmp"
+    exit $code
+fi

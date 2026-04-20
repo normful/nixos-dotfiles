@@ -1,5 +1,8 @@
 local function configure_render_markdown_nvim()
   require('render-markdown').setup({
+    html = { enabled = false },
+    latex = { enabled = false },
+    yaml = { enabled = false },
     heading = {
       sign = false,
       width = 'block',

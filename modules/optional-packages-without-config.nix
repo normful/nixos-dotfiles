@@ -62,7 +62,6 @@ in
         bun
         yarn
         deno
-        nodePackages.prettier
         prettierd
         eslint_d
       ])
@@ -273,6 +272,7 @@ in
       ++ (optionals config.my.enableImageTools [
         imagemagick
         pngcrush
+        exiftool
       ])
       ++ (optionals (config.my.enableImageTools && isLinux) [
         darktable

@@ -1,67 +1,214 @@
 # See https://ianthehenry.com/posts/how-to-configure-tmux/ for more explanation
 # And https://github.com/ianthehenry/dotfiles/blob/master/.tmux.conf
 
-set -g prefix C-k
+set-option -g prefix  M-l # WezTerm, kitty, Ghostty config: Cmd+L sends Meta+L
+set-option -g prefix2 C-l # Second prefix that also works: Ctrl+L
 
-set -g history-limit 5000
-set -gs escape-time 1
-set -g mouse on
-set -g mode-keys vi
+set-option -g status-style bg=default
 
-set -g extended-keys on
-set -g extended-keys-format csi-u
+set-option -g status-left-length 30
+set-option -g status-left "#[fg=colour146]#{host_short} ｢#{session_name}｣ "
+
+set-option -g status-right-length 0
+set-option -g status-right ""
+
+# set-option -g window-status-format "#{?window_bell_flag,#[fg=colour82]󱄃 ,}#[fg=color20]#{window_index} #[fg=color218]#{window_name}"
+# set-option -g window-status-current-format "#{window_index} #{window_name}"
+# set-option -g window-status-current-style "bg=colour218,fg=colour125 bold"
+# set-option -g window-status-bell-style "bg=colour101,fg=colour124 bold"
+
+set-option -g window-status-format " #[fg=colour156]#{?window_bell_flag,󱄃 ,}#[fg=colour225]#{window_index} #{window_name} "
+set-option -g window-status-style "fg=colour97"
+set-option -g window-status-bell-style "bg=colour169,fg=colour225"
+set-option -g window-status-current-format " #{window_index} #{window_name} "
+set-option -g window-status-current-style "bg=colour97,fg=colour225 bold"
+set-option -g window-status-separator ""
+
+set-option -g monitor-bell on
+set-option -g bell-action other
+set-option -g visual-activity off
+set-option -g visual-bell off
+
+set-option -g status-interval 60
+
+set-option -g  base-index 1
+set-option -gw pane-base-index 1
+
+set-option -sg escape-time 15
+
+set-option -g allow-passthrough on
+
+# Enables mouse support for scrolling, pane resizing, and clicking.
+# Without it tmux intercepts no mouse events.
+set-option -g mouse on
+
+# Enables CSI u (Kitty keyboard protocol) passthrough. Without this, tmux can't
+# distinguish many key combos that editors bind — like Ctrl+Shift+F, Ctrl+Enter,
+# or Alt+; — because they all collapse to the same byte sequences in legacy mode.
+set-option -g extended-keys on
+set-option -g extended-keys-format csi-u
+set-option -as terminal-features ',*:extkeys'
+
+# Enables 24-bit true color support.
+# The RGB capability tells tmux your terminal can handle 16 million colors
+# instead of the default 256. The * wildcard applies to all terminal types.
+set-option -sg terminal-overrides ",*:RGB"
+
+# Adds the Smol (Set Mode OverLine) capability.
+# The escape sequence \E[53m is the ANSI code that draws a line above text
+# (overline), as opposed to underline. -a appends to existing overrides rather
+# than replacing them.
+set-option -sa terminal-overrides ',*:Smol=\E[53m'
+
+# Adds Smulx, the extended underline style capability. The %p1%d is a terminfo
+# parameter that accepts a style number, enabling different underline variants:
+# 0 = no underline
+# 1 = straight underline
+# 2 = double underline
+# 3 = curly/wavy underline
+# 4 = dotted underline
+# 5 = dashed underline
+set-option -sa terminal-overrides ',*:Smulx=\E[4::%p1%dm'
+
+# Adds Setulc (Set Underline Color), enabling underlines to have their own
+# independent RGB color separate from the text foreground/background. The
+# escape sequence unpacks a single color integer into R, G, B components using
+# terminfo arithmetic:
+# %p1%{65536}%/ → red channel (divide by 65536)
+# %p1%{256}%/%{255}%& → green channel (divide by 256, mask low byte)
+# %p1%{255}%& → blue channel (mask low byte)
+set-option -sa terminal-overrides ',*:Setulc=\E[58::2::::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
+
+# Passes through cursor shape change sequences (Ss = set shape, Se = reset).
+# Neovim changes the cursor to a bar in insert mode and a block in normal mode
+# — without this override tmux blocks those sequences and the cursor stays the
+# same shape everywhere.
+set-option -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+
+# Passes through OSC 8 hyperlink escape sequences, so clickable links in tools
+# like ls --hyperlink or terminals that render them work inside tmux.
+set-option -as terminal-features ",*:hyperlinks"
+
+# Without this, tmux swallows focus gain/loss events. Neovim and other editors
+# use these to trigger autoread (reload files changed on disk) and
+# FocusGained/FocusLost autocommands when you switch panes or windows.
+set-option -g focus-events on
+
+# By default tmux waits 500ms after Esc to distinguish it from an Alt key
+# sequence. This causes a noticeable delay in Neovim when pressing Esc to leave
+# insert mode. Zero is safe on modern terminals.
+set-option -sg escape-time 0
+
+# Enables OSC 52 passthrough, allowing programs inside tmux to write directly to
+# the system clipboard. Required for Neovim's + register to work properly over
+# SSH.
+set-option -g set-clipboard on
 
 {{ if .mac -}}
-set -g copy-command "pbcopy"
+set-option -g copy-command "pbcopy"
 {{ end }}
 
-# --------------
-# Keyboard binds
-# --------------
+# =============================
+# KEYBOARD BINDS
+# =============================
 
-# Unbind default keys from various key tables
-unbind -a -T root
-unbind -a -T prefix
-unbind -a -T copy-mode
-unbind -a -T copy-mode-vi
+# COMPLETELY CLEAR default keys from the root, prefix, copy-mode, copy-mode-vi key tables
+unbind-key -a -T root
+unbind-key -a -T prefix
+unbind-key -a -T copy-mode
+unbind-key -a -T copy-mode-vi
 
-# M-w, M-r: Reload config
-bind M-r source-file ~/.tmux-conf
+# -------------------------
+# Keyboard binds: Misc
+# -------------------------
+
+# <PREFIX1or2> + r
+bind-key -T prefix r       source-file ~/.config/tmux/tmux.conf \; display 'tmux config reloaded'
+
+# Type "lgtm finish" + Enter
+bind-key -T root F5       send-keys "lgtm finish" Enter
+
+# Type "/quit" + Enter + Enter
+bind-key -T root F6       send-keys "/quit" Enter Enter
+
+# -----------------------
+# Keyboard binds: Windows
+# -----------------------
+
+# New window
+bind-key -T prefix c      new-window # <PREFIX1or2> + c
+bind-key -T prefix n      new-window # <PREFIX1or2> + n
+bind-key -T root F7       new-window # <F7>
+
+# Kill window
+bind-key -T prefix x      kill-window # <PREFIX1or2> + x
+
+# Previous window
+bind-key -T prefix [      previous-window # <PREFIX1or2> + [
+bind-key -T root F11      previous-window # <F11>
+
+# Next window
+bind-key -T prefix ]      next-window # <PREFIX1or2> + [
+bind-key -T root F12      next-window # <F12>
+
+# <PREFIX1or2> + 1-0: Switch to windows 1-10
+bind-key -T prefix 1      select-window -t :1
+bind-key -T prefix 2      select-window -t :2
+bind-key -T prefix 3      select-window -t :3
+bind-key -T prefix 4      select-window -t :4
+bind-key -T prefix 5      select-window -t :5
+bind-key -T prefix 6      select-window -t :6
+bind-key -T prefix 7      select-window -t :7
+bind-key -T prefix 8      select-window -t :8
+bind-key -T prefix 9      select-window -t :9
+bind-key -T prefix 0      select-window -t :10
+
+# ------------------------
+# Keyboard binds: Sessions
+# ------------------------
+
+# Previous session
+bind-key -T root F9       switch-client -p # <F9>
+bind-key -T prefix -      switch-client -p # <PREFIX1or2> + -
 
 # Next session
-bind -T root F11    switch-client -n
+bind-key -T root F10      switch-client -n # <F10>
+bind-key -T prefix =      switch-client -n # <PREFIX1or2> + =
 
-# Prev session
-bind -T root F12    switch-client -p
+# -------------------------
+# Keyboard binds: Copy mode
+# -------------------------
 
-# M-w, Space: Enter copy mode
-bind Space copy-mode
+set-window-option -g mode-keys vi
 
-bind -T copy-mode-vi y        send -X copy-pipe-no-clear
+# Enter copy mode
+bind-key -T prefix Space          copy-mode # <PREFIX1or2> + Space
+bind-key -T root F1               copy-mode
 
-bind -T copy-mode-vi k        send -X cursor-up
-bind -T copy-mode-vi j        send -X cursor-down
-bind -T copy-mode-vi h        send -X cursor-left
-bind -T copy-mode-vi l        send -X cursor-right
+bind-key -T copy-mode-vi k        send -X cursor-up
+bind-key -T copy-mode-vi j        send -X cursor-down
+bind-key -T copy-mode-vi h        send -X cursor-left
+bind-key -T copy-mode-vi l        send -X cursor-right
 
-bind -T copy-mode-vi /        command-prompt -i -p "(search down)" { send -X search-forward-incremental  "%%%" }
-bind -T copy-mode-vi ?        command-prompt -i -p "(search up)"   { send -X search-backward-incremental "%%%" }
-bind -T copy-mode-vi n        send -X search-again
-bind -T copy-mode-vi N        send -X search-reverse
+bind-key -T copy-mode-vi /        command-prompt -i -p "(search down)" { send -X search-forward-incremental  "%%%" }
+bind-key -T copy-mode-vi ?        command-prompt -i -p "(search up)"   { send -X search-backward-incremental "%%%" }
+bind-key -T copy-mode-vi n        send -X search-again
+bind-key -T copy-mode-vi N        send -X search-reverse
 
-bind -T copy-mode-vi Enter    if -F "#{selection_present}" { send -X copy-pipe-and-cancel }                      { send -X copy-line }
-bind -T copy-mode-vi S-Enter  if -F "#{selection_present}" { send -X copy-pipe-and-cancel; paste-buffer -s ' ' } { send -X copy-line; paste-buffer -s ' ' }
-bind -T copy-mode-vi Escape   if -F "#{selection_present}" { send -X clear-selection }                           { send -X cancel }
-bind -T copy-mode-vi Space    if -F "#{selection_present}" { send -X clear-selection }                           { send -X begin-selection }
+bind-key -T copy-mode-vi F1       if -F "#{selection_present}" { send -X copy-pipe-and-cancel }                      { send -X begin-selection }
+bind-key -T copy-mode-vi Space    if -F "#{selection_present}" { send -X copy-pipe-and-cancel }                      { send -X begin-selection }
+bind-key -T copy-mode-vi Enter    send -X copy-pipe-and-cancel
+bind-key -T copy-mode-vi y        send -X copy-pipe-no-clear
+bind-key -T copy-mode-vi Escape   if -F "#{selection_present}" { send -X clear-selection }                           { send -X cancel }
 
-# --------------
-# Mouse binds
-# --------------
+# =============================
+# MOUSE BINDS
+# =============================
 
-bind -n WheelUpPane                    copy-mode -e
-bind -n MouseDrag1Pane                 copy-mode -M
+bind-key -T root         WheelUpPane       copy-mode -e
+bind-key -T root         MouseDrag1Pane    copy-mode -M
 
-bind -T copy-mode-vi WheelUpPane       send -X -N 5 scroll-up
-bind -T copy-mode-vi WheelDownPane     send -X -N 5 scroll-down
-bind -T copy-mode-vi MouseDrag1Pane    send -X begin-selection
-bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-selection-no-clear
+bind-key -T copy-mode-vi WheelUpPane       send -X -N 5 scroll-up
+bind-key -T copy-mode-vi WheelDownPane     send -X -N 5 scroll-down
+bind-key -T copy-mode-vi MouseDrag1Pane    send -X begin-selection
+bind-key -T copy-mode-vi MouseDragEnd1Pane send -X copy-selection-no-clear

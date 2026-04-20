@@ -119,10 +119,6 @@ description = "Run autoformatting"
 run = "nix fmt"
 alias = "fmt"
 
-[tasks."pi:gen"]
-description = "Generate models.json and pi.fish from models-config.toml using live model metadata"
-run = "uv run src-py/generate-pi-config-and-fish-pi-alias.py"
-
 [tasks."check:py"]
 description = "Run Python linting and type checking"
 run = [

@@ -1,8 +1,16 @@
 set -U fish_greeting ""
 
+set -gx LANG 'en_US.UTF-8'
+set -gx LC_ALL 'en_US.UTF-8'
+
 if status is-interactive
     set -g fish_key_bindings fish_vi_key_bindings
     set -U fish_escape_delay_ms 10
+
+    # If SSH'ing in, attach to any tmux session (or create one named pi none exist)
+    if set -q SSH_CONNECTION && ! set -q TMUX
+        tmux -u attach-session 2>/dev/null; or tmux -u new-session -s tailscale
+    end
 
     # TODO: Make it work with wezterm
     # bind alt-f accept-autosuggestion
@@ -56,7 +64,7 @@ if status is-interactive
     abbr --add cm 'chezmoi'
     abbr --add cmd 'chezmoi diff'
     abbr --add cme 'chezmoi edit --apply'
-    abbr --add cma 'chezmoi apply'
+    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; git add chezmoi/dot_pi/agent/settings.json; git commit -m 'chore(pi): autocommit ~/.pi/agent/settings.json changes'; chezmoi apply"
     abbr --add cmt 'chezmoi chattr +template'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
@@ -70,6 +78,8 @@ if status is-interactive
         abbr --add mm 'sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
     end
     {{ end -}}
+
+    abbr --add calpis 'chezmoi add $HOME/.pi/agent/settings.json'
 
     # abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
     # abbr --add oc "bunx opencode-ai@latest"
@@ -127,8 +137,6 @@ if status is-interactive
     fish_add_path --global "$HOME/.bun/bin"
     fish_add_path --global "$HOME/.antigravity/antigravity/bin"
 
-    source $HOME/.config/fish/abbreviations/pi.fish
-
     if not command -v claude >/dev/null 2>&1
         abbr --add cld "bunx @anthropic-ai/claude-code"
         abbr --add claude "bunx @anthropic-ai/claude-code"
@@ -142,7 +150,6 @@ if status is-interactive
         abbr --add com composer
     end
 
-    abbr --add es 'exercism submit'
     abbr --add mus "musikcube"
     abbr --add zs 'zola serve'
     abbr --add dua 'dua interactive'
@@ -163,6 +170,10 @@ if status is-interactive
     abbr --add pimakeskill "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/writing-skills/ --skill ~/.pi/agent/skills/curated-ai-skills/skill-creator/"
     abbr --add pimakepycli "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/single-py-script/ --skill ~/.pi/agent/skills/curated-ai-skills/create-cli/"
     abbr --add pinotion "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/notion-task-manager/"
+    abbr --add pidj "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/topdjmixes/"
+    abbr --add sss "git show HEAD"
+
+    abbr --add mdcat "mdcat --columns 180 --paginate"
 
     if command -v mise >/dev/null 2>&1
         mise activate fish | source

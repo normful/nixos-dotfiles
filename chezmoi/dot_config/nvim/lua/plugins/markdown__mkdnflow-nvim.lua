@@ -76,7 +76,7 @@ local function configure_mkdnflow_nvim()
       lists = true,
       paths = true,
       to_do = true,
-      cmp = true,
+      completion = true,
       notebook = true,
 
       bib = false,

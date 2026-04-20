@@ -1,0 +1,8 @@
+[hooks]
+exclude_commands = [
+  "playwright",
+  "curl",
+  "cat",
+  "head",
+  "tail",
+]

@@ -1,71 +1,82 @@
 {
-  "lastChangelogVersion": "0.60.0",
+  "lastChangelogVersion": "0.66.1",
   "defaultProvider": "aihubmix-am",
-  "defaultModel": "cc-glm-5",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "cc-k2.6-code-preview",
+  "defaultThinkingLevel": "off",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
+  "branchSummary": {
+    "skipPrompt": true
+  },
+  "npmCommand": [
+    "bun"
+  ],
+  "retry": {
+    "baseDelayMs": 3000
+  },
   "skills": [
     "-skills/curated-ai-skills/brainstorming/SKILL.md",
     "-skills/curated-ai-skills/configure-neovim/SKILL.md",
     "-skills/curated-ai-skills/dispatching-parallel-agents/SKILL.md",
     "-skills/curated-ai-skills/executing-plans/SKILL.md",
-    "-skills/pi-skills/vscode/SKILL.md",
     "-skills/curated-ai-skills/using-tmux-for-interactive-commands/SKILL.md",
     "-skills/curated-ai-skills/using-superpowers/SKILL.md",
     "-skills/curated-ai-skills/using-git-worktrees/SKILL.md",
     "-skills/curated-ai-skills/typst/SKILL.md",
     "-skills/curated-ai-skills/nano-banana-pro/SKILL.md",
-    "-skills/pi-skills/gmcli/SKILL.md",
-    "-skills/pi-skills/gdcli/SKILL.md",
-    "-skills/pi-skills/gccli/SKILL.md",
     "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md",
     "-skills/curated-ai-skills/writing-plans/SKILL.md",
-    "-skills/pi-skills/youtube-transcript/SKILL.md",
     "-skills/curated-ai-skills/nix-package/SKILL.md",
     "-skills/curated-ai-skills/receiving-code-review/SKILL.md",
     "-skills/curated-ai-skills/requesting-code-review/SKILL.md",
     "-skills/curated-ai-skills/subagent-driven-development/SKILL.md",
     "-skills/curated-ai-skills/systematic-debugging/SKILL.md",
     "-skills/curated-ai-skills/test-driven-development/SKILL.md",
-    "-skills/pi-skills/transcribe/SKILL.md",
     "-skills/curated-ai-skills/verification-before-completion/SKILL.md",
     "-skills/curated-ai-skills/stop-slop/SKILL.md",
     "-skills/curated-ai-skills/run-clean-pi-with-one-extension-for-demo/SKILL.md",
     "-skills/curated-ai-skills/writing-kotlin/SKILL.md",
-    "-skills/pi-skills/brave-search/SKILL.md",
     "-skills/curated-ai-skills/finding-duplicate-functions/SKILL.md",
     "-skills/curated-ai-skills/schematic/SKILL.md",
-    "-skills/curated-ai-skills/make-pi-extensions/SKILL.md",
-    "-skills/curated-ai-skills/notion-task-manager/SKILL.md",
     "-skills/curated-ai-skills/prek/SKILL.md",
     "-skills/curated-ai-skills/prompt-creator/SKILL.md",
     "-skills/curated-ai-skills/mcp-cli/SKILL.md",
     "-skills/curated-ai-skills/create-cli/SKILL.md",
-    "-skills/curated-ai-skills/writing-skills/SKILL.md",
     "-skills/curated-ai-skills/skill-creator/SKILL.md",
     "-skills/curated-ai-skills/single-py-script/SKILL.md",
     "-skills/curated-ai-skills/grepai/SKILL.md",
     "-skills/curated-ai-skills/pyramid-summaries/SKILL.md",
+    "-skills/curated-ai-skills/lightpanda-browser/SKILL.md",
+    "-skills/curated-ai-skills/git-stage-partial/SKILL.md",
+    "-skills/curated-ai-skills/make-pi-extensions/SKILL.md",
+    "-skills/curated-ai-skills/git-clean-history/SKILL.md",
+    "-skills/curated-ai-skills/cdp-browser/SKILL.md",
+    "-skills/curated-ai-skills/postgres-schema-design/SKILL.md",
+    "-skills/curated-ai-skills/writing-skills/SKILL.md",
+    "-skills/curated-ai-skills/youtube-transcript/SKILL.md",
+    "-skills/curated-ai-skills/trim-mp4/SKILL.md",
+    "-skills/curated-ai-skills/pyrsum/SKILL.md",
+    "-skills/curated-ai-skills/topdjmixes/SKILL.md",
+    "-skills/curated-ai-skills/notion-task-manager/SKILL.md",
+    "-skills/curated-ai-skills/pexels/SKILL.md",
+    "-skills/curated-ai-skills/md-to-pdf-with-japanese/SKILL.md",
+    "+skills/curated-ai-skills/chrome-devtools-cli/SKILL.md",
     "+skills/curated-ai-skills/playwright-cli/SKILL.md",
-    "-skills/pi-skills/browser-tools/SKILL.md"
+    "+skills/curated-ai-skills/fetch-source-code/SKILL.md",
+    "-skills/curated-ai-skills/fill-pdf-form/SKILL.md",
+    "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md",
+    "-skills/curated-ai-skills/pasky-chrome-cdp/SKILL.md"
   ],
   "packages": [
     {
       "source": "https://github.com/Graffioh/pi-screenshots-picker",
       "extensions": [
-        "+index.ts"
-      ]
-    },
-    {
-      "source": "https://github.com/nicobailon/pi-mcp-adapter",
-      "extensions": [
-        "+index.ts"
+        "-index.ts"
       ]
     },
     {
@@ -74,20 +85,12 @@
         "-extensions/overstory.ts",
         "-extensions/mulch.ts",
         "-extensions/gastown.ts",
+        "-extensions/respond.ts",
         "+extensions/parrot.ts"
       ],
       "skills": [
         "-skills/mulch/SKILL.md",
         "-skills/run-in-tmux/SKILL.md"
-      ]
-    },
-    {
-      "source": "https://github.com/pasky/pi-side-agents",
-      "extensions": [
-        "-extensions/side-agents.ts"
-      ],
-      "skills": [
-        "-skills/agent-setup/SKILL.md"
       ]
     },
     {
@@ -102,12 +105,43 @@
         "-extensions/ralphi/index.ts"
       ]
     },
-    "https://github.com/burggraf/pi-teams",
-    "https://github.com/manojlds/pi-scheduler",
-    "https://github.com/arpagon/pi-rewind",
-    "https://github.com/mjakl/pi-kagi-search",
-    "https://github.com/mjakl/pi-subagent",
-    "https://github.com/ogulcancelik/pi-extensions"
+    "https://github.com/normful/pi-kagi-search",
+    "https://github.com/normful/pi-librarian",
+    {
+      "source": "https://github.com/normful/pi-side-agents",
+      "skills": [
+        "+skills/agent-setup/SKILL.md"
+      ],
+      "extensions": [
+        "+extensions/side-agents/index.ts"
+      ]
+    },
+    "https://github.com/normful/pi-scheduler",
+    "https://github.com/normful/pi-supervisor",
+    "https://github.com/normful/pi-agent-browser",
+    {
+      "source": "https://github.com/normful/pi-autoresearch",
+      "skills": [
+        "-skills/autoresearch-create/SKILL.md"
+      ],
+      "extensions": [
+        "-extensions/pi-autoresearch/index.ts"
+      ]
+    },
+    {
+      "source": "https://github.com/normful/pi-mcp-adapter",
+      "extensions": [
+        "+index.ts"
+      ]
+    },
+    {
+      "source": "https://github.com/fitchmultz/pi-agent-browser-native",
+      "extensions": [
+        "-extensions/agent-browser/index.ts"
+      ]
+    },
+    "https://github.com/lucasmeijer/pi-terminal-signals",
+    "https://github.com/iRonin/pi-clear-on-double-esc"
   ],
   "pi-screenshots": {
     "sources": [
@@ -125,10 +159,33 @@
     "-extensions/mulch.ts",
     "-extensions/overstory.ts",
     "-extensions/respond.ts",
-    "-extensions/parrot.ts"
+    "-extensions/parrot.ts",
+    "+extensions/show-tools-and-system-prompt/index.ts",
+    "-extensions/token-efficient-read-tools.ts",
+    "-extensions/network-sandbox/index.ts",
+    "-extensions/cmux-sidebar.ts",
+    "-extensions/buggy-network-sandbox-that-doesnt-work-at-all/index.ts",
+    "+extensions/token-efficient-read-write-tools.ts",
+    "-extensions/mgabor3141-yapp-safeguard/index.ts",
+    "-extensions/mgabor3141-yapp-desktop-notify/index.ts",
+    "-extensions/terminal-notification.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
   "theme": "dark",
-  "treeFilterMode": "default"
+  "treeFilterMode": "user-only",
+  "enableSkillCommands": true,
+  "enableInstallTelemetry": false,
+  "enabledModels": [
+    "aihubmix-am/cc-minimax-m2.7-highspeed",
+    "aihubmix-am/cc-k2.6-code-preview",
+    "aihubmix-am/qwen3.6-35b-a3b",
+    "aihubmix-oc/qwen3.5-397b-a17b",
+    "aihubmix-am/gpt-5.3-codex",
+    "aihubmix-am/grok-4-20-reasoning",
+    "aihubmix-am/kimi-k2.6",
+    "aihubmix-am/gpt-5.4",
+    "opencode-go/glm-5.1",
+    "opencode-go/mimo-v2-pro"
+  ]
 }

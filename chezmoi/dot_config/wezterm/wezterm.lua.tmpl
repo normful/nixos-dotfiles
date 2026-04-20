@@ -27,8 +27,8 @@ config.keys = {
   -- Tabs: open and navigate
   { mods = 'LEADER', key = 'c', action = act.SpawnTab('CurrentPaneDomain') },
   { mods = 'LEADER', key = 'n', action = act.SpawnTab('CurrentPaneDomain') },
-  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '[', action = act.ActivateTabRelative(-1) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },
   { mods = 'LEADER', key = 't', action = act.ShowTabNavigator },
 
   -- Current Tab: retitle
@@ -95,6 +95,9 @@ config.keys = {
 
   -- Send CTRL+S (for fish pager-toggle-search https://www.youtube.com/watch?v=dnj-Hpg7Qlo&t=20s)
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '`', action = act({ SendString = '\x13' }) },
+
+  -- Send ALT+L (for tmux prefix key)
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'l', action = act({ SendString = '\x1bl' }) },
 
   -- F-13... were copied from http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 
@@ -419,6 +422,14 @@ config.adjust_window_size_when_changing_font_size = false
 ------------------------------
 -- Other
 ------------------------------
+
+{{ if .mac -}}
+config.set_environment_variables = {
+  TERMINFO_DIRS = '/Users/norman/.terminfo:/Users/norman/.nix-profile/share/terminfo:/run/current-system/sw/share/terminfo:/nix/var/nix/profiles/default/share/terminfo:/usr/share/terminfo'
+}
+config.term = 'wezterm'
+{{ end -}}
+config.debug_key_events = true
 
 {{ if .windows -}}
 config.default_domain = "WSL:NixOS"

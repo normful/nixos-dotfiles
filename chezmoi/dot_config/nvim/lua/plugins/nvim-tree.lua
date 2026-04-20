@@ -93,23 +93,27 @@ end
 
 return {
   'nvim-tree/nvim-tree.lua',
-  opts = {
-    on_attach = on_attach,
-    view = {
-      width = 50,
-    },
-    renderer = {
-      highlight_opened_files = 'all',
-    },
-    actions = {
-      open_file = {
-        quit_on_open = true,
-        window_picker = {
-          enable = false,
+  version = '*',
+  lazy = false,
+  config = function()
+    require('nvim-tree').setup({
+      on_attach = on_attach,
+      view = {
+        width = 50,
+      },
+      renderer = {
+        highlight_opened_files = 'all',
+      },
+      actions = {
+        open_file = {
+          quit_on_open = true,
+          window_picker = {
+            enable = false,
+          },
         },
       },
-    },
-  },
+    })
+  end,
   keys = {
     {
       '<F17>',

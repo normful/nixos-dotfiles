@@ -13,11 +13,16 @@ DOWNLOADS="$HOME/Downloads"
 MIN_SIZE_MB=30
 LOG_FILE="${XDG_RUNTIME_DIR:-$HOME/.local/log}/move-mp3s.log"
 
-# Logging
+# Logging (with timestamp, to log file and console)
 log() {
     local timestamp
     timestamp=$(date '+%Y-%m-%d %H:%M:%S')
     echo "[$timestamp] $*" | tee -a "$LOG_FILE"
+}
+
+# Console output (no timestamp)
+say() {
+    echo "$*"
 }
 
 # Ensure log directory exists
@@ -51,7 +56,7 @@ ERROR_COUNT=0
 while IFS= read -r -d '' file; do
     FILES_FOUND=$((FILES_FOUND + 1))
     filename=$(basename "$file")
-    log "Processing: $filename"
+    say "Processing: $filename"
 
     # Get modification date (GNU stat)
     mod_date=$(stat -c "%Y" "$file")
@@ -68,28 +73,28 @@ while IFS= read -r -d '' file; do
     # Handle filename collisions
     if [[ -e "$dest_file" ]]; then
         if [[ "$(stat -c "%Y" "$file")" -eq "$(stat -c "%Y" "$dest_file")" ]]; then
-            log "  SKIP: Already exists: $dest_file"
+            say "  SKIP: Already exists: $dest_file"
             continue
         else
             timestamp=$(date '+%Y%m%d-%H%M%S')
             dest_file="${dest_dir}/${timestamp}_$filename"
-            log "  RENAMED: Collision -> ${timestamp}_$filename"
+            say "  RENAMED: Collision -> ${timestamp}_$filename"
         fi
     fi
 
     # Move the file
     if mv "$file" "$dest_file"; then
         file_size=$(du -h "$dest_file" | cut -f1)
-        log "  → Moved: $dest_file ($file_size)"
+        say "  → Moved: $dest_file ($file_size)"
         MOVED_COUNT=$((MOVED_COUNT + 1))
     else
-        log "  ERROR: Failed to move $file"
+        say "  ERROR: Failed to move $file"
         ERROR_COUNT=$((ERROR_COUNT + 1))
     fi
 done < <(find "$DOWNLOADS" -maxdepth 1 -type f -name "*.mp3" -size +${MIN_SIZE_MB}M -print0)
 
 if [[ $FILES_FOUND -eq 0 ]]; then
-    log "No MP3 files >${MIN_SIZE_MB}MB found"
+    say "No MP3 files >${MIN_SIZE_MB}MB found"
     log "=== Done ==="
     exit 0
 fi

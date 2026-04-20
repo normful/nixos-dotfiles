@@ -4,13 +4,16 @@
 
     # To get latest unstable commit, run:
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
-    nixpkgs-unstable-2605.url = "github:NixOS/nixpkgs/f8573b9c935cfaa162dd62cc9e75ae2db86f85df";
+    nixpkgs-unstable-2605.url = "github:NixOS/nixpkgs/8d8c1fa5b412c223ffa47410867813290cdedfef";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-2511";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs-2511";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
+    llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable-2605";
 
     nix-darwin-2511.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     nix-darwin-2511.inputs.nixpkgs.follows = "nixpkgs-2511";
