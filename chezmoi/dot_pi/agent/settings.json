@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.66.1",
-  "defaultProvider": "aihubmix-am",
-  "defaultModel": "cc-k2.6-code-preview",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "glm-5.1",
   "defaultThinkingLevel": "off",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -179,14 +179,12 @@
   "enabledModels": [
     "aihubmix-am/cc-minimax-m2.7-highspeed",
     "aihubmix-am/cc-k2.6-code-preview",
-    "aihubmix-oc/coding-glm-5.1",
-    "aihubmix-am/kimi-k2.6",
-    "aihubmix-oc/glm-5.1",
-    "aihubmix-am/gpt-5.3-codex",
-    "aihubmix-am/grok-4-20-reasoning",
-    "aihubmix-am/gpt-5.4",
     "aihubmix-am/qwen3.6-35b-a3b",
     "aihubmix-oc/qwen3.5-397b-a17b",
+    "aihubmix-am/gpt-5.3-codex",
+    "aihubmix-am/grok-4-20-reasoning",
+    "aihubmix-am/kimi-k2.6",
+    "aihubmix-am/gpt-5.4",
     "opencode-go/glm-5.1",
     "opencode-go/mimo-v2-pro"
   ]
