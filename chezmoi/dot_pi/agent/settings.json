@@ -164,11 +164,8 @@
     "-extensions/token-efficient-read-tools.ts",
     "-extensions/network-sandbox/index.ts",
     "-extensions/cmux-sidebar.ts",
-    "-extensions/buggy-network-sandbox-that-doesnt-work-at-all/index.ts",
     "+extensions/token-efficient-read-write-tools.ts",
-    "-extensions/mgabor3141-yapp-safeguard/index.ts",
-    "-extensions/mgabor3141-yapp-desktop-notify/index.ts",
-    "-extensions/terminal-notification.ts"
+    "-extensions/mgabor3141-yapp-safeguard/index.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
