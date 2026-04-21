@@ -128,9 +128,6 @@ bind-key -T prefix r       source-file ~/.config/tmux/tmux.conf \; display 'tmux
 # Type "lgtm finish" + Enter
 bind-key -T root F5       send-keys "lgtm finish" Enter
 
-# Type "/quit" + Enter + Enter
-bind-key -T root F6       send-keys "/quit" Enter Enter
-
 # -----------------------
 # Keyboard binds: Windows
 # -----------------------
@@ -138,30 +135,16 @@ bind-key -T root F6       send-keys "/quit" Enter Enter
 # New window
 bind-key -T prefix c      new-window # <PREFIX1or2> + c
 bind-key -T prefix n      new-window # <PREFIX1or2> + n
-bind-key -T root F7       new-window # <F7>
+bind-key -T root F8       new-window # <F8>
 
 # Kill window
 bind-key -T prefix x      kill-window # <PREFIX1or2> + x
 
 # Previous window
-bind-key -T prefix [      previous-window # <PREFIX1or2> + [
 bind-key -T root F11      previous-window # <F11>
 
 # Next window
-bind-key -T prefix ]      next-window # <PREFIX1or2> + [
 bind-key -T root F12      next-window # <F12>
-
-# <PREFIX1or2> + 1-0: Switch to windows 1-10
-bind-key -T prefix 1      select-window -t :1
-bind-key -T prefix 2      select-window -t :2
-bind-key -T prefix 3      select-window -t :3
-bind-key -T prefix 4      select-window -t :4
-bind-key -T prefix 5      select-window -t :5
-bind-key -T prefix 6      select-window -t :6
-bind-key -T prefix 7      select-window -t :7
-bind-key -T prefix 8      select-window -t :8
-bind-key -T prefix 9      select-window -t :9
-bind-key -T prefix 0      select-window -t :10
 
 # ------------------------
 # Keyboard binds: Sessions
@@ -169,11 +152,9 @@ bind-key -T prefix 0      select-window -t :10
 
 # Previous session
 bind-key -T root F9       switch-client -p # <F9>
-bind-key -T prefix -      switch-client -p # <PREFIX1or2> + -
 
 # Next session
 bind-key -T root F10      switch-client -n # <F10>
-bind-key -T prefix =      switch-client -n # <PREFIX1or2> + =
 
 # -------------------------
 # Keyboard binds: Copy mode
