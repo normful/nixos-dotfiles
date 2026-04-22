@@ -51,3 +51,11 @@ At the top of each Markdown document, include:
 
 1. Run curl via `bash` tool to download the file to `/tmp`.
 2. Run `read` tool on the downloaded file.
+
+# Write simple code, minimize complexity
+
+1. Avoid fallback logic in code that would cause invalid subcases to silently be ignored.
+2. For code in error scenarios: write code that fails with errors quickly (assert expected runtime invariants early, and fail if they are broken). Errors should fail loudly, with full stack traces.
+3. When refactoring code, don't keep old logic for sake of backwards compatibility. Be courageous and break backwards compatibility. Ensure that usage of the old interface would result in loud failing errors.
+4. Before introducing an abstraction, use `bash` command to list nearby files in same folders. Read those files and look for similar existing patterns. Reuse code, as much as possible.
+5. If you see repeated similar code and a potential opportunity for refactoring to reduce complexity, identify it to the user. Don't assume the user wants such refactoring, just tell the user the opportunity exists. Let the user decide.
