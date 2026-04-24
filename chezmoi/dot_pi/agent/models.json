@@ -15,31 +15,40 @@
     "opencode-go": {
       "modelOverrides": {
         "glm-5.1": {
-          "name": "GLM 5.1 (reqs: 176/hr 2.9/min)"
+          "name": "GLM-5.1 (reqs: 176/hr 2.9/min)"
         },
         "glm-5": {
-          "name": "GLM 5 (reqs: 230/hr 3.8/min)"
+          "name": "GLM-5 (reqs: 230/hr 3.8/min)"
         },
         "kimi-k2.5": {
           "name": "Kimi K2.5 (reqs: 370/hr 6.2/min)"
         },
+        "kimi-k2.6": {
+          "name": "Kimi K2.6 (reqs: 230/hr 3.8/min)"
+        },
         "mimo-v2-pro": {
-          "name": "MiMo V2 Pro (reqs: 258/hr 4.3/min)"
+          "name": "MiMo-V2-Pro (reqs: 258/hr 4.3/min)"
         },
         "mimo-v2-omni": {
-          "name": "MiMo V2 Omni (reqs: 430/hr 7.2/min)"
+          "name": "MiMo-V2-Omni (reqs: 430/hr 7.2/min)"
         },
-        "minimax-m2.7": {
-          "name": "MiniMax M2.7 (reqs: 2800/hr 46.7/min)"
+        "mimo-v2.5-pro": {
+          "name": "MiMo-V2.5-Pro (reqs: 258/hr 4.3/min)"
         },
-        "minimax-m2.5": {
-          "name": "MiniMax M2.5 (reqs: 4000/hr 66.7/min)"
+        "mimo-v2.5": {
+          "name": "MiMo-V2.5 (reqs: 430/hr 7.2/min)"
         },
         "qwen3.5-plus": {
-          "name": "Qwen 3.5 Plus (reqs: 660/hr 11/min)"
+          "name": "Qwen3.5 Plus (reqs: 2040/hr 34/min)"
         },
         "qwen3.6-plus": {
-          "name": "Qwen 3.6 Plus (reqs: 2040/hr 34/min)"
+          "name": "Qwen3.6 Plus (reqs: 660/hr 11/min)"
+        },
+        "minimax-m2.7": {
+          "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min)"
+        },
+        "minimax-m2.5": {
+          "name": "MiniMax M2.5 (reqs: 1260/hr 21/min)"
         }
       }
     },
