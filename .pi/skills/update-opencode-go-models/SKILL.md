@@ -96,12 +96,25 @@ Open `https://opencode.ai/docs/go.md` and locate the rate limit table. Extract t
 
 ### Step 3: Calculate Name Values
 
-For each model:
+**Do not calculate manually.** Run this Python script with the rate limit data from the docs:
 
+```python
+models = {
+    # "model-id": requests_per_5hr,
+    "glm-5.1": 880,
+    "glm-5": 1150,
+    # ... add all models from the docs
+}
+
+for model_id, req5h in models.items():
+    hr = round(req5h / 5)
+    mn = round(hr / 60, 1)
+    print(f'{model_id}: (reqs: {hr}/hr {mn}/min)')
 ```
-hr  = round(requests_per_5hr / 5)
-min = round(hr / 60, 1)
-```
+
+**Formulas:**
+- `hr  = round(requests_per_5hr / 5)`
+- `min = round(hr / 60, 1)`
 
 Example: MiMo V2 Omni with 2,150 requests per 5 hours
 - hr:  2150 / 5  = 430
