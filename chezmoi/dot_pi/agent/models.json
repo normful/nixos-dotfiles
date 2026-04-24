@@ -39,16 +39,16 @@
           "name": "MiMo-V2.5 (reqs: 430/hr 7.2/min)"
         },
         "qwen3.5-plus": {
-          "name": "Qwen3.5 Plus (reqs: 2040/hr 34/min)"
+          "name": "Qwen3.5 Plus (reqs: 2040/hr 34.0/min)"
         },
         "qwen3.6-plus": {
-          "name": "Qwen3.6 Plus (reqs: 660/hr 11/min)"
+          "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min)"
         },
         "minimax-m2.7": {
           "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min)"
         },
         "minimax-m2.5": {
-          "name": "MiniMax M2.5 (reqs: 1260/hr 21/min)"
+          "name": "MiniMax M2.5 (reqs: 1260/hr 21.0/min)"
         }
       }
     },
