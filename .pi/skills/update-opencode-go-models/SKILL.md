@@ -16,7 +16,7 @@ Keep `chezmoi/dot_pi/agent/models.json` in sync with OpenCode Go's live model ca
 ## Sources of Truth
 
 - OpenCode Go rate limit tables (requests per 5hr / week / month): https://raw.githubusercontent.com/anomalyco/opencode/refs/heads/dev/packages/web/src/content/docs/go.mdx
-- Canonical model ID list: `curl -s https://models.dev/api.json | jq '".opencode-go".models | keys'`
+- Canonical model ID list: Download JSON from https://models.dev/api.json and run jq to get the keys from the `".opencode-go".models`
 
 ## Target file to modify
 
