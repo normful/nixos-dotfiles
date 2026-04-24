@@ -1,13 +1,13 @@
 {
   "lastChangelogVersion": "0.70.2",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "mimo-v2.5-pro",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "qwen3.5-397b-a17b",
   "defaultThinkingLevel": "off",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
   "branchSummary": {
