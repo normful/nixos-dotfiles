@@ -5,4 +5,5 @@ exclude_commands = [
   "cat",
   "head",
   "tail",
+  "git",
 ]
