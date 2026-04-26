@@ -189,7 +189,8 @@
   "enabledModels": [
     "aihubmix-am/cc-k2.6-code-preview",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
-    "opencode-go/mimo-v2.5-pro"
+    "opencode-go/mimo-v2.5-pro",
+    "aihubmix-oc/deepseek-v4-pro"
   ],
   "terminal": {
     "showTerminalProgress": false,
