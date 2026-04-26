@@ -140,7 +140,12 @@
         "-extensions/agent-browser/index.ts"
       ]
     },
-    "https://github.com/lucasmeijer/pi-terminal-signals",
+    {
+      "source": "https://github.com/lucasmeijer/pi-terminal-signals",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
     "https://github.com/iRonin/pi-clear-on-double-esc",
     "https://www.github.com/default-anton/pi-tmux-window-name",
     {
@@ -188,7 +193,7 @@
     "aihubmix-am/cc-k2.6-code-preview"
   ],
   "terminal": {
-    "showTerminalProgress": false,
+    "showTerminalProgress": true,
     "imageWidthCells": 60
   },
   "autocompleteMaxVisible": 20,
