@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.70.2",
   "defaultProvider": "aihubmix-am",
   "defaultModel": "cc-k2.6-code-preview",
-  "defaultThinkingLevel": "off",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -107,7 +107,6 @@
       ]
     },
     "https://github.com/normful/pi-kagi-search",
-    "https://github.com/normful/pi-librarian",
     {
       "source": "https://github.com/normful/pi-side-agents",
       "skills": [
@@ -187,5 +186,13 @@
     "aihubmix-am/xiaomi-mimo-v2.5-pro",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
     "aihubmix-am/cc-k2.6-code-preview"
-  ]
+  ],
+  "terminal": {
+    "showTerminalProgress": true,
+    "imageWidthCells": 60
+  },
+  "autocompleteMaxVisible": 20,
+  "compaction": {
+    "enabled": true
+  }
 }
