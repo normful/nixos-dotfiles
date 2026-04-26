@@ -187,10 +187,9 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "opencode-go/mimo-v2.5-pro",
-    "aihubmix-am/xiaomi-mimo-v2.5-pro",
+    "aihubmix-am/cc-k2.6-code-preview",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
-    "aihubmix-am/cc-k2.6-code-preview"
+    "opencode-go/mimo-v2.5-pro"
   ],
   "terminal": {
     "showTerminalProgress": false,
