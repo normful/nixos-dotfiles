@@ -193,7 +193,7 @@
     "aihubmix-am/cc-k2.6-code-preview"
   ],
   "terminal": {
-    "showTerminalProgress": true,
+    "showTerminalProgress": false,
     "imageWidthCells": 60
   },
   "autocompleteMaxVisible": 20,
