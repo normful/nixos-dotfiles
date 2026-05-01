@@ -70,8 +70,8 @@
     "+skills/curated-ai-skills/fetch-source-code/SKILL.md",
     "-skills/curated-ai-skills/fill-pdf-form/SKILL.md",
     "-skills/curated-ai-skills/parallel-agentic-mass-document-generation/SKILL.md",
-    "+skills/curated-ai-skills/configure-xserver-firewall/SKILL.md",
-    "+skills/curated-ai-skills/pasky-chrome-cdp/SKILL.md"
+    "-skills/curated-ai-skills/pasky-chrome-cdp/SKILL.md",
+    "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md"
   ],
   "packages": [
     {
@@ -110,7 +110,7 @@
     {
       "source": "https://github.com/normful/pi-side-agents",
       "skills": [
-        "+skills/agent-setup/SKILL.md"
+        "-skills/agent-setup/SKILL.md"
       ],
       "extensions": [
         "+extensions/side-agents/index.ts"
