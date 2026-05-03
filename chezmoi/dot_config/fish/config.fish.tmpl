@@ -27,7 +27,6 @@ if status is-interactive
     abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --sort time'
 
     abbr --add man 'batman'
-    abbr --add catp 'prettybat'
 
     abbr --add d dirh
     abbr --add nd nextd
@@ -38,9 +37,9 @@ if status is-interactive
     abbr --add ag 'rg'
     abbr --add rgd --position command --set-cursor=% 'rg % --json | delta'
     abbr --add rglit 'rg -F'
-    abbr --add rgu 'rg -u'
-    abbr --add rguu 'rg -uu'
-    abbr --add rguuu 'rg -uuu --debug'
+    # abbr --add rgu 'rg -u'
+    # abbr --add rguu 'rg -uu'
+    # abbr --add rguuu 'rg -uuu --debug'
 
     abbr --add g git
     abbr --add qg git
@@ -62,10 +61,10 @@ if status is-interactive
     abbr --add eps "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
 
     abbr --add cm 'chezmoi'
-    abbr --add cmd 'chezmoi diff'
-    abbr --add cme 'chezmoi edit --apply'
     abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; git add chezmoi/dot_pi/agent/settings.json; git commit -m 'chore(pi): autocommit ~/.pi/agent/settings.json changes'; chezmoi apply"
     abbr --add cmt 'chezmoi chattr +template'
+    # abbr --add cme 'chezmoi edit --apply'
+    # abbr --add cmd 'chezmoi diff'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
 
@@ -79,30 +78,28 @@ if status is-interactive
     end
     {{ end -}}
 
-    abbr --add calpis 'chezmoi add $HOME/.pi/agent/settings.json'
-
     # abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
     # abbr --add oc "bunx opencode-ai@latest"
 
-    if not command -v gemini >/dev/null 2>&1
-        abbr --add gemini "bunx @google/gemini-cli"
-    end
-
-    if not command -v qwen >/dev/null 2>&1
-        abbr --add qwen "bunx @qwen-code/qwen-code@latest"
-    end
-
-    if not command -v crush >/dev/null 2>&1
-        abbr --add crush "bunx @charmland/crush"
-    end
-
-    if not command -v codex >/dev/null 2>&1
-        abbr --add codex "bunx @openai/codex"
-    end
-
-    if not command -v grok >/dev/null 2>&1
-        abbr --add grok "bunx @vibe-kit/grok-cli"
-    end
+    # if not command -v gemini >/dev/null 2>&1
+    #     abbr --add gemini "bunx @google/gemini-cli"
+    # end
+    #
+    # if not command -v qwen >/dev/null 2>&1
+    #     abbr --add qwen "bunx @qwen-code/qwen-code@latest"
+    # end
+    #
+    # if not command -v crush >/dev/null 2>&1
+    #     abbr --add crush "bunx @charmland/crush"
+    # end
+    #
+    # if not command -v codex >/dev/null 2>&1
+    #     abbr --add codex "bunx @openai/codex"
+    # end
+    #
+    # if not command -v grok >/dev/null 2>&1
+    #     abbr --add grok "bunx @vibe-kit/grok-cli"
+    # end
 
     if command -v cargo >/dev/null 2>&1
         fish_add_path --global "$HOME/.cargo/bin"
@@ -123,26 +120,26 @@ if status is-interactive
         abbr --add cdo 'cargo doc --open'
     end
 
-    if command -v npm >/dev/null 2>&1
-        abbr --add nrb 'npm run build'
-        abbr --add nrs 'npm run start'
-    end
+    # if command -v npm >/dev/null 2>&1
+    #     abbr --add nrb 'npm run build'
+    #     abbr --add nrs 'npm run start'
+    # end
 
     {{ if .mac -}}
     source "$HOME/.api_keys.fish"
 
     fish_add_path --global "$HOME/code/dotfiles/bin"
-    fish_add_path --global "$HOME/.codeium/windsurf/bin"
     fish_add_path --global "/Applications/WezTerm.app/Contents/MacOS"
     fish_add_path --global "$HOME/.bun/bin"
-    fish_add_path --global "$HOME/.antigravity/antigravity/bin"
+    # fish_add_path --global "$HOME/.codeium/windsurf/bin"
+    # fish_add_path --global "$HOME/.antigravity/antigravity/bin"
 
-    if not command -v claude >/dev/null 2>&1
-        abbr --add cld "bunx @anthropic-ai/claude-code"
-        abbr --add claude "bunx @anthropic-ai/claude-code"
-    else
-        abbr --add cld "claude"
-    end
+    # if not command -v claude >/dev/null 2>&1
+    #     abbr --add cld "bunx @anthropic-ai/claude-code"
+    #     abbr --add claude "bunx @anthropic-ai/claude-code"
+    # else
+    #     abbr --add cld "claude"
+    # end
 
     if command -v composer >/dev/null 2>&1
         fish_add_path --global "$HOME/.config/composer/vendor/bin"
@@ -153,13 +150,12 @@ if status is-interactive
     abbr --add mus "musikcube"
     abbr --add zs 'zola serve'
     abbr --add dua 'dua interactive'
-    abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
+    # abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
 
-    abbr --add mdglow "glow"
+    # abbr --add mdglow "glow"
 
     abbr --add epush "nvim ~/code/dotfiles/bin/_push_and_pull_android.sh"
     abbr --add epull "nvim ~/code/dotfiles/bin/_push_and_pull_android.sh"
-    abbr --add pireviewja "pi --provider aihubmix-am --model cc-glm-5 -p '/review-japanese-in-diff"
 
     if not command -v pandoc >/dev/null 2>&1
         abbr --add pandoc "pandoc --pdf-engine=xelatex"
@@ -180,9 +176,9 @@ if status is-interactive
         mise activate fish | source
     end
 
-    if command -v direnv >/dev/null 2>&1
-        direnv hook fish | source
-    end
+    # if command -v direnv >/dev/null 2>&1
+    #     direnv hook fish | source
+    #  end
 end
 
 function __should_na --on-event fish_prompt
@@ -195,5 +191,5 @@ fish_add_path --prepend --global "$HOME/.local/bin"
 {{ if .mac -}}
 fish_add_path --prepend --global /run/current-system/sw/bin
 fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+# source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 {{ end -}}
