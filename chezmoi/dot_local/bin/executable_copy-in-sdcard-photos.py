@@ -32,7 +32,8 @@ def list_volumes() -> list[Path]:
         return []
 
     volumes = [
-        p for p in SRC_DIR.iterdir()
+        p
+        for p in SRC_DIR.iterdir()
         if p.is_dir()
         and p.name not in ("Macintosh HD", "N")
         and not p.name.startswith("NSC")
@@ -44,7 +45,7 @@ def list_volumes() -> list[Path]:
 def pick_volume(volumes: list[Path]) -> Path | None:
     """Prompt user to select a volume."""
     if not volumes:
-        print("No /Volumes found. Exiting.")
+        print("No /Volumes found. Try plugging in and out the SD card again.")
         return None
 
     print("Available volumes:\n")
@@ -72,7 +73,8 @@ def pick_volume(volumes: list[Path]) -> Path | None:
 def rsync_copy(src: Path) -> None:
     """Rsync all RAF files from src to TEMP_DIR."""
     cmd = [
-        "rsync", "-av",
+        "rsync",
+        "-av",
         "--ignore-existing",
         "--progress",
         "--stats",
