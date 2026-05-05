@@ -27,6 +27,8 @@ ONLY IF system prompt `<available_skills>` shows a `finish` skill, THEN:
 - git commit all changes before using `finish` skill, which is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
 - NEVER attempt to `git checkout` ANY OTHER branch
 
+Then when user says "lgtm finish", DO NOT run `ask_user_questions` tool. Proceed to `finish` skill steps.
+
 # When to use different similar browser automation tools & skills
 
 1. When asked to read and understand text content of websites (for researching unknown websites not developed locally), use `chrome-devtools-cli` skill.
