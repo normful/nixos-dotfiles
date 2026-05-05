@@ -61,3 +61,7 @@ At the top of each Markdown document, include:
 3. When refactoring code, don't keep old logic for sake of backwards compatibility. Be courageous and break backwards compatibility. Ensure that usage of the old interface would result in loud failing errors.
 4. Before introducing an abstraction, use `bash` command to list nearby files in same folders. Read those files and look for similar existing patterns. Reuse code, as much as possible.
 5. If you see repeated similar code and a potential opportunity for refactoring to reduce complexity, identify it to the user. Don't assume the user wants such refactoring, just tell the user the opportunity exists. Let the user decide.
+
+# Naming new files
+
+When choosing new filenames, use a verbose and self-explanatory filename, even if it results in an unusually long filename.
