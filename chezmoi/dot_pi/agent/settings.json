@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.70.2",
+  "lastChangelogVersion": "0.73.0",
   "defaultProvider": "aihubmix-am",
   "defaultModel": "cc-k2.6-code-preview",
   "defaultThinkingLevel": "high",
@@ -71,7 +71,8 @@
     "-skills/curated-ai-skills/fill-pdf-form/SKILL.md",
     "-skills/curated-ai-skills/parallel-agentic-mass-document-generation/SKILL.md",
     "-skills/curated-ai-skills/pasky-chrome-cdp/SKILL.md",
-    "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md"
+    "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md",
+    "-skills/curated-ai-skills/interview-to-create-image/SKILL.md"
   ],
   "packages": [
     {
@@ -92,18 +93,6 @@
       "skills": [
         "-skills/mulch/SKILL.md",
         "-skills/run-in-tmux/SKILL.md"
-      ]
-    },
-    {
-      "source": "https://github.com/manojlds/ralphi",
-      "skills": [
-        "-skills/ralphi-prd/SKILL.md",
-        "-skills/ralphi-loop/SKILL.md",
-        "-skills/ralphi-init/SKILL.md",
-        "-skills/ralphi-convert/SKILL.md"
-      ],
-      "extensions": [
-        "-extensions/ralphi/index.ts"
       ]
     },
     "https://github.com/normful/pi-kagi-search",
@@ -140,21 +129,10 @@
         "-extensions/agent-browser/index.ts"
       ]
     },
-    {
-      "source": "https://github.com/lucasmeijer/pi-terminal-signals",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
     "https://github.com/iRonin/pi-clear-on-double-esc",
     "https://www.github.com/default-anton/pi-tmux-window-name",
-    {
-      "source": "https://github.com/drsh4dow/pi-questions",
-      "extensions": [
-        "-extensions/ask-questions.ts"
-      ]
-    },
-    "https://github.com/normful/pi-ask-tool"
+    "https://github.com/normful/pi-ask-tool",
+    "https://github.com/latent-variable/pi-auto-continue"
   ],
   "pi-screenshots": {
     "sources": [
