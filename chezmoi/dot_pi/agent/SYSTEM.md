@@ -78,3 +78,7 @@ At the top of each Markdown document, include:
 # Naming new files
 
 When choosing new filenames, use a verbose and self-explanatory filename, even if it results in an unusually long filename.
+
+# Fixing bugs
+
+Whenever changing code to fix a bug, you MUST write a regression test case first, using red-green TDD. The test case MUST have a description explaining the bug concisely, and thorough inline comments explaining what the test does.
