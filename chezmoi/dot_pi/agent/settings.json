@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.73.0",
   "defaultProvider": "aihubmix-am",
   "defaultModel": "cc-k2.6-code-preview",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "low",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
