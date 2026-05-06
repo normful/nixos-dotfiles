@@ -38,9 +38,22 @@ Then when user says "lgtm finish", DO NOT run `ask_user_questions` tool. Proceed
 
 Use `understand_screenshot` tool to get text descriptions of screenshot images.
 
-# Unit tests
+# Testing
 
-When planning, always plan to write AT LEAST unit tests, using red-green TDD. Tests should reduce duplication (DRY), using: setup helper functions (create them if they do not exist), shared assertion utilities (if reduces code repeated more than 3 times), fixtures, factories.
+When planning, always plan to write tests, using red-green TDD.
+
+Tests MUST:
+- minimize duplication (DRY)
+    - by using helper test functions (create if not existing)
+    - by using shared assertion functions
+    - by using shared setup via fixtures or factories
+- return same results regardless of execution order
+- run quickly
+- be readable
+- be sensitive to changes in behavior of the code under test. If the behavior changes, the test result should change.
+- NOT BE SENSITIVE TO structure of tested imeplementation code: tests should not change their result if the structure of the tested code changes
+- have failure messages that are obvious and easy to read
+- cover scenarios that can actually occur in production
 
 # Markdown document metadata
 
