@@ -159,9 +159,9 @@
 
     system.defaults.dock.persistent-apps = [
       # Terminals
-      "/Applications/WezTerm.app"
-      "/Applications/kitty.app"
       "/Applications/Ghostty.app"
+      "/Applications/kitty.app"
+      # "/Applications/WezTerm.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
@@ -178,7 +178,7 @@
       "/Applications/Spark.app"
       "/Applications/OptiCull.app"
       "/Applications/darktable.app"
-      "/Applications/FileZilla.app"
+      # "/Applications/FileZilla.app"
       "/Applications/QuickShade.app"
       "/System/Applications/System Settings.app"
       /*
@@ -363,8 +363,8 @@
 
         WindowManager = {
           EnableStandardClickToShowDesktop = false;
-          EnableTiledWindowMargins = false;
-          EnableTopTilingByEdgeDrag = false;
+          EnableTiledWindowMargins = true;
+          EnableTopTilingByEdgeDrag = true;
           EnableTilingOptionAccelerator = true;
           GloballyEnabled = false;
           StandardHideDesktopIcons = true;
