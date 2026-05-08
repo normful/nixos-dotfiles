@@ -423,14 +423,6 @@ config.adjust_window_size_when_changing_font_size = false
 -- Other
 ------------------------------
 
-{{ if .mac -}}
-config.set_environment_variables = {
-  TERMINFO_DIRS = '/Users/norman/.terminfo:/Users/norman/.nix-profile/share/terminfo:/run/current-system/sw/share/terminfo:/nix/var/nix/profiles/default/share/terminfo:/usr/share/terminfo'
-}
-config.term = 'wezterm'
-{{ end -}}
-config.debug_key_events = true
-
 {{ if .windows -}}
 config.default_domain = "WSL:NixOS"
 {{ end -}}
