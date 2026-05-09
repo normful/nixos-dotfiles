@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.73.1",
   "defaultProvider": "aihubmix-am",
-  "defaultModel": "cc-k2.6-code-preview",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "cc-minimax-m2.7-highspeed",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -107,7 +107,12 @@
     },
     "https://github.com/normful/pi-scheduler",
     "https://github.com/normful/pi-supervisor",
-    "https://github.com/normful/pi-agent-browser",
+    {
+      "source": "https://github.com/normful/pi-agent-browser",
+      "extensions": [
+        "-extensions/agent-browser.ts"
+      ]
+    },
     {
       "source": "https://github.com/normful/pi-autoresearch",
       "skills": [
@@ -156,7 +161,8 @@
     "-extensions/network-sandbox/index.ts",
     "-extensions/cmux-sidebar.ts",
     "+extensions/token-efficient-read-write-tools.ts",
-    "-extensions/mgabor3141-yapp-safeguard/index.ts"
+    "-extensions/mgabor3141-yapp-safeguard/index.ts",
+    "-extensions/understand-screenshot/index.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
@@ -168,7 +174,8 @@
     "aihubmix-am/cc-k2.6-code-preview",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
     "opencode-go/mimo-v2.5-pro",
-    "aihubmix-oc/deepseek-v4-pro"
+    "aihubmix-oc/deepseek-v4-pro",
+    "opencode-go/deepseek-v4-flash"
   ],
   "terminal": {
     "showTerminalProgress": false,
