@@ -2,51 +2,40 @@
 
 - If you edited files, always git commit related files you edited BEFORE finishing your entire session
     - Run `git add` with the paths of the files you edited. Never blindly stage all files: i.e. never run `git add -A`
-    - Commit often, with small groups of related changes in the same commit. Avoid making single commits with many files added.
-        - Exception: if you run a format fix or lint fix command that does bulk automatic changes, then you can commit all of those many files together in 1 commit.
+    - Commit often, with small groups of related changes in the same commit. Avoid large single commits with many files.
+        - Exception: if you run a format fix or lint fix command that does bulk automatic changes, then you can commit many files together.
 - If you see unexpected file edits that YOU did not write, NEVER revert those changes; leave them
-- Use conventional commit messages (feat:, fix:, chore:, docs:, etc)
-- Renaming one file: ALWAYS run `git mv` (not `mv`) combined with `git commit` in the SAME `bash` tool call.
-- NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is a command only affecting 1 file that YOU changed.I
+- Use conventional commit messages (feat:, fix:, chore:, docs:, refactor: etc)
+- Renaming one file: ALWAYS run `git mv` (not `mv`) combined with `git commit` together in the SAME `bash` call.
+- NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.I
 - If running `git rebase --continue`, prepend `GIT_EDITOR=true` env var.
 
 # File access
 
-DO NOT read or write files outside the current directory, unless user explicitly asks to.
-DO NOT run `find` to search for files outside the current directory tree.
-If you encounter an 'Operation not permitted' or EPERM error, stop and ask the user about what to do next. Do not try to work around the error.
+DO NOT read, write, nor find files outside the current directory, unless user explicitly asks to.
+If 'Operation not permitted' or EPERM error, do not try to work around the error.
 
-# System
+# This is a macOS machine
 
-NEVER run ANY `homebrew` command.
+NEVER run `homebrew`.
 
 # Conditional Special Behavior
 
-ONLY IF system prompt `<available_skills>` shows a `finish` skill, THEN:
+ONLY WHEN system prompt `<available_skills>` shows a `finish` skill, THEN:
 - ALWAYS run git commands with the following additional environment variables. Example: instead of `git commit`, run `GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_EDITOR=cat GIT_AUTHOR_NAME="AI" GIT_AUTHOR_EMAIL="none" GIT_COMMITTER_NAME="AI" GIT_COMMITTER_EMAIL="none" git -c core.excludesFile=/dev/null commit`. Same for all other git commands.
 - git commit all changes before using `finish` skill, which is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
-- NEVER attempt to `git checkout` ANY OTHER branch
 
-Then when user says "lgtm finish", DO NOT run `ask_user_questions` tool. Proceed to `finish` skill steps.
-
-# When to use different similar browser automation tools & skills
-
-1. When asked to read and understand text content of websites (for researching unknown websites not developed locally), use `chrome-devtools-cli` skill.
-2. When inspecting network requests, Lighthouse scores, or performance profiles, use `chrome-devtools-cli` skill.
-3. When interacting with a localhost web application, use `playwright-cli` skill first, with `chrome-devtools-cli` as a secondary fallback. Avoid using `browser` tool.
-4. When asked to rapidly open many web pages (and not a scenario above), use `browser` tool.
-
-Use `understand_screenshot` tool to get text descriptions of screenshot images.
+If user says something like "lgtm finish", DO NOT run `ask_user_questions` tool; run `finish` skill steps.
 
 # Testing
 
-When planning, always plan to write tests, using red-green TDD.
+When planning, always plan and describe red-green TDD test cases.
 
 Tests MUST:
 - minimize duplication (DRY)
-    - by using helper test functions (create if not existing)
-    - by using shared assertion functions
-    - by using shared setup via fixtures or factories
+    - use helper test functions (create if not existing, but first search and look at what helpers exist)
+    - use shared functions to deduplicate common `expect` or `assert` calls
+    - use shared setup (fixtures, factories, etc)
 - return same results regardless of execution order
 - run quickly
 - be readable
@@ -77,7 +66,7 @@ At the top of each Markdown document, include:
 
 # Naming new files
 
-When choosing new filenames, use a verbose and self-explanatory filename, even if it results in an unusually long filename.
+When choosing new filenames, use a verbose and self-explanatory filename, even if leads to unusually long filename.
 
 # Fixing bugs
 
