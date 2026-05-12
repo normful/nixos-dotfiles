@@ -166,11 +166,12 @@ if status is-interactive
 
     {{ end -}}
 
-    abbr --add piallskills "pi --skill ~/.pi/agent/skills/curated-ai-skills"
-    abbr --add pimakeskill "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/writing-skills/ --skill ~/.pi/agent/skills/curated-ai-skills/skill-creator/"
-    abbr --add pimakepycli "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/single-py-script/ --skill ~/.pi/agent/skills/curated-ai-skills/create-cli/"
-    abbr --add pinotion "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/notion-task-manager/"
-    abbr --add pidj "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/topdjmixes/"
+    abbr --add piallskills "pi --no-builtin-tools --skill ~/.pi/agent/skills/curated-ai-skills"
+    abbr --add pimakeskill "pi --no-builtin-tools -ns --skill ~/.pi/agent/skills/curated-ai-skills/writing-skills/ --skill ~/.pi/agent/skills/curated-ai-skills/skill-creator/"
+    abbr --add pimakepycli "pi --no-builtin-tools -ns --skill ~/.pi/agent/skills/curated-ai-skills/single-py-script/ --skill ~/.pi/agent/skills/curated-ai-skills/create-cli/"
+    abbr --add pinotion "pi --no-builtin-tools -ns --skill ~/.pi/agent/skills/curated-ai-skills/notion-task-manager/"
+    abbr --add pidj "pi --no-builtin-tools -ns --skill ~/.pi/agent/skills/curated-ai-skills/topdjmixes/"
+    abbr --add pi "pi --no-builtin-tools"
     abbr --add sss "git show HEAD"
 
     abbr --add mdcat "mdcat --columns 180 --paginate"
