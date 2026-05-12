@@ -1,3 +1,8 @@
+# Tools
+
+No `bash` tool
+No `cat` tool; use `read` tool instead
+
 # Git
 
 - If you edited files, always git commit related files you edited BEFORE finishing your entire session
