@@ -74,7 +74,8 @@
     "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md",
     "-skills/curated-ai-skills/interview-to-create-image/SKILL.md",
     "-skills/curated-ai-skills/minimax-docx/SKILL.md",
-    "-skills/curated-ai-skills/reply-to-japanese-boss-email/SKILL.md"
+    "-skills/curated-ai-skills/reply-to-japanese-boss-email/SKILL.md",
+    "-skills/curated-ai-skills/weather-japan/SKILL.md"
   ],
   "packages": [
     {
@@ -167,8 +168,10 @@
     "-extensions/iRonin-pi-less-shitty-smart-compactiion/index.ts",
     "+extensions/token-efficient-read-tools.ts",
     "-extensions/token-efficient-read-write-tools.ts",
-    "-extensions/dev-tools/index.ts",
-    "-extensions/token-efficient-read-write-tools-without-bash.ts"
+    "-extensions/token-efficient-read-write-tools-without-bash.ts",
+    "+extensions/grep-find-ls-tools.ts",
+    "+extensions/read-edit-write-tools.ts",
+    "+extensions/dev-tools/index.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
