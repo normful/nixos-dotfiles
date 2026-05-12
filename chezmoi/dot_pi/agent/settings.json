@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.73.1",
-  "defaultProvider": "aihubmix-am",
-  "defaultModel": "cc-minimax-m2.7-highspeed",
+  "lastChangelogVersion": "0.74.0",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -72,7 +72,9 @@
     "-skills/curated-ai-skills/parallel-agentic-mass-document-generation/SKILL.md",
     "-skills/curated-ai-skills/pasky-chrome-cdp/SKILL.md",
     "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md",
-    "-skills/curated-ai-skills/interview-to-create-image/SKILL.md"
+    "-skills/curated-ai-skills/interview-to-create-image/SKILL.md",
+    "-skills/curated-ai-skills/minimax-docx/SKILL.md",
+    "-skills/curated-ai-skills/reply-to-japanese-boss-email/SKILL.md"
   ],
   "packages": [
     {
@@ -128,16 +130,17 @@
         "+index.ts"
       ]
     },
-    {
-      "source": "https://github.com/fitchmultz/pi-agent-browser-native",
-      "extensions": [
-        "-extensions/agent-browser/index.ts"
-      ]
-    },
     "https://github.com/iRonin/pi-clear-on-double-esc",
     "https://www.github.com/default-anton/pi-tmux-window-name",
     "https://github.com/normful/pi-ask-tool",
-    "https://github.com/latent-variable/pi-auto-continue"
+    "https://github.com/latent-variable/pi-auto-continue",
+    {
+      "source": "https://github.com/gsanhueza/pi-token-speed",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
+    "https://github.com/normful/pi-agent-browser-native"
   ],
   "pi-screenshots": {
     "sources": [
@@ -157,12 +160,15 @@
     "-extensions/respond.ts",
     "-extensions/parrot.ts",
     "+extensions/show-tools-and-system-prompt/index.ts",
-    "-extensions/token-efficient-read-tools.ts",
     "-extensions/network-sandbox/index.ts",
     "-extensions/cmux-sidebar.ts",
-    "+extensions/token-efficient-read-write-tools.ts",
     "-extensions/mgabor3141-yapp-safeguard/index.ts",
-    "-extensions/understand-screenshot/index.ts"
+    "-extensions/understand-screenshot/index.ts",
+    "-extensions/iRonin-pi-less-shitty-smart-compactiion/index.ts",
+    "+extensions/token-efficient-read-tools.ts",
+    "-extensions/token-efficient-read-write-tools.ts",
+    "-extensions/dev-tools/index.ts",
+    "-extensions/token-efficient-read-write-tools-without-bash.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
