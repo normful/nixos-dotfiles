@@ -6,7 +6,7 @@
         - Exception: if you run a format fix or lint fix command that does bulk automatic changes, then you can commit many files together.
 - If you see unexpected file edits that YOU did not write, NEVER revert those changes; leave them
 - Use conventional commit messages (feat:, fix:, chore:, docs:, refactor: etc)
-- Renaming one file: ALWAYS run `git mv` (not `mv`) combined with `git commit` together in the SAME `bash` call.
+- Do not use `mv` to rename files. Instead, `git mv` combined with `git commit` together in the SAME `bash` call. Example: `git mv docs/a.md docs/COMPLETED-a.md && git commit -m "docs: mark plan as completed"`
 - NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.I
 - If running `git rebase --continue`, prepend `GIT_EDITOR=true` env var.
 
