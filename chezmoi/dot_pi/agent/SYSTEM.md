@@ -2,6 +2,7 @@
 
 No `bash` tool. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds.
 No `cat` tool; use `read` tool instead.
+`git` tool always uses current directory already. No need to `cd` first.
 
 # Git
 
