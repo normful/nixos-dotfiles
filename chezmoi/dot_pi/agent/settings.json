@@ -169,8 +169,9 @@
     "+extensions/token-efficient-read-tools.ts",
     "-extensions/token-efficient-read-write-tools.ts",
     "-extensions/token-efficient-read-write-tools-without-bash.ts",
-    "+extensions/grep-find-ls-tools.ts",
-    "+extensions/read-edit-write-tools.ts",
+    "-extensions/grep-find-ls-tools.ts",
+    "-extensions/read-edit-write-tools.ts",
+    "+extensions/bell-and-macOS-notify/index.ts",
     "+extensions/dev-tools/index.ts"
   ],
   "transport": "auto",
