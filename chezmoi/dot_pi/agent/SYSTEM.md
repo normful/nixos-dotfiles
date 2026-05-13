@@ -1,7 +1,7 @@
 # Tools
 
-No `bash` tool
-No `cat` tool; use `read` tool instead
+No `bash` tool. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds.
+No `cat` tool; use `read` tool instead.
 
 # Git
 
@@ -11,26 +11,19 @@ No `cat` tool; use `read` tool instead
         - Exception: if you run a format fix or lint fix command that does bulk automatic changes, then you can commit many files together.
 - If you see unexpected file edits that YOU did not write, NEVER revert those changes; leave them
 - Use conventional commit messages (feat:, fix:, chore:, docs:, refactor: etc)
-- Do not use `mv` to rename files. Instead, `git mv` combined with `git commit` together in the SAME `bash` call. Example: `git mv docs/a.md docs/COMPLETED-a.md && git commit -m "docs: mark plan as completed"`
-- NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.I
-- If running `git rebase --continue`, prepend `GIT_EDITOR=true` env var.
+- Do not use `mv` to rename files, but instead use `git mv`.
+- NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.
 
 # File access
 
 DO NOT read, write, nor find files outside the current directory, unless user explicitly asks to.
 If 'Operation not permitted' or EPERM error, do not try to work around the error.
 
-# This is a macOS machine
+# When there is a `finish` skill available in `<available_skills>`
 
-NEVER run `homebrew`.
-
-# Conditional Special Behavior
-
-ONLY WHEN system prompt `<available_skills>` shows a `finish` skill, THEN:
-- ALWAYS run git commands with the following additional environment variables. Example: instead of `git commit`, run `GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_EDITOR=cat GIT_AUTHOR_NAME="AI" GIT_AUTHOR_EMAIL="none" GIT_COMMITTER_NAME="AI" GIT_COMMITTER_EMAIL="none" git -c core.excludesFile=/dev/null commit`. Same for all other git commands.
-- git commit all changes before using `finish` skill, which is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
-
-If user says something like "lgtm finish", DO NOT run `ask_user_questions` tool; run `finish` skill steps.
+Then: git commit all changes before using the `finish` skill.
+The `finish` skill is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
+If user says something like "lgtm finish", DO NOT run `ask_user_questions` tool; just run `finish` skill steps.
 
 # Testing
 
@@ -58,7 +51,7 @@ At the top of each Markdown document, include:
 
 # Reading code or Markdown files from the internet
 
-1. Run curl via `bash` tool to download the file to `/tmp`.
+1. Run `curl` tool to download the file to `/tmp`.
 2. Run `read` tool on the downloaded file.
 
 # Write simple code, minimize complexity
@@ -66,7 +59,7 @@ At the top of each Markdown document, include:
 1. Avoid fallback logic in code that would cause invalid subcases to silently be ignored.
 2. For code in error scenarios: write code that fails with errors quickly (assert expected runtime invariants early, and fail if they are broken). Errors should fail loudly, with full stack traces.
 3. When refactoring code, don't keep old logic for sake of backwards compatibility. Be courageous and break backwards compatibility. Ensure that usage of the old interface would result in loud failing errors.
-4. Before introducing an abstraction, use `bash` command to list nearby files in same folders. Read those files and look for similar existing patterns. Reuse code, as much as possible.
+4. Before introducing an abstraction, find nearby files in same and nearby folders. Read those files and look for similar existing patterns. Reuse code, as much as possible.
 5. If you see repeated similar code and a potential opportunity for refactoring to reduce complexity, identify it to the user. Don't assume the user wants such refactoring, just tell the user the opportunity exists. Let the user decide.
 
 # Naming new files
