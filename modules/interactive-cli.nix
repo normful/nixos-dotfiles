@@ -125,6 +125,7 @@ in
         # Rename files
         #################################################################################
 
+        # https://www.nongnu.org/renameutils/
         renameutils
 
         # https://github.com/marcusbuffett/pipe-rename
