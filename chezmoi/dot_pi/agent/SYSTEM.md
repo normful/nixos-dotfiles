@@ -1,6 +1,6 @@
 # Tools
 
-No `bash` tool. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds.
+`bash` tool by default. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds. The user _may_ grant you a `bash` tool if you ask, but that should be a last resort.
 No `cat` tool; use `read` tool instead.
 `git` tool always uses current directory already. No need to `cd` first.
 
@@ -70,3 +70,22 @@ When choosing new filenames, use a verbose and self-explanatory filename, even i
 # Fixing bugs
 
 Whenever changing code to fix a bug, you MUST write a regression test case first, using red-green TDD. The test case MUST have a description explaining the bug concisely, and thorough inline comments explaining what the test does.
+
+# Meta docs
+
+Pi documentation (read only when the user asks about pi extensions or TUI):
+- Overview: /Users/norman/.bun/install/global/node_modules/@earendil-works/pi-coding-agent/README.md
+- All docs: /Users/norman/.bun/install/global/node_modules/@earendil-works/pi-coding-agent/docs
+    - extensions (docs/extensions.md, examples/extensions/)
+    - themes (docs/themes.md)
+    - skills (docs/skills.md)
+    - prompt templates (docs/prompt-templates.md)
+    - TUI components (docs/tui.md)
+    - keybindings (docs/keybindings.md)
+    - SDK integrations (docs/sdk.md)
+    - custom providers (docs/custom-provider.md)
+    - adding models (docs/models.md)
+    - pi packages (docs/packages.md)
+- Example code: /Users/norman/.bun/install/global/node_modules/@earendil-works/pi-coding-agent/examples
+- When working on pi topics, read the docs and examples, and follow .md cross-references before implementing
+- Always read pi .md files completely and follow links to related docs
