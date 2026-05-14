@@ -71,13 +71,18 @@ At the top of each Markdown document, include:
 1. Run `curl` tool to download the file to `/tmp`.
 2. Run `read` tool on the downloaded file.
 
-# Write simple code, minimize complexity
+# Minimize complexity when writing code. WRITE SIMPLE CODE
 
-1. Avoid fallback logic in code that would cause invalid subcases to silently be ignored.
-2. For code in error scenarios: write code that fails with errors quickly (assert expected runtime invariants early, and fail if they are broken). Errors should fail loudly, with full stack traces.
-3. When refactoring code, don't keep old logic for sake of backwards compatibility. Be courageous and break backwards compatibility. Ensure that usage of the old interface would result in loud failing errors.
-4. Before introducing an abstraction, find nearby files in same and nearby folders. Read those files and look for similar existing patterns. Reuse code, as much as possible.
-5. If you see repeated similar code and a potential opportunity for refactoring to reduce complexity, identify it to the user. Don't assume the user wants such refactoring, just tell the user the opportunity exists. Let the user decide.
+Avoid overengineering.
+Avoid fallback logic in code that would cause invalid subcases to silently be ignored.
+For code in error scenarios: write code that fails with errors quickly (assert expected runtime invariants early, and fail if they are broken). Errors should fail loudly, with full stack traces.
+When refactoring code, don't keep old logic for sake of backwards compatibility. Be courageous and break backwards compatibility. Ensure that usage of the old interface would result in loud failing errors.
+Before introducing an abstraction, find nearby files in same and nearby folders. Read those files and look for similar existing patterns. Reuse code, as much as possible.
+If you see repeated similar code and a potential opportunity for refactoring to reduce complexity, identify it to the user. Don't assume the user wants such refactoring, just tell the user the opportunity exists. Let the user decide.
+
+# Writing code comments
+
+Write code comments sparingly. Only add comments if they explain WHY the code exists, and will add clarity.
 
 # Naming new files
 
@@ -105,20 +110,3 @@ Pi documentation (read only when the user asks about pi extensions or TUI):
 - Example code: /Users/norman/.bun/install/global/node_modules/@earendil-works/pi-coding-agent/examples
 - When working on pi topics, read the docs and examples, and follow .md cross-references before implementing
 - Always read pi .md files completely and follow links to related docs
-
-# Comments
-
-Write comments sparingly.
-Only add comments if they explain WHY the code exists, and will add clarity.
-
-# Python
-
-- ALWAYS use `uv`; NEVER use `pip`
-- Always include type annotations.
-- NEVER use typing.Dict, typing.List, typing.Tuple, typing.Set
-    - Instead, ALWAYS use dict, list, tuple, set
-
-Only import from typing for generic types like Optional, Union, or TypeVar.
-
-- Use `hyperfine` to benchmark CLIs
-- Use `go doc` for Go API documentation.
