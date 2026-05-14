@@ -17,7 +17,8 @@ Use `rg` tool instead of grep.
 - Use conventional commit messages (feat:, fix:, chore:, docs:, refactor: etc)
 - Do not use `mv` to rename files, but instead use `git mv`.
 - NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.
-- NEVER bypass precommit git hooks
+
+ALWAYS REMEMBER TO GIT ADD AND GIT COMMIT FILES YOU CHANGED!
 
 # File access
 
