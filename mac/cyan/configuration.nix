@@ -99,6 +99,9 @@
         dolt
         tuios
         sqlite-web
+
+        gitleaks
+        betterleaks
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
