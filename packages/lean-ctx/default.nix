@@ -1,34 +1,61 @@
 {
   lib,
-  rustPlatform,
   fetchFromGitHub,
+  rustPlatform,
+  versionCheckHook ? null,
+  versionCheckHomeHook ? null,
 }:
 
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage rec {
   pname = "lean-ctx";
   version = "3.5.25";
 
   src = fetchFromGitHub {
     owner = "yvgude";
     repo = "lean-ctx";
-    rev = "513ef79c57d2eade41d308eb71423c60414c00f5";
-    hash = "sha256-3/YAmN4iO7cngj2DbXm9vAutxiz483qf7a81odxQOl8=";
+    rev = "v${version}";
+    hash = "sha256-eYpQjeGnDdvQPShtwrxqbVQHNsizb3xkaUJLkujcEF1=";
   };
 
-  sourceRoot = "${finalAttrs.src.name}/rust";
+  sourceRoot = "${src.name}/rust";
 
-  cargoLock = {
-    lockFile = "${finalAttrs.src}/rust/Cargo.lock";
-  };
+  cargoHash = "sha256-B4AeYHBYneBJc0AKnfTPdKvBUnU+fnkPrv48L+j9Xme=";
 
-  # Upstream's test suite exercises shell/sandbox behavior and is not stable
-  # under Nix builds, but the release binary itself builds fine.
+  # Build with default features: tree-sitter, embeddings, http-server, secure-update
+  # Excluding cloud-server feature as it requires additional database dependencies
+  buildFeatures = [
+    "tree-sitter"
+    "embeddings"
+    "http-server"
+    "secure-update"
+  ];
+
   doCheck = false;
 
-  meta = {
-    homepage = "https://github.com/yvgude/lean-ctx";
-    license = lib.licenses.mit;
+  postInstall = ''
+    # Copy skills directory to share
+    mkdir -p $out/share/skills/lean-ctx
+    cp -r $src/skills/lean-ctx/* $out/share/skills/lean-ctx/
+    chmod -R +w $out/share/skills/lean-ctx
+  '';
+
+  doInstallCheck = true;
+  # only include check hooks if provided by the caller
+  nativeInstallCheckInputs = lib.concatLists [
+    (if versionCheckHook == null then [ ] else [ versionCheckHook ])
+    (if versionCheckHomeHook == null then [ ] else [ versionCheckHomeHook ])
+  ];
+
+  passthru.category = "Utilities";
+
+  meta = with lib; {
+    description = "Context Runtime for AI Agents with CCP + TDD. Shell Hook + MCP Server. 57 MCP tools, 10 read modes, 95+ shell patterns, cross-session memory";
+    homepage = "https://leanctx.com";
+    changelog = "https://github.com/yvgude/lean-ctx/releases/tag/v${version}";
+    license = licenses.asl20;
+    sourceProvenance = with sourceTypes; [ fromSource ];
+    maintainers = with maintainers; [ antono ];
     mainProgram = "lean-ctx";
-    platforms = lib.platforms.linux;
+    platforms = [ "aarch64-darwin" ];
   };
-})
+}
