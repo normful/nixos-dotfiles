@@ -75,7 +75,8 @@
     "-skills/curated-ai-skills/interview-to-create-image/SKILL.md",
     "-skills/curated-ai-skills/minimax-docx/SKILL.md",
     "-skills/curated-ai-skills/reply-to-japanese-boss-email/SKILL.md",
-    "-skills/curated-ai-skills/weather-japan/SKILL.md"
+    "-skills/curated-ai-skills/weather-japan/SKILL.md",
+    "-skills/curated-ai-skills/betterleaks/SKILL.md"
   ],
   "packages": [
     {
@@ -122,8 +123,14 @@
     "https://github.com/iRonin/pi-clear-on-double-esc",
     "https://www.github.com/default-anton/pi-tmux-window-name",
     "https://github.com/normful/pi-ask-tool",
-    "https://github.com/latent-variable/pi-auto-continue",
-    "https://github.com/normful/pi-agent-browser-native"
+    {
+      "source": "https://github.com/latent-variable/pi-auto-continue",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    "https://github.com/normful/pi-agent-browser-native",
+    "https://github.com/mksglu/context-mode"
   ],
   "pi-screenshots": {
     "sources": [
