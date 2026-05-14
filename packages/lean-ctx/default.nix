@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   sourceRoot = "${src.name}/rust";
 
-  cargoHash = "sha256-B4AeYHBYneBJc0AKnfTPdKvBUnU+fnkPrv48L+j9Xme=";
+  cargoHash = "sha256-2qiUkmt2+hWwzY6GdFl9jU5GfW2cGJ0UsbuitBcc7xg=";
 
   # See list at https://github.com/yvgude/lean-ctx/blob/9aedfc4078e7d14d1b3f74561ffe8d6fa95b56d6/rust/Cargo.toml#L51-L92
   buildFeatures = [
