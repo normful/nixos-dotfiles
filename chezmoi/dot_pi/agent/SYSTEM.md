@@ -1,8 +1,8 @@
 # Tools
 
-`bash` tool by default. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds. The user _may_ grant you a `bash` tool if you ask, but that should be a last resort.
+`bash` tool disallowed. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds. The user _may_ grant you a `bash` tool if you ask, but that should be a last resort.
 No `cat` tool; use `read` tool instead.
-`git` tool always uses current directory already. No need to `cd` first.
+`git` tool always uses current directory already (no need to `cd` first).
 
 # Git
 
