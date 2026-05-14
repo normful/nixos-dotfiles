@@ -2,8 +2,6 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
-  versionCheckHook ? null,
-  versionCheckHomeHook ? null,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -14,15 +12,14 @@ rustPlatform.buildRustPackage rec {
     owner = "yvgude";
     repo = "lean-ctx";
     rev = "v${version}";
-    hash = "sha256-eYpQjeGnDdvQPShtwrxqbVQHNsizb3xkaUJLkujcEF1=";
+    hash = "sha256-jNL49MTpSIia/a5gEhWuIXFCzY5Q/sEryUbsbq497a0=";
   };
 
   sourceRoot = "${src.name}/rust";
 
   cargoHash = "sha256-B4AeYHBYneBJc0AKnfTPdKvBUnU+fnkPrv48L+j9Xme=";
 
-  # Build with default features: tree-sitter, embeddings, http-server, secure-update
-  # Excluding cloud-server feature as it requires additional database dependencies
+  # See list at https://github.com/yvgude/lean-ctx/blob/9aedfc4078e7d14d1b3f74561ffe8d6fa95b56d6/rust/Cargo.toml#L51-L92
   buildFeatures = [
     "tree-sitter"
     "embeddings"
@@ -40,21 +37,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   doInstallCheck = true;
-  # only include check hooks if provided by the caller
-  nativeInstallCheckInputs = lib.concatLists [
-    (if versionCheckHook == null then [ ] else [ versionCheckHook ])
-    (if versionCheckHomeHook == null then [ ] else [ versionCheckHomeHook ])
-  ];
-
-  passthru.category = "Utilities";
 
   meta = with lib; {
-    description = "Context Runtime for AI Agents with CCP + TDD. Shell Hook + MCP Server. 57 MCP tools, 10 read modes, 95+ shell patterns, cross-session memory";
     homepage = "https://leanctx.com";
     changelog = "https://github.com/yvgude/lean-ctx/releases/tag/v${version}";
-    license = licenses.asl20;
     sourceProvenance = with sourceTypes; [ fromSource ];
-    maintainers = with maintainers; [ antono ];
     mainProgram = "lean-ctx";
     platforms = [ "aarch64-darwin" ];
   };
