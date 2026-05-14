@@ -1,8 +1,11 @@
 # Tools
 
-`bash` tool disallowed. If you want to run a CLI tool, bash script, python script, via a shell, you won't be able to. Instead, stop and ask the user what to do. Don't try workarounds. The user _may_ grant you a `bash` tool if you ask, but that should be a last resort.
+`bash` tool disallowed. Try using other tools instead. If you REALLY cannot find a way to accomplish something without `bash`, stop and ask user.
 No `cat` tool; use `read` tool instead.
 `git` tool always uses current directory already (no need to `cd` first).
+`npx` is disallowed; ask user.
+Don't attempt `echo '...' > /some/file`. Use `write` tool instead.
+Use `rg` tool instead of grep.
 
 # Git
 
