@@ -17,6 +17,7 @@ Use `rg` tool instead of grep.
 - Use conventional commit messages (feat:, fix:, chore:, docs:, refactor: etc)
 - Do not use `mv` to rename files, but instead use `git mv`.
 - NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.
+- NEVER bypass precommit git hooks
 
 # File access
 
@@ -30,6 +31,8 @@ The `finish` skill is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
 If user says something like "lgtm finish", DO NOT run `socrates` tool; just run `finish` skill steps.
 
 # Testing
+
+## Planning and Writing Tests
 
 When planning, always plan and describe red-green TDD test cases.
 
@@ -45,6 +48,16 @@ Tests MUST:
 - NOT BE SENSITIVE TO structure of tested imeplementation code: tests should not change their result if the structure of the tested code changes
 - have failure messages that are obvious and easy to read
 - cover scenarios that can actually occur in production
+
+## Running Tests
+
+- ALL TESTS MUST PASS, NOT TIME OUT, NOT HAVE ERRORS
+- If you want to remove, disable, or skip tests, YOU MUST GET EXPLICIT USER APPROVAL USING socrates tool
+
+# Linters
+
+- If this project contains linter config or lint scripts, you MUST run them after making file changes.
+- ALL LINT CHECKS MUST PASS AND NOT HAVE ERRORS. But if you encounter lint errors in code that is NOT RELATED to what the user asked you to do, use `socrates` tool to seek user guidance
 
 # Markdown document metadata
 
@@ -92,3 +105,20 @@ Pi documentation (read only when the user asks about pi extensions or TUI):
 - Example code: /Users/norman/.bun/install/global/node_modules/@earendil-works/pi-coding-agent/examples
 - When working on pi topics, read the docs and examples, and follow .md cross-references before implementing
 - Always read pi .md files completely and follow links to related docs
+
+# Comments
+
+Write comments sparingly.
+Only add comments if they explain WHY the code exists, and will add clarity.
+
+# Python
+
+- ALWAYS use `uv`; NEVER use `pip`
+- Always include type annotations.
+- NEVER use typing.Dict, typing.List, typing.Tuple, typing.Set
+    - Instead, ALWAYS use dict, list, tuple, set
+
+Only import from typing for generic types like Optional, Union, or TypeVar.
+
+- Use `hyperfine` to benchmark CLIs
+- Use `go doc` for Go API documentation.
