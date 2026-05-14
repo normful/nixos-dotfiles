@@ -20,6 +20,7 @@ if status is-interactive
     set --export TELEMETRY_ENABLED false
     set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
     set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    set --export CONTEXT_MODE_PLATFORM "pi"
 
     abbr --add c clear
     abbr --add q exit
