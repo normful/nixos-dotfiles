@@ -24,7 +24,7 @@ If 'Operation not permitted' or EPERM error, do not try to work around the error
 
 Then: git commit all changes before using the `finish` skill.
 The `finish` skill is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
-If user says something like "lgtm finish", DO NOT run `ask_user_questions` tool; just run `finish` skill steps.
+If user says something like "lgtm finish", DO NOT run `socrates` tool; just run `finish` skill steps.
 
 # Testing
 
