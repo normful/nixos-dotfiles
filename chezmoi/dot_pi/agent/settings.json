@@ -79,12 +79,6 @@
   ],
   "packages": [
     {
-      "source": "https://github.com/Graffioh/pi-screenshots-picker",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
-    {
       "source": "https://github.com/normful/picadillo",
       "extensions": [
         "-extensions/overstory.ts",
@@ -111,12 +105,6 @@
     "https://github.com/normful/pi-scheduler",
     "https://github.com/normful/pi-supervisor",
     {
-      "source": "https://github.com/normful/pi-agent-browser",
-      "extensions": [
-        "-extensions/agent-browser.ts"
-      ]
-    },
-    {
       "source": "https://github.com/normful/pi-autoresearch",
       "skills": [
         "-skills/autoresearch-create/SKILL.md"
@@ -135,12 +123,6 @@
     "https://www.github.com/default-anton/pi-tmux-window-name",
     "https://github.com/normful/pi-ask-tool",
     "https://github.com/latent-variable/pi-auto-continue",
-    {
-      "source": "https://github.com/gsanhueza/pi-token-speed",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
     "https://github.com/normful/pi-agent-browser-native"
   ],
   "pi-screenshots": {
