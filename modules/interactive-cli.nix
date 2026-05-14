@@ -24,6 +24,9 @@ in
         # https://www.mankier.com/package/coreutils-common
         coreutils-full
 
+        # https://joeyh.name/code/moreutils/
+        moreutils
+
         # https://uutils.github.io/coreutils/docs/
         # uutils-coreutils-noprefix
 
@@ -121,6 +124,8 @@ in
         #################################################################################
         # Rename files
         #################################################################################
+
+        renameutils
 
         # https://github.com/marcusbuffett/pipe-rename
         pipe-rename
