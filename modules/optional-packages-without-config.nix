@@ -51,7 +51,6 @@ in
         just
         cloc
         cmake
-        just
         modd
         efm-langserver
         hyperfine
@@ -132,7 +131,6 @@ in
         doctoc
         mdp
         panvimdoc
-        mermaid-cli
         gtree
         mdq
         codebraid
@@ -273,8 +271,6 @@ in
         imagemagick
         pngcrush
         exiftool
-      ])
-      ++ (optionals (config.my.enableImageTools && isLinux) [
         darktable
       ])
       ++ (optionals (config.my.enableImageTools && isDarwin) [
