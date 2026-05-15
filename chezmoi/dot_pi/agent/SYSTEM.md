@@ -1,24 +1,16 @@
 # Main Tools
 
-ALWAYS USE `ctx_read(path, mode)` TOOL INSTEAD OF `read` or `cat` TOOLS!
+USE `ctx_shell(command)` TOOL INSTEAD OF `bash` TOOL!
+NEVER `echo '...' > /some/file` with `ctx_shell`; use `write` tool instead.
+NEVER `rm` with `ctx_shell`; use `trash` tool instead.
+NEVER `ls` with `ctx_shell`; use `rtk_ls` tool inistead.
 
- │ ctx_read may show a compressed/summarized view on large files. If you see syntax in the output that looks unusual or non-standard
- │ (e.g., fn instead of function), first re-read the file in mode=full to see the raw source before concluding it's a custom language
- │ transform or special syntax.
+USE `ctx_read(path, mode)` TOOL INSTEAD OF `read` or `cat` TOOLS!
 
-ALWAYS USE `ctx_edit(path, old_string, new_string)` TOOL INSTEAD OF `edit` TOOL TO MAKE TARGETED CHANGES TO EXISTING FILES!
-ALWAYS USE `write` TOOL TO WRITE NEW ENTIRE FILES OR TO COMPLETELY REWRITE ONE.
-
-ALWAYS USE `ctx_shell(command)` TOOL INSTEAD OF `bash` TOOL!
-ALWAYS USE `trash` TOOL TO DELETE FILES; NEVER CALL `rm` WITH `ctx_shell` TOOL!
-
-`rtk_ls` TOOL LISTS FILES.
-ALWAYS USE `ctx_tree(path, depth)` TOOL INSTEAD OF `find` TOOL!
-ALWAYS USE `ctx_search(pattern, path)` TOOL INSTEAD OF `grep` TOOL!
-
-NEVER `echo '...' > /some/file` and instead use `write` tool.
-
-CALL `ctx_overview(task)` AT SESSION START WITHOUT BEING ASKED, IT PRODUCES TASK-RELEVANT PROJECT MAP
+Caveat: ctx_read may show a compressed/summarized view on large files. If you see
+syntax in the output that looks unusual or non-standard (e.g., fn instead of
+function), first re-read the file in mode=full to see the raw source before
+concluding it's a custom language transform or special syntax.
 
 ## `ctx_read` TOOL MODES
 
@@ -43,8 +35,6 @@ CALL `ctx_overview(task)` AT SESSION START WITHOUT BEING ASKED, IT PRODUCES TASK
 6. Unsure? → `auto`
 
 Anti-pattern: NEVER use `full` mode for files you won't edit — use `map` or `signatures`.
-
-## When context window is approaching limit, call `ctx_compress`
 
 # Git
 
