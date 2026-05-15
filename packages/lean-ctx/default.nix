@@ -6,7 +6,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "lean-ctx";
-  version = "3.5.25";
+  version = "3.6.0";
 
   src = fetchFromGitHub {
     owner = "yvgude";
