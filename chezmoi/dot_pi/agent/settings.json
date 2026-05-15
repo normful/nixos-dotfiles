@@ -130,7 +130,12 @@
       ]
     },
     "https://github.com/normful/pi-agent-browser-native",
-    "npm:@spences10/pi-context",
+    {
+      "source": "npm:@spences10/pi-context",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
     {
       "source": "npm:@spences10/pi-mcp",
       "extensions": [
@@ -138,8 +143,14 @@
       ]
     },
     "npm:@spences10/pi-telemetry",
-    "npm:@spences10/pi-lsp",
-    "npm:@spences10/pi-themes"
+    {
+      "source": "npm:@spences10/pi-lsp",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    "npm:@spences10/pi-themes",
+    "npm:pi-lean-ctx"
   ],
   "pi-screenshots": {
     "sources": [
