@@ -1,11 +1,45 @@
-# Tools
+# Main Tools
 
-`bash` tool disallowed. Try using other tools instead. If you REALLY cannot find a way to accomplish something without `bash`, stop and ask user.
-No `cat` tool; use `read` tool instead.
-`git` tool always uses current directory already (no need to `cd` first).
-`npx` is disallowed; ask user.
-Don't attempt `echo '...' > /some/file`. Use `write` tool instead.
-Use `rg` tool instead of grep.
+ALWAYS USE `ctx_read(path, mode)` TOOL INSTEAD OF `read` or `cat` TOOLS!
+
+ALWAYS USE `ctx_edit(path, old_string, new_string)` TOOL INSTEAD OF `edit` TOOL TO MAKE TARGETED CHANGES TO EXISTING FILES!
+ALWAYS USE `write` TOOL TO WRITE NEW ENTIRE FILES OR TO COMPLETELY REWRITE ONE.
+
+ALWAYS USE `ctx_shell(command)` TOOL INSTEAD OF `bash` TOOL!
+ALWAYS USE `trash` TOOL TO DELETE FILES; NEVER CALL `rm` WITH `ctx_shell` TOOL!
+
+ALWAYS USE `ctx_search(pattern, path)` TOOL INSTEAD OF `grep` TOOL!
+ALWAYS USE `ctx_tree(path, depth)` TOOL INSTEAD OF `ls` and `find` TOOLS!
+
+NEVER `echo '...' > /some/file` and instead use `write` tool.
+
+CALL `ctx_overview(task)` AT SESSION START WITHOUT BEING ASKED
+
+## `ctx_read` TOOL MODES
+
+`auto` — auto-select optimal mode (recommended default)
+`full` — cached read (files you edit)
+`map` — deps + exports (context-only files)
+`signatures` — API surface only
+`diff` — changed lines after edits
+`aggressive` — maximum compression (context only)
+`entropy` — highlight high-entropy fragments
+`task` — IB-filtered (task relevant)
+`reference` — quote-friendly minimal excerpts
+`lines:N-M` — specific range
+
+ctx_read` mode selection guide:
+
+1. Editing the file? → `full` first, then `diff` for re-reads
+2. Need API surface only? → `map` or `signatures`
+3. Large file, context only? → `entropy` or `aggressive`
+4. Specific lines? → `lines:N-M`
+5. Active task set? → `task`
+6. Unsure? → `auto`
+
+Anti-pattern: NEVER use `full` mode for files you won't edit — use `map` or `signatures`.
+
+## When context window is approaching limit, call `ctx_compress`
 
 # Git
 
@@ -22,7 +56,8 @@ ALWAYS REMEMBER TO GIT ADD AND GIT COMMIT FILES YOU CHANGED!
 
 # File access
 
-DO NOT read, write, nor find files outside the current directory, unless user explicitly asks to.
+STAY IN THE CURRENT DIRECTORY!
+DO NOT read, write, nor search for files outside the current directory, UNLESS THE USER EXPLICITLY ASKS.
 If 'Operation not permitted' or EPERM error, do not try to work around the error.
 
 # When there is a `finish` skill available in `<available_skills>`
@@ -44,10 +79,9 @@ Tests MUST:
     - use shared setup (fixtures, factories, etc)
 - return same results regardless of execution order
 - run quickly
-- be readable
 - be sensitive to changes in behavior of the code under test. If the behavior changes, the test result should change.
 - NOT BE SENSITIVE TO structure of tested imeplementation code: tests should not change their result if the structure of the tested code changes
-- have failure messages that are obvious and easy to read
+- have obvious failure messages
 - cover scenarios that can actually occur in production
 
 ## Running Tests
@@ -70,7 +104,7 @@ At the top of each Markdown document, include:
 # Reading code or Markdown files from the internet
 
 1. Run `curl` tool to download the file to `/tmp`.
-2. Run `read` tool on the downloaded file.
+2. Run `ctx_read` tool on the downloaded file.
 
 # Minimize complexity when writing code. WRITE SIMPLE CODE
 
