@@ -14,25 +14,25 @@ concluding it's a custom language transform or special syntax.
 
 ## `ctx_read` TOOL MODES
 
-`auto` — auto-select optimal mode (recommended default)
 `full` — entire file
+`lines:N-M` — specific range, for surgical edits in large files
 `diff` — changed lines after edits
-`map` — dependencies & exports (will not show every line)
-`signatures` — API surface
-`aggressive` — maximum compression (context only)
-`entropy` — highlight high-entropy fragments
-`task` — IB-filtered (task relevant)
-`reference` — quote-friendly minimal excerpts
-`lines:N-M` — specific range
+`map` — dependencies & exports summarized with AST parsing. Best to understand file at high level
+`signatures` — function signatures, interface definitions, type aliases, class declarations; more detailed than `map`. Output has abbreviations (:s for string, :n for number)
+`aggressive` — maximum compression. Best for files with many comments
+`entropy` — highlights only high-entropy fragments, deduped. Great for files with repetitive patterns
+`reference` — super-minimal 1-line excerpt
+`auto` — automatic mode selection based on file size, language, whether file is cached
 
 ## HOW TO CHOOSE A `ctx_read` TOOL MODE
 
 1. Editing the file? → `full` first, then `diff` for re-reads
-2. Need API surface only? → `map` or `signatures`
-3. Large file, context only? → `entropy` or `aggressive`
-4. Specific lines? → `lines:N-M`
-5. Active task set? → `task`
-6. Unsure? → `auto`
+2. Specific lines? → `lines:N-M`
+3. Need API surface only? → `map` or `signatures`
+4. Large file with boilerplate? → `entropy`
+5. Large file with comments? → `aggressive`
+6. Just need minimal 1-line summary? → `reference`
+7. Unsure? → `auto`
 
 Anti-pattern: NEVER use `full` mode for files you won't edit — use `map` or `signatures`.
 
