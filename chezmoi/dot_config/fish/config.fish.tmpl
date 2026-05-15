@@ -104,8 +104,6 @@ if status is-interactive
     abbr --add cm 'chezmoi'
     abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; git add chezmoi/dot_pi/agent/settings.json; git commit -m 'chore(pi): autocommit ~/.pi/agent/settings.json changes'; chezmoi apply"
     abbr --add cmt 'chezmoi chattr +template'
-    # abbr --add cme 'chezmoi edit --apply'
-    # abbr --add cmd 'chezmoi diff'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
     abbr --add mdcat 'mdcat --columns 180 --paginate'
@@ -141,25 +139,17 @@ if status is-interactive
     ##############################################################
 
     {{ if .mac -}}
-    fish_add_path --global "/Applications/WezTerm.app/Contents/MacOS"
-    fish_add_path --global "/Applications/LibreOffice.app/Contents/MacOS"
-    fish_add_path --global "/usr/local/share/dotnet"
-    fish_add_path --global "$HOME/code/dotfiles/bin"
-    fish_add_path --global "$HOME/.bun/bin"
-    fish_add_path --global "$HOME/.config/composer/vendor/bin"
-    fish_add_path --global "$HOME/.cargo/bin"
-    {{ end }}
+    fish_add_path --global --prepend "/usr/local/share/dotnet"
+    fish_add_path --global --prepend "/Applications/WezTerm.app/Contents/MacOS"
+    fish_add_path --global --prepend "/Applications/LibreOffice.app/Contents/MacOS"
+    fish_add_path --global --prepend "$HOME/.config/composer/vendor/bin"
+    fish_add_path --global --prepend "$HOME/.cargo/bin"
+    fish_add_path --global --prepend "$HOME/.bun/bin"
+    fish_add_path --global --prepend "$HOME/.local/bin"
+    fish_add_path --global --prepend "$HOME/code/dotfiles/bin"
+    {{ end -}}
 end
 
-# Fixes order of $PATH entries in fish shell when using nix-darwin
-# Based on https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
-# Not needed anymore in https://github.com/nix-darwin/nix-darwin/issues/122#issuecomment-2458390376
-fish_add_path --prepend --global "$HOME/.local/bin"
-{{ if .mac -}}
-fish_add_path --prepend --global /run/current-system/sw/bin
-fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
-{{ end -}}
-
 function __should_na --on-event fish_prompt
-    echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> ~/.config/fish/hh.history
+    echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
 end
