@@ -28,7 +28,7 @@ CALL `ctx_overview(task)` AT SESSION START WITHOUT BEING ASKED, IT PRODUCES TASK
 `reference` — quote-friendly minimal excerpts
 `lines:N-M` — specific range
 
-ctx_read` mode selection guide:
+## HOW TO CHOOSE A `ctx_read` TOOL MODE
 
 1. Editing the file? → `full` first, then `diff` for re-reads
 2. Need API surface only? → `map` or `signatures`
