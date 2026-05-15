@@ -25,7 +25,10 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     -- Prepend "> " to selected lines for blockquote
     map('x', '<Leader>q', function()
+      -- Reselect last visual area, then prepend "> " to each line
+      vim.cmd('normal! gv')
       vim.cmd("'<,'>s/^/> /")
+      vim.cmd('nohlsearch')
     end, { desc = 'Quote selected lines (prepend > )' })
   end,
 })
