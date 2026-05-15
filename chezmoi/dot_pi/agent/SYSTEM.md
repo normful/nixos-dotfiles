@@ -2,6 +2,10 @@
 
 ALWAYS USE `ctx_read(path, mode)` TOOL INSTEAD OF `read` or `cat` TOOLS!
 
+ │ ctx_read may show a compressed/summarized view on large files. If you see syntax in the output that looks unusual or non-standard
+ │ (e.g., fn instead of function), first re-read the file in mode=full to see the raw source before concluding it's a custom language
+ │ transform or special syntax.
+
 ALWAYS USE `ctx_edit(path, old_string, new_string)` TOOL INSTEAD OF `edit` TOOL TO MAKE TARGETED CHANGES TO EXISTING FILES!
 ALWAYS USE `write` TOOL TO WRITE NEW ENTIRE FILES OR TO COMPLETELY REWRITE ONE.
 
