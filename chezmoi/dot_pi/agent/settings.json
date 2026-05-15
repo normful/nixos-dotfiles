@@ -76,7 +76,9 @@
     "-skills/curated-ai-skills/minimax-docx/SKILL.md",
     "-skills/curated-ai-skills/reply-to-japanese-boss-email/SKILL.md",
     "-skills/curated-ai-skills/weather-japan/SKILL.md",
-    "-skills/curated-ai-skills/betterleaks/SKILL.md"
+    "-skills/curated-ai-skills/betterleaks/SKILL.md",
+    "-skills/curated-ai-skills/lean-ctx/SKILL.md",
+    "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md"
   ],
   "packages": [
     {
@@ -149,8 +151,18 @@
         "-dist/index.js"
       ]
     },
-    "npm:@spences10/pi-themes",
-    "npm:pi-lean-ctx"
+    {
+      "source": "npm:@spences10/pi-themes",
+      "themes": [
+        "+themes/solarized-dark.json"
+      ]
+    },
+    {
+      "source": "npm:pi-lean-ctx",
+      "extensions": [
+        "-extensions/index.ts"
+      ]
+    }
   ],
   "pi-screenshots": {
     "sources": [
