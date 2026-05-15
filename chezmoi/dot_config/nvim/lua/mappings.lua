@@ -17,6 +17,17 @@ map({ 'i' }, '<Right>', '<Cmd>echoerr "Use l instead"<CR>', { desc = 'Disable <R
 ---- map('x', '<', '<gv', { desc = 'Indent line without exiting visual mode' })
 ---- map('x', '>', '>gv', { desc = 'Unindent line without exiting visual mode' })
 
+-- Filetype-specific visual line mappings
+local augroup_markdown = vim.api.nvim_create_augroup('MarkdownMappings', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  group = augroup_markdown,
+  callback = function()
+    -- Prepend "> " to selected lines for blockquote
+    map('x', '<Leader>q', ":'<,'>s/^/> /<CR>", { desc = 'Quote selected lines (prepend > )' })
+  end,
+})
+
 -- Navigate wrapped lines in Visual mode
 map('x', 'j', 'gj', { desc = 'Move down by visual line' })
 map('x', 'k', 'gk', { desc = 'Move up by visual line' })
