@@ -12,7 +12,7 @@ ALWAYS USE `write` TOOL TO WRITE NEW ENTIRE FILES OR TO COMPLETELY REWRITE ONE.
 ALWAYS USE `ctx_shell(command)` TOOL INSTEAD OF `bash` TOOL!
 ALWAYS USE `trash` TOOL TO DELETE FILES; NEVER CALL `rm` WITH `ctx_shell` TOOL!
 
-`ls` TOOL LISTS FILES.
+`rtk_ls` TOOL LISTS FILES.
 ALWAYS USE `ctx_tree(path, depth)` TOOL INSTEAD OF `find` TOOL!
 ALWAYS USE `ctx_search(pattern, path)` TOOL INSTEAD OF `grep` TOOL!
 
