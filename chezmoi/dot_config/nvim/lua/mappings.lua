@@ -24,7 +24,9 @@ vim.api.nvim_create_autocmd('FileType', {
   group = augroup_markdown,
   callback = function()
     -- Prepend "> " to selected lines for blockquote
-    map('x', '<Leader>q', [[:s/^/> /<CR>]], { desc = 'Quote selected lines (prepend > )' })
+    map('x', '<Leader>q', function()
+      vim.cmd("'<,'>s/^/> /")
+    end, { desc = 'Quote selected lines (prepend > )' })
   end,
 })
 
