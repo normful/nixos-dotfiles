@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lean-ctx";
@@ -16,10 +12,12 @@ rustPlatform.buildRustPackage rec {
   };
 
   sourceRoot = "${src.name}/rust";
-
   cargoHash = "sha256-2qiUkmt2+hWwzY6GdFl9jU5GfW2cGJ0UsbuitBcc7xg=";
 
-  # See list at https://github.com/yvgude/lean-ctx/blob/9aedfc4078e7d14d1b3f74561ffe8d6fa95b56d6/rust/Cargo.toml#L51-L92
+  # Opt out of default features (which include jemalloc) — jemalloc is slow to compile
+  buildNoDefaultFeatures = true;
+  # Choose features explicitly — see full list at:
+  # https://github.com/yvgude/lean-ctx/blob/3.6.0/rust/Cargo.toml#L51-L92
   buildFeatures = [
     "tree-sitter"
     "embeddings"
@@ -30,7 +28,6 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   postInstall = ''
-    # Copy skills directory to share
     mkdir -p $out/share/skills/lean-ctx
     cp -r $src/skills/lean-ctx/* $out/share/skills/lean-ctx/
     chmod -R +w $out/share/skills/lean-ctx
