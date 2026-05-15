@@ -156,12 +156,6 @@
       "themes": [
         "+themes/solarized-dark.json"
       ]
-    },
-    {
-      "source": "npm:pi-lean-ctx",
-      "extensions": [
-        "-extensions/index.ts"
-      ]
     }
   ],
   "pi-screenshots": {
