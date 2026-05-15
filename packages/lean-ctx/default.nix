@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "lean-ctx";
@@ -21,7 +25,6 @@ rustPlatform.buildRustPackage rec {
   buildFeatures = [
     "tree-sitter"
     "embeddings"
-    "http-server"
     "secure-update"
   ];
 
