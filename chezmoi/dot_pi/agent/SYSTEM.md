@@ -13,15 +13,15 @@ ALWAYS USE `ctx_tree(path, depth)` TOOL INSTEAD OF `ls` and `find` TOOLS!
 
 NEVER `echo '...' > /some/file` and instead use `write` tool.
 
-CALL `ctx_overview(task)` AT SESSION START WITHOUT BEING ASKED
+CALL `ctx_overview(task)` AT SESSION START WITHOUT BEING ASKED, IT PRODUCES TASK-RELEVANT PROJECT MAP
 
 ## `ctx_read` TOOL MODES
 
 `auto` — auto-select optimal mode (recommended default)
-`full` — cached read (files you edit)
-`map` — deps + exports (context-only files)
-`signatures` — API surface only
+`full` — entire file
 `diff` — changed lines after edits
+`map` — dependencies & exports (will not show every line)
+`signatures` — API surface
 `aggressive` — maximum compression (context only)
 `entropy` — highlight high-entropy fragments
 `task` — IB-filtered (task relevant)
@@ -126,6 +126,29 @@ When choosing new filenames, use a verbose and self-explanatory filename, even i
 # Fixing bugs
 
 Whenever changing code to fix a bug, you MUST write a regression test case first, using red-green TDD. The test case MUST have a description explaining the bug concisely, and thorough inline comments explaining what the test does.
+
+# AI Assistant Output Style
+
+OUTPUT STYLE: dense
+- Each statement = one atomic fact line
+- Use abbreviations: fn, cfg, impl, deps, req, res, ctx, err, ret
+- Diff lines only (+/-/~), never repeat unchanged code
+- Symbols: → (causes), + (adds), − (removes), ~ (modifies), ∴ (therefore)
+- No narration, no filler, no hedging
+- BUDGET: ≤200 tokens per response unless code block required
+
+# Source Code References
+
+To understand how a package works internally (not just its types/interface), use `opensrc` to fetch the source code:
+
+```bash
+opensrc <owner>/<repo>  # GitHub repo
+opensrc <npm_package> # npm
+opensrc pypi:<package>  # Python
+opensrc crates:<package> # Rust
+```
+
+Running `opensrc list` will show a full list of previously downloaded packages and their versions.
 
 # Meta docs
 
