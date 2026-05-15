@@ -130,7 +130,16 @@
       ]
     },
     "https://github.com/normful/pi-agent-browser-native",
-    "https://github.com/mksglu/context-mode"
+    "npm:@spences10/pi-context",
+    {
+      "source": "npm:@spences10/pi-mcp",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    "npm:@spences10/pi-telemetry",
+    "npm:@spences10/pi-lsp",
+    "npm:@spences10/pi-themes"
   ],
   "pi-screenshots": {
     "sources": [
@@ -165,7 +174,7 @@
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
-  "theme": "dark",
+  "theme": "catppuccin-mocha",
   "treeFilterMode": "user-only",
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
