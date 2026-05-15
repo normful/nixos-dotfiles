@@ -25,6 +25,10 @@ if status is-interactive
       set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
     end
 
+    if command -v lean-ctx >/dev/null 2>&1
+      set --export LEAN_CTX_BIN /run/current-system/sw/bin/lean-ctx
+    end
+
     set --export TELEMETRY_ENABLED false
 
     set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
