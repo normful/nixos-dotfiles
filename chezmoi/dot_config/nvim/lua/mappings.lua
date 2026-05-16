@@ -18,18 +18,28 @@ map({ 'i' }, '<Right>', '<Cmd>echoerr "Use l instead"<CR>', { desc = 'Disable <R
 ---- map('x', '>', '>gv', { desc = 'Unindent line without exiting visual mode' })
 
 -- Filetype-specific visual line mappings
+-- These mappings scoped to specific filetypes to avoid polluting global keybindings
+-- Created for markdown: select lines with V (visual line mode), then <Leader>q
 local augroup_markdown = vim.api.nvim_create_augroup('MarkdownMappings', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
   group = augroup_markdown,
   callback = function()
-    -- Prepend "> " to selected lines for blockquote
+    -- Prepend "> " to selected lines for markdown blockquote
+    -- gv reselects last visual selection because mode='x' exits visual mode before
+    -- the callback runs, and '<,'> marks may be stale without explicit reselection
     map('x', '<Leader>q', function()
-      -- Reselect last visual area, then prepend "> " to each line
       vim.cmd('normal! gv')
       vim.cmd("'<,'>s/^/> /")
       vim.cmd('nohlsearch')
     end, { desc = 'Quote selected lines (prepend > )' })
+
+    -- Prepend "- " to selected lines for markdown unordered list items
+    map('x', '<Leader>l', function()
+      vim.cmd('normal! gv')
+      vim.cmd("'<,'>s/^/- /")
+      vim.cmd('nohlsearch')
+    end, { desc = 'Listify selected lines (prepend - )' })
   end,
 })
 
