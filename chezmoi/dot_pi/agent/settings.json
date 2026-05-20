@@ -196,8 +196,9 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "aihubmix-am/cc-k2.6-code-preview",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
+    "aihubmix-oc/deepseek-v4-flash",
+    "aihubmix-am/coding-glm-5.1",
     "opencode-go/mimo-v2.5-pro",
     "opencode-go/deepseek-v4-flash"
   ],
