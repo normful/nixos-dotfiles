@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.74.0",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
+  "lastChangelogVersion": "0.75.3",
+  "defaultProvider": "aihubmix-am",
+  "defaultModel": "cc-k2.6-code-preview",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -199,7 +199,6 @@
     "aihubmix-am/cc-k2.6-code-preview",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
     "opencode-go/mimo-v2.5-pro",
-    "aihubmix-oc/deepseek-v4-pro",
     "opencode-go/deepseek-v4-flash"
   ],
   "terminal": {
