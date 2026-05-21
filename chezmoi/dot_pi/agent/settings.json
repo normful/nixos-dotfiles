@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.75.3",
+  "lastChangelogVersion": "0.75.4",
   "defaultProvider": "aihubmix-am",
-  "defaultModel": "coding-xiaomi-mimo-v2.5-pro",
+  "defaultModel": "cc-minimax-m2.7-highspeed",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
