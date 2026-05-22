@@ -175,6 +175,7 @@
 
       # Browsers
       "/Applications/Vivaldi.app"
+      "/Applications/Zen.app"
       "/Applications/Comet.app"
 
       # Notes
