@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.75.4",
-  "defaultProvider": "aihubmix-am",
-  "defaultModel": "cc-minimax-m2.7-highspeed",
+  "defaultProvider": "opencode",
+  "defaultModel": "deepseek-v4-flash-free",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -144,7 +144,12 @@
         "-dist/index.js"
       ]
     },
-    "npm:@spences10/pi-telemetry",
+    {
+      "source": "npm:@spences10/pi-telemetry",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
     {
       "source": "npm:@spences10/pi-lsp",
       "extensions": [
@@ -196,6 +201,7 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
+    "opencode/deepseek-v4-flash-free",
     "aihubmix-am/cc-minimax-m2.7-highspeed",
     "aihubmix-oc/deepseek-v4-flash",
     "aihubmix-am/coding-glm-5.1",
