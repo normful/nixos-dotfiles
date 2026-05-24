@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.75.4",
+  "lastChangelogVersion": "0.75.5",
   "defaultProvider": "opencode",
   "defaultModel": "deepseek-v4-flash-free",
   "defaultThinkingLevel": "high",
@@ -99,7 +99,7 @@
     {
       "source": "https://github.com/normful/pi-side-agents",
       "skills": [
-        "-skills/agent-setup/SKILL.md"
+        "+skills/agent-setup/SKILL.md"
       ],
       "extensions": [
         "+extensions/side-agents/index.ts"
