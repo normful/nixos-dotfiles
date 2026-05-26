@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.75.5",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "off",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -36,7 +36,6 @@
     "-skills/curated-ai-skills/requesting-code-review/SKILL.md",
     "-skills/curated-ai-skills/subagent-driven-development/SKILL.md",
     "-skills/curated-ai-skills/systematic-debugging/SKILL.md",
-    "-skills/curated-ai-skills/test-driven-development/SKILL.md",
     "-skills/curated-ai-skills/verification-before-completion/SKILL.md",
     "-skills/curated-ai-skills/stop-slop/SKILL.md",
     "-skills/curated-ai-skills/run-clean-pi-with-one-extension-for-demo/SKILL.md",
@@ -78,7 +77,8 @@
     "-skills/curated-ai-skills/weather-japan/SKILL.md",
     "-skills/curated-ai-skills/betterleaks/SKILL.md",
     "-skills/curated-ai-skills/lean-ctx/SKILL.md",
-    "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md"
+    "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md",
+    "+skills/curated-ai-skills/test-driven-development/SKILL.md"
   ],
   "packages": [
     {
@@ -192,7 +192,8 @@
     "-extensions/grep-find-ls-tools.ts",
     "-extensions/read-edit-write-tools.ts",
     "+extensions/bell-and-macOS-notify/index.ts",
-    "+extensions/dev-tools/index.ts"
+    "+extensions/dev-tools/index.ts",
+    "-extensions/pi-lean-ctx/index.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
