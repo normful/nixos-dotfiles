@@ -11,8 +11,92 @@ Usage:
 """
 
 import json
+import os
 import sys
 from collections import Counter
+
+
+# ANSI color codes — assigned by model family
+class _Color:
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    # foreground colors
+    BLACK = "\033[30m"
+    RED = "\033[31m"
+    GREEN = "\033[32m"
+    YELLOW = "\033[33m"
+    BLUE = "\033[34m"
+    MAGENTA = "\033[35m"
+    CYAN = "\033[36m"
+    WHITE = "\033[37m"
+    BRIGHT_RED = "\033[91m"
+    BRIGHT_GREEN = "\033[92m"
+    BRIGHT_YELLOW = "\033[93m"
+    BRIGHT_BLUE = "\033[94m"
+    BRIGHT_MAGENTA = "\033[95m"
+    BRIGHT_CYAN = "\033[96m"
+
+
+# Brand-aligned colors per model family:
+#   OpenAI (gpt-*)      → green  (brand: green dot)
+#   Anthropic (claude-*) → orange/red (brand: warm orange/red)
+#   Google (gemini-*)    → blue   (brand: blue)
+#   DeepSeek             → cyan   (brand: blue-cyan)
+#   MiniMax              → yellow (brand: yellow/black)
+#   Kimi / Moonshot      → purple/magenta (brand: purple)
+#   Xiaomi (mimo-*)      → orange (brand: orange)
+#   Zhipu (glm-*)        → bright green (brand: green)
+#
+MODEL_FAMILY_COLORS: dict[str, tuple[str, str]] = {
+    # (target_key_prefix: (color_on, color_for_model_id_text))
+    # We store a dict by the first segment before "-" or by explicit prefix
+}
+
+
+def _family_key(target: str) -> str:
+    """Return a family group key for the target model ID."""
+    t = target.lower()
+    if t.startswith("gpt-"):
+        return "gpt"
+    if t.startswith("claude-"):
+        return "claude"
+    if t.startswith("gemini-"):
+        return "gemini"
+    if t.startswith("deepseek-"):
+        return "deepseek"
+    if t.startswith("minimax-"):
+        return "minimax"
+    if t.startswith("kimi-"):
+        return "kimi"
+    if t.startswith("mimo-") or t.startswith("xiaomi-"):
+        return "mimo"
+    if t.startswith("glm-"):
+        return "glm"
+    return "other"
+
+
+# Family → ANSI color for the model identifier text
+FAMILY_COLOR: dict[str, str] = {
+    "gpt":      _Color.GREEN,           # OpenAI brand green
+    "claude":   _Color.RED,             # Anthropic warm orange/red
+    "gemini":   _Color.BLUE,            # Google blue
+    "deepseek": _Color.CYAN,            # DeepSeek blue-cyan
+    "minimax":  _Color.YELLOW,          # MiniMax yellow/black
+    "kimi":     _Color.MAGENTA,         # Moonshot purple
+    "mimo":     _Color.BRIGHT_RED,      # Xiaomi orange
+    "glm":      _Color.BRIGHT_GREEN,    # Zhipu green
+    "other":    _Color.WHITE,
+}
+
+
+_ENABLE_COLOR = os.isatty(sys.stdout.fileno())
+
+
+def c(color_code: str, text: str) -> str:
+    """Wrap text in ANSI color if stdout is a TTY."""
+    if not _ENABLE_COLOR:
+        return text
+    return f"{color_code}{text}{_Color.RESET}"
 
 SOURCE_URL = "https://models.dev/api.json"
 
@@ -189,8 +273,11 @@ def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]
 
     for target in sorted_targets:
         entries = results[target]
+        fam = _family_key(target)
+        color = FAMILY_COLOR.get(fam, _Color.WHITE)
+        colored_name = c(color, target)
         print("")
-        print("=== %s ===" % target)
+        print("=== %s ===" % colored_name)
 
         if not entries:
             print("  NO PRICING DATA FOUND")
@@ -262,7 +349,10 @@ def print_summary(results: dict[str, list[tuple[str, str, float, float | None]]]
     print("=" * 72)
     for target, mode_val in sorted_by_mode:
         multiple = mode_val / lowest_mode if lowest_mode > 0 else 0
-        print("  %-25s  mode=$%.2f  (%.1fx vs %s)" % (target, mode_val, multiple, sorted_by_mode[0][0]))
+        fam = _family_key(target)
+        color = FAMILY_COLOR.get(fam, _Color.WHITE)
+        colored_target = c(color, "%-25s" % target)
+        print("  %s  mode=$%.2f  (%.1fx vs %s)" % (colored_target, mode_val, multiple, sorted_by_mode[0][0]))
 
 
 def main() -> None:
