@@ -164,16 +164,16 @@ def collect_pricing(data: dict) -> dict[str, list[tuple[str, str, float, float |
 
 def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]) -> None:
     """Print formatted pricing summary, sorted by ascending average price."""
-    def _avg_nonzero(target: str) -> float:
+    def _mode_nonzero(target: str) -> float:
         entries = results[target]
         if not entries:
             return float("inf")
-        nonzero = [e[2] for e in entries if e[2] > 0]
-        if not nonzero:
+        nonzero_rounded = [round(e[2], 2) for e in entries if e[2] > 0]
+        if not nonzero_rounded:
             return 0.0
-        return sum(nonzero) / len(nonzero)
+        return Counter(nonzero_rounded).most_common(1)[0][0]
 
-    for target in sorted(results.keys(), key=_avg_nonzero):
+    for target in sorted(results.keys(), key=_mode_nonzero):
         entries = results[target]
         print("")
         print("=== %s ===" % target)
