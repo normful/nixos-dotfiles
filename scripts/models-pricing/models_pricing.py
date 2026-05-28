@@ -163,7 +163,7 @@ def collect_pricing(data: dict) -> dict[str, list[tuple[str, str, float, float |
 
 
 def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]) -> None:
-    """Print formatted pricing summary, sorted by ascending average price."""
+    """Print formatted pricing summary, sorted by ascending modal price."""
     def _mode_nonzero(target: str) -> float:
         entries = results[target]
         if not entries:
@@ -173,7 +173,21 @@ def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]
             return 0.0
         return Counter(nonzero_rounded).most_common(1)[0][0]
 
-    for target in sorted(results.keys(), key=_mode_nonzero):
+    # Compute mode for each target and build a summary list
+    mode_map: dict[str, float] = {}
+    for target in results:
+        entries = results[target]
+        if not entries:
+            continue
+        nonzero_rounded = [round(e[2], 2) for e in entries if e[2] > 0]
+        if not nonzero_rounded:
+            mode_map[target] = 0.0
+        else:
+            mode_map[target] = Counter(nonzero_rounded).most_common(1)[0][0]
+
+    sorted_targets = sorted(results.keys(), key=lambda t: mode_map.get(t, float("inf")))
+
+    for target in sorted_targets:
         entries = results[target]
         print("")
         print("=== %s ===" % target)
@@ -224,10 +238,38 @@ def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]
                     min(nonzero_out), max(nonzero_out), avg_out))
 
 
+def print_summary(results: dict[str, list[tuple[str, str, float, float | None]]]) -> None:
+    """Print a final summary line showing mode multiples relative to cheapest."""
+    # Compute mode for each target
+    mode_map: dict[str, float] = {}
+    for target, entries in results.items():
+        if not entries:
+            continue
+        nonzero_rounded = [round(e[2], 2) for e in entries if e[2] > 0]
+        if not nonzero_rounded:
+            continue
+        mode_map[target] = Counter(nonzero_rounded).most_common(1)[0][0]
+
+    if not mode_map:
+        return
+
+    sorted_by_mode = sorted(mode_map.items(), key=lambda x: x[1])
+    lowest_mode = sorted_by_mode[0][1]
+
+    print("")
+    print("=" * 72)
+    print("SUMMARY: models sorted by modal $/M input (multiple of lowest)")
+    print("=" * 72)
+    for target, mode_val in sorted_by_mode:
+        multiple = mode_val / lowest_mode if lowest_mode > 0 else 0
+        print("  %-25s  mode=$%.2f  (%.1fx vs %s)" % (target, mode_val, multiple, sorted_by_mode[0][0]))
+
+
 def main() -> None:
     data = json.load(sys.stdin)
     results = collect_pricing(data)
     print_results(results)
+    print_summary(results)
 
 
 if __name__ == "__main__":
