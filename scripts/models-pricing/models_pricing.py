@@ -213,12 +213,12 @@ def _build_match_set(model_ids: list[str]) -> set[str]:
     return matches
 
 
-def collect_pricing(data: dict) -> dict[str, list[tuple[str, str, float, float | None]]]:
-    """Collect (provider_name, model_id, input_cost, output_cost) for each target."""
-    results: dict[str, list[tuple[str, str, float, float | None]]] = {}
+def collect_pricing(data: dict) -> dict[str, list[tuple[str, str, float]]]:
+    """Collect (provider_name, model_id, input_cost) for each target."""
+    results: dict[str, list[tuple[str, str, float]]] = {}
 
     for target_name, target_ids in TARGET_MODEL_IDS.items():
-        target_results: list[tuple[str, str, float, float | None]] = []
+        target_results: list[tuple[str, str, float]] = []
         seen: set[tuple[str, str]] = set()
         match_set = _build_match_set(target_ids)
 
@@ -235,16 +235,15 @@ def collect_pricing(data: dict) -> dict[str, list[tuple[str, str, float, float |
                 seen.add(dedup_key)
                 cost = model_info.get("cost", {})
                 input_cost = cost.get("input")
-                output_cost = cost.get("output")
                 if input_cost is not None:
-                    target_results.append((provider_name, model_id, input_cost, output_cost))
+                    target_results.append((provider_name, model_id, input_cost))
 
         results[target_name] = target_results
 
     return results
 
 
-def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]) -> None:
+def print_results(results: dict[str, list[tuple[str, str, float]]]) -> None:
     """Print formatted pricing summary, sorted by ascending modal price."""
     def _mode_nonzero(target: str) -> float:
         entries = results[target]
@@ -297,7 +296,7 @@ def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]
 
         # Price point breakdown
         price_points: dict[float, list[str]] = {}
-        for pname, mid, inp, out in entries:
+        for pname, mid, inp in entries:
             price_points.setdefault(round(inp, 2), []).append(pname)
 
         print("  Price points: %d" % len(price_points))
@@ -311,17 +310,10 @@ def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]
             tag_str = " [%s]" % ", ".join(tags) if tags else ""
             print("    $%.2f%s: %s" % (price, tag_str, ", ".join(provs)))
 
-        # Output pricing
-        out_costs_ = [e[3] for e in entries if e[3] is not None]
-        if out_costs_:
-            nonzero_out = [c for c in out_costs_ if c > 0]
-            if nonzero_out:
-                avg_out = sum(nonzero_out) / len(nonzero_out)
-                print("  Output $/M tok (excl. $0):  Min=$%.2f  Max=$%.2f  Avg=$%.2f" % (
-                    min(nonzero_out), max(nonzero_out), avg_out))
 
 
-def print_summary(results: dict[str, list[tuple[str, str, float, float | None]]]) -> None:
+
+def print_summary(results: dict[str, list[tuple[str, str, float]]]) -> None:
     """Print a final summary line showing mode multiples relative to cheapest."""
     # Compute mode for each target
     mode_map: dict[str, float] = {}
