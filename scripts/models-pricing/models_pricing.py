@@ -244,29 +244,15 @@ def collect_pricing(data: dict) -> dict[str, list[tuple[str, str, float]]]:
 
 
 def print_results(results: dict[str, list[tuple[str, str, float]]]) -> None:
-    """Print formatted pricing summary, sorted by ascending modal price."""
-    def _mode_nonzero(target: str) -> float:
+    """Print formatted pricing summary, sorted by ascending minimum input price."""
+    def _min_nonzero(target: str) -> float:
         entries = results[target]
         if not entries:
             return float("inf")
-        nonzero_rounded = [round(e[2], 2) for e in entries if e[2] > 0]
-        if not nonzero_rounded:
-            return 0.0
-        return Counter(nonzero_rounded).most_common(1)[0][0]
+        nonzero = [e[2] for e in entries if e[2] > 0]
+        return min(nonzero) if nonzero else 0.0
 
-    # Compute mode for each target and build a summary list
-    mode_map: dict[str, float] = {}
-    for target in results:
-        entries = results[target]
-        if not entries:
-            continue
-        nonzero_rounded = [round(e[2], 2) for e in entries if e[2] > 0]
-        if not nonzero_rounded:
-            mode_map[target] = 0.0
-        else:
-            mode_map[target] = Counter(nonzero_rounded).most_common(1)[0][0]
-
-    sorted_targets = sorted(results.keys(), key=lambda t: mode_map.get(t, float("inf")))
+    sorted_targets = sorted(results.keys(), key=_min_nonzero)
 
     for target in sorted_targets:
         entries = results[target]
@@ -289,8 +275,8 @@ def print_results(results: dict[str, list[tuple[str, str, float]]]) -> None:
         print("  Providers (total): %d" % len(entries))
         if nonzero:
             avg = sum(nonzero) / len(nonzero)
-            print("  Input $/M tok (excl. $0):  Mode=$%.2f (x%d)  Min=$%.2f  Avg=$%.2f  Max=$%.2f" % (
-                mode_val, mode_count, min(nonzero), avg, max(nonzero)))
+            print("  Input $/M tok (excl. $0):  Min=$%.2f  Avg=$%.2f  Mode=$%.2f (x%d)  Max=$%.2f" % (
+                min(nonzero), avg, mode_val, mode_count, max(nonzero)))
         else:
             print("  Input $/M tok: All free ($0.00)")
 
@@ -314,31 +300,30 @@ def print_results(results: dict[str, list[tuple[str, str, float]]]) -> None:
 
 
 def print_summary(results: dict[str, list[tuple[str, str, float]]]) -> None:
-    """Print a final summary line showing mode multiples relative to cheapest."""
-    # Compute mode for each target
-    mode_map: dict[str, float] = {}
+    """Print a final summary line showing min-price multiples relative to cheapest."""
+    min_map: dict[str, float] = {}
     for target, entries in results.items():
         if not entries:
             continue
-        nonzero_rounded = [round(e[2], 2) for e in entries if e[2] > 0]
-        if not nonzero_rounded:
+        nonzero = [e[2] for e in entries if e[2] > 0]
+        if not nonzero:
             continue
-        mode_map[target] = Counter(nonzero_rounded).most_common(1)[0][0]
+        min_map[target] = min(nonzero)
 
-    if not mode_map:
+    if not min_map:
         return
 
-    sorted_by_mode = sorted(mode_map.items(), key=lambda x: x[1])
-    lowest_mode = sorted_by_mode[0][1]
+    sorted_by_min = sorted(min_map.items(), key=lambda x: x[1])
+    lowest_min = sorted_by_min[0][1]
 
     print("")
     print("=" * 72)
-    print("SUMMARY: models sorted by modal $/M input (multiple of lowest)")
+    print("SUMMARY: models sorted by minimum $/M input (multiple of lowest)")
     print("=" * 72)
-    for target, mode_val in sorted_by_mode:
-        multiple = mode_val / lowest_mode if lowest_mode > 0 else 0
+    for target, min_val in sorted_by_min:
+        multiple = min_val / lowest_min if lowest_min > 0 else 0
         colored_target = c(target, "%-25s" % target)
-        print("  %s  mode=$%.2f  (%.1fx vs %s)" % (colored_target, mode_val, multiple, sorted_by_mode[0][0]))
+        print("  %s  min=$%.2f  (%.1fx vs %s)" % (colored_target, min_val, multiple, sorted_by_min[0][0]))
 
 
 def main() -> None:
