@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+
+file="$(git diff-tree --no-commit-id --name-only -r HEAD | grep '\.md$' | head -1)"
+
+[[ -n "$file" ]] && exec mdcat "$file"
