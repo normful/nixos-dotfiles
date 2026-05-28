@@ -289,8 +289,8 @@ def print_results(results: dict[str, list[tuple[str, str, float]]]) -> None:
         print("  Providers (total): %d" % len(entries))
         if nonzero:
             avg = sum(nonzero) / len(nonzero)
-            print("  Input $/M tok (excl. $0):  Min=$%.2f  Max=$%.2f  Avg=$%.2f  Mode=$%.2f (x%d)" % (
-                min(nonzero), max(nonzero), avg, mode_val, mode_count))
+            print("  Input $/M tok (excl. $0):  Mode=$%.2f (x%d)  Min=$%.2f  Avg=$%.2f  Max=$%.2f" % (
+                mode_val, mode_count, min(nonzero), avg, max(nonzero)))
         else:
             print("  Input $/M tok: All free ($0.00)")
 
