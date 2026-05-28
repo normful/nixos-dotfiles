@@ -206,16 +206,13 @@ def print_results(results: dict[str, list[tuple[str, str, float, float | None]]]
         print("  Price points: %d" % len(price_points))
         for price in sorted(price_points):
             provs = sorted(set(price_points[price]))
-            extra = ""
-            if len(provs) > 5:
-                extra = " ... (+%d more)" % (len(provs) - 5)
             tags = []
             if abs(price - mode_val) < 0.001:
                 tags.append("MODE")
             if price == 0:
                 tags.append("FREE")
             tag_str = " [%s]" % ", ".join(tags) if tags else ""
-            print("    $%.2f%s: %s%s" % (price, tag_str, ", ".join(provs[:5]), extra))
+            print("    $%.2f%s: %s" % (price, tag_str, ", ".join(provs)))
 
         # Output pricing
         out_costs_ = [e[3] for e in entries if e[3] is not None]
