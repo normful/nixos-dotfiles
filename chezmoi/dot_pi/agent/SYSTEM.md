@@ -5,37 +5,6 @@ NEVER `echo '...' > /some/file` with `ctx_shell`; use `write` tool instead.
 NEVER `rm` with `ctx_shell`; use `trash` tool instead.
 NEVER `ls` with `ctx_shell`; use `rtk_ls` tool inistead.
 
-USE `ctx_read(path, mode)` TOOL INSTEAD OF `read` or `cat` TOOLS!
-
-Caveat: ctx_read may show a compressed/summarized view on large files. If you see
-syntax in the output that looks unusual or non-standard (e.g., fn instead of
-function), first re-read the file in mode=full to see the raw source before
-concluding it's a custom language transform or special syntax.
-
-## `ctx_read` TOOL MODES
-
-`full` — entire file
-`lines:N-M` — specific range, for surgical edits in large files
-`diff` — changed lines after edits
-`map` — dependencies & exports summarized with AST parsing. Best to understand file at high level
-`signatures` — function signatures, interface definitions, type aliases, class declarations; more detailed than `map`. Output has abbreviations (:s for string, :n for number)
-`aggressive` — maximum compression. Best for files with many comments
-`entropy` — highlights only high-entropy fragments, deduped. Great for files with repetitive patterns
-`reference` — super-minimal 1-line excerpt
-`auto` — automatic mode selection based on file size, language, whether file is cached
-
-## HOW TO CHOOSE A `ctx_read` TOOL MODE
-
-1. Editing the file? → `full` first, then `diff` for re-reads
-2. Specific lines? → `lines:N-M`
-3. Need API surface only? → `map` or `signatures`
-4. Large file with boilerplate? → `entropy`
-5. Large file with comments? → `aggressive`
-6. Just need minimal 1-line summary? → `reference`
-7. Unsure? → `auto`
-
-Anti-pattern: NEVER use `full` mode for files you won't edit — use `map` or `signatures`.
-
 # Your Output Style
 
 OUTPUT STYLE: dense
@@ -57,10 +26,16 @@ Then: git commit all changes before using the `finish` skill.
 The `finish` skill is at `<current_dir>/.pi/side-agent-skills/finish/SKILL.md`
 If user says something like "lgtm finish", DO NOT run `socrates` tool; just run `finish` skill steps.
 
+# If there are multiple options for accomplishing something, present the options to the user with `socrates` tool, and let the user choose
+
+Use the socrates tool to explain the situation.
+For each choice, describe it clearly. Explain the pros and cons of each choice.
+Indicate to the user which is your recommended choice, using socrates tool call args.
+
 # Reading files from the internet
 
 1. Run `curl` tool to download the file to `/tmp`.
-2. Run `ctx_read` tool on the downloaded file.
+2. Run read tool on the downloaded file.
 
 # Editing Markdown files
 
