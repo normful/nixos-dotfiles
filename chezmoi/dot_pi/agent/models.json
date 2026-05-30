@@ -13,9 +13,7 @@
             "supportsDeveloperRole": false,
             "requiresReasoningContentOnAssistantMessages": true,
             "openRouterRouting": {
-              "sort": {
-                "by": "price"
-              }
+              "only": ["mara"]
             }
           }
         },
