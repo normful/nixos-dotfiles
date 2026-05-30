@@ -3,7 +3,7 @@
     "openrouter": {
       "baseUrl": "https://openrouter.ai/api/v1",
       "api": "openai-completions",
-      "apiKey": "OPENROUTER_API_KEY",
+      "apiKey": "$OPENROUTER_API_KEY",
       "models": [
         {
           "id": "moonshotai/kimi-k2.6",
