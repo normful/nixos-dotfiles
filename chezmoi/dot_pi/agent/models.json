@@ -13,7 +13,7 @@
             "supportsDeveloperRole": false,
             "requiresReasoningContentOnAssistantMessages": true,
             "openRouterRouting": {
-              "only": ["minimax/fp8"]
+              "only": ["fireworks"]
             }
           }
         },
