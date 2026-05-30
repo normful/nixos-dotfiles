@@ -1,16 +1,25 @@
 {
   "providers": {
     "openrouter": {
-      "baseUrl": "https://openrouter.ai/api/v1",
-      "api": "openai-completions",
-      "apiKey": "$OPENROUTER_API_KEY",
-      "models": [
-        {
-          "id": "moonshotai/kimi-k2.6",
-          "name": "moonshotai/kimi-k2.6",
-          "reasoning": true
-        }
-      ]
+      "modelOverrides": {
+        "minimax/minimax-m2.5": {
+          "name": "Minimax 2.5 on OpenRouter with routing prefs",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null
+          },
+          "compat": {
+            "thinkingFormat": "openai",
+            "supportsDeveloperRole": false,
+            "requiresReasoningContentOnAssistantMessages": true,
+            "openRouterRouting": {
+              "sort": {
+                "by": "price"
+              }
+            }
+          }
+        },
+      }
     },
     "opencode-go": {
       "modelOverrides": {
