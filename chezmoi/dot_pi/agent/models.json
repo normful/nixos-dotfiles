@@ -13,7 +13,7 @@
             "supportsDeveloperRole": false,
             "requiresReasoningContentOnAssistantMessages": true,
             "openRouterRouting": {
-              "only": ["fireworks"]
+              "sort": "throughput"
             }
           }
         },
@@ -28,7 +28,7 @@
             "supportsDeveloperRole": false,
             "requiresReasoningContentOnAssistantMessages": true,
             "openRouterRouting": {
-              "only": ["minimax/fp8"]
+              "sort": "throughput"
             }
           }
         },
