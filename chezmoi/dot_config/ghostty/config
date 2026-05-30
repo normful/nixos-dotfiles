@@ -216,6 +216,8 @@ maximize = true
 # Other
 # --------------------------------------
 
+auto-update-channel = tip
+
 copy-on-select = clipboard
 clipboard-read = ask
 clipboard-write = allow
