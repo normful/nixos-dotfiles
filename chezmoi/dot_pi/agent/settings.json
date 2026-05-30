@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.78.0",
-  "defaultProvider": "openrouter",
-  "defaultModel": "minimax/minimax-m2.5",
+  "defaultProvider": "zenmux",
+  "defaultModel": "deepseek/deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -161,7 +161,8 @@
       "themes": [
         "+themes/solarized-dark.json"
       ]
-    }
+    },
+    "https://github.com/normful/pi-zenmux"
   ],
   "pi-screenshots": {
     "sources": [
@@ -206,7 +207,9 @@
     "opencode-go/deepseek-v4-flash",
     "openrouter/deepseek/deepseek-v4-flash",
     "openrouter/deepseek/deepseek-v4-pro",
-    "opencode-go/mimo-v2.5-pro"
+    "opencode-go/mimo-v2.5-pro",
+    "zenmux/deepseek/deepseek-v4-flash",
+    "zenmux/z-ai/glm-5.1"
   ],
   "terminal": {
     "showTerminalProgress": false,
