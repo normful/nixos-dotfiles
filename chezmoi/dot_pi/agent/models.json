@@ -2,6 +2,21 @@
   "providers": {
     "openrouter": {
       "modelOverrides": {
+        "minimax/minimax-m2.7": {
+          "name": "Minimax 2.7 on OpenRouter with routing prefs",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null
+          },
+          "compat": {
+            "thinkingFormat": "openai",
+            "supportsDeveloperRole": false,
+            "requiresReasoningContentOnAssistantMessages": true,
+            "openRouterRouting": {
+              "only": ["minimax/fp8"]
+            }
+          }
+        },
         "minimax/minimax-m2.5": {
           "name": "Minimax 2.5 on OpenRouter with routing prefs",
           "reasoning": true,
@@ -13,7 +28,7 @@
             "supportsDeveloperRole": false,
             "requiresReasoningContentOnAssistantMessages": true,
             "openRouterRouting": {
-              "only": ["mara"]
+              "only": ["minimax/fp8"]
             }
           }
         },
