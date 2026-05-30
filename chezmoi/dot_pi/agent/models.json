@@ -3,6 +3,7 @@
     "openrouter": {
       "modelOverrides": {
         "deepseek/deepseek-v4-flash": {
+          "name": "DeepSeek v4 Flash through only Alibaba",
           "reasoning": true,
           "compat": {
             "supportsDeveloperRole": false,
@@ -14,6 +15,7 @@
           },
         },
         "deepseek/deepseek-v4-pro": {
+          "name": "DeepSeek v4 Pro through only Deepseek",
           "reasoning": true,
           "compat": {
             "supportsDeveloperRole": false,
