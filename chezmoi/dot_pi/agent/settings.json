@@ -205,7 +205,7 @@
     "opencode/deepseek-v4-flash-free",
     "opencode-go/deepseek-v4-flash",
     "openrouter/minimax/minimax-m2.5",
-    "opencode-go/mimo-v2.5-pro",
+    "opencode-go/mimo-v2.5-pro"
   ],
   "terminal": {
     "showTerminalProgress": false,
