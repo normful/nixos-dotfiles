@@ -317,6 +317,17 @@
             DSDontWriteUSBStores = true;
           };
           "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+          "com.apple.assistant.support"."Assistant Enabled" = false;
+          "com.apple.Siri".StatusMenuVisible = false;
+          "com.apple.Siri".VoiceTriggerUserEnabled = false;
+          "com.apple.suggestions".AppCanBeSuggested = false;
+          "com.apple.suggestions".CloudKitSyncDisabled = true;
+          "com.apple.suggestions".ContactsDisabled = true;
+          "com.apple.suggestions".EventsDisabled = true;
+          "com.apple.suggestions".IntentsDisabled = true;
+          "com.apple.suggestions".LocationsDisabled = true;
+          "com.apple.suggestions".SiriDisabledOnLockscreen = true;
+          "com.apple.suggestions".UniversalLinksDisabled = true;
           "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
           "com.apple.ImageCapture".disableHotPlug = true;
           "com.apple.CrashReporter".DialogType = "none";
@@ -384,16 +395,83 @@
       };
 
       activationScripts = {
+        # Apply macOS user defaults that cannot be set via nix-darwin's defaults module.
+        # Most defaults are set declaratively in system.defaults.CustomUserPreferences above;
+        # this script covers the few that require ad-hoc commands (e.g. LSHandlers array-add).
         setAppleDefaults.text = ''
+          # Disable creation of .DS_Store files on network volumes (SMB, NFS, etc.)
           defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+          # Suppress the "Are you sure you want to empty the Trash?" warning dialog
           defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+          # Require password immediately (0s delay) after waking from sleep/screensaver
           defaults write com.apple.screensaver askForPassword -int 1
           defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+          # Register Neovide as the default handler for plain text files (public.plain-tex)
           defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
         '';
-        disableNotificationCenter.text = ''
-          launchctl disable gui/$(id -u)/com.apple.notificationcenterui
-          launchctl kill SIGTERM gui/$(id -u)/com.apple.notificationcenterui 2>/dev/null || true
+        # Disable dozens of macOS background daemons that collectively consume ~1GB RAM.
+        # Uses launchctl disable (persisted in launchd's on-disk disabled DB, survives reboot)
+        # followed by killall -9 to immediately reclaim memory.
+        # Note: some daemons (chronod, NotificationCenter) are XPC-on-demand and will
+        # re-spawn when system frameworks request them. Disable prevents boot-time launch.
+        disableBackgroundServices.text = ''
+          echo "Disabling unnecessary background services..."
+
+          U="$(id -u)"
+
+          # ── Preferences ──
+          defaults write com.apple.assistant.support 'Assistant Enabled' -bool false
+
+          # ── Daemon labels to disable + kill ──
+          #
+          # Siri daemons: speech recognition, intent inference, suggestions,
+          # knowledge graph, text-to-speech, search query parsing.
+          for label in \
+            com.apple.siriknowledged \
+            com.apple.siriactionsd \
+            com.apple.siriinferenced \
+            com.apple.sirittsd \
+            com.apple.parsecd \
+            com.apple.parsec-fbf \
+            com.apple.suggestd \
+            com.apple.knowledge-agent \
+            com.apple.spotlightknowledged \
+            com.apple.spotlightknowledged.updater \
+            com.apple.siri.context.service \
+            com.apple.voicebankingd \
+            com.apple.chronod \
+            com.apple.notificationcenterui \
+            com.apple.mediaanalysisd \
+            com.apple.photoanalysisd \
+            com.apple.corespotlightd \
+            com.apple.iconservices.iconservicesagent \
+            com.apple.assistantd \
+            com.apple.duetexpertd; do
+            launchctl disable "gui/$U/$label" 2>/dev/null || true
+          done
+
+          # ── Kill currently running processes to free memory immediately ──
+          #
+          # Note: chronod, NotificationCenter, and iconservicesagent are
+          # XPC-on-demand — they re-spawn when system frameworks request them.
+          # Disable prevents boot-time launch; kill frees memory until next trigger.
+          for proc in \
+            siriknowledged siriactionsd siriinferenced sirittsd \
+            parsecd parsec-fbf suggestd knowledge-agent \
+            spotlightknowledged spotlightknowledged.updater \
+            voicebankingd \
+            chronod notificationcenterui NotificationCenter UserNotificationCenter \
+            mediaanalysisd photoanalysisd \
+            corespotlightd \
+            iconservicesagent assistantd duetexpertd \
+            DockHelper; do
+            killall -9 "$proc" 2>/dev/null || true
+          done
+
+          echo "Background services disabled."
         '';
       };
 
