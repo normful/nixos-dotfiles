@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.norman.kill-unneeded-daemons</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>
+for proc in \
+  chronod corespotlightd iconservicesagent \
+  siriknowledged siriactionsd siriinferenced sirittsd \
+  parsecd suggestd knowledge-agent \
+  spotlightknowledged spotlightknowledged.updater \
+  voicebankingd mediaanalysisd photoanalysisd \
+  assistantd duetexpertd; do
+  killall -9 "$proc" 2>/dev/null || true
+done</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StartInterval</key>
+    <integer>30</integer>
+    <key>StandardOutPath</key>
+    <string>/tmp/kill-unneeded-daemons.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/kill-unneeded-daemons.log</string>
+</dict>
+</plist>
