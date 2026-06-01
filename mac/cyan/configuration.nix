@@ -391,6 +391,10 @@
           defaults write com.apple.screensaver askForPasswordDelay -int 0
           defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
         '';
+        disableNotificationCenter.text = ''
+          launchctl disable gui/$(id -u)/com.apple.notificationcenterui
+          launchctl kill SIGTERM gui/$(id -u)/com.apple.notificationcenterui 2>/dev/null || true
+        '';
       };
 
       primaryUser = config.my.user.name;
