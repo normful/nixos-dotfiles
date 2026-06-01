@@ -67,7 +67,7 @@ local function configure_render_markdown_nvim()
       },
     },
     bullet = {
-      icons = { '●', '◆', '○', '◇' },
+      icons = { '▶', '⬥', '✦', '·' },
       left_pad = 0,
       right_pad = 0,
     },
