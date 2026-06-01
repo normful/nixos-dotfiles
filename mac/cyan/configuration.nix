@@ -176,7 +176,6 @@
       # Browsers
       "/Applications/Vivaldi.app"
       "/Applications/Zen.app"
-      "/Applications/Comet.app"
 
       # Notes
       "/Applications/Notion.app"
