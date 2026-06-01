@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.78.0",
-  "defaultProvider": "zenmux",
-  "defaultModel": "deepseek/deepseek-v4-flash",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
