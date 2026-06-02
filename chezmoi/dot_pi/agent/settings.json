@@ -209,7 +209,10 @@
     "openrouter/deepseek/deepseek-v4-pro",
     "opencode-go/mimo-v2.5-pro",
     "zenmux/deepseek/deepseek-v4-flash",
-    "zenmux/z-ai/glm-5.1"
+    "zenmux/z-ai/glm-5.1",
+    "siliconflow/deepseek-ai/DeepSeek-V4-Flash",
+    "siliconflow/moonshotai/Kimi-K2.6",
+    "siliconflow/MiniMaxAI/MiniMax-M3"
   ],
   "terminal": {
     "showTerminalProgress": false,
