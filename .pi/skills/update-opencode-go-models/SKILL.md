@@ -48,14 +48,15 @@ Extract from go.mdx section "Usage limits". Use these values for calculations:
 | GLM-5 | 1150 | 230 | 3.8 |
 | Kimi K2.5 | 1850 | 370 | 6.2 |
 | Kimi K2.6 | 1150 | 230 | 3.8 |
-| MiMo-V2-Pro | 1290 | 258 | 4.3 |
-| MiMo-V2-Omni | 2150 | 430 | 7.2 |
-| MiMo-V2.5-Pro | 1290 | 258 | 4.3 |
-| MiMo-V2.5 | 2150 | 430 | 7.2 |
-| Qwen3.6 Plus | 3300 | 660 | 11.0 |
+| MiMo-V2.5 | 30100 | 6020 | 100.3 |
+| MiMo-V2.5-Pro | 3250 | 650 | 10.8 |
+| MiniMax M3 | 1400 | 280 | 4.7 |
 | MiniMax M2.7 | 3400 | 680 | 11.3 |
 | MiniMax M2.5 | 6300 | 1260 | 21.0 |
-| Qwen3.5 Plus | 10200 | 2040 | 34.0 |
+| Qwen3.7 Max | 950 | 190 | 3.2 |
+| Qwen3.6 Plus | 3300 | 660 | 11.0 |
+| DeepSeek V4 Pro | 3450 | 690 | 11.5 |
+| DeepSeek V4 Flash | 31650 | 6330 | 105.5 |
 
 ## Model ID Mapping
 
@@ -67,14 +68,15 @@ Display names in the docs vs kebab-case model IDs:
 | GLM-5 | glm-5 |
 | Kimi K2.5 | kimi-k2.5 |
 | Kimi K2.6 | kimi-k2.6 |
-| MiMo-V2-Pro | mimo-v2-pro |
-| MiMo-V2-Omni | mimo-v2-omni |
-| MiMo-V2.5-Pro | mimo-v2.5-pro |
 | MiMo-V2.5 | mimo-v2.5 |
-| Qwen3.6 Plus | qwen3.6-plus |
+| MiMo-V2.5-Pro | mimo-v2.5-pro |
+| MiniMax M3 | minimax-m3 |
 | MiniMax M2.7 | minimax-m2.7 |
 | MiniMax M2.5 | minimax-m2.5 |
-| Qwen3.5 Plus | qwen3.5-plus |
+| Qwen3.7 Max | qwen3.7-max |
+| Qwen3.6 Plus | qwen3.6-plus |
+| DeepSeek V4 Pro | deepseek-v4-pro |
+| DeepSeek V4 Flash | deepseek-v4-flash |
 
 ## Process
 
@@ -128,14 +130,15 @@ MODELS = {
     "GLM-5": 1150,
     "Kimi K2.5": 1850,
     "Kimi K2.6": 1150,
-    "MiMo-V2-Pro": 1290,
-    "MiMo-V2-Omni": 2150,
-    "MiMo-V2.5-Pro": 1290,
-    "MiMo-V2.5": 2150,
-    "Qwen3.6 Plus": 3300,
+    "MiMo-V2.5": 30100,
+    "MiMo-V2.5-Pro": 3250,
+    "MiniMax M3": 1400,
     "MiniMax M2.7": 3400,
     "MiniMax M2.5": 6300,
-    "Qwen3.5 Plus": 10200,
+    "Qwen3.7 Max": 950,
+    "Qwen3.6 Plus": 3300,
+    "DeepSeek V4 Pro": 3450,
+    "DeepSeek V4 Flash": 31650,
 }
 
 DISPLAY_TO_ID = {
@@ -143,14 +146,15 @@ DISPLAY_TO_ID = {
     "GLM-5": "glm-5",
     "Kimi K2.5": "kimi-k2.5",
     "Kimi K2.6": "kimi-k2.6",
-    "MiMo-V2-Pro": "mimo-v2-pro",
-    "MiMo-V2-Omni": "mimo-v2-omni",
-    "MiMo-V2.5-Pro": "mimo-v2.5-pro",
     "MiMo-V2.5": "mimo-v2.5",
-    "Qwen3.6 Plus": "qwen3.6-plus",
+    "MiMo-V2.5-Pro": "mimo-v2.5-pro",
+    "MiniMax M3": "minimax-m3",
     "MiniMax M2.7": "minimax-m2.7",
     "MiniMax M2.5": "minimax-m2.5",
-    "Qwen3.5 Plus": "qwen3.5-plus",
+    "Qwen3.7 Max": "qwen3.7-max",
+    "Qwen3.6 Plus": "qwen3.6-plus",
+    "DeepSeek V4 Pro": "deepseek-v4-pro",
+    "DeepSeek V4 Flash": "deepseek-v4-flash",
 }
 
 def per_hour(reqs_5hr):

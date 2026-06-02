@@ -12,7 +12,7 @@
             "openRouterRouting": {
               "only": ["alibaba"]
             }
-          },
+          }
         },
         "deepseek/deepseek-v4-pro": {
           "name": "DeepSeek v4 Pro through only Deepseek",
@@ -24,7 +24,7 @@
             "openRouterRouting": {
               "only": ["deepseek"]
             }
-          },
+          }
         },
         "minimax/minimax-m2.7": {
           "name": "Minimax 2.7 on OpenRouter with routing prefs",
@@ -55,7 +55,7 @@
               "sort": "throughput"
             }
           }
-        },
+        }
       }
     },
     "opencode-go": {
@@ -78,29 +78,26 @@
         "kimi-k2.6": {
           "name": "Kimi K2.6 (reqs: 230/hr 3.8/min)"
         },
-        "mimo-v2-pro": {
-          "name": "MiMo-V2-Pro (reqs: 258/hr 4.3/min)"
-        },
-        "mimo-v2-omni": {
-          "name": "MiMo-V2-Omni (reqs: 430/hr 7.2/min)"
-        },
         "mimo-v2.5-pro": {
-          "name": "MiMo-V2.5-Pro (reqs: 258/hr 4.3/min)"
+          "name": "MiMo-V2.5-Pro (reqs: 650/hr 10.8/min)"
         },
         "mimo-v2.5": {
-          "name": "MiMo-V2.5 (reqs: 430/hr 7.2/min)"
+          "name": "MiMo-V2.5 (reqs: 6020/hr 100.3/min)"
         },
-        "qwen3.5-plus": {
-          "name": "Qwen3.5 Plus (reqs: 2040/hr 34.0/min)"
-        },
-        "qwen3.6-plus": {
-          "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min)"
+        "minimax-m3": {
+          "name": "MiniMax M3 (reqs: 280/hr 4.7/min)"
         },
         "minimax-m2.7": {
           "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min)"
         },
         "minimax-m2.5": {
           "name": "MiniMax M2.5 (reqs: 1260/hr 21.0/min)"
+        },
+        "qwen3.7-max": {
+          "name": "Qwen3.7 Max (reqs: 190/hr 3.2/min)"
+        },
+        "qwen3.6-plus": {
+          "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min)"
         }
       }
     },
