@@ -205,11 +205,10 @@
   "enabledModels": [
     "opencode/deepseek-v4-flash-free",
     "opencode-go/deepseek-v4-flash",
-    "openrouter/deepseek/deepseek-v4-flash",
     "opencode-go/mimo-v2.5-pro",
-    "zenmux/deepseek/deepseek-v4-flash",
-    "zenmux/z-ai/glm-5.1",
     "zenmux/minimax/minimax-m3",
+    "zenmux/deepseek/deepseek-v4-flash",
+    "zenmux/stepfun/step-3.5-flash",
     "zenmux/xiaomi/mimo-v2.5-pro"
   ],
   "terminal": {
