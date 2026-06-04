@@ -315,6 +315,9 @@
             DSDontWriteNetworkStores = true;
             DSDontWriteUSBStores = true;
           };
+          "com.apple.CloudSubscriptionFeatures.optIn" = {
+            "545129924" = false;
+          };
           "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
           "com.apple.assistant.support"."Assistant Enabled" = false;
           "com.apple.Siri".StatusMenuVisible = false;
