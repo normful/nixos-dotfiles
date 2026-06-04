@@ -484,7 +484,7 @@
             modelmanagerd \
           ; do
             pkill -x "$proc" 2>/dev/null || true
-            pkill -x "${proc}d" 2>/dev/null || true
+            pkill -x "$proc"d 2>/dev/null || true
           done
         '';
 
