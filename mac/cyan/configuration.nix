@@ -317,6 +317,7 @@
           };
           "com.apple.CloudSubscriptionFeatures.optIn" = {
             "545129924" = false;
+            "8187947588" = false; # ChatGPT Integration
           };
           "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
           "com.apple.assistant.support"."Assistant Enabled" = false;
@@ -413,6 +414,78 @@
 
           # Register Neovide as the default handler for plain text files (public.plain-tex)
           defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
+
+          # Disable telemetry & analytics services
+          for service in \
+            system/com.apple.analyticsd \
+            system/com.apple.analyticsd.system \
+            user/501/com.apple.diagnostics_agent \
+            user/501/com.apple.diagnosticextensionsd \
+            user/501/com.apple.inputanalyticsd \
+            user/501/com.apple.feedbackd \
+            user/501/com.apple.spindump_agent \
+            system/com.apple.spindump \
+            system/com.apple.tailspind \
+            user/501/com.apple.geoanalyticsd \
+            user/501/com.apple.ap.adprivacyd \
+            user/501/com.apple.SubmitDiagInfo \
+            user/501/com.apple.DiagnosticsReporter \
+            user/501/com.apple.diagnosticspushd \
+            user/501/com.apple.analyticsagent \
+            user/501/com.apple.osanalyticshelper \
+            user/501/com.apple.audioanalyticsd \
+            user/501/com.apple.wifianalyticsd \
+            user/501/com.apple.EcosystemAnalytics \
+          ; do
+            sudo launchctl disable "$service" 2>/dev/null || true
+          done
+
+          # Disable Apple Intelligence / ML model services (still load even with optIn=off)
+          for service in \
+            system/com.apple.generativeexperiencesd \
+            user/501/com.apple.intelligenceplatformd \
+            user/501/com.apple.intelligencetasksd \
+            user/501/com.apple.intelligenceflowd \
+            user/501/com.apple.intelligencecontextd \
+            user/501/com.apple.mlhostd \
+            user/501/com.apple.ModelCatalogAgent \
+            system/com.apple.modelcatalogd \
+            system/com.apple.modelmanagerd \
+          ; do
+            sudo launchctl disable "$service" 2>/dev/null || true
+          done
+
+          # Kill running processes that should no longer be active
+          for proc in \
+            analyticsd \
+            diagnostics_agent \
+            diagnosticextensionsd \
+            inputanalyticsd \
+            feedbackd \
+            spindump_agent \
+            tailspind \
+            geoanalyticsd \
+            adprivacyd \
+            SubmitDiagInfo \
+            DiagnosticsReporter \
+            analyticsagent \
+            osanalyticshelper \
+            audioanalyticsd \
+            wifianalyticsd \
+            ecosystemanalyticsd \
+            generativeexperiencesd \
+            intelligenceplatformd \
+            intelligencetasksd \
+            intelligenceflowd \
+            intelligencecontextd \
+            mlhostd \
+            ModelCatalogAgent \
+            modelcatalogd \
+            modelmanagerd \
+          ; do
+            pkill -x "$proc" 2>/dev/null || true
+            pkill -x "${proc}d" 2>/dev/null || true
+          done
         '';
 
       };
