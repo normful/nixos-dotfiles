@@ -98,6 +98,9 @@
         },
         "qwen3.6-plus": {
           "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min)"
+        },
+        "qwen3.7-plus": {
+          "name": "Qwen3.7 Plus (reqs: 860/hr 14.3/min)"
         }
       }
     },

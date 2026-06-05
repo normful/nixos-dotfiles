@@ -54,6 +54,7 @@ Extract from go.mdx section "Usage limits". Use these values for calculations:
 | MiniMax M2.7 | 3400 | 680 | 11.3 |
 | MiniMax M2.5 | 6300 | 1260 | 21.0 |
 | Qwen3.7 Max | 950 | 190 | 3.2 |
+| Qwen3.7 Plus | 4300 | 860 | 14.3 |
 | Qwen3.6 Plus | 3300 | 660 | 11.0 |
 | DeepSeek V4 Pro | 3450 | 690 | 11.5 |
 | DeepSeek V4 Flash | 31650 | 6330 | 105.5 |
@@ -74,6 +75,7 @@ Display names in the docs vs kebab-case model IDs:
 | MiniMax M2.7 | minimax-m2.7 |
 | MiniMax M2.5 | minimax-m2.5 |
 | Qwen3.7 Max | qwen3.7-max |
+| Qwen3.7 Plus | qwen3.7-plus |
 | Qwen3.6 Plus | qwen3.6-plus |
 | DeepSeek V4 Pro | deepseek-v4-pro |
 | DeepSeek V4 Flash | deepseek-v4-flash |
@@ -136,6 +138,7 @@ MODELS = {
     "MiniMax M2.7": 3400,
     "MiniMax M2.5": 6300,
     "Qwen3.7 Max": 950,
+    "Qwen3.7 Plus": 4300,
     "Qwen3.6 Plus": 3300,
     "DeepSeek V4 Pro": 3450,
     "DeepSeek V4 Flash": 31650,
@@ -152,6 +155,7 @@ DISPLAY_TO_ID = {
     "MiniMax M2.7": "minimax-m2.7",
     "MiniMax M2.5": "minimax-m2.5",
     "Qwen3.7 Max": "qwen3.7-max",
+    "Qwen3.7 Plus": "qwen3.7-plus",
     "Qwen3.6 Plus": "qwen3.6-plus",
     "DeepSeek V4 Pro": "deepseek-v4-pro",
     "DeepSeek V4 Flash": "deepseek-v4-flash",
