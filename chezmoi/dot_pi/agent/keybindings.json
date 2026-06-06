@@ -45,6 +45,6 @@
   "app.model.cycleBackward": ["alt+u"],
   "app.message.followUp": ["alt+q"],
 
-  "app.tree.foldOrUp": ["alt+left"],
-  "app.tree.unfoldOrDown": ["alt+right"]
+  "app.tree.foldOrUp": ["ctrl+left", "alt+left"],
+  "app.tree.unfoldOrDown": ["ctrl+right", "alt+right"]
 }
