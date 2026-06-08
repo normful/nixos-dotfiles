@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.78.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -65,7 +65,6 @@
     "-skills/curated-ai-skills/pexels/SKILL.md",
     "-skills/curated-ai-skills/md-to-pdf-with-japanese/SKILL.md",
     "+skills/curated-ai-skills/chrome-devtools-cli/SKILL.md",
-    "+skills/curated-ai-skills/playwright-cli/SKILL.md",
     "+skills/curated-ai-skills/fetch-source-code/SKILL.md",
     "-skills/curated-ai-skills/fill-pdf-form/SKILL.md",
     "-skills/curated-ai-skills/parallel-agentic-mass-document-generation/SKILL.md",
@@ -78,7 +77,10 @@
     "-skills/curated-ai-skills/betterleaks/SKILL.md",
     "-skills/curated-ai-skills/lean-ctx/SKILL.md",
     "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md",
-    "+skills/curated-ai-skills/test-driven-development/SKILL.md"
+    "-skills/curated-ai-skills/test-driven-development/SKILL.md",
+    "-skills/curated-ai-skills/playwright-currents/SKILL.md",
+    "-skills/curated-ai-skills/jp-boss-email/SKILL.md",
+    "+skills/curated-ai-skills/playwright-cli/SKILL.md"
   ],
   "packages": [
     {
@@ -162,7 +164,23 @@
         "+themes/solarized-dark.json"
       ]
     },
-    "https://github.com/normful/pi-zenmux"
+    "https://github.com/normful/pi-zenmux",
+    {
+      "source": "https://github.com/surfdude75/pi-prompt-reviewer",
+      "extensions": [
+        "-extensions/prompt-review.ts"
+      ]
+    },
+    {
+      "source": "npm:@agnishc/edb-context-viewer",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    "npm:@agnishc/edb-agent-steer",
+    "npm:@agnishc/edb-diff-files",
+    "git:github.com/Bunchhieng/pi-radar",
+    "npm:@agnishc/edb-quit-summary"
   ],
   "pi-screenshots": {
     "sources": [
@@ -185,7 +203,6 @@
     "-extensions/network-sandbox/index.ts",
     "-extensions/cmux-sidebar.ts",
     "-extensions/mgabor3141-yapp-safeguard/index.ts",
-    "-extensions/understand-screenshot/index.ts",
     "-extensions/iRonin-pi-less-shitty-smart-compactiion/index.ts",
     "+extensions/token-efficient-read-tools.ts",
     "-extensions/token-efficient-read-write-tools.ts",
@@ -194,7 +211,9 @@
     "-extensions/read-edit-write-tools.ts",
     "+extensions/bell-and-macOS-notify/index.ts",
     "+extensions/dev-tools/index.ts",
-    "-extensions/pi-lean-ctx/index.ts"
+    "-extensions/pi-lean-ctx/index.ts",
+    "-extensions/siliconflow/index.ts",
+    "+extensions/understand-screenshot/index.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",
@@ -206,10 +225,10 @@
     "opencode/deepseek-v4-flash-free",
     "opencode-go/deepseek-v4-flash",
     "opencode-go/mimo-v2.5-pro",
-    "zenmux/minimax/minimax-m3",
-    "zenmux/deepseek/deepseek-v4-flash",
-    "zenmux/stepfun/step-3.5-flash",
-    "zenmux/xiaomi/mimo-v2.5-pro"
+    "opencode-go/deepseek-v4-pro",
+    "openrouter/deepseek/deepseek-v4-flash",
+    "openrouter/deepseek/deepseek-v4-pro",
+    "openrouter/minimax/minimax-m3"
   ],
   "terminal": {
     "showTerminalProgress": false,
