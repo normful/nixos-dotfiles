@@ -19,10 +19,7 @@ has these fields:
     user_answer_text    what the user responded (selected option label or free text)
     user_answer_type    "selected" | "custom" | "unanswered"
     session_file        filename of the source session JSONL
-    timestamp_call      ISO time when the LLM asked the question
-    timestamp_result    ISO time when the user responded
-    model               model name used (e.g. "deepseek-v4-flash")
-    provider            provider name (e.g. "opencode-go", "zenmux")
+
 
 Usage:
     python3 extract_socrates_pairs.py <session_dir> <output.json>
@@ -86,9 +83,7 @@ def extract_pairs(filepath: Path) -> list[dict]:
                         "id": obj["id"],
                         "toolCallId": block.get("id"),
                         "arguments": block.get("arguments", {}),
-                        "model": msg.get("model"),
-                        "provider": msg.get("provider"),
-                        "timestamp": obj.get("timestamp"),
+
                     })
 
         # --- Tool result message: response to a tool call ---
@@ -103,7 +98,7 @@ def extract_pairs(filepath: Path) -> list[dict]:
                     msg.get("content", [{}])[0].get("text", "")
                     if msg.get("content") else ""
                 ),
-                "timestamp": obj.get("timestamp"),
+
             })
 
     # Index results by toolCallId for O(1) pairing
@@ -163,11 +158,7 @@ def extract_pairs(filepath: Path) -> list[dict]:
                 ),
                 "user_answer_text": user_answer_text,
                 "user_answer_type": user_answer_type or "unanswered",
-                "session_file": filepath.name,
-                "timestamp_call": c.get("timestamp"),
-                "timestamp_result": r.get("timestamp") if r else None,
-                "model": c.get("model"),
-                "provider": c.get("provider"),
+                "session_file": filepath.name
             }
             pairs.append(pair)
 
