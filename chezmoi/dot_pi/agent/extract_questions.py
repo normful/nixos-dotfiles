@@ -36,7 +36,7 @@ session_dir = sys.argv[1]
 # ════════════════════════════════════════════════
 
 stop_texts = []
-for path in glob.glob(f"{session_dir}/*.jsonl"):
+for path in glob.glob(f"{session_dir}/**/*.jsonl", recursive=True):
     with open(path) as f:
         for line in f:
             line = line.strip()
