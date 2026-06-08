@@ -1,31 +1,73 @@
 #!/usr/bin/env python3
 """
-Extract all socrates question/answer pairs from pi agent session JSONL files.
+extract_socrates_pairs.py
 
-What this does:
-  - Scans every *.jsonl file in a session directory (pi stores one session per file)
-  - Finds "socrates" tool calls (where the LLM asked the user a structured question)
-  - Pairs each tool call with its corresponding tool result (the user's response)
-  - Writes all pairs to a single JSON array file
+Extract all socrates question/answer pairs from pi agent session files and
+output them as a single JSON array.
 
-The output JSON file is an array of objects — one per question asked. Each object
-has these fields:
+WHAT IT DOES
+------------
+Pi stores each agent session as a .jsonl file (one JSON object per line) in
+a session directory. This script:
 
-    question_id         unique identifier for the question within its session
-    question_text       the question text shown to the user
-    options             list of option labels the user could pick from
-    recommended         index of the option the LLM recommended (null if none)
-    recommended_label   string label of the recommended option
-    user_answer_text    what the user responded (selected option label or free text)
-    user_answer_type    "selected" | "custom" | "unanswered"
-    session_file        filename of the source session JSONL
+  1. Scans every *.jsonl file in the given session directory.
+  2. For each file, finds messages where the LLM called the "socrates" tool
+     (a structured question to the user) and matches each call with the
+     corresponding user response (toolResult).
+  3. Pairs them up by toolCallId and extracts each individual question
+     within a multi-question socrates call.
+  4. Writes all pairs from all files into a single JSON array.
 
+OUTPUT FORMAT
+-------------
+The output is a JSON array. Each element is an object with:
 
-Usage:
-    python3 extract_socrates_pairs.py <session_dir> <output.json>
+    question_id       unique identifier within the source session
+    question_text     the question displayed to the user
+    options           list of option labels (strings)
+    recommended       index of the LLM's recommended option (null if none)
+    recommended_label the label of the recommended option (string or null)
+    user_answer_text  what the user answered (selected label or free text)
+    user_answer_type  "selected" | "custom" | "unanswered"
+    session_file      filename of the source .jsonl file
 
-Example:
-    python3 extract_socrates_pairs.py ~/.pi/agent/sessions/my-project/ socrates_pairs.json
+HOW SESSION FILES ARE PARSED
+----------------------------
+The .jsonl file contains one JSON object per line. Each line is a "message"
+event with a role (user, assistant, toolResult, etc). We only care about two:
+
+  - Assistant messages → may contain a "toolCall" content block where the
+    tool name is "socrates". The tool call's "arguments.questions" array has
+    the question text, options, and recommended index.
+
+  - ToolResult messages → the user's response. The "details.results[]" array
+    has one entry per question, containing selectedOptions[] and/or
+    customInput.
+
+We index all results by toolCallId, then for each call we iterate through
+each question and find its answer in the matching result. Some socrates calls
+ask multiple questions at once; we handle that by matching on question_id
+within the results list.
+
+USAGE
+-----
+  python3 extract_socrates_pairs.py <session_dir> <output.json>
+
+EXAMPLES
+--------
+  # Scan a specific project's session directory
+  python3 extract_socrates_pairs.py \
+      ~/.pi/agent/sessions/my-project/ \
+      my-project_socrates_pairs.json
+
+  # Scan the default sessions directory (all projects)
+  python3 extract_socrates_pairs.py \
+      ~/.pi/agent/sessions/ \
+      all_sessions_socrates_pairs.json
+
+  # Scan and pipe through jq to analyze
+  python3 extract_socrates_pairs.py ~/.pi/agent/sessions/ /tmp/pairs.json
+  cat /tmp/pairs.json | jq 'group_by(.user_answer_type) | map({key: .[0].user_answer_type, value: length})'
 """
 
 import json
@@ -37,22 +79,14 @@ def extract_pairs(filepath: Path) -> list[dict]:
     """
     Parse a single session JSONL file and return a list of question/answer pairs.
 
-    The .jsonl format has one JSON object per line. Each line represents a
-    conversation event: a message from the user, a message from the assistant,
-    a tool result, a model change, etc. We look for two specific event types:
-
-    1. Assistant messages containing a toolCall block for the "socrates" tool.
-       This is where the LLM asks a structured question to the user via the
-       socrates tool (defined in the system prompt). The question details
-       (id, text, options, recommendation) are in the tool call arguments.
-
-    2. Tool result messages where toolName is "socrates". This is where the
-       user's response comes back. The response is in the 'details' field,
-       specifically the 'results' array which has one entry per question
-       asked in that call (a single socrates call can ask multiple questions).
-
-    We match calls to results by toolCallId, then for each question within
-    a call, we extract the user's answer from the corresponding result entry.
+    This function:
+      1. Reads all lines, parsing each as JSON (skipping malformed ones).
+      2. Scans for two event types:
+         - Assistant messages containing a socrates toolCall block.
+         - Tool result messages where toolName is "socrates".
+      3. Indexes results by toolCallId.
+      4. For each socrates call, iterates over each question it asked and
+         extracts the user's answer from the paired result.
     """
     lines = []
     with open(filepath) as f:
@@ -83,7 +117,6 @@ def extract_pairs(filepath: Path) -> list[dict]:
                         "id": obj["id"],
                         "toolCallId": block.get("id"),
                         "arguments": block.get("arguments", {}),
-
                     })
 
         # --- Tool result message: response to a tool call ---
@@ -98,7 +131,6 @@ def extract_pairs(filepath: Path) -> list[dict]:
                     msg.get("content", [{}])[0].get("text", "")
                     if msg.get("content") else ""
                 ),
-
             })
 
     # Index results by toolCallId for O(1) pairing
