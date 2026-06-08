@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.78.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -107,8 +107,18 @@
         "+extensions/side-agents/index.ts"
       ]
     },
-    "https://github.com/normful/pi-scheduler",
-    "https://github.com/normful/pi-supervisor",
+    {
+      "source": "https://github.com/normful/pi-scheduler",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
+    {
+      "source": "https://github.com/normful/pi-supervisor",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
     {
       "source": "https://github.com/normful/pi-autoresearch",
       "skills": [
@@ -127,12 +137,6 @@
     "https://github.com/iRonin/pi-clear-on-double-esc",
     "https://www.github.com/default-anton/pi-tmux-window-name",
     "https://github.com/normful/pi-ask-tool",
-    {
-      "source": "https://github.com/latent-variable/pi-auto-continue",
-      "extensions": [
-        "-src/index.ts"
-      ]
-    },
     "https://github.com/normful/pi-agent-browser-native",
     {
       "source": "npm:@spences10/pi-context",
@@ -164,22 +168,30 @@
         "+themes/solarized-dark.json"
       ]
     },
-    "https://github.com/normful/pi-zenmux",
     {
-      "source": "https://github.com/surfdude75/pi-prompt-reviewer",
+      "source": "https://github.com/normful/pi-zenmux",
       "extensions": [
-        "-extensions/prompt-review.ts"
+        "-index.ts"
       ]
     },
     {
       "source": "npm:@agnishc/edb-context-viewer",
       "extensions": [
+        "+src/index.ts"
+      ]
+    },
+    {
+      "source": "npm:@agnishc/edb-agent-steer",
+      "extensions": [
         "-src/index.ts"
       ]
     },
-    "npm:@agnishc/edb-agent-steer",
-    "npm:@agnishc/edb-diff-files",
-    "git:github.com/Bunchhieng/pi-radar",
+    {
+      "source": "npm:@agnishc/edb-diff-files",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
     "npm:@agnishc/edb-quit-summary",
     "npm:@juicesharp/rpiv-pi",
     "npm:@juicesharp/rpiv-config",
@@ -201,7 +213,11 @@
     "-prompts/setup-pi-extension-demo.md",
     "+prompts/code-review.md",
     "+prompts/check-completion.md",
-    "+prompts/run-bdd-test.md"
+    "+prompts/run-bdd-test.md",
+    "-prompts/5x-meta-prompt.md",
+    "-prompts/interview-me.md",
+    "-prompts/dynamic-pi-tool-registration.md",
+    "-prompts/chunky-stage-and-commit.md"
   ],
   "extensions": [
     "-extensions/gastown.ts",
