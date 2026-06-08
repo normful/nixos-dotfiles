@@ -180,7 +180,17 @@
     "npm:@agnishc/edb-agent-steer",
     "npm:@agnishc/edb-diff-files",
     "git:github.com/Bunchhieng/pi-radar",
-    "npm:@agnishc/edb-quit-summary"
+    "npm:@agnishc/edb-quit-summary",
+    "npm:@juicesharp/rpiv-pi",
+    "npm:@juicesharp/rpiv-config",
+    "npm:@tintinweb/pi-subagents",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-advisor",
+    "npm:@juicesharp/rpiv-i18n",
+    "npm:@juicesharp/rpiv-web-tools",
+    "npm:@juicesharp/rpiv-args",
+    "npm:@juicesharp/rpiv-workflow"
   ],
   "pi-screenshots": {
     "sources": [
