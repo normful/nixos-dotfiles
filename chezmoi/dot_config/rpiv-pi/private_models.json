@@ -2,5 +2,11 @@
   "defaults": {
     "model": "opencode/deepseek-v4-flash",
     "thinking": "high"
+  },
+  "agents": {
+    "codebase-analyzer": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "thinking": "high"
+    }
   }
 }
