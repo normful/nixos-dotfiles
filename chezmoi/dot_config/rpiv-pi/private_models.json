@@ -1,0 +1,6 @@
+{
+  "defaults": {
+    "model": "opencode/deepseek-v4-flash",
+    "thinking": "high"
+  }
+}
