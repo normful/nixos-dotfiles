@@ -2,8 +2,37 @@
 """
 Cluster extracted questions by type, topic, and action.
 
-Reads output from extract_questions.py and classifies each question into
-one of 14 named clusters, plus a domain-topic tag system.
+PIPELINE (run in order)
+───────────────────────
+  1. ~/.pi/agent/extract_questions.py <session_dir>
+       → produces a .txt file of extracted questions
+  2. ~/.pi/agent/cluster_questions.py <questions_file> [--json <outfile>]
+       → classifies into clusters, prints summary, optionally writes JSON
+
+EXAMPLE INVOCATIONS
+───────────────────
+  # Read a previously extracted questions file, print cluster output to terminal
+  python3 ~/.pi/agent/cluster_questions.py /tmp/stop-questions-xxxxx.txt
+
+  # Write JSON records alongside terminal output
+  python3 ~/.pi/agent/cluster_questions.py /tmp/stop-questions-xxxxx.txt --json /tmp/clustered.json
+
+  # Full pipeline from session extraction to clustered JSON
+  txt=$(python3 ~/.pi/agent/extract_questions.py /path/to/session/dir | tail -1 | grep -o '/[^ ]*\.txt')
+  python3 ~/.pi/agent/cluster_questions.py "$txt" --json /tmp/clustered.json
+
+INPUT FORMAT
+────────────
+  One question per line (plain text, no labels). This is exactly the output
+  format produced by ~/.pi/agent/extract_questions.py.
+
+OUTPUT
+──────
+  Terminal: color-coded cluster groups with subcluster breakdown + summary table
+  JSON (--json): array of {"input", "cluster", "subcluster_key", "domains"} records
+
+GOAL
+────
 
 GOAL
 ────
