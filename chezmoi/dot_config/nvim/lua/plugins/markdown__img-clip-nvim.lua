@@ -18,7 +18,7 @@ return {
       file_name = '%Y%m%d-%H%M%S',
 
       extension = 'jpg', ---@type string
-      process_cmd = 'magick convert - -quality 60 resize 30% -', ---@type string
+      process_cmd = 'magick convert - -quality 60 -resize 30% -', ---@type string
     },
     filetypes = {
       markdown = {
