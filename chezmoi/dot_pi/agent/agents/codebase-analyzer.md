@@ -3,7 +3,7 @@ name: codebase-analyzer
 description: Analyzes codebase implementation details. Call the codebase-analyzer agent when you need to find detailed information about specific components. As always, the more detailed your request prompt, the better! :)
 tools: read, grep, find, ls
 isolated: true
-model: opencode/deepseek-v4-flash
+model: opencode-go/deepseek-v4-flash
 thinking: high
 ---
 

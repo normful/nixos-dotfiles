@@ -3,7 +3,7 @@ name: artifacts-locator
 description: Finds relevant documents in .rpiv/artifacts/. The research equivalent of codebase-locator. Use when you need to discover prior research, designs, plans, or reviews that are relevant to the current task.
 tools: grep, find, ls
 isolated: true
-model: opencode/deepseek-v4-flash
+model: opencode-go/deepseek-v4-flash
 thinking: high
 ---
 

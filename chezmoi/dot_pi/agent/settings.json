@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.78.1",
+  "lastChangelogVersion": "0.79.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
@@ -196,7 +196,12 @@
     "npm:@juicesharp/rpiv-pi",
     "npm:@juicesharp/rpiv-config",
     "npm:@tintinweb/pi-subagents",
-    "npm:@juicesharp/rpiv-ask-user-question",
+    {
+      "source": "npm:@juicesharp/rpiv-ask-user-question",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
     "npm:@juicesharp/rpiv-todo",
     "npm:@juicesharp/rpiv-advisor",
     "npm:@juicesharp/rpiv-i18n",
@@ -239,7 +244,8 @@
     "+extensions/dev-tools/index.ts",
     "-extensions/pi-lean-ctx/index.ts",
     "-extensions/siliconflow/index.ts",
-    "+extensions/understand-screenshot/index.ts"
+    "+extensions/understand-screenshot/index.ts",
+    "-extensions/aihubmix-am/index.ts"
   ],
   "transport": "auto",
   "doubleEscapeAction": "tree",

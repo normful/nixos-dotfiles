@@ -1,5 +1,5 @@
 return {
-  'HakonHarnes/img-clip.nvim',
+  'normful/img-clip.nvim',
   ft = { 'asciidoc', 'html', 'markdown', 'md', 'org', 'plaintex', 'quarto', 'rmd', 'rst', 'tex', 'typst', 'vimwiki' },
   opts = {
     default = {
@@ -17,8 +17,8 @@ return {
       prompt_for_file_name = false,
       file_name = '%Y%m%d-%H%M%S',
 
-      extension = 'webp', ---@type string
-      process_cmd = 'convert - -quality 60 resize 30% -', ---@type string
+      extension = 'jpg', ---@type string
+      process_cmd = 'magick convert - -quality 60 resize 30% -', ---@type string
     },
     filetypes = {
       markdown = {

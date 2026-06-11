@@ -3,7 +3,7 @@ name: precedent-locator
 description: "Finds similar past changes in git history: commits, blast radius, follow-up fixes, and lessons from related .rpiv/artifacts/ docs. Use when planning a change and you need to know what went wrong last time something similar was done."
 tools: bash, grep, find, read, ls
 isolated: true
-model: opencode/deepseek-v4-flash
+model: opencode-go/deepseek-v4-flash
 thinking: high
 ---
 

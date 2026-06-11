@@ -3,7 +3,7 @@ name: diff-auditor
 description: "Row-only patch auditor. Walks a patch against a caller-supplied surface-list and emits one pipe-delimited row per finding (`file:line | verbatim | surface-id | note`). Use whenever a diff needs evidence-only enumeration of matching patterns, with no narrative or severity."
 tools: read, grep, find, ls
 isolated: true
-model: opencode/deepseek-v4-flash
+model: opencode-go/deepseek-v4-flash
 thinking: high
 ---
 
