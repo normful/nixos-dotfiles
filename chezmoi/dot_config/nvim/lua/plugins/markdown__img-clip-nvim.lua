@@ -17,8 +17,8 @@ return {
       prompt_for_file_name = false,
       file_name = '%Y%m%d-%H%M%S',
 
-      extension = 'jpg', ---@type string
-      process_cmd = 'magick convert - -quality 60 -resize 30% -', ---@type string
+      extension = 'webp', ---@type string
+      process_cmd = 'magick convert - -quality 85 -define webp:lossless=true -resize 50% -', ---@type string
     },
     filetypes = {
       markdown = {
