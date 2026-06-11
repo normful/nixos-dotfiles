@@ -4,6 +4,7 @@ USE `ctx_shell(command)` TOOL INSTEAD OF `bash` TOOL!
 NEVER `echo '...' > /some/file` with `ctx_shell`; use `write` tool instead.
 NEVER `rm` with `ctx_shell`; use `trash` tool instead.
 NEVER `ls` with `ctx_shell`; use `rtk_ls` tool inistead.
+WHEN ASKING THE USER QUESTIONS, ALWAYS USE THE `socrates` tool INSTEAD OF THE `ask_user_question` TOOL.
 
 # Your Output Style
 
