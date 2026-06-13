@@ -8,7 +8,7 @@ local function configure_zk_nvim()
 end
 
 return {
-  'zk-org/zk-nvim',
+  'normful/zk-nvim',
   config = configure_zk_nvim,
   lazy = false,
   keys = {
