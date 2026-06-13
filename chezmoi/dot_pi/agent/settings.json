@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.79.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -79,8 +79,8 @@
     "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md",
     "-skills/curated-ai-skills/test-driven-development/SKILL.md",
     "-skills/curated-ai-skills/playwright-currents/SKILL.md",
-    "-skills/curated-ai-skills/jp-boss-email/SKILL.md",
-    "+skills/curated-ai-skills/playwright-cli/SKILL.md"
+    "+skills/curated-ai-skills/playwright-cli/SKILL.md",
+    "+skills/curated-ai-skills/jp-boss-email/SKILL.md"
   ],
   "packages": [
     {
@@ -193,7 +193,18 @@
       ]
     },
     "npm:@agnishc/edb-quit-summary",
-    "npm:@juicesharp/rpiv-pi",
+    {
+      "source": "npm:@juicesharp/rpiv-pi",
+      "skills": [
+        "+skills/validate/SKILL.md",
+        "+skills/revise/SKILL.md",
+        "+skills/pr-triage/SKILL.md",
+        "+skills/plan/SKILL.md",
+        "+skills/migrate-to-guidance/SKILL.md",
+        "+skills/design/SKILL.md",
+        "+skills/create-handoff/SKILL.md"
+      ]
+    },
     "npm:@juicesharp/rpiv-config",
     "npm:@tintinweb/pi-subagents",
     {
