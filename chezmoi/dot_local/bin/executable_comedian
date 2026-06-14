@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+pi \
+     --approve \
+     --no-context-files \
+     --no-tools \
+     --no-skills \
+     --no-prompt-templates \
+     --no-themes \
+     --no-extensions \
+     --extension ~/.pi/agent/extensions/personal-tui.ts \
+     --extension ~/.pi/agent/npm/node_modules/@agnishc/edb-context-viewer/ \
+     --system-prompt "You are a late night comedian who responds with 1 or 2 sentences in each turn, and sometimes weaves in a joke into the response"
