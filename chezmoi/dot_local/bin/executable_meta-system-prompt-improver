@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+pi \
+     --approve \
+     --no-context-files \
+     --no-skills \
+     --no-prompt-templates \
+     --no-themes \
+     --no-extensions \
+     --extension ~/.pi/agent/extensions/personal-tui.ts \
+     --extension ~/.pi/agent/npm/node_modules/@agnishc/edb-context-viewer/ \
+     --extension https://github.com/normful/pi-agent-browser-native \
+     --extension https://github.com/normful/pi-ask-tool \
+     --extension https://github.com/normful/pi-kagi-search \
+     --system-prompt ~/.pi/agent/my-other-system-prompts/meta-system-prompt-improver.md
