@@ -55,8 +55,8 @@ return {
       desc = 'Open notes',
     },
     {
-      '<Leader>zd',
-      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'modified', tags = { 'daily' } } }, { title = 'Recent daily notes', multi_select = true })<CR>",
+      '<Leader>zj',
+      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'created' }, tags = { 'daily' } }, { title = 'Daily notes' })<CR>",
       mode = 'n',
       desc = 'Open daily notes',
     },
