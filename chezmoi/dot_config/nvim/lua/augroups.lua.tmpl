@@ -90,8 +90,9 @@ nvim_create_autocmd('BufWritePre', {
   callback = function()
     local lines = vim.api.nvim_buf_get_lines(0, 0, 10, false)
     if #lines < 1 or lines[1] ~= '---' then return end
-    local offset = os.date('%z')  -- Local timezone offset, e.g. '+0900'
+    local offset = os.date('%z')  -- Local timezone offset, e.g. '+0900' or '+09:00'
     if offset == '' then offset = '+0000' end
+    offset = offset:gsub(':', '')  -- Normalize: some builds return +09:00 (with colon)
     local ts = os.date('%Y-%m-%dT%H:%M:%S') .. offset  -- ISO8601 with local tz offset
     for i, line in ipairs(lines) do
       if line:match('^modified:') then
