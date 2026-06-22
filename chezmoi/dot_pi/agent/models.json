@@ -66,14 +66,14 @@
         "deepseek-v4-pro": {
           "name": "DeepSeek V4 Pro (reqs: 690/hr 11.5/min)"
         },
+        "glm-5.2": {
+          "name": "GLM-5.2 (reqs: 176/hr 2.9/min)"
+        },
         "glm-5.1": {
           "name": "GLM-5.1 (reqs: 176/hr 2.9/min)"
         },
-        "glm-5": {
-          "name": "GLM-5 (reqs: 230/hr 3.8/min)"
-        },
-        "kimi-k2.5": {
-          "name": "Kimi K2.5 (reqs: 370/hr 6.2/min)"
+        "kimi-k2.7-code": {
+          "name": "Kimi K2.7 Code (reqs: 270/hr 4.5/min)"
         },
         "kimi-k2.6": {
           "name": "Kimi K2.6 (reqs: 230/hr 3.8/min)"
@@ -85,22 +85,19 @@
           "name": "MiMo-V2.5 (reqs: 6020/hr 100.3/min)"
         },
         "minimax-m3": {
-          "name": "MiniMax M3 (reqs: 280/hr 4.7/min)"
+          "name": "MiniMax M3 (reqs: 640/hr 10.7/min)"
         },
         "minimax-m2.7": {
           "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min)"
         },
-        "minimax-m2.5": {
-          "name": "MiniMax M2.5 (reqs: 1260/hr 21.0/min)"
-        },
         "qwen3.7-max": {
           "name": "Qwen3.7 Max (reqs: 190/hr 3.2/min)"
         },
-        "qwen3.6-plus": {
-          "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min)"
-        },
         "qwen3.7-plus": {
           "name": "Qwen3.7 Plus (reqs: 860/hr 14.3/min)"
+        },
+        "qwen3.6-plus": {
+          "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min)"
         }
       }
     },

@@ -44,15 +44,14 @@ Extract from go.mdx section "Usage limits". Use these values for calculations:
 
 | Model | Requests per 5hr | Per Hour (÷5) | Per Min (÷5÷60) |
 |-------|-----------------|---------------|-----------------|
+| GLM-5.2 | 880 | 176 | 2.9 |
 | GLM-5.1 | 880 | 176 | 2.9 |
-| GLM-5 | 1150 | 230 | 3.8 |
-| Kimi K2.5 | 1850 | 370 | 6.2 |
 | Kimi K2.6 | 1150 | 230 | 3.8 |
+| Kimi K2.7 Code | 1350 | 270 | 4.5 |
 | MiMo-V2.5 | 30100 | 6020 | 100.3 |
 | MiMo-V2.5-Pro | 3250 | 650 | 10.8 |
-| MiniMax M3 | 1400 | 280 | 4.7 |
+| MiniMax M3 | 3200 | 640 | 10.7 |
 | MiniMax M2.7 | 3400 | 680 | 11.3 |
-| MiniMax M2.5 | 6300 | 1260 | 21.0 |
 | Qwen3.7 Max | 950 | 190 | 3.2 |
 | Qwen3.7 Plus | 4300 | 860 | 14.3 |
 | Qwen3.6 Plus | 3300 | 660 | 11.0 |
@@ -65,15 +64,14 @@ Display names in the docs vs kebab-case model IDs:
 
 | Display Name | Model ID |
 |--------------|----------|
+| GLM-5.2 | glm-5.2 |
 | GLM-5.1 | glm-5.1 |
-| GLM-5 | glm-5 |
-| Kimi K2.5 | kimi-k2.5 |
 | Kimi K2.6 | kimi-k2.6 |
+| Kimi K2.7 Code | kimi-k2.7-code |
 | MiMo-V2.5 | mimo-v2.5 |
 | MiMo-V2.5-Pro | mimo-v2.5-pro |
 | MiniMax M3 | minimax-m3 |
 | MiniMax M2.7 | minimax-m2.7 |
-| MiniMax M2.5 | minimax-m2.5 |
 | Qwen3.7 Max | qwen3.7-max |
 | Qwen3.7 Plus | qwen3.7-plus |
 | Qwen3.6 Plus | qwen3.6-plus |
@@ -128,15 +126,14 @@ Save to `/tmp/calc_ratelimits.py` and run `python3 /tmp/calc_ratelimits.py`:
 """Recalculate OpenCode Go model rate limits from docs data."""
 
 MODELS = {
+    "GLM-5.2": 880,
     "GLM-5.1": 880,
-    "GLM-5": 1150,
-    "Kimi K2.5": 1850,
     "Kimi K2.6": 1150,
+    "Kimi K2.7 Code": 1350,
     "MiMo-V2.5": 30100,
     "MiMo-V2.5-Pro": 3250,
-    "MiniMax M3": 1400,
+    "MiniMax M3": 3200,
     "MiniMax M2.7": 3400,
-    "MiniMax M2.5": 6300,
     "Qwen3.7 Max": 950,
     "Qwen3.7 Plus": 4300,
     "Qwen3.6 Plus": 3300,
@@ -145,15 +142,14 @@ MODELS = {
 }
 
 DISPLAY_TO_ID = {
+    "GLM-5.2": "glm-5.2",
     "GLM-5.1": "glm-5.1",
-    "GLM-5": "glm-5",
-    "Kimi K2.5": "kimi-k2.5",
     "Kimi K2.6": "kimi-k2.6",
+    "Kimi K2.7 Code": "kimi-k2.7-code",
     "MiMo-V2.5": "mimo-v2.5",
     "MiMo-V2.5-Pro": "mimo-v2.5-pro",
     "MiniMax M3": "minimax-m3",
     "MiniMax M2.7": "minimax-m2.7",
-    "MiniMax M2.5": "minimax-m2.5",
     "Qwen3.7 Max": "qwen3.7-max",
     "Qwen3.7 Plus": "qwen3.7-plus",
     "Qwen3.6 Plus": "qwen3.6-plus",
