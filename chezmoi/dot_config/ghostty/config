@@ -70,23 +70,58 @@ keybind = cmd+j=scroll_page_down
 # Paste
 keybind = cmd+v=paste_from_clipboard
 
-# IMPORTANT: DO NOT PLACE ANY COMMENTS TO THE RIGHT OF THE KEYBINDS
-# Run `kitty +kitten show_key` or `/Applications/kitty.app/Contents/MacOS/kitty +kitten show_key`
-# to get key escape codes, even for ghostty
+# =============================================================================
+# KEYBOARD PROTOCOL CHAIN
+# =============================================================================
+#
+# Ghostty `text:` → tmux input parser → tmux CSI-u re-encoder → neovim
+#
+# TERMINFO MISMATCH PROBLEM:
+# Xterm and tmux-256color terminfo define F13-F24 with DIFFERENT byte sequences.
+# Sending xterm's encoding through tmux (extended-keys on + csi-u format) causes
+# tmux to NOT recognize the key via terminfo lookup, resulting in mangled output.
+#
+#   F-key   | xterm terminfo    | tmux-256color terminfo
+#   ---------|-------------------|-----------------------
+#   F13     | \E[25~           | \E[1;2P              (Shift+F1)
+#   F14     | \E[26~           | \E[1;2Q              (Shift+F2)
+#   F15     | \E[28~           | \E[1;2R              (Shift+F3)
+#   F16     | \E[29~           | \E[1;2S              (Shift+F4)
+#   F17     | \E[31~           | \E[15;2~             (Shift+F5)
+#   F18     | \E[32~           | \E[17;2~             (Shift+F6)
+#   F19     | \E[33~           | \E[18;2~             (Shift+F7)
+#   F20     | \E[34~           | \E[19;2~             (Shift+F8)
+#
+# All text: bindings below use tmux-256color encodings to ensure tmux correctly
+# recognizes the key via terminfo lookup, then re-encodes it using the Kitty
+# keyboard protocol's unambiguous PUA (Private Use Area) codes for neovim:
+#
+#   neovim receives   | Kitty PUA | Actual F-key
+#   ------------------|-----------|---------------
+#   CSI 57376;Nu     | 57376     | F13
+#   CSI 57377;Nu     | 57377     | F14
+#   CSI 57378;Nu     | 57378     | F15
+#   CSI 57379;Nu     | 57379     | F16
+#   CSI 57380;Nu     | 57380     | F17
+#   CSI 57381;Nu     | 57381     | F18
+#   CSI 57382;Nu     | 57382     | F19
+#
+# Source: https://sw.kovidgoyal.net/kitty/keyboard-protocol/#functional-key-definitions
+#
+# ======== IMPORTANT ========
+# DO NOT PLACE ANY COMMENTS TO THE RIGHT OF THE KEYBINDS.
+# Use `kitty +kitten show_key` to verify escape codes.
+# ===========================
 
 # Send CTRL+C (for quitting some programs)
 keybind = cmd+c=text:\x03
 
-# Send CTRL+D (for quitting some programs)
-keybind = cmd+d=text:\x04
-
-# For vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions
-# Send CTRL+O
+# Send CTRL+O (for vim/nvim jump motions)
 keybind = cmd+o=text:\x0f
 
-# For vim/nvim jump motions: https://neovim.io/doc/user/motion.html#jump-motions
-# Send F-19. Don't send CTRL+I because CTRL+I normally is indistinguishable from Tab.
-keybind = cmd+i=text:\x1b[33~
+# Send F19
+# NOTE: Don't bind CTRL+I because it's indistinguishable from Tab in terminals.
+keybind = cmd+i=text:\x1b[18;2~
 
 # Send CTRL+N (for selecting next item in vim completion menu)
 keybind = cmd+n=text:\x0e
@@ -100,25 +135,32 @@ keybind = cmd+`=text:\x13
 # Send ALT+L
 keybind = cmd+l=text:\x1bl
 
-# F-13... were copied from http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
+# ---------------------------------------------------------------------------
+# F13-F18: each sends a tmux-256color terminfo encoding.
+#
+# When tmux recognizes the sequence via terminfo, it knows the exact F-key
+# and re-encodes it using the Kitty protocol PUA code (unambiguous in all
+# contexts). If we sent the xterm encoding instead, tmux would fail to match
+# the key in its terminfo table and would mangle the output.
+# ---------------------------------------------------------------------------
 
-# Send F-13
-keybind = cmd+d=text:\x1b[25~
+# F13 (Kitty PUA 57376)
+keybind = cmd+d=text:\x1b[1;2P
 
-# Send F-14
-keybind = cmd+u=text:\x1b[26~
+# F14 (Kitty PUA 57377)
+keybind = cmd+u=text:\x1b[1;2Q
 
-# Send F-15
-keybind = cmd+w=text:\x1b[28~
+# F15 (Kitty PUA 57378)
+keybind = cmd+w=text:\x1b[1;2R
 
-# Send F-16
-keybind = cmd+b=text:\x1b[29~
+# F16 (Kitty PUA 57379)
+keybind = cmd+b=text:\x1b[1;2S
 
-# Send F-17
-keybind = cmd+e=text:\x1b[31~
+# F17 (Kitty PUA 57380)
+keybind = cmd+e=text:\x1b[15;2~
 
-# Send F-18
-keybind = cmd+x=text:\x1b[32~
+# F18 (Kitty PUA 57381)
+keybind = cmd+x=text:\x1b[17;2~
 
 # --------------------------------------
 # Keyboard Mappings For
