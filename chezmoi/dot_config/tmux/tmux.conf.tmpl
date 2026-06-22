@@ -43,9 +43,9 @@ set-option -g allow-passthrough on
 # Without it tmux intercepts no mouse events.
 set-option -g mouse on
 
-# Enables CSI u (Kitty keyboard protocol) passthrough. Without this, tmux can't
-# distinguish many key combos that editors bind — like Ctrl+Shift+F, Ctrl+Enter,
-# or Alt+; — because they all collapse to the same byte sequences in legacy mode.
+# More related pages about these next 3 settings:
+# - https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/tmux.md
+# - https://github.com/tmux/tmux/wiki/Modifier-Keys#extended-keys
 set-option -g extended-keys on
 set-option -g extended-keys-format csi-u
 set-option -as terminal-features ',*:extkeys'
