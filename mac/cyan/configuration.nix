@@ -84,6 +84,7 @@
         goreleaser
 
         # Packages I'm only installing on this computer for now
+        ansible
         mariadb_118
         infisical
         grex
