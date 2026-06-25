@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.79.10",
   "defaultProvider": "opencode-go",
-  "defaultModel": "mimo-v2.5",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -17,7 +17,14 @@
     "bun"
   ],
   "retry": {
-    "baseDelayMs": 3000
+    "enabled": true,
+    "maxRetries": 5,
+    "baseDelayMs": 3000,
+    "provider": {
+      "timeoutMs": 3600000,
+      "maxRetries": 0,
+      "maxRetryDelayMs": 60000
+    }
   },
   "skills": [
     "-skills/curated-ai-skills/brainstorming/SKILL.md",
