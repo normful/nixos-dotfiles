@@ -114,6 +114,9 @@ nvim_create_autocmd('BufWritePre', {
         return
       end
     end
+
+    -- No existing modified key — insert before closing ---
+    vim.api.nvim_buf_set_lines(0, end_idx - 1, end_idx - 1, false, { 'modified: ' .. ts })
   end,
 })
 
