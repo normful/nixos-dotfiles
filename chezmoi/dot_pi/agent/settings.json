@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.79.10",
+  "lastChangelogVersion": "0.80.2",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "xhigh",
@@ -87,7 +87,9 @@
     "-skills/curated-ai-skills/test-driven-development/SKILL.md",
     "-skills/curated-ai-skills/playwright-currents/SKILL.md",
     "+skills/curated-ai-skills/playwright-cli/SKILL.md",
-    "+skills/curated-ai-skills/jp-boss-email/SKILL.md"
+    "+skills/curated-ai-skills/jp-boss-email/SKILL.md",
+    "-skills/curated-ai-skills/domain-check/SKILL.md",
+    "-skills/curated-ai-skills/podcast-transcripts/SKILL.md"
   ],
   "packages": [
     {
