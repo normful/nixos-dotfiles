@@ -88,20 +88,31 @@ nvim_create_autocmd('BufWritePre', {
   group = markdown_augroup,
   desc = 'Update YAML frontmatter modified timestamp before save',
   callback = function()
-    local lines = vim.api.nvim_buf_get_lines(0, 0, 10, false)
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     if #lines < 1 or lines[1] ~= '---' then return end
-    local offset = os.date('%z')  -- Local timezone offset, e.g. '+0900' or '+09:00'
-    if offset == '' then offset = '+0000' end
-    offset = offset:gsub(':', '')  -- Normalize: some builds return +09:00 (with colon)
-    local ts = os.date('%Y-%m-%dT%H:%M:%S') .. offset  -- ISO8601 with local tz offset
-    for i, line in ipairs(lines) do
-      if line:match('^modified:') then
-        modified_line = i - 1  -- 0-indexed
+
+    -- Find closing --- of frontmatter
+    local end_idx
+    for i = 2, #lines do
+      if lines[i] == '---' then
+        end_idx = i
         break
       end
     end
-    if modified_line then
-      vim.api.nvim_buf_set_lines(0, modified_line, modified_line + 1, false, { 'modified: ' .. ts })
+    if not end_idx then return end
+
+    local offset = os.date('%z')
+    if offset == '' then offset = '+0000' end
+    offset = offset:gsub(':', '')
+    local ts = os.date('%Y-%m-%dT%H:%M:%S') .. offset
+
+    for i = 2, end_idx - 1 do
+      local line = lines[i]
+      local prefix = line:match('^(modified%s*:%s*).*$')
+      if prefix then
+        vim.api.nvim_buf_set_lines(0, i - 1, i, false, { prefix .. ts })
+        return
+      end
     end
   end,
 })
