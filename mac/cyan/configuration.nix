@@ -1,5 +1,5 @@
 {
-  pkgs-previous-stable,
+  pkgs,
   pkgs-stable,
   pkgs-pinned-unstable,
   config,
@@ -60,187 +60,185 @@
     my.enableFonts = true;
     my.enableJapaneseFonts = true;
 
-    environment.systemPackages =
-      with pkgs-previous-stable;
-      [
-        mise
-      ]
-      ++ (with pkgs-pinned-unstable; [
-        tailscale
-        sops
-        age
-        keepassxc
-        gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
+    environment.systemPackages = [
+    ]
+    ++ (with pkgs-pinned-unstable; [
+      # mise Uncomment after https://github.com/NixOS/nixpkgs/pull/534965 is merged
+      tailscale
+      sops
+      age
+      keepassxc
+      gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
-        # Packages I'm only installing on this computer for now
-        mariadb_118
-        jre25_minimal
-        terminal-notifier
-        yubikey-manager
-        texliveSmall
-        ansible
-        grex
-        thumbs
-        fswatch
-        sqlite-web
-        gitleaks
-        betterleaks
-        (callPackage ../../packages/tree-sitter { })
-        (callPackage ../../packages/lean-ctx { })
-        # ── high interest ──
+      # Packages I'm only installing on this computer for now
+      mariadb_118
+      jre25_minimal
+      terminal-notifier
+      yubikey-manager
+      texliveSmall
+      ansible
+      grex
+      thumbs
+      fswatch
+      sqlite-web
+      gitleaks
+      betterleaks
+      (callPackage ../../packages/tree-sitter { })
+      (callPackage ../../packages/lean-ctx { })
+      # ── high interest ──
 
-        # Fast browser automation CLI for AI agents. Connects to Chrome CDP
-        # for web scraping, form filling, screenshots, and more.
-        (callPackage ../../packages/agent-browser { })
+      # Fast browser automation CLI for AI agents. Connects to Chrome CDP
+      # for web scraping, form filling, screenshots, and more.
+      (callPackage ../../packages/agent-browser { })
 
-        # CLI coding agent for open AI models. Connects to LM Studio,
-        # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
-        (callPackage ../../packages/swival { })
+      # CLI coding agent for open AI models. Connects to LM Studio,
+      # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
+      (callPackage ../../packages/swival { })
 
-        # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
-        # code execution, subagent task delegation. Fast startup, 60 FPS.
-        (callPackage ../../packages/maki { })
+      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
+      # code execution, subagent task delegation. Fast startup, 60 FPS.
+      (callPackage ../../packages/maki { })
 
-        # Git extension that tracks AI-generated code. Every line linked
-        # to agent, model, and prompts that generated it.
-        (callPackage ../../packages/git-ai { })
+      # Git extension that tracks AI-generated code. Every line linked
+      # to agent, model, and prompts that generated it.
+      (callPackage ../../packages/git-ai { })
 
-        # High-performance file search MCP server. Typo-resistant path &
-        # content search, frecency-ranked, background watcher. Faster than
-        # ripgrep+fzf in long-running processes.
-        (callPackage ../../packages/fff-mcp { })
+      # High-performance file search MCP server. Typo-resistant path &
+      # content search, frecency-ranked, background watcher. Faster than
+      # ripgrep+fzf in long-running processes.
+      (callPackage ../../packages/fff-mcp { })
 
-        # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
-        # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
-        (callPackage ../../packages/disky { })
+      # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
+      # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
+      (callPackage ../../packages/disky { })
 
-        # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
-        # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
-        (callPackage ../../packages/openfang { })
+      # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
+      # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
+      (callPackage ../../packages/openfang { })
 
-        # Multi-agent orchestrator. Runs a crew of CLI coding agents
-        # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
-        (callPackage ../../packages/bernstein { })
+      # Multi-agent orchestrator. Runs a crew of CLI coding agents
+      # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
+      (callPackage ../../packages/bernstein { })
 
-        # Terminal coding agent for any model. TUI + CLI. DeepSeek,
-        # Claude, GPT, open-weight models via vLLM/Ollama.
-        (callPackage ../../packages/codewhale { })
+      # Terminal coding agent for any model. TUI + CLI. DeepSeek,
+      # Claude, GPT, open-weight models via vLLM/Ollama.
+      (callPackage ../../packages/codewhale { })
 
-        # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
-        # line-level comments. Agent reads full files, cross-references context.
-        (callPackage ../../packages/open-code-review { })
+      # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
+      # line-level comments. Agent reads full files, cross-references context.
+      (callPackage ../../packages/open-code-review { })
 
-        # AI-powered code review for GitHub PRs. Posts inline comments on
-        # exact diff lines, incremental re-triage, conversational resolution.
-        (callPackage ../../packages/codecanary { })
+      # AI-powered code review for GitHub PRs. Posts inline comments on
+      # exact diff lines, incremental re-triage, conversational resolution.
+      (callPackage ../../packages/codecanary { })
 
-        # Design guidance for AI coding agents. 23 commands (polish, audit,
-        # critique), 44 detector rules, live browser iteration.
-        (callPackage ../../packages/impeccable { })
+      # Design guidance for AI coding agents. 23 commands (polish, audit,
+      # critique), 44 detector rules, live browser iteration.
+      (callPackage ../../packages/impeccable { })
 
-        # ── medium interest ──
+      # ── medium interest ──
 
-        # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
-        # agents into one live surface. Real-time compose/extend/observe.
-        (callPackage ../../packages/iii-engine { })
+      # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
+      # agents into one live surface. Real-time compose/extend/observe.
+      (callPackage ../../packages/iii-engine { })
 
-        # Semantic code intelligence. Pre-indexed knowledge graph: symbol
-        # relationships, call graphs, code structure. ~35% cheaper, ~70%
-        # fewer agent tool calls.
-        (callPackage ../../packages/codegraph { })
+      # Semantic code intelligence. Pre-indexed knowledge graph: symbol
+      # relationships, call graphs, code structure. ~35% cheaper, ~70%
+      # fewer agent tool calls.
+      (callPackage ../../packages/codegraph { })
 
-        # Security scanner for AI agent skills. 68 vulnerability patterns
-        # across 17 categories. Fast static + optional LLM analysis.
-        (callPackage ../../packages/skillspector { })
+      # Security scanner for AI agent skills. 68 vulnerability patterns
+      # across 17 categories. Fast static + optional LLM analysis.
+      (callPackage ../../packages/skillspector { })
 
-        # Persistent memory for AI coding agents. Captures sessions,
-        # compresses to searchable memory, injects context on next start.
-        (callPackage ../../packages/agentmemory { })
+      # Persistent memory for AI coding agents. Captures sessions,
+      # compresses to searchable memory, injects context on next start.
+      (callPackage ../../packages/agentmemory { })
 
-        # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
-        # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
-        (callPackage ../../packages/docling { })
+      # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
+      # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
+      (callPackage ../../packages/docling { })
 
-        # ── low interest ──
+      # ── low interest ──
 
-        # AI git commit message generator from staged diff. Supports
-        # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
-        (callPackage ../../packages/aicommits { })
+      # AI git commit message generator from staged diff. Supports
+      # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
+      (callPackage ../../packages/aicommits { })
 
-        # AI spend tracker. Reads 31 tools' session files, breaks down
-        # tokens & dollars by task, model, tool, project. All local.
-        (callPackage ../../packages/codeburn { })
+      # AI spend tracker. Reads 31 tools' session files, breaks down
+      # tokens & dollars by task, model, tool, project. All local.
+      (callPackage ../../packages/codeburn { })
 
-        # Knowledge graph from any folder. /graphify . → graph.html +
-        # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
-        (callPackage ../../packages/graphify { })
+      # Knowledge graph from any folder. /graphify . → graph.html +
+      # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
+      (callPackage ../../packages/graphify { })
 
-        # Web access for AI agents. Search + read 10+ platforms (YouTube,
-        # Twitter, Reddit, RSS, GitHub). Handles auth/cookies/anti-bot.
-        (callPackage ../../packages/agent-reach { })
-        # (callPackage ../../packages/grepai { })
-        # (callPackage ../../packages/lightpanda { })
-        # infisical
-        # direnv
-        # dolt
-        # tuios
-        # zola
-        # repomix
+      # Web access for AI agents. Search + read 10+ platforms (YouTube,
+      # Twitter, Reddit, RSS, GitHub). Handles auth/cookies/anti-bot.
+      (callPackage ../../packages/agent-reach { })
+      # (callPackage ../../packages/grepai { })
+      # (callPackage ../../packages/lightpanda { })
+      # infisical
+      # direnv
+      # dolt
+      # tuios
+      # zola
+      # repomix
 
-        git-credential-oauth
-        sesh
-      ])
-      ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
-        flux
-        vlc
-        keka
-        key-codes
-        mp3gain-express
-        neovide
+      git-credential-oauth
+      sesh
+    ])
+    ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
+      flux
+      vlc
+      keka
+      key-codes
+      mp3gain-express
+      neovide
 
-        ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
-        # anki
-        # brave-browser
-        # cursor
-        # discord
-        # docker
-        # firefox_nightly
-        # inkscape
-        # iptvnator
-        # libreoffice
-        # notion-calendar
-        # orion
-        # rustrover
-        # slack
-        # superwhisper
-        # tor-browser
-        # tunnelblick
-        # visual-studio-code_insiders
-        # zed
-      ])
-      ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-        rtk
+      ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
+      # anki
+      # brave-browser
+      # cursor
+      # discord
+      # docker
+      # firefox_nightly
+      # inkscape
+      # iptvnator
+      # libreoffice
+      # notion-calendar
+      # orion
+      # rustrover
+      # slack
+      # superwhisper
+      # tor-browser
+      # tunnelblick
+      # visual-studio-code_insiders
+      # zed
+    ])
+    ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
+      rtk
 
-        # AI Coding Agents
-        # jules
+      # AI Coding Agents
+      # jules
 
-        # Workflow & Project Management
-        # beads-rust
-        # beads-viewer
-        # openspec # Small
-        # cc-sdd # Large
-        # spec-kit # Large
-        # workmux
+      # Workflow & Project Management
+      # beads-rust
+      # beads-viewer
+      # openspec # Small
+      # cc-sdd # Large
+      # spec-kit # Large
+      # workmux
 
-        # Code Review
-        # tuicr
+      # Code Review
+      # tuicr
 
-        # Utilities
-        # ck
-        # gno
-        # qmd
-        # showboat
-      ]);
+      # Utilities
+      # ck
+      # gno
+      # qmd
+      # showboat
+    ]);
 
     system.defaults.dock.persistent-apps = [
       # Terminals
