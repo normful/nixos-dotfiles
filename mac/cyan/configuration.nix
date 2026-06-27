@@ -110,6 +110,10 @@
         # ripgrep+fzf in long-running processes.
         (callPackage ../../packages/fff-mcp { })
 
+        # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
+        # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
+        (callPackage ../../packages/disky { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
