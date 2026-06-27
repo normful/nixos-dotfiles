@@ -93,6 +93,10 @@
         # for web scraping, form filling, screenshots, and more.
         (callPackage ../../packages/agent-browser { })
 
+        # CLI coding agent for open AI models. Connects to LM Studio,
+        # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
+        (callPackage ../../packages/swival { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
