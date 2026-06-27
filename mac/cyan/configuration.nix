@@ -69,6 +69,7 @@
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
         # Packages I'm only installing on this computer for now
+        agent-browser
         mariadb_118
         jre25_minimal
         terminal-notifier
@@ -121,7 +122,6 @@
         # zed
       ])
       ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-        agent-browser
         rtk
 
         # AI Coding Agents
