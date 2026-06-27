@@ -1,4 +1,5 @@
 {
+  pkgs-previous-stable,
   pkgs-stable,
   pkgs-pinned-unstable,
   config,
@@ -40,7 +41,7 @@
     my.enableConfigLangsTools = true;
 
     my.enableDocker = true;
-    my.enableKubernetes = true;
+    my.enableKubernetes = false;
     my.enableSqlDbTools = true;
     my.enableMysqlMariaDbTools = true;
     my.enableNetworkingTools = true;
@@ -60,8 +61,11 @@
     my.enableJapaneseFonts = true;
 
     environment.systemPackages =
-      with pkgs-pinned-unstable;
+      with pkgs-previous-stable;
       [
+        mise
+      ]
+      ++ (with pkgs-pinned-unstable; [
         tailscale
         sops
         age
@@ -92,7 +96,10 @@
         # tuios
         # zola
         # repomix
-      ]
+
+        git-credential-oauth
+        sesh
+      ])
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         flux
         vlc

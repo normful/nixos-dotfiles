@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs-pinned-unstable,
+  pkgs-pinned-stable,
   ...
 }:
 let
@@ -48,6 +49,7 @@ in
     environment.systemPackages =
       with pkgs-pinned-unstable;
       (optionals config.my.enableMultiLangTools [
+        mise
         just
         cloc
         cmake
@@ -112,6 +114,7 @@ in
       ++ (optionals config.my.enableLangNix [
         nixfmt
         nix-prefetch-github
+        nix-search-cli
       ])
       ++ (optionals config.my.enableLangGleam [
         gleam

@@ -1,7 +1,12 @@
 {
   inputs = {
+    # Previous stable
+    nixpkgs-2511.url = "github:NixOS/nixpkgs/nixos-25.11";
+
+    # Current stable
     nixpkgs-2605.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    # Upcoming stable (currently unstable)
     # To get latest unstable commit, run:
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
     nixpkgs-unstable-2611.url = "github:NixOS/nixpkgs/89570f24e97e614aa34aa9ab1c927b6578a43775";
@@ -27,6 +32,7 @@
 
   outputs =
     inputs@{
+      nixpkgs-2511,
       nixpkgs-2605,
       nixpkgs-unstable-2611,
       ...
@@ -90,6 +96,10 @@
         ];
         specialArgs = {
           inherit inputs;
+          pkgs-previous-stable = import nixpkgs-2511 {
+            inherit system;
+            config.allowUnfree = true;
+          };
           pkgs-stable = import nixpkgs-2605 {
             inherit system;
             config.allowUnfree = true;

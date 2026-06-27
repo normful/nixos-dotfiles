@@ -224,6 +224,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-2511": {
+      "locked": {
+        "lastModified": 1782335603,
+        "narHash": "sha256-sZkQH1CkiZtdvcaLx4sGQD9Q9h+A8qB04DRpqQCN530=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "03c72920da828594fae523aaef96f33dff10b340",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-2605": {
       "locked": {
         "lastModified": 1782375420,
@@ -278,6 +294,7 @@
         "nix-casks": "nix-casks",
         "nix-darwin-2605": "nix-darwin-2605",
         "nixos-wsl-2605": "nixos-wsl-2605",
+        "nixpkgs-2511": "nixpkgs-2511",
         "nixpkgs-2605": "nixpkgs-2605",
         "nixpkgs-unstable-2611": "nixpkgs-unstable-2611",
         "sops-nix": "sops-nix"
