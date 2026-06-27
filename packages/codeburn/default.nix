@@ -23,7 +23,7 @@ buildNpmPackage rec {
   # Nix sandbox blocks network access, so we pre-fetch it here.
   litellmPrices = fetchurl {
     url = "https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json";
-    hash = "sha256-NsiZTk1l7c/jlsZHN9kKoPfzA3hAZ6Jt/CCQmUxv3k0=";
+    hash = "sha256-vxljtQ2pbBHsbqO98apyKprjzlj+OwHzHrWZaUXl8U8=";
   };
 
   preBuild = ''

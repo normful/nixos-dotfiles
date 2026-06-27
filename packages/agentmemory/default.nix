@@ -23,7 +23,7 @@ let
     name = "agentmemory-npm-deps";
     inherit src;
     sourceRoot = "package";
-    hash = "sha256-cbgSlHJYws/AJvy+PICPQycpfp2pb1I9jSovSEKZ2fU=";
+    hash = "sha256-FPLzg8jknhJV/ctaebLIGAJbDei4reFfAXsJo5MUl5A=";
     nativeBuildInputs = [ nodejs cacert ];
 
     # NOTE: generates lockfile with ALL deps (dev included) so fetchNpmDeps
