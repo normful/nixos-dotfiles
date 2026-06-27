@@ -105,6 +105,11 @@
         # to agent, model, and prompts that generated it.
         (callPackage ../../packages/git-ai { })
 
+        # High-performance file search MCP server. Typo-resistant path &
+        # content search, frecency-ranked, background watcher. Faster than
+        # ripgrep+fzf in long-running processes.
+        (callPackage ../../packages/fff-mcp { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
