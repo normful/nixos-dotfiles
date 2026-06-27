@@ -73,7 +73,6 @@
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
         # Packages I'm only installing on this computer for now
-        agent-browser
         mariadb_118
         jre25_minimal
         terminal-notifier
@@ -89,6 +88,10 @@
         (callPackage ../../packages/tree-sitter { })
         (callPackage ../../packages/lean-ctx { })
         # ── high interest ──
+
+        # Fast browser automation CLI for AI agents. Connects to Chrome CDP
+        # for web scraping, form filling, screenshots, and more.
+        (callPackage ../../packages/agent-browser { })
 
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
