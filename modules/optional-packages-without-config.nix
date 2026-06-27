@@ -55,14 +55,21 @@ in
         efm-langserver
         hyperfine
         unixtools.watch
+        goreleaser
       ])
       ++ (optionals config.my.enableLangTsJs [
         nodejs
         bun
+        pnpm
         yarn
         deno
         prettierd
         eslint_d
+        oxfmt
+        oxlint
+        tsgolint
+        typescript-go
+        typescript-language-server
       ])
       ++ (optionals config.my.enableLangGo [
         go
@@ -119,6 +126,7 @@ in
         d2
         gnuplot
         graphviz
+        gnuplot
       ])
       ++ (optionals config.my.enableLangTypst [
         typst
@@ -135,6 +143,8 @@ in
         mdq
         codebraid
         presenterm
+        pandoc
+        rumdl
       ])
       ++ (optionals config.my.enableMarkdownGuiTools [
         folio
@@ -265,7 +275,8 @@ in
         ffmpeg
         vorbis-tools
         musikcube
-        asciinema_3
+        lowfi
+        asciinema
       ])
       ++ (optionals config.my.enableImageTools [
         imagemagick
