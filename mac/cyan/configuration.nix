@@ -86,7 +86,7 @@
         # Packages I'm only installing on this computer for now
         ansible
         mariadb_118
-        infisical
+        # infisical
         grex
         thumbs
         yubikey-manager
@@ -96,9 +96,9 @@
         (callPackage ../../packages/lightpanda { })
         (callPackage ../../packages/tree-sitter { })
         gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
-        direnv
-        dolt
-        tuios
+        # direnv
+        # dolt
+        # tuios
         sqlite-web
 
         gitleaks
@@ -140,32 +140,26 @@
       ])
       ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
         # AI Coding Agents
-        jules
-
-        # Claude Code Ecosystem
-        sandbox-runtime
-
-        # Usage Analytics
-        ccusage-pi
+        # jules
 
         # Workflow & Project Management
         # beads-rust
-        beads-viewer
-        openspec # Small
-        cc-sdd # Large
-        spec-kit # Large
-        workmux
+        # beads-viewer
+        # openspec # Small
+        # cc-sdd # Large
+        # spec-kit # Large
+        # workmux
 
         # Code Review
-        tuicr
+        # tuicr
 
         # Utilities
         agent-browser
-        ck
-        gno
-        qmd
         rtk
-        showboat
+        # ck
+        # gno
+        # qmd
+        # showboat
       ]);
 
     system.defaults.dock.persistent-apps = [
