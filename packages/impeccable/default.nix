@@ -1,39 +1,33 @@
 {
   lib,
   fetchFromGitHub,
-  runCommand,
   buildNpmPackage,
   fetchNpmDeps,
   makeWrapper,
   nodejs,
+  cacert,
 }:
 
 let
   version = "3.1.0";
 
-  srcOrig = fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "pbakaus";
     repo = "impeccable";
     rev = "cli-v${version}";
     hash = "sha256-U6Eukc+xT4xX/jA3IVNB42p7Eey2XDbK6l5LHSTATX8=";
   };
 
-  # Inject the package-lock.json into source — buildNpmPackage needs it for offline install
-  src = runCommand "impeccable-src" { } ''
-    cp -r ${srcOrig} $out
-    chmod +w $out
-    cp ${./package-lock.json} $out/package-lock.json
-  '';
-
-  # Pre-fetched npm dependencies — no network in sandbox
-  npmDepsSrc = runCommand "npm-deps-src" { } ''
-    mkdir -p $out
-    cp ${./package-lock.json} $out/package-lock.json
-  '';
+  # Generate package-lock.json from upstream's bun.lock, then pre-fetch deps
   npmDeps = fetchNpmDeps {
     name = "impeccable-npm-deps";
-    src = npmDepsSrc;
-    hash = "sha256-c/XWs/gVOlBrIqMTcPpKKf1PyGQ6BCMMN3WgP0PML0U=";
+    inherit src;
+    hash = "sha256-i23JKXpEQfC1DMa4ZX2UaJR1OkRElC3nC8ytfTbFq1c=";
+    nativeBuildInputs = [ nodejs cacert ];
+
+    postPatch = ''
+      HOME=$TMPDIR npm install --package-lock-only --ignore-scripts --legacy-peer-deps --no-audit --no-fund
+    '';
   };
 in
 buildNpmPackage {
@@ -47,7 +41,18 @@ buildNpmPackage {
   PUPPETEER_SKIP_DOWNLOAD = 1;
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = 1;
 
-  # No npm build step — just install deps and copy files
+  # Avoid peer dep conflicts during install
+  npmFlags = [ "--legacy-peer-deps" ];
+
+  # npm needs to write to cache during install
+  makeCacheWritable = true;
+
+  # Copy generated lockfile from npmDeps into source so npm install finds it
+  postPatch = ''
+    cp ${npmDeps}/package-lock.json package-lock.json
+  '';
+
+  # No npm build step — CLI files are plain JS ESM
   dontNpmBuild = true;
   dontNpmPrune = true;
 
@@ -55,7 +60,6 @@ buildNpmPackage {
     runHook preInstall
 
     mkdir -p $out/lib/node_modules/impeccable
-    # Strip bun's .cache — created if --no-save is not fully effective
     rm -rf node_modules/.cache 2>/dev/null || true
     cp -r cli package.json node_modules $out/lib/node_modules/impeccable/
 
