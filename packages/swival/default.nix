@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python313Packages,
+  python314Packages,
 }:
 
-python313Packages.buildPythonApplication rec {
+python314Packages.buildPythonApplication rec {
   pname = "swival";
   version = "1.0.34";
   format = "pyproject";
@@ -16,11 +16,11 @@ python313Packages.buildPythonApplication rec {
     hash = "sha256-Sx1HIjNGZ4xx18TuzCQkBw6/z+ngKhbfVyuLn8ayqGQ=";
   };
 
-  nativeBuildInputs = with python313Packages; [
+  nativeBuildInputs = with python314Packages; [
     hatchling
   ];
 
-  propagatedBuildInputs = with python313Packages; [
+  propagatedBuildInputs = with python314Packages; [
     litellm
     tiktoken
     rich

@@ -51,8 +51,8 @@ in
         ++ (optionals (!config.my.enableLangPython) (
           with pkgs-pinned-unstable;
           [
-            python313
-            python313Packages.pip
+            python314
+            python314Packages.pip
           ]
         ))
         ++ (optionals (!config.my.enableLangC) (

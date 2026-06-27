@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python312Packages,
+  python314Packages,
 }:
 
-python312Packages.buildPythonApplication rec {
+python314Packages.buildPythonApplication rec {
   pname = "bernstein";
   version = "2.8.2";
   format = "pyproject";
@@ -16,11 +16,11 @@ python312Packages.buildPythonApplication rec {
     hash = "sha256-VT/qS+LdCqNgd1ww2XV3iTq50xPxwnqj+e0VCNwJ2kc=";
   };
 
-  nativeBuildInputs = with python312Packages; [
+  nativeBuildInputs = with python314Packages; [
     hatchling
   ];
 
-  propagatedBuildInputs = with python312Packages; [
+  propagatedBuildInputs = with python314Packages; [
     fastapi
     starlette
     uvicorn

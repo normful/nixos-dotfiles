@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python312Packages,
+  python314Packages,
 }:
 
-python312Packages.buildPythonApplication rec {
+python314Packages.buildPythonApplication rec {
   pname = "agent-reach";
   version = "1.5.0";
   format = "pyproject";
@@ -16,11 +16,11 @@ python312Packages.buildPythonApplication rec {
     hash = "sha256-rCEtsGDa+CzEGavRPKDtjy1SNrUGdrgtq+iWkOaQbIQ=";
   };
 
-  nativeBuildInputs = with python312Packages; [
+  nativeBuildInputs = with python314Packages; [
     hatchling
   ];
 
-  propagatedBuildInputs = with python312Packages; [
+  propagatedBuildInputs = with python314Packages; [
     requests
     feedparser
     python-dotenv

@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python312Packages,
+  python314Packages,
 }:
 
-python312Packages.buildPythonApplication rec {
+python314Packages.buildPythonApplication rec {
   pname = "docling-slim";
   version = "2.107.0";
   format = "other";
@@ -19,7 +19,7 @@ python312Packages.buildPythonApplication rec {
   # pyproject.toml and docling/ source are at repo root (monorepo root = docling-slim)
   setSourceRoot = "sourceRoot=source";
 
-  nativeBuildInputs = with python312Packages; [
+  nativeBuildInputs = with python314Packages; [
     hatchling
     build
     installer
@@ -38,7 +38,7 @@ python312Packages.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = with python312Packages; [
+  propagatedBuildInputs = with python314Packages; [
     # Core deps
     pydantic
     docling-core
@@ -92,7 +92,7 @@ python312Packages.buildPythonApplication rec {
   # Patch imports to make docling_parse optional since
   # docling-parse is broken in nixpkgs (C++ build fails with nlohmann_json 3.12)
   postInstall = ''
-    site=$out/${python312Packages.python.sitePackages}
+    site=$out/${python314Packages.python.sitePackages}
 
     # Replace docling_parse_backend with a stub that doesn't import docling_parse
     cat > "$site/docling/backend/docling_parse_backend.py" << 'STUB'

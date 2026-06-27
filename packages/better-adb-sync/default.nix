@@ -1,10 +1,10 @@
 {
   lib,
-  python3Packages,
+  python314Packages,
   fetchPypi,
   android-tools,
 }:
-python3Packages.buildPythonApplication rec {
+python314Packages.buildPythonApplication rec {
   pname = "better-adb-sync";
   version = "1.4.0";
   format = "pyproject";
@@ -16,11 +16,11 @@ python3Packages.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    python3Packages.setuptools
+    python314Packages.setuptools
   ];
 
   propagatedBuildInputs = [
-    python3Packages.adb-shell
+    python314Packages.adb-shell
     android-tools
   ];
 

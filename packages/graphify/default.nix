@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python312Packages,
+  python314Packages,
 }:
 
-python312Packages.buildPythonApplication rec {
+python314Packages.buildPythonApplication rec {
   pname = "graphifyy";
   version = "0.8.50";
   format = "pyproject";
@@ -16,12 +16,12 @@ python312Packages.buildPythonApplication rec {
     hash = "sha256-gugoWhYTU27feoLg/5KlUkN13mmFWvaw7JCv6KkbJD4=";
   };
 
-  nativeBuildInputs = with python312Packages; [
+  nativeBuildInputs = with python314Packages; [
     setuptools
     wheel
   ];
 
-  propagatedBuildInputs = with python312Packages; [
+  propagatedBuildInputs = with python314Packages; [
     networkx
     numpy
     rapidfuzz
