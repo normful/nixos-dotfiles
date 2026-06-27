@@ -13,8 +13,8 @@ in
       with pkgs-pinned-unstable;
       [
         chezmoi
-
         mise
+        tmux
 
         #################################################################################
         # Basic utilities
@@ -51,6 +51,8 @@ in
         unzip
 
         openssl
+
+        mkpasswd
 
         #################################################################################
         # Shell history
