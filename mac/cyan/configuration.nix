@@ -118,6 +118,10 @@
         # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
         (callPackage ../../packages/openfang { })
 
+        # Multi-agent orchestrator. Runs a crew of CLI coding agents
+        # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
+        (callPackage ../../packages/bernstein { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
