@@ -88,6 +88,60 @@
         betterleaks
         (callPackage ../../packages/tree-sitter { })
         (callPackage ../../packages/lean-ctx { })
+        # ── high interest ──
+
+        # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
+        # line-level comments. Agent reads full files, cross-references context.
+        (callPackage ../../packages/open-code-review { })
+
+        # AI-powered code review for GitHub PRs. Posts inline comments on
+        # exact diff lines, incremental re-triage, conversational resolution.
+        (callPackage ../../packages/codecanary { })
+
+        # Design guidance for AI coding agents. 23 commands (polish, audit,
+        # critique), 44 detector rules, live browser iteration.
+        (callPackage ../../packages/impeccable { })
+
+        # ── medium interest ──
+
+        # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
+        # agents into one live surface. Real-time compose/extend/observe.
+        (callPackage ../../packages/iii-engine { })
+
+        # Semantic code intelligence. Pre-indexed knowledge graph: symbol
+        # relationships, call graphs, code structure. ~35% cheaper, ~70%
+        # fewer agent tool calls.
+        (callPackage ../../packages/codegraph { })
+
+        # Security scanner for AI agent skills. 68 vulnerability patterns
+        # across 17 categories. Fast static + optional LLM analysis.
+        (callPackage ../../packages/skillspector { })
+
+        # Persistent memory for AI coding agents. Captures sessions,
+        # compresses to searchable memory, injects context on next start.
+        (callPackage ../../packages/agentmemory { })
+
+        # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
+        # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
+        (callPackage ../../packages/docling { })
+
+        # ── low interest ──
+
+        # AI git commit message generator from staged diff. Supports
+        # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
+        (callPackage ../../packages/aicommits { })
+
+        # AI spend tracker. Reads 31 tools' session files, breaks down
+        # tokens & dollars by task, model, tool, project. All local.
+        (callPackage ../../packages/codeburn { })
+
+        # Knowledge graph from any folder. /graphify . → graph.html +
+        # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
+        (callPackage ../../packages/graphify { })
+
+        # Web access for AI agents. Search + read 10+ platforms (YouTube,
+        # Twitter, Reddit, RSS, GitHub). Handles auth/cookies/anti-bot.
+        (callPackage ../../packages/agent-reach { })
         # (callPackage ../../packages/grepai { })
         # (callPackage ../../packages/lightpanda { })
         # infisical
