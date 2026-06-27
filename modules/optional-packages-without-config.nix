@@ -146,9 +146,6 @@ in
         pandoc
         rumdl
       ])
-      ++ (optionals config.my.enableMarkdownGuiTools [
-        folio
-      ])
       ++ (optionals (config.my.enableMarkdownGuiTools && isX86_64Linux) [
         percollate
         typora
@@ -211,7 +208,7 @@ in
 
         timoni
 
-        werf
+        # werf # test failure in nixpkgs-unstable-2611
         nelm
 
         devspace
