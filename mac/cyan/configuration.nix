@@ -65,53 +65,41 @@
         tailscale
         sops
         age
-        mise
-        mkpasswd
         keepassxc
-        zola
-        pandoc
-        terminal-notifier
-        texliveSmall
-        repomix
-
-        tmux
-        oxlint
-        oxfmt
-        rumdl
-        gnuplot
-        lowfi
-        pnpm
-        goreleaser
+        gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
         # Packages I'm only installing on this computer for now
-        ansible
         mariadb_118
-        # infisical
+        jre25_minimal
+        terminal-notifier
+        yubikey-manager
+        texliveSmall
+        ansible
         grex
         thumbs
-        yubikey-manager
-        jre25_minimal
         fswatch
-        (callPackage ../../packages/grepai { })
-        (callPackage ../../packages/lightpanda { })
+        sqlite-web
+        gitleaks
+        betterleaks
         (callPackage ../../packages/tree-sitter { })
-        gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
+        (callPackage ../../packages/lean-ctx { })
+        # (callPackage ../../packages/grepai { })
+        # (callPackage ../../packages/lightpanda { })
+        # infisical
         # direnv
         # dolt
         # tuios
-        sqlite-web
-
-        gitleaks
-        betterleaks
-
-        typescript-go
-        tsgolint
-        oxlint
-        oxfmt
-        (callPackage ../../packages/lean-ctx { })
-        typescript-language-server
+        # zola
+        # repomix
       ]
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
+        flux
+        vlc
+        keka
+        key-codes
+        mp3gain-express
+        neovide
+
         ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
         # anki
         # brave-browser
@@ -119,14 +107,9 @@
         # discord
         # docker
         # firefox_nightly
-        flux
         # inkscape
         # iptvnator
-        keka
-        key-codes
         # libreoffice
-        mp3gain-express
-        neovide
         # notion-calendar
         # orion
         # rustrover
@@ -135,10 +118,12 @@
         # tor-browser
         # tunnelblick
         # visual-studio-code_insiders
-        vlc
         # zed
       ])
       ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
+        agent-browser
+        rtk
+
         # AI Coding Agents
         # jules
 
@@ -154,8 +139,6 @@
         # tuicr
 
         # Utilities
-        agent-browser
-        rtk
         # ck
         # gno
         # qmd
@@ -183,20 +166,11 @@
       "/Applications/Spark.app"
       "/Applications/OptiCull.app"
       "/Applications/darktable.app"
-      # "/Applications/FileZilla.app"
       "/Applications/QuickShade.app"
       "/System/Applications/System Settings.app"
-      /*
-            {
-              spacer = {
-                small = true;
-              };
-            }
 
-            # Apps I'm temporarily trying to use a bit more
-            "/Applications/Insta360 Studio.app"
-            "/Applications/RustRover.app"
-      */
+      # "/Applications/FileZilla.app"
+      # "/Applications/Insta360 Studio.app"
     ];
 
     system.defaults.dock.persistent-others = [
