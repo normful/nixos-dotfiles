@@ -19,8 +19,6 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-iw7zz+jr39Ip8lZi5XS1E9T7FSSYAwND3JF4mSC5D4M=";
 
-  nodejs = nodejs;
-
   # prepack runs `pnpm build && clean-pkg-json` (not available), install manually
   dontNpmInstall = true;
 

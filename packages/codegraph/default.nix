@@ -18,8 +18,6 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-SQmYRcDW/JDVVJ7fWW/FbVwxf1zBY9RVVsbIBnvrEU0=";
 
-  nodejs = nodejs;
-
   meta = with lib; {
     description = "Supercharge AI coding agents with semantic code intelligence";
     longDescription = ''

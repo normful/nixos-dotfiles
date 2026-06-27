@@ -19,8 +19,6 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-TSoz72VUsvpEby7VQ9T/qp8fI3J8Ra/+QPGuCBvW5FA=";
 
-  nodejs = nodejs;
-
   # The build script fetches litellm pricing data from the network.
   # Nix sandbox blocks network access, so we pre-fetch it here.
   litellmPrices = fetchurl {
