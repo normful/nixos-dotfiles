@@ -101,6 +101,10 @@
         # code execution, subagent task delegation. Fast startup, 60 FPS.
         (callPackage ../../packages/maki { })
 
+        # Git extension that tracks AI-generated code. Every line linked
+        # to agent, model, and prompts that generated it.
+        (callPackage ../../packages/git-ai { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
