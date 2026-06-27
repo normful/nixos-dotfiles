@@ -49,7 +49,6 @@ in
     environment.systemPackages =
       with pkgs-pinned-unstable;
       (optionals config.my.enableMultiLangTools [
-        mise
         just
         cloc
         cmake
