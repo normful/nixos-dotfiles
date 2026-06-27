@@ -122,6 +122,10 @@
         # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
         (callPackage ../../packages/bernstein { })
 
+        # Terminal coding agent for any model. TUI + CLI. DeepSeek,
+        # Claude, GPT, open-weight models via vLLM/Ollama.
+        (callPackage ../../packages/codewhale { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
