@@ -114,6 +114,10 @@
         # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
         (callPackage ../../packages/disky { })
 
+        # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
+        # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
+        (callPackage ../../packages/openfang { })
+
         # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
         # line-level comments. Agent reads full files, cross-references context.
         (callPackage ../../packages/open-code-review { })
