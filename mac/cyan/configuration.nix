@@ -90,14 +90,14 @@
       # - https://github.com/search?q=path%3AREADME.md+nvfetcher&type=code
       # ────────────────────────────────────────────────────────────────────────
 
-      (callPackage ../../packages/tree-sitter { })
+      # ── keepers ──
+
+      (callPackage ../../packages/agent-browser { })
       (callPackage ../../packages/lean-ctx { })
+      (callPackage ../../packages/tpluck { })
+      (callPackage ../../packages/tree-sitter { })
 
       # ── high interest ──
-
-      # Fast browser automation CLI for AI agents. Connects to Chrome CDP
-      # for web scraping, form filling, screenshots, and more.
-      (callPackage ../../packages/agent-browser { })
 
       # CLI coding agent for open AI models. Connects to LM Studio,
       # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
@@ -134,27 +134,8 @@
       # compresses to searchable memory, injects context on next start.
       (callPackage ../../packages/agentmemory { })
 
-      # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
-      # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
-      (callPackage ../../packages/docling { })
-
-      # ── low interest ──
-
-      # AI git commit message generator from staged diff. Supports
-      # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
-      (callPackage ../../packages/aicommits { })
-
-      # AI spend tracker. Reads 31 tools' session files, breaks down
-      # tokens & dollars by task, model, tool, project. All local.
-      (callPackage ../../packages/codeburn { })
-
-      # Knowledge graph from any folder. /graphify . → graph.html +
-      # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
-      (callPackage ../../packages/graphify { })
-
-      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
-      # code execution, subagent task delegation. Fast startup, 60 FPS.
-      (callPackage ../../packages/maki { })
+      # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
+      (callPackage ../../packages/lumen { })
 
       # Git extension that tracks AI-generated code. Every line linked
       # to agent, model, and prompts that generated it.
@@ -164,6 +145,24 @@
       # content search, frecency-ranked, background watcher. Faster than
       # ripgrep+fzf in long-running processes.
       (callPackage ../../packages/fff-mcp { })
+
+      # ── low interest ──
+
+      # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
+      # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
+      (callPackage ../../packages/docling { })
+
+      # AI git commit message generator from staged diff. Supports
+      # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
+      (callPackage ../../packages/aicommits { })
+
+      # Knowledge graph from any folder. /graphify . → graph.html +
+      # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
+      (callPackage ../../packages/graphify { })
+
+      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
+      # code execution, subagent task delegation. Fast startup, 60 FPS.
+      (callPackage ../../packages/maki { })
 
       # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
       # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
@@ -181,12 +180,11 @@
       # Claude, GPT, open-weight models via vLLM/Ollama.
       (callPackage ../../packages/codewhale { })
 
-      # Terminal text picker from stdin with fuzzy search. Like fzf but
-      # with crossterm TUI, grep-style patterns, and configurable keybindings.
-      (callPackage ../../packages/tpluck { })
+      # ── already tried ──
 
-      # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
-      (callPackage ../../packages/lumen { })
+      # AI spend tracker. Reads 31 tools' session files, breaks down
+      # tokens & dollars by task, model, tool, project. All local.
+      (callPackage ../../packages/codeburn { })
 
       # (callPackage ../../packages/grepai { })
       # (callPackage ../../packages/lightpanda { })
