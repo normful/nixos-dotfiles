@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python314Packages,
+  python313Packages,
 }:
 
-python314Packages.buildPythonApplication {
+python313Packages.buildPythonApplication {
   pname = "skillspector";
   version = "0-unstable-2026-06-10";
   format = "pyproject";
@@ -16,11 +16,11 @@ python314Packages.buildPythonApplication {
     hash = "sha256-NwkfzgKfKNC9xWoznCRfdFrytvdR+J5X7TImdjZ6Td8=";
   };
 
-  nativeBuildInputs = with python314Packages; [
+  nativeBuildInputs = with python313Packages; [
     hatchling
   ];
 
-  propagatedBuildInputs = with python314Packages; [
+  propagatedBuildInputs = with python313Packages; [
     typer
     rich
     httpx
