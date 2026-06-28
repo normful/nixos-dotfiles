@@ -2,10 +2,9 @@
   lib,
   fetchFromGitHub,
   buildNpmPackage,
-  nodejs,
 }:
 
-buildNpmPackage rec {
+buildNpmPackage {
   pname = "codegraph";
   version = "1.1.1";
 
