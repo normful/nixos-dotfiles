@@ -25,7 +25,7 @@ readonly TPLUCK_BIN="tpluck"
 # ── Open mode: called by run-shell bind → captures pane_id, opens popup ─────
 if [ "${1:-}" = "open" ]; then
   target_pane="$(tmux display-message -p '#{pane_id}')"
-  tmux display-popup -w 90% -h 90% -E \
+  tmux display-popup -B -w 100% -h 100% -E \
     "${SCRIPT_DIR}/tpluck.tmux popup '${target_pane}'"
   exit 0
 fi
@@ -46,8 +46,10 @@ if [ "${1:-}" = "popup" ]; then
 fi
 
 # ── Setup mode: called by run-shell from tmux.conf ──────────────────────────
-DEFAULT_TPLUCK_KEY=o
+DEFAULT_TPLUCK_KEY=t
 TPLUCK_KEY="$(tmux show-option -gqv @tpluck-key)"
 TPLUCK_KEY=${TPLUCK_KEY:-$DEFAULT_TPLUCK_KEY}
 
-tmux bind-key "${TPLUCK_KEY}" run-shell "${SCRIPT_DIR}/tpluck.tmux open"
+tmux bind-key -T prefix "${TPLUCK_KEY}"           run-shell "${SCRIPT_DIR}/tpluck.tmux open"
+tmux bind-key -T prefix "M-l"                        run-shell "${SCRIPT_DIR}/tpluck.tmux open"
+tmux bind-key -T root  "F2"                          run-shell "${SCRIPT_DIR}/tpluck.tmux open"
