@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "kunchenguid";
     repo = "firstmate";
     rev = "1fb42263642700eeb5db0efe2b62f791981dc33a";
-    hash = "sha256-8F/WiZxTdzRVTzm5f9JL0ATOlCyFwC5UnDg2K9rsk/w=";
+    hash = "sha256-96sGm2obw34al7Qm4/1XcUpsNeH4l8e+fFk8mSU+nTo=";
   };
 
   dontBuild = true;

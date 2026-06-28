@@ -13,7 +13,7 @@ python313Packages.buildPythonApplication rec {
     owner = "dmarzzz";
     repo = "VoxTerm";
     rev = "v${version}";
-    hash = "sha256-QbG6R20GpFbDrb3AQP0R0zPMO1QQZBbroMVi1Y+wxIQ=";
+    hash = "sha256-yOmqc0EnK4UkIWfYZlae5yGnDH/xlj6nwPOR0oC/SCU=";
   };
 
   nativeBuildInputs = with python313Packages; [

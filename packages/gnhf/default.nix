@@ -14,7 +14,7 @@ buildNpmPackage rec {
     owner = "kunchenguid";
     repo = "gnhf";
     rev = "gnhf-v${version}";
-    hash = "sha256-WgBOgOeCXG2gpBNvNWNwjL30AvnZqwAU2uBSbfh9aAk=";
+    hash = "sha256-8dTfXCULAoXMJwb38bEMCazT7jzT130rzpLivVkx3Wc=";
   };
 
   npmDepsHash = "sha256-q2w+qgFsS7BYPqXpQhL0LvVysChzx/mF97OEBrDQewI=";
