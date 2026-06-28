@@ -49,7 +49,7 @@ WRAPPER
 FM="$HOME/.local/share/firstmate"
 FM_STORE="@out@/share/firstmate"
 
-case "'${1:-}" in
+case "$1" in
   init|bootstrap)
     if [ -f "$FM/.installed-version" ]; then
       echo "firstmate already initialized at $FM"
