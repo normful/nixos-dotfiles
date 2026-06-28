@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.80.2",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -227,7 +227,13 @@
     "npm:@juicesharp/rpiv-i18n",
     "npm:@juicesharp/rpiv-web-tools",
     "npm:@juicesharp/rpiv-args",
-    "npm:@juicesharp/rpiv-workflow"
+    "npm:@juicesharp/rpiv-workflow",
+    {
+      "source": "npm:@vigolium/piolium",
+      "themes": [
+        "-themes/piolium-srcery.json"
+      ]
+    }
   ],
   "pi-screenshots": {
     "sources": [

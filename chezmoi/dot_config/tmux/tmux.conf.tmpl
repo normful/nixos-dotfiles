@@ -113,10 +113,9 @@ set-option -g copy-command "pbcopy"
 # KEYBOARD BINDS
 # =============================
 
-# COMPLETELY CLEAR default keys from the root, prefix, copy-mode, copy-mode-vi key tables
+# COMPLETELY CLEAR default keys from the root, prefix, copy-mode-vi key tables
 unbind-key -a -T root
 unbind-key -a -T prefix
-unbind-key -a -T copy-mode
 unbind-key -a -T copy-mode-vi
 
 # -------------------------
@@ -128,6 +127,9 @@ bind-key -T prefix r       source-file ~/.config/tmux/tmux.conf \; display 'tmux
 
 # Type "lgtm finish" + Enter
 bind-key -T root F5       send-keys "lgtm finish" Enter
+
+# Config for https://github.com/tomis007/tpluck (in packages/tpluck)
+run-shell ~/.config/tmux/tpluck.tmux
 
 # -----------------------
 # Keyboard binds: Windows

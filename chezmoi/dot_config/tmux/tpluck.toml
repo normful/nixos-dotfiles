@@ -1,0 +1,10 @@
+newline = false
+
+[hintstyle]
+color = "cyan"
+
+[matchstyle]
+color = "white"
+
+[backgroundstyle]
+attribute = "Dim"

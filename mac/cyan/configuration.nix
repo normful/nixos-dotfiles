@@ -50,8 +50,10 @@
     my.enablePdfTools = true;
     my.enableWindowsTools = true;
     my.enableLogTools = true;
+    my.enableSecretsTools = true;
     my.enableJujutsu = true;
     my.enableGitTools = true;
+    my.enableGitHookTools = true;
     my.enableDiagramTools = true;
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
@@ -64,9 +66,8 @@
     ]
     ++ (with pkgs-pinned-unstable; [
       # mise Uncomment after https://github.com/NixOS/nixpkgs/pull/534965 is merged
+
       tailscale
-      sops
-      age
       keepassxc
       gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
@@ -74,17 +75,24 @@
       mariadb_118
       jre25_minimal
       terminal-notifier
-      yubikey-manager
       texliveSmall
       ansible
-      grex
-      thumbs
       fswatch
-      sqlite-web
-      gitleaks
-      betterleaks
+      # sqlite-web
+
+      git-credential-oauth
+      sesh
+
+      # ────────────────────────────────────────────────────────────────────────
+      # TODO: Replace many (all?) with https://github.com/berberman/nvfetcher
+      # Examples of other people also using nvfetcher:
+      # - https://github.com/search?q=path%3A_sources%2Fgenerated.nix&type=code
+      # - https://github.com/search?q=path%3AREADME.md+nvfetcher&type=code
+      # ────────────────────────────────────────────────────────────────────────
+
       (callPackage ../../packages/tree-sitter { })
       (callPackage ../../packages/lean-ctx { })
+
       # ── high interest ──
 
       # Fast browser automation CLI for AI agents. Connects to Chrome CDP
@@ -94,35 +102,6 @@
       # CLI coding agent for open AI models. Connects to LM Studio,
       # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
       (callPackage ../../packages/swival { })
-
-      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
-      # code execution, subagent task delegation. Fast startup, 60 FPS.
-      (callPackage ../../packages/maki { })
-
-      # Git extension that tracks AI-generated code. Every line linked
-      # to agent, model, and prompts that generated it.
-      (callPackage ../../packages/git-ai { })
-
-      # High-performance file search MCP server. Typo-resistant path &
-      # content search, frecency-ranked, background watcher. Faster than
-      # ripgrep+fzf in long-running processes.
-      (callPackage ../../packages/fff-mcp { })
-
-      # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
-      # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
-      (callPackage ../../packages/disky { })
-
-      # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
-      # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
-      (callPackage ../../packages/openfang { })
-
-      # Multi-agent orchestrator. Runs a crew of CLI coding agents
-      # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
-      (callPackage ../../packages/bernstein { })
-
-      # Terminal coding agent for any model. TUI + CLI. DeepSeek,
-      # Claude, GPT, open-weight models via vLLM/Ollama.
-      (callPackage ../../packages/codewhale { })
 
       # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
       # line-level comments. Agent reads full files, cross-references context.
@@ -173,20 +152,48 @@
       # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
       (callPackage ../../packages/graphify { })
 
-      # Web access for AI agents. Search + read 10+ platforms (YouTube,
-      # Twitter, Reddit, RSS, GitHub). Handles auth/cookies/anti-bot.
-      (callPackage ../../packages/agent-reach { })
+      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
+      # code execution, subagent task delegation. Fast startup, 60 FPS.
+      (callPackage ../../packages/maki { })
+
+      # Git extension that tracks AI-generated code. Every line linked
+      # to agent, model, and prompts that generated it.
+      (callPackage ../../packages/git-ai { })
+
+      # High-performance file search MCP server. Typo-resistant path &
+      # content search, frecency-ranked, background watcher. Faster than
+      # ripgrep+fzf in long-running processes.
+      (callPackage ../../packages/fff-mcp { })
+
+      # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
+      # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
+      (callPackage ../../packages/disky { })
+
+      # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
+      # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
+      (callPackage ../../packages/openfang { })
+
+      # Multi-agent orchestrator. Runs a crew of CLI coding agents
+      # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
+      (callPackage ../../packages/bernstein { })
+
+      # Terminal coding agent for any model. TUI + CLI. DeepSeek,
+      # Claude, GPT, open-weight models via vLLM/Ollama.
+      (callPackage ../../packages/codewhale { })
+
+      # Terminal text picker from stdin with fuzzy search. Like fzf but
+      # with crossterm TUI, grep-style patterns, and configurable keybindings.
+      (callPackage ../../packages/tpluck { })
+
       # (callPackage ../../packages/grepai { })
       # (callPackage ../../packages/lightpanda { })
+
       # infisical
       # direnv
       # dolt
       # tuios
       # zola
       # repomix
-
-      git-credential-oauth
-      sesh
     ])
     ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
       flux
@@ -337,11 +344,6 @@
         extraConfig = ''
           # Load user config
           if-shell '[ -f ~/.config/tmux/tmux.conf ]' 'source-file ~/.config/tmux/tmux.conf'
-
-          # Only write plugin-specific config here
-          set -g @thumbs-key F
-          set -g @thumbs-command 'echo -n {} | pbcopy; tmux display-message "Copied {}"'
-          run-shell "${pkgs-pinned-unstable.tmuxPlugins.tmux-thumbs.rtp}"
         '';
       };
     };
@@ -381,7 +383,7 @@
           };
           "com.apple.CloudSubscriptionFeatures.optIn" = {
             "545129924" = false;
-            "8187947588" = false; # ChatGPT Integration
+            "8187947588" = false;
           };
           "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
           "com.apple.assistant.support"."Assistant Enabled" = false;

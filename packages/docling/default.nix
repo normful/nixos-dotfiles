@@ -1,8 +1,80 @@
 {
   lib,
   fetchFromGitHub,
+  fetchPypi,
   python313Packages,
 }:
+
+let
+  # ── doclang (dependency of docling-core v2.85.0, not in nixpkgs) ──────────
+  doclang = python313Packages.buildPythonPackage rec {
+    pname = "doclang";
+    version = "0.7.0";
+    format = "pyproject";
+
+    src = fetchPypi {
+      inherit pname version;
+      sha256 = "199ji0bxr101lpyqlgs29yrlyz749yn5dwmkirxcy047kp2grj2q";
+    };
+
+    nativeBuildInputs = with python313Packages; [
+      setuptools
+    ];
+
+    propagatedBuildInputs = with python313Packages; [
+      lxml
+      saxonche
+      typer
+    ];
+
+    doCheck = false;
+  };
+
+  # Extend python313Packages so docling-core's `with python313Packages;` finds doclang
+  pythonPkgs = python313Packages // { inherit doclang; };
+
+  # ── docling-core v2.85.0 (nixpkgs ships v2.73.0, too old) ────────────────
+  docling-core = pythonPkgs.buildPythonPackage rec {
+    pname = "docling-core";
+    version = "2.85.0";
+    format = "pyproject";
+
+    src = fetchFromGitHub {
+      owner = "docling-project";
+      repo = "docling-core";
+      rev = "v${version}";
+      hash = "sha256-HjPCGuP/1W14U+Jr5xOtH2wBhTY8yvcQL5wWXRMfNdM=";
+    };
+
+    nativeBuildInputs = with pythonPkgs; [
+      setuptools
+      wheel
+    ];
+
+    propagatedBuildInputs = with pythonPkgs; [
+      defusedxml
+      doclang
+      jsonref
+      jsonschema
+      latex2mathml
+      pandas
+      pillow
+      pydantic
+      pydantic-settings
+      pyyaml
+      tabulate
+      typer
+      typing-extensions
+    ];
+
+    # nixpkgs has defusedxml 0.8.0rc2 (docling-core requires <0.8.0)
+    # and pydantic-settings 2.12.0 (requires >=2.14.0)
+    dontCheckRuntimeDeps = true;
+    pythonImportsCheck = [ "docling_core" ];
+
+    doCheck = false;
+  };
+in
 
 python313Packages.buildPythonApplication rec {
   pname = "docling-slim";
@@ -127,6 +199,10 @@ except ImportError:\
   # Many transitive deps may not be in nixpkgs;
   # skip strict runtime dependency checking.
   dontCheckRuntimeDeps = true;
+
+  # docling-ibm-models bundles its own docling-core 2.73.0;
+  # we use 2.85.0 directly — each resolves independently at runtime.
+  dontUsePythonCatchConflicts = true;
 
   # Tests require network access and model downloads
   doCheck = false;
