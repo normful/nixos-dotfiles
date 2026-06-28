@@ -140,6 +140,9 @@
       # Local real-time voice transcription TUI with speaker diarization.
       (callPackage ../../packages/voxterm { })
 
+      # Before I go to bed, I tell my agents: good night, have fun
+      (callPackage ../../packages/gnhf { })
+
       # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
       (callPackage ../../packages/lumen { })
 
