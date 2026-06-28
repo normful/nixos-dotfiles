@@ -113,9 +113,10 @@ set-option -g copy-command "pbcopy"
 # KEYBOARD BINDS
 # =============================
 
-# COMPLETELY CLEAR default keys from the root, prefix, copy-mode-vi key tables
+# COMPLETELY CLEAR default keys from the root, prefix, copy-mode, copy-mode-vi key tables
 unbind-key -a -T root
 unbind-key -a -T prefix
+unbind-key -a -T copy-mode
 unbind-key -a -T copy-mode-vi
 
 # -------------------------
@@ -128,29 +129,12 @@ bind-key -T prefix r       source-file ~/.config/tmux/tmux.conf \; display 'tmux
 # Type "lgtm finish" + Enter
 bind-key -T root F5       send-keys "lgtm finish" Enter
 
-# Config for https://github.com/tomis007/tpluck (in packages/tpluck)
-run-shell ~/.config/tmux/tpluck.tmux
-
-# -----------------------
-# Keyboard binds: Windows
-# -----------------------
-
-# New window
-bind-key -T prefix c      new-window # <PREFIX1or2> + c
-bind-key -T prefix n      new-window # <PREFIX1or2> + n
-bind-key -T root F8       new-window # <F8>
-
-# Kill window
-bind-key -T prefix x      kill-window # <PREFIX1or2> + x
-
-# Previous window
-bind-key -T root F11      previous-window # <F11>
-
-# Next window
-bind-key -T root F12      next-window # <F12>
-
-# Next pane in numerical order
-bind-key -T prefix M-l    select-pane -t :.+
+# -------------------------
+# Keyboard binds: https://github.com/tomis007/tpluck
+# -------------------------
+bind-key -T root F2      run-shell "~/.config/tmux/tpluck.tmux open" # <F2>
+bind-key -T prefix o     run-shell "~/.config/tmux/tpluck.tmux open" # <PREFIX1or2> + o
+bind-key -T prefix M-l   run-shell "~/.config/tmux/tpluck.tmux open" # Effectively Cmd+L + Cmd+L (in WezTerm, kitty, Ghostty)
 
 # ------------------------
 # Keyboard binds: Sessions
@@ -161,6 +145,31 @@ bind-key -T root F9       switch-client -p # <F9>
 
 # Next session
 bind-key -T root F10      switch-client -n # <F10>
+
+# -----------------------
+# Keyboard binds: Windows
+# -----------------------
+
+# New window
+bind-key -T prefix c      new-window # <PREFIX1or2> + c
+bind-key -T prefix n      new-window # <PREFIX1or2> + n
+bind-key -T root F8       new-window # <F8>
+
+# Previous window
+bind-key -T root F11      previous-window # <F11>
+
+# Next window
+bind-key -T root F12      next-window # <F12>
+
+# Kill window
+bind-key -T prefix x      kill-window # <PREFIX1or2> + x
+
+# -----------------------
+# Keyboard binds: Panes
+# -----------------------
+
+# Next pane in numerical order
+bind-key -T prefix p      select-pane -t :.+ # <PREFIX1or2> + p
 
 # -------------------------
 # Keyboard binds: Copy mode
