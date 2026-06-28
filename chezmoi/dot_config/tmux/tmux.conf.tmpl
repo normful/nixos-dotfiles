@@ -120,22 +120,21 @@ unbind-key -a -T copy-mode
 unbind-key -a -T copy-mode-vi
 
 # -------------------------
+# Keyboard binds: https://github.com/tomis007/tpluck
+# -------------------------
+bind-key -T root F2      run-shell "~/.config/tmux/tpluck.tmux open" # <F2>
+bind-key -T prefix o     run-shell "~/.config/tmux/tpluck.tmux open" # <PREFIX1or2> + o
+bind-key -T prefix M-l   run-shell "~/.config/tmux/tpluck.tmux open" # Effectively Cmd+L + Cmd+L (in WezTerm, kitty, Ghostty)
+
+# -------------------------
 # Keyboard binds: Misc
 # -------------------------
 
 # <PREFIX1or2> + r
 bind-key -T prefix r       source-file ~/.config/tmux/tmux.conf \; display 'tmux config reloaded'
 
-# Type "lgtm finish" + Enter
 bind-key -T root F3       run "pbpaste | tmux load-buffer - && tmux paste-buffer"
 bind-key -T root F5       send-keys "lgtm finish" Enter
-
-# -------------------------
-# Keyboard binds: https://github.com/tomis007/tpluck
-# -------------------------
-bind-key -T root F2      run-shell "~/.config/tmux/tpluck.tmux open" # <F2>
-bind-key -T prefix o     run-shell "~/.config/tmux/tpluck.tmux open" # <PREFIX1or2> + o
-bind-key -T prefix M-l   run-shell "~/.config/tmux/tpluck.tmux open" # Effectively Cmd+L + Cmd+L (in WezTerm, kitty, Ghostty)
 
 # ------------------------
 # Keyboard binds: Sessions
@@ -173,7 +172,7 @@ bind-key -T prefix x      kill-window # <PREFIX1or2> + x
 bind-key -T prefix p      select-pane -t :.+ # <PREFIX1or2> + p
 
 # -------------------------
-# Keyboard binds: Copy mode
+# Keyboard binds: vi copy mode
 # -------------------------
 
 set-window-option -g mode-keys vi
