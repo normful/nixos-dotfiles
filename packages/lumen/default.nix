@@ -15,12 +15,13 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
   dontConfigure = true;
+  dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    tar -xzf $src
-    install -m755 lumen $out/bin/lumen
+    tar -xzf $src -C $out/bin
+    chmod +x $out/bin/lumen
     runHook postInstall
   '';
 
