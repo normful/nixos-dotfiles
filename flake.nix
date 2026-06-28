@@ -106,7 +106,12 @@
           };
           pkgs-pinned-unstable = import nixpkgs-unstable-2611 {
             inherit system;
-            config.allowUnfree = true;
+            config = {
+              allowUnfree = true;
+              problems.handlers = {
+                pysilero-vad.broken = "ignore";
+              };
+            };
           };
         };
       };
