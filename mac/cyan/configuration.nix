@@ -320,6 +320,9 @@
     nixpkgs = {
       config = {
         allowUnfree = true;
+        problems.handlers = {
+          pysilero-vad.broken = "ignore";
+        };
       };
     };
 
