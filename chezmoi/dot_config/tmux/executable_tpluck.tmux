@@ -2,10 +2,6 @@
 #
 # tpluck.tmux — three modes of operation:
 #
-#   Setup (no args)
-#     Called by `run-shell` from tmux.conf on load.
-#     Registers the keybinding (@tpluck-key) via `bind-key` → `run-shell`.
-#
 #   Open  (arg 1 = "open")
 #     Fired by the keybinding. Runs outside the popup, in the context of the
 #     pane that was active when you pressed the key. Captures #{pane_id} via
@@ -44,12 +40,3 @@ if [ "${1:-}" = "popup" ]; then
   fi
   exit 0
 fi
-
-# ── Setup mode: called by run-shell from tmux.conf ──────────────────────────
-DEFAULT_TPLUCK_KEY=t
-TPLUCK_KEY="$(tmux show-option -gqv @tpluck-key)"
-TPLUCK_KEY=${TPLUCK_KEY:-$DEFAULT_TPLUCK_KEY}
-
-tmux bind-key -T prefix "${TPLUCK_KEY}"           run-shell "${SCRIPT_DIR}/tpluck.tmux open"
-tmux bind-key -T prefix "M-l"                        run-shell "${SCRIPT_DIR}/tpluck.tmux open"
-tmux bind-key -T root  "F2"                          run-shell "${SCRIPT_DIR}/tpluck.tmux open"
