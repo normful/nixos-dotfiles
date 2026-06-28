@@ -127,6 +127,7 @@ unbind-key -a -T copy-mode-vi
 bind-key -T prefix r       source-file ~/.config/tmux/tmux.conf \; display 'tmux config reloaded'
 
 # Type "lgtm finish" + Enter
+bind-key -T root F3       run "pbpaste | tmux load-buffer - && tmux paste-buffer"
 bind-key -T root F5       send-keys "lgtm finish" Enter
 
 # -------------------------
