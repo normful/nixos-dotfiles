@@ -3,7 +3,6 @@
   fetchurl,
   fetchFromGitHub,
   buildNpmPackage,
-  nodejs,
 }:
 
 buildNpmPackage rec {
