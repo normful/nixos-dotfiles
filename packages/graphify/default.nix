@@ -12,8 +12,8 @@ python314Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "safishamsi";
     repo = "graphify";
-    rev = "v8";
-    hash = "sha256-gugoWhYTU27feoLg/5KlUkN13mmFWvaw7JCv6KkbJD4=";
+    rev = "v${version}";
+    hash = "sha256-cGX/XyxFJvrOueRoza1xh6p5CS+mooi+HMH3yqzdrUc=";
   };
 
   nativeBuildInputs = with python314Packages; [
