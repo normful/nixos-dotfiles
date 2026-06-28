@@ -10,7 +10,7 @@
   apple-sdk_15,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "git-ai";
   version = "1.6.4";
 
@@ -36,7 +36,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     openssl
     sqlite
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv
     apple-sdk_15
   ];
