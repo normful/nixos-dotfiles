@@ -140,9 +140,6 @@
       # Local real-time voice transcription TUI with speaker diarization.
       (callPackage ../../packages/voxterm { })
 
-      # Before I go to bed, I tell my agents: good night, have fun
-      (callPackage ../../packages/gnhf { })
-
       # Talk to one agent. Ship with a crew.
       (callPackage ../../packages/firstmate { })
 
@@ -157,10 +154,6 @@
       # content search, frecency-ranked, background watcher. Faster than
       # ripgrep+fzf in long-running processes.
       (callPackage ../../packages/fff-mcp { })
-
-      # AXI-compliant chrome-devtools-mcp wrapper — combined operations,
-      # TOON output, contextual suggestions for AI coding agents.
-      (callPackage ../../packages/chrome-devtools-axi { })
 
       # ── low interest ──
 
