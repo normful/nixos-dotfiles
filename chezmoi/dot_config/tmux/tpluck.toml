@@ -1,10 +1,52 @@
 newline = false
 
+# Custom patterns — first in list = highest priority.
+# Inserted last → runs first in the grep chain → wins overlaps.
+# MUST not overlap built-in patterns (checked below each entry).
+patterns = [
+    # Email — very specific, no built-in overlap
+    '''([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})''',
+    # ISO 8601 datetime (2026-06-28T12:34:56Z) — T separator avoids any built-in overlap
+    '''(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:?\d{2})?)''',
+    # Docker images with tag (nginx:latest, ghcr.io/org/repo:v1)
+    # Requires a colon-tag, so no overlap with URL (needs scheme) or path (needs / without :)
+    '''([a-zA-Z0-9][a-zA-Z0-9._/-]*:[a-zA-Z0-9._-]+)''',
+    # IP:port — catches IP+port as one unit before built-in IPv4 splits them
+    '''(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5})''',
+    # HTTP status codes (4xx, 5xx) — 3-digit numbers, no built-in overlap
+    '''(\b[45]\d{2}\b)''',
+    # Error codes (ENOENT, EACCES) — E + 3+ uppercase, no built-in overlap
+    '''(\bE[A-Z]{3,}\b)''',
+    # Git commit hashes (7-40 hex chars) — \b prevents matching inside words
+    '''(\b[0-9a-fA-F]{7,40}\b)''',
+    # Semver (1.2.3, v1.2.3, 1.2.3-alpha, 2.0.0+build)
+    '''(v?\d+\.\d+\.\d+(?:-[a-zA-Z0-9.]+)?(?:\+[a-zA-Z0-9.]+)?)''',
+    # PR/issue refs (#1234)
+    '''(#[1-9]\d*)''',
+    # JIRA/Linear tickets (PROJ-123)
+    '''([A-Z][A-Z_]+-\d+)''',
+    # Hex colors (#abc, #aabbcc)
+    '''(#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?\b)''',
+    # Date (2026-06-28) — may overlap with kubectl built-in, wins via priority
+    '''(\b\d{4}-\d{2}-\d{2}\b)''',
+    # Time (12:34:56) — very specific, no built-in overlap
+    '''(\b\d{2}:\d{2}:\d{2}\b)''',
+]
+
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+# ❄️  Nord theme
+#   hints  → cyan bold (frost pop)
+#   matches → white (snow, clean)
+#   bg     → dark blue dimmed
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
 [hintstyle]
-color = "cyan"
+color = "magenta"
+attribute = "Bold"
 
 [matchstyle]
 color = "white"
 
 [backgroundstyle]
+color = "dark_blue"
 attribute = "Dim"
