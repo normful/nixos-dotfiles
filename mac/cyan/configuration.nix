@@ -134,6 +134,9 @@
       # compresses to searchable memory, injects context on next start.
       (callPackage ../../packages/agentmemory { })
 
+      # Permanent memory for AI agents — single binary, zero deps, MCP native.
+      (callPackage ../../packages/icm { })
+
       # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
       (callPackage ../../packages/lumen { })
 
