@@ -42,29 +42,31 @@ WRAPPER
     done
 
     # firstmate command: skeleton init, path, and help
-    cat > "$out/bin/firstmate" << HELP
+    # Use @placeholder@ and substituteInPlace to avoid Nix ${...} interpolation
+    # in '' strings colliding with bash ${...} expansion in heredocs.
+    cat > "$out/bin/firstmate" << 'SCRIPT'
 #!/usr/bin/env bash
-FM="\$HOME/.local/share/firstmate"
-FM_STORE="$out/share/firstmate"
+FM="$HOME/.local/share/firstmate"
+FM_STORE="@out@/share/firstmate"
 
-case "\${1:-}" in
+case "${1:-}" in
   init|bootstrap)
-    if [ -f "\$FM/.installed-version" ]; then
-      echo "firstmate already initialized at \$FM"
-      echo "  cd \$FM && <claude|codex|opencode|pi>"
+    if [ -f "$FM/.installed-version" ]; then
+      echo "firstmate already initialized at $FM"
+      echo "  cd $FM && <claude|codex|opencode|pi>"
       exit 0
     fi
-    echo "Copying firstmate skeleton to \$FM ..."
-    mkdir -p "\$FM"
-    cp -r "\$FM_STORE/"* "\$FM/"
-    rm -rf "\$FM/.git" 2>/dev/null || true
-    echo "$out" > "\$FM/.installed-version"
+    echo "Copying firstmate skeleton to $FM ..."
+    mkdir -p "$FM"
+    cp -r "$FM_STORE/"* "$FM/"
+    rm -rf "$FM/.git" 2>/dev/null || true
+    echo "@out@" > "$FM/.installed-version"
     echo ""
     echo "Ready, captain!"
-    echo "  cd \$FM && claude"
+    echo "  cd $FM && claude"
     ;;
   path)
-    echo "\$FM_STORE"
+    echo "$FM_STORE"
     ;;
   *)
     echo "firstmate — Talk to one agent. Ship with a crew."
@@ -76,7 +78,8 @@ case "\${1:-}" in
     echo "Helper scripts (fm-*) are on PATH for advanced use."
     ;;
 esac
-HELP
+SCRIPT
+    substituteInPlace "$out/bin/firstmate" --subst-var out
     chmod +x "$out/bin/firstmate"
 
     runHook postInstall
