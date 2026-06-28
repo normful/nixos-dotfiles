@@ -6,7 +6,6 @@
   makeWrapper,
   nodejs,
   cacert,
-  runCommand,
 }:
 
 let
