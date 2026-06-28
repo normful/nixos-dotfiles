@@ -143,6 +143,9 @@
       # Before I go to bed, I tell my agents: good night, have fun
       (callPackage ../../packages/gnhf { })
 
+      # Talk to one agent. Ship with a crew.
+      (callPackage ../../packages/firstmate { })
+
       # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
       (callPackage ../../packages/lumen { })
 
