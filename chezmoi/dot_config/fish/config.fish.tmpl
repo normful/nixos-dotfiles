@@ -52,9 +52,9 @@ if status is-interactive
     # SOURCING OTHER PROGRAM'S FISH SCRIPTS
     ##############################################################
 
-    # if command -v mise >/dev/null 2>&1
-    #mise activate fish | source
-    #   end
+    if command -v mise >/dev/null 2>&1
+      mise activate fish | source
+    end
 
     if test -f "$HOME/.config/lean-ctx/shell-hook.fish"
       source "$HOME/.config/lean-ctx/shell-hook.fish"
