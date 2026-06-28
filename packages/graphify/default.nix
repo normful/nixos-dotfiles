@@ -25,8 +25,7 @@ python314Packages.buildPythonApplication rec {
     networkx
     numpy
     rapidfuzz
-    # Only tree-sitter grammars that exist in nixpkgs;
-    # graphifyy installs/builds missing ones at runtime.
+    # Only tree-sitter grammars that exist in nixpkgs
     tree-sitter
     tree-sitter-python
     tree-sitter-javascript
