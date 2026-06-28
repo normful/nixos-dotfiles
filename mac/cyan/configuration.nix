@@ -137,6 +137,9 @@
       # Permanent memory for AI agents — single binary, zero deps, MCP native.
       (callPackage ../../packages/icm { })
 
+      # Local real-time voice transcription TUI with speaker diarization.
+      (callPackage ../../packages/voxterm { })
+
       # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
       (callPackage ../../packages/lumen { })
 
