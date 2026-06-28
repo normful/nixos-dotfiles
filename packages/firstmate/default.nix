@@ -42,8 +42,8 @@ WRAPPER
     done
 
     # firstmate command: skeleton init, path, and help
-    # Use @placeholder@ and substituteInPlace to avoid Nix ${...} interpolation
-    # in '' strings colliding with bash ${...} expansion in heredocs.
+    # Use @placeholder@ + substituteInPlace to avoid Nix interpolation
+    # colliding with bash parameter expansion in heredocs.
     cat > "$out/bin/firstmate" << 'SCRIPT'
 #!/usr/bin/env bash
 FM="$HOME/.local/share/firstmate"
