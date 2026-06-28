@@ -22,7 +22,7 @@ let
   npmDeps = fetchNpmDeps {
     name = "impeccable-npm-deps";
     inherit src;
-    hash = "sha256-i23JKXpEQfC1DMa4ZX2UaJR1OkRElC3nC8ytfTbFq1c=";
+    hash = "sha256-Wwon4IEm79ybLl0nDQ+7nj+qXeYVzr4csBiIecLNMaM=";
     nativeBuildInputs = [ nodejs cacert ];
 
     postPatch = ''
