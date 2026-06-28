@@ -158,6 +158,10 @@
       # ripgrep+fzf in long-running processes.
       (callPackage ../../packages/fff-mcp { })
 
+      # AXI-compliant chrome-devtools-mcp wrapper — combined operations,
+      # TOON output, contextual suggestions for AI coding agents.
+      (callPackage ../../packages/chrome-devtools-axi { })
+
       # ── low interest ──
 
       # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
