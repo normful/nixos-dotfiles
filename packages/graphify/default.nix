@@ -13,7 +13,7 @@ python314Packages.buildPythonApplication rec {
     owner = "safishamsi";
     repo = "graphify";
     rev = "v${version}";
-    hash = "sha256-cGX/XyxFJvrOueRoza1xh6p5CS+mooi+HMH3yqzdrUc=";
+    hash = "sha256-gugoWhYTU27feoLg/5KlUkN13mmFWvaw7JCv6KkbJD4=";
   };
 
   nativeBuildInputs = with python314Packages; [
