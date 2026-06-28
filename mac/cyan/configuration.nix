@@ -185,6 +185,9 @@
       # with crossterm TUI, grep-style patterns, and configurable keybindings.
       (callPackage ../../packages/tpluck { })
 
+      # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
+      (callPackage ../../packages/lumen { })
+
       # (callPackage ../../packages/grepai { })
       # (callPackage ../../packages/lightpanda { })
 
