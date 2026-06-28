@@ -106,7 +106,12 @@
         "-skills/run-in-tmux/SKILL.md"
       ]
     },
-    "https://github.com/normful/pi-kagi-search",
+    {
+      "source": "https://github.com/normful/pi-kagi-search",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
     {
       "source": "https://github.com/normful/pi-side-agents",
       "skills": [
@@ -225,13 +230,37 @@
     "npm:@juicesharp/rpiv-todo",
     "npm:@juicesharp/rpiv-advisor",
     "npm:@juicesharp/rpiv-i18n",
-    "npm:@juicesharp/rpiv-web-tools",
     "npm:@juicesharp/rpiv-args",
     "npm:@juicesharp/rpiv-workflow",
     {
       "source": "npm:@vigolium/piolium",
       "themes": [
         "-themes/piolium-srcery.json"
+      ],
+      "extensions": [
+        "-extensions/piolium/index.ts"
+      ],
+      "skills": [
+        "-skills/agentic-actions-auditor/SKILL.md",
+        "-skills/audit/SKILL.md",
+        "-skills/code-reviewer/SKILL.md",
+        "-skills/codeql/SKILL.md",
+        "-skills/differential-review/SKILL.md",
+        "-skills/fp-check/SKILL.md",
+        "-skills/insecure-defaults/SKILL.md",
+        "-skills/last30days/SKILL.md",
+        "-skills/sarif-parsing/SKILL.md",
+        "-skills/security-threat-model/SKILL.md",
+        "-skills/semgrep/SKILL.md",
+        "-skills/semgrep-rule-creator/SKILL.md",
+        "-skills/semgrep-rule-variant-creator/SKILL.md",
+        "-skills/sharp-edges/SKILL.md",
+        "-skills/spec-to-code-compliance/SKILL.md",
+        "-skills/supply-chain-risk-auditor/SKILL.md",
+        "-skills/variant-analysis/SKILL.md",
+        "-skills/vuln-report/SKILL.md",
+        "-skills/wooyun-legacy/SKILL.md",
+        "-skills/zeroize-audit/SKILL.md"
       ]
     }
   ],
