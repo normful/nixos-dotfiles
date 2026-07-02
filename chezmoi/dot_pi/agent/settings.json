@@ -71,7 +71,6 @@
     "-skills/curated-ai-skills/notion-task-manager/SKILL.md",
     "-skills/curated-ai-skills/pexels/SKILL.md",
     "-skills/curated-ai-skills/md-to-pdf-with-japanese/SKILL.md",
-    "+skills/curated-ai-skills/chrome-devtools-cli/SKILL.md",
     "+skills/curated-ai-skills/fetch-source-code/SKILL.md",
     "-skills/curated-ai-skills/fill-pdf-form/SKILL.md",
     "-skills/curated-ai-skills/parallel-agentic-mass-document-generation/SKILL.md",
@@ -87,9 +86,12 @@
     "-skills/curated-ai-skills/test-driven-development/SKILL.md",
     "-skills/curated-ai-skills/playwright-currents/SKILL.md",
     "+skills/curated-ai-skills/playwright-cli/SKILL.md",
-    "+skills/curated-ai-skills/jp-boss-email/SKILL.md",
     "-skills/curated-ai-skills/domain-check/SKILL.md",
-    "-skills/curated-ai-skills/podcast-transcripts/SKILL.md"
+    "-skills/curated-ai-skills/podcast-transcripts/SKILL.md",
+    "-skills/curated-ai-skills/writing-rust/SKILL.md",
+    "+skills/curated-ai-skills/jp-boss-email/SKILL.md",
+    "+skills/curated-ai-skills/chrome-devtools-axi/SKILL.md",
+    "-skills/curated-ai-skills/chrome-devtools-cli/SKILL.md"
   ],
   "packages": [
     {
@@ -212,11 +214,13 @@
       "skills": [
         "+skills/validate/SKILL.md",
         "+skills/revise/SKILL.md",
-        "+skills/pr-triage/SKILL.md",
         "+skills/plan/SKILL.md",
-        "+skills/migrate-to-guidance/SKILL.md",
         "+skills/design/SKILL.md",
-        "+skills/create-handoff/SKILL.md"
+        "+skills/create-handoff/SKILL.md",
+        "-skills/migrate-to-guidance/SKILL.md",
+        "-skills/pr-triage/SKILL.md",
+        "+skills/annotate-guidance/SKILL.md",
+        "-skills/annotate-inline/SKILL.md"
       ]
     },
     "npm:@juicesharp/rpiv-config",
@@ -262,7 +266,9 @@
         "-skills/wooyun-legacy/SKILL.md",
         "-skills/zeroize-audit/SKILL.md"
       ]
-    }
+    },
+    "npm:@amaster.ai/pi-image-gen",
+    "npm:@gotgenes/pi-nocd"
   ],
   "pi-screenshots": {
     "sources": [
@@ -277,7 +283,11 @@
     "-prompts/5x-meta-prompt.md",
     "-prompts/interview-me.md",
     "-prompts/dynamic-pi-tool-registration.md",
-    "-prompts/chunky-stage-and-commit.md"
+    "-prompts/chunky-stage-and-commit.md",
+    "-prompts/review-japanese-in-diff.md",
+    "-prompts/read-commit.md",
+    "-prompts/archive-task.md",
+    "-prompts/add-high-value-integration-style-frontend-tests.md"
   ],
   "extensions": [
     "-extensions/gastown.ts",
@@ -303,17 +313,25 @@
     "-extensions/aihubmix-am/index.ts"
   ],
   "transport": "auto",
+  "pi-image-gen": {
+    "defaultModel": "openrouter/google/gemini-3.1-flash-image"
+  },
   "doubleEscapeAction": "tree",
-  "theme": "catppuccin-mocha",
+  "theme": "night-owl",
   "treeFilterMode": "user-only",
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "opencode/deepseek-v4-flash-free",
     "opencode-go/deepseek-v4-flash",
-    "opencode-go/glm-5.2",
+    "opencode-go/mimo-v2.5",
+    "opencode/deepseek-v4-flash-free",
+    "opencode/nemotron-3-ultra-free",
+    "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
     "opencode-go/minimax-m3",
-    "opencode-go/mimo-v2.5"
+    "opencode-go/glm-5.2",
+    "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
+    "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
   ],
   "terminal": {
     "showTerminalProgress": false,
@@ -322,5 +340,9 @@
   "autocompleteMaxVisible": 20,
   "compaction": {
     "enabled": true
-  }
+  },
+  "warnings": {
+    "anthropicExtraUsage": false
+  },
+  "httpIdleTimeoutMs": 300000
 }
