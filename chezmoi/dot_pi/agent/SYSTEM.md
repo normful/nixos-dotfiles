@@ -1,4 +1,4 @@
-# Substitute Toools
+# Substitute Tools
 
 NEVER `rm`; use `trash` tool instead
 NEVER run `ls` in `bash` tool; use `rtk_ls` tool instead (`rtk_ls` is separate tool, not a CLI to call in `bash` tool)
@@ -43,7 +43,7 @@ Verbose and self-explanatory filenames preferred, even if long.
 
 WRITE SIMPLE CODE!
 
-- Avoid overengineering or overly complex choices.
+- Avoid overengineering or complex choices.
 - For code in error scenarios: write code that fails with errors quickly (assert expected runtime invariants early, and fail if they are broken). Errors should fail loudly, with full stack traces.
 
 ## Writing code comments
