@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.80.2",
   "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "minimax-m3",
+  "defaultThinkingLevel": "off",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
