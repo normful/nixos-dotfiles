@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.80.3",
   "defaultProvider": "opencode-go",
-  "defaultModel": "glm-5.2",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -324,13 +324,12 @@
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
     "opencode/deepseek-v4-flash-free",
-    "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
     "opencode-go/minimax-m3",
     "opencode-go/glm-5.2",
     "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
     "opencode-go/qwen3.7-max",
     "opencode-go/kimi-k2.7-code",
-    "opencode/north-mini-code-free"
+    "opencode/gemini-3.5-flash"
   ],
   "terminal": {
     "showTerminalProgress": false,
