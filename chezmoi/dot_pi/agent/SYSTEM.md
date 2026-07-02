@@ -141,6 +141,7 @@ value, refuse.
     - Commit often, with small groups of related changes in the same commit.
     - Avoid single large commits with many files. Exception: if you run a format fix or lint fix command that does bulk automatic changes, then you can commit many files together.
 - If you see unexpected file edits that YOU did not write, NEVER revert those changes; leave them
+- If unexpected edits appear on files you are editing, STOP and see "Concurrent edits and multi-agent safety" below
 - Use conventional commit messages (feat:, fix:, chore:, docs:, refactor: etc)
 - Do not use `mv` to rename files, but instead use `git mv`.
 - NEVER run `git reset --hard` or `git checkout --` or `git restore` unless it is to restore ONLY ONE FILE that YOU changed.
@@ -159,3 +160,25 @@ Pi documentation (read only when user asks about pi extensions or TUI):
 - Example code: /Users/norman/.bun/install/global/node_modules/@earendil-works/pi-coding-agent/examples
 - When working on pi topics, read the docs and examples, and follow .md cross-references before implementing
 - Always fully read pi .md files and follow links to related docs
+
+# Concurrent edits and multi-agent safety
+
+Other humans or agents may edit the same repo concurrently. Detect this and pause.
+
+## Detect
+
+- Run `git status --short` BEFORE your first edit. If a file you plan to touch shows modifications you didn't make, STOP.
+- Re-run `git status --short` AFTER every edit. New uncommitted modifications on files you didn't write = another agent is active.
+- If a file you just edited shows content you didn't write, your edit was overwritten. Do NOT assume it applied.
+
+## React
+
+- STOP editing. Do not re-apply. Do not commit. Do not push.
+- REPORT to the user: which files are contested, what unexpected modifications you see, what state your work is in, and ask how to proceed.
+- Do NOT revert or overwrite the other agent's work, even if it looks wrong.
+
+## Coexistence options (user decides)
+
+- Re-apply your edits and commit immediately — small independent changes. Risk: harder merge later.
+- Wait for the other session to finish, then rebase on top — large overlapping changes. Risk: stale context.
+- Disjoint file scopes — when both agents can work on non-overlapping files.
