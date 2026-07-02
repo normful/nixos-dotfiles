@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "defaultProvider": "opencode-go",
-  "defaultModel": "minimax-m3",
-  "defaultThinkingLevel": "off",
+  "defaultModel": "glm-5.2",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -323,15 +323,14 @@
   "enableInstallTelemetry": false,
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
-    "opencode-go/mimo-v2.5",
     "opencode/deepseek-v4-flash-free",
-    "opencode/nemotron-3-ultra-free",
     "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
     "opencode-go/minimax-m3",
     "opencode-go/glm-5.2",
     "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
-    "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
-    "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
+    "opencode-go/qwen3.7-max",
+    "opencode-go/kimi-k2.7-code",
+    "opencode/north-mini-code-free"
   ],
   "terminal": {
     "showTerminalProgress": false,
