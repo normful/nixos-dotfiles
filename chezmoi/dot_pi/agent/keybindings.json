@@ -43,6 +43,7 @@
   "app.model.select": [],
   "app.model.cycleForward": ["alt+i"],
   "app.model.cycleBackward": ["alt+u"],
+  "app.thinking.cycle": ["shift+tab", "alt+t"],
   "app.message.followUp": ["alt+q"],
 
   "app.tree.foldOrUp": ["ctrl+left"],
