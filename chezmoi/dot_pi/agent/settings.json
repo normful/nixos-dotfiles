@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.80.3",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -85,13 +85,14 @@
     "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md",
     "-skills/curated-ai-skills/test-driven-development/SKILL.md",
     "-skills/curated-ai-skills/playwright-currents/SKILL.md",
-    "+skills/curated-ai-skills/playwright-cli/SKILL.md",
     "-skills/curated-ai-skills/domain-check/SKILL.md",
     "-skills/curated-ai-skills/podcast-transcripts/SKILL.md",
     "-skills/curated-ai-skills/writing-rust/SKILL.md",
-    "+skills/curated-ai-skills/jp-boss-email/SKILL.md",
-    "+skills/curated-ai-skills/chrome-devtools-axi/SKILL.md",
-    "-skills/curated-ai-skills/chrome-devtools-cli/SKILL.md"
+    "-skills/curated-ai-skills/chrome-devtools-cli/SKILL.md",
+    "-skills/curated-ai-skills/markitdown/SKILL.md",
+    "-skills/curated-ai-skills/chrome-devtools-axi/SKILL.md",
+    "-skills/curated-ai-skills/jp-boss-email/SKILL.md",
+    "-skills/curated-ai-skills/playwright-cli/SKILL.md"
   ],
   "packages": [
     {
@@ -117,7 +118,7 @@
     {
       "source": "https://github.com/normful/pi-side-agents",
       "skills": [
-        "+skills/agent-setup/SKILL.md"
+        "-skills/agent-setup/SKILL.md"
       ],
       "extensions": [
         "+extensions/side-agents/index.ts"
@@ -208,7 +209,12 @@
         "-src/index.ts"
       ]
     },
-    "npm:@agnishc/edb-quit-summary",
+    {
+      "source": "npm:@agnishc/edb-quit-summary",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
     {
       "source": "npm:@juicesharp/rpiv-pi",
       "skills": [
