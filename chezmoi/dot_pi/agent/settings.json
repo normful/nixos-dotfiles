@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.80.3",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "off",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -273,7 +273,12 @@
         "-skills/zeroize-audit/SKILL.md"
       ]
     },
-    "npm:@amaster.ai/pi-image-gen",
+    {
+      "source": "npm:@amaster.ai/pi-image-gen",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
     "npm:@gotgenes/pi-nocd"
   ],
   "pi-screenshots": {
@@ -315,8 +320,8 @@
     "+extensions/dev-tools/index.ts",
     "-extensions/pi-lean-ctx/index.ts",
     "-extensions/siliconflow/index.ts",
-    "+extensions/understand-screenshot/index.ts",
-    "-extensions/aihubmix-am/index.ts"
+    "-extensions/aihubmix-am/index.ts",
+    "-extensions/understand-screenshot/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
