@@ -27,7 +27,7 @@
   "tui.select.pageUp": [],
   "tui.select.pageDown": [],
 
-  "app.interrupt": ["f2", "alt+x"],
+  "app.interrupt": ["f1", "alt+x"],
   "app.suspend": ["f4", "alt+s"],
   "app.editor.external": ["alt+v"],
 
