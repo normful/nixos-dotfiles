@@ -28,6 +28,7 @@
   "tui.select.pageDown": [],
 
   "app.interrupt": ["f4", "alt+x"],
+  "app.clear": ["ctrl+shift+alt+d"],
   "app.suspend": ["f5", "alt+s"],
   "app.editor.external": ["alt+v"],
 
