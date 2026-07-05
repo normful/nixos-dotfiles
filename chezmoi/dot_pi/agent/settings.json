@@ -273,12 +273,6 @@
         "-skills/zeroize-audit/SKILL.md"
       ]
     },
-    {
-      "source": "npm:@amaster.ai/pi-image-gen",
-      "extensions": [
-        "-dist/index.js"
-      ]
-    },
     "npm:@gotgenes/pi-nocd"
   ],
   "pi-screenshots": {
