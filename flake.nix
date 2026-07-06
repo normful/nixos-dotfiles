@@ -11,6 +11,15 @@
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
     nixpkgs-unstable-2611.url = "github:NixOS/nixpkgs/f205b5574fd0cb7da5b702a2da51507b7f4fdd1b";
 
+    nix-darwin-2605.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+    nix-darwin-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
+
+    nixos-wsl-2605.url = "github:nix-community/nixos-wsl/release-26.05";
+    nixos-wsl-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
+
+    nix-casks.url = "github:atahanyorganci/nix-casks/archive";
+    nix-casks.inputs.nixpkgs.follows = "nixpkgs-2605";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs-2605";
 
@@ -19,15 +28,6 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
-
-    nix-darwin-2605.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
-    nix-darwin-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
-
-    nix-casks.url = "github:atahanyorganci/nix-casks/archive";
-    nix-casks.inputs.nixpkgs.follows = "nixpkgs-2605";
-
-    nixos-wsl-2605.url = "github:nix-community/nixos-wsl/release-26.05";
-    nixos-wsl-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
   };
 
   outputs =
