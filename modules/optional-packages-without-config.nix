@@ -49,8 +49,9 @@ in
     environment.systemPackages =
       with pkgs-pinned-unstable;
       (optionals config.my.enableMultiLangTools [
-        just
+        mise
         cloc
+        just
         cmake
         modd
         efm-langserver
