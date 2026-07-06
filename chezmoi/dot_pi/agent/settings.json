@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.80.3",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "off",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -151,8 +151,8 @@
         "+index.ts"
       ]
     },
-    "https://github.com/iRonin/pi-clear-on-double-esc",
-    "https://www.github.com/default-anton/pi-tmux-window-name",
+    "git:github.com/iRonin/pi-clear-on-double-esc",
+    "git:github.com/default-anton/pi-tmux-window-name",
     "https://github.com/normful/pi-ask-tool",
     "https://github.com/normful/pi-agent-browser-native",
     {
@@ -195,12 +195,6 @@
       "source": "npm:@agnishc/edb-context-viewer",
       "extensions": [
         "+src/index.ts"
-      ]
-    },
-    {
-      "source": "npm:@agnishc/edb-agent-steer",
-      "extensions": [
-        "-src/index.ts"
       ]
     },
     {
