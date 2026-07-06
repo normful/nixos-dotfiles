@@ -65,8 +65,6 @@
     environment.systemPackages = [
     ]
     ++ (with pkgs-pinned-unstable; [
-      # mise Uncomment after https://github.com/NixOS/nixpkgs/pull/534965 is merged
-
       tailscale
       keepassxc
       gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
