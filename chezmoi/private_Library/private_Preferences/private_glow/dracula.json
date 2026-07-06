@@ -6,7 +6,7 @@
     "margin": 2
   },
   "block_quote": {
-    "color": "#f1fa8c",
+    "color": "#6272a4",
     "italic": true,
     "indent": 2
   },
@@ -17,7 +17,7 @@
   },
   "heading": {
     "block_suffix": "\n",
-    "color": "#bd93f9",
+    "color": "#ff79c6",
     "bold": true
   },
   "h1": {
@@ -47,11 +47,11 @@
     "italic": true
   },
   "strong": {
-    "color": "#ffb86c",
+    "color": "#f1fa8c",
     "bold": true
   },
   "hr": {
-    "color": "#6272A4",
+    "color": "#6272a4",
     "format": "\n--------\n"
   },
   "item": {
@@ -81,10 +81,10 @@
     "format": "Image: {{.text}} →"
   },
   "code": {
-    "color": "#50fa7b"
+    "color": "#bd93f9"
   },
   "code_block": {
-    "color": "#ffb86c",
+    "color": "#50fa7b",
     "margin": 2,
     "chroma": {
       "text": {
@@ -95,7 +95,7 @@
         "background_color": "#ff5555"
       },
       "comment": {
-        "color": "#6272A4"
+        "color": "#6272a4"
       },
       "comment_preproc": {
         "color": "#ff79c6"
@@ -119,10 +119,10 @@
         "color": "#f8f8f2"
       },
       "name": {
-        "color": "#8be9fd"
+        "color": "#50fa7b"
       },
       "name_builtin": {
-        "color": "#8be9fd"
+        "color": "#50fa7b"
       },
       "name_tag": {
         "color": "#ff79c6"
@@ -131,7 +131,7 @@
         "color": "#50fa7b"
       },
       "name_class": {
-        "color": "#8be9fd"
+        "color": "#50fa7b"
       },
       "name_constant": {
         "color": "#bd93f9"
@@ -146,7 +146,7 @@
       "name_other": {},
       "literal": {},
       "literal_number": {
-        "color": "#6EEFC0"
+        "color": "#bd93f9"
       },
       "literal_date": {},
       "literal_string": {
@@ -166,7 +166,7 @@
         "color": "#50fa7b"
       },
       "generic_strong": {
-        "color": "#ffb86c",
+        "color": "#f1fa8c",
         "bold": true
       },
       "generic_subheading": {
@@ -181,7 +181,7 @@
   "definition_list": {},
   "definition_term": {},
   "definition_description": {
-    "block_prefix": "\n🠶 "
+    "block_prefix": "\n➶ "
   },
   "html_block": {},
   "html_span": {}
