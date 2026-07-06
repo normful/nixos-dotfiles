@@ -4,7 +4,22 @@
   python313Packages,
 }:
 
-python313Packages.buildPythonApplication rec {
+let
+  # Override ctranslate2's source hash: upstream force-pushed to tag v4.8.1,
+  # so the nixpkgs fetch hash is stale.  Override the whole python package
+  # set so faster-whisper (and anything else) transitively picks up the fix.
+  python = python313Packages.overrideScope (self: super: {
+    ctranslate2 = super.ctranslate2.overridePythonAttrs (old: {
+      src = fetchFromGitHub {
+        owner = "OpenNMT";
+        repo = "CTranslate2";
+        rev = "v4.8.1";
+        hash = "sha256-cchwv+esysn/0v6RqD5zp306HfzOjjlCxH5usLETXs0=";
+      };
+    });
+  });
+in
+python.buildPythonApplication rec {
   pname = "voxterm";
   version = "0.3.0";
   format = "pyproject";
@@ -16,11 +31,11 @@ python313Packages.buildPythonApplication rec {
     hash = "sha256-yOmqc0EnK4UkIWfYZlae5yGnDH/xlj6nwPOR0oC/SCU=";
   };
 
-  nativeBuildInputs = with python313Packages; [
+  nativeBuildInputs = with python; [
     hatchling
   ];
 
-  propagatedBuildInputs = with python313Packages; [
+  propagatedBuildInputs = with python; [
     cryptography
     numpy
     scipy
