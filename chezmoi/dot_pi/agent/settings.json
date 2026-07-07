@@ -2,12 +2,12 @@
   "lastChangelogVersion": "0.80.3",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
   "branchSummary": {
@@ -144,7 +144,7 @@
       ]
     },
     {
-      "source": "https://github.com/normful/pi-side-agents",
+      "source": "git:github.com/normful/pi-side-agents",
       "skills": [
         "-skills/agent-setup/SKILL.md"
       ],
