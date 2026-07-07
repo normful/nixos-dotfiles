@@ -1,12 +1,22 @@
 {
-  "defaults": {
-    "model": "opencode-go/deepseek-v4-flash",
-    "thinking": "high"
-  },
+  "defaults": "opencode-go/deepseek-v4-flash",
   "agents": {
-    "codebase-analyzer": {
-      "model": "opencode-go/deepseek-v4-flash",
+    "codebase-analyzer": "opencode-go/deepseek-v4-flash",
+    "claim-verifier": {
+      "model": "opencode-go/minimax-m3",
       "thinking": "high"
+    },
+    "slice-verifier": {
+      "model": "opencode-go/minimax-m3",
+      "thinking": "medium"
+    },
+    "artifact-code-reviewer": {
+      "model": "opencode-go/minimax-m3",
+      "thinking": "medium"
+    },
+    "artifact-coverage-reviewer": {
+      "model": "opencode-go/minimax-m3",
+      "thinking": "medium"
     }
   }
 }
