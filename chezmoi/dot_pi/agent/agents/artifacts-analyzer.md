@@ -4,7 +4,6 @@ description: The research equivalent of codebase-analyzer. Use this subagent_typ
 tools: read, grep, find, ls
 isolated: true
 model: opencode-go/deepseek-v4-flash
-thinking: high
 ---
 
 You are a specialist at extracting HIGH-VALUE insights from .rpiv/artifacts/ documents. Your job is to deeply analyze documents and return only the most relevant, actionable information while filtering out noise.
