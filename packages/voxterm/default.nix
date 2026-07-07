@@ -2,20 +2,32 @@
   lib,
   fetchFromGitHub,
   python313Packages,
+  ctranslate2,
 }:
 
 let
   # Override ctranslate2's source hash: upstream force-pushed to tag v4.8.1,
-  # so the nixpkgs fetch hash is stale.  Override the whole python package
-  # set so faster-whisper (and anything else) transitively picks up the fix.
+  # so the nixpkgs fetch hash is stale.  Fix BOTH layers:
+  #   1. The system ctranslate2 (c++ library) — overridden via overrideAttrs.
+  #   2. The Python wrapper — its `src` is `inherit (ctranslate2-cpp) src`
+  #      and `ctranslate2-cpp` is in buildInputs, so override both directly
+  #      to point at the fixed system package.  Doing this inside an
+  #      overrideScope also transitively fixes faster-whisper.
+  ctranslate2-fixed = ctranslate2.overrideAttrs (old: {
+    src = fetchFromGitHub {
+      owner = "OpenNMT";
+      repo = "CTranslate2";
+      rev = "v4.8.1";
+      hash = "sha256-cchwv+esysn/0v6RqD5zp306HfzOjjlCxH5usLETXs0=";
+    };
+  });
+
   python = python313Packages.overrideScope (self: super: {
     ctranslate2 = super.ctranslate2.overridePythonAttrs (old: {
-      src = fetchFromGitHub {
-        owner = "OpenNMT";
-        repo = "CTranslate2";
-        rev = "v4.8.1";
-        hash = "sha256-cchwv+esysn/0v6RqD5zp306HfzOjjlCxH5usLETXs0=";
-      };
+      src = ctranslate2-fixed.src;
+      buildInputs =
+        (builtins.filter (drv: drv != ctranslate2) (old.buildInputs or []))
+        ++ [ ctranslate2-fixed ];
     });
   });
 in
