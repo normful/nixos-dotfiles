@@ -1,13 +1,13 @@
 {
   "lastChangelogVersion": "0.80.3",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "xhigh",
+  "defaultProvider": "aihubmix-am",
+  "defaultModel": "hy3",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
   "branchSummary": {
@@ -336,8 +336,8 @@
     "+extensions/dev-tools/index.ts",
     "-extensions/pi-lean-ctx/index.ts",
     "-extensions/siliconflow/index.ts",
-    "-extensions/aihubmix-am/index.ts",
-    "-extensions/understand-screenshot/index.ts"
+    "-extensions/understand-screenshot/index.ts",
+    "+extensions/aihubmix-am/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
@@ -353,10 +353,14 @@
     "opencode/deepseek-v4-flash-free",
     "opencode-go/minimax-m3",
     "opencode-go/glm-5.2",
-    "openrouter/nvidia/nemotron-3-nano-30b-a3b:free",
     "opencode-go/qwen3.7-max",
     "opencode-go/kimi-k2.7-code",
-    "opencode/gemini-3.5-flash"
+    "opencode/gemini-3.5-flash",
+    "aihubmix-am/hy3",
+    "aihubmix-am/coding-minimax-m3",
+    "aihubmix-am/coding-glm-5.2",
+    "aihubmix-am/coding-xiaomi-mimo-v2.5",
+    "aihubmix-am/minimax-m3"
   ],
   "terminal": {
     "showTerminalProgress": false,
