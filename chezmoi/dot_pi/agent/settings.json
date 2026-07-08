@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.80.3",
-  "defaultProvider": "aihubmix-am",
+  "defaultProvider": "aihubmix-oc",
   "defaultModel": "deep-deepseek-v4-flash",
-  "defaultThinkingLevel": "minimal",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -355,9 +355,9 @@
     "opencode-go/qwen3.7-max",
     "opencode-go/kimi-k2.7-code",
     "opencode/gemini-3.5-flash",
-    "aihubmix-am/hy3",
     "aihubmix-am/cc-minimax-m3",
-    "aihubmix-oc/deep-deepseek-v4-flash"
+    "aihubmix-oc/deep-deepseek-v4-flash",
+    "aihubmix-am/tencent-hy3"
   ],
   "terminal": {
     "showTerminalProgress": false,
