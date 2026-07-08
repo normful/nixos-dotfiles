@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.80.3",
   "defaultProvider": "aihubmix-oc",
-  "defaultModel": "deep-deepseek-v4-flash",
+  "defaultModel": "tencent-hy3",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
