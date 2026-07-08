@@ -349,14 +349,14 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "opencode/deepseek-v4-flash-free",
-    "aihubmix-oc/deep-deepseek-v4-flash",
     "opencode-go/deepseek-v4-flash",
-    "aihubmix-am/cc-minimax-m3",
+    "opencode/deepseek-v4-flash-free",
     "opencode-go/glm-5.2",
     "opencode-go/qwen3.7-max",
     "opencode-go/kimi-k2.7-code",
-    "opencode/gemini-3.5-flash"
+    "opencode/gemini-3.5-flash",
+    "aihubmix-am/cc-minimax-m3",
+    "aihubmix-oc/deep-deepseek-v4-flash"
   ],
   "terminal": {
     "showTerminalProgress": false,
