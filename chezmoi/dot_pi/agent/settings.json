@@ -351,16 +351,16 @@
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
     "opencode/deepseek-v4-flash-free",
-    "opencode-go/minimax-m3",
     "opencode-go/glm-5.2",
     "opencode-go/qwen3.7-max",
     "opencode-go/kimi-k2.7-code",
     "opencode/gemini-3.5-flash",
     "aihubmix-am/hy3",
-    "aihubmix-am/coding-minimax-m3",
     "aihubmix-am/coding-glm-5.2",
     "aihubmix-am/coding-xiaomi-mimo-v2.5",
-    "aihubmix-am/minimax-m3"
+    "aihubmix-am/minimax-m3",
+    "aihubmix-am/deepseek-v4-flash",
+    "aihubmix-am/cc-minimax-m3"
   ],
   "terminal": {
     "showTerminalProgress": false,
