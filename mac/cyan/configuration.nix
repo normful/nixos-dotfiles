@@ -70,17 +70,12 @@
       gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
       # Packages I'm only installing on this computer for now
-      hello-wrapped    # from overlays/hello-wrapped-config — hello with default --greeting flag
-      figlet-patched   # from overlays/figlet-patched — figlet defaulting to smslant font
-      (callPackage ../../packages/cowsay { })  # from packages/cowsay — cowsay pinned to v3.8.4
-
       mariadb_118
       jre25_minimal
       terminal-notifier
       texliveSmall
       ansible
       fswatch
-      # sqlite-web
 
       git-credential-oauth
       sesh
@@ -200,12 +195,25 @@
       # (callPackage ../../packages/grepai { })
       # (callPackage ../../packages/lightpanda { })
 
+      # ────────────────────────────────────────────────────────────────────────
+      # Packages I've used before but don't need now
+      # ────────────────────────────────────────────────────────────────────────
+
       # infisical
       # direnv
       # dolt
       # tuios
       # zola
       # repomix
+      # sqlite-web
+
+      # ────────────────────────────────────────────────────────────────────────
+      # Example packages and overlaid packages
+      # ────────────────────────────────────────────────────────────────────────
+
+      hello-wrapped # from overlays/hello-wrapped-config — hello with default --greeting flag
+      figlet-patched # from overlays/figlet-patched — figlet defaulting to smslant font
+      (callPackage ../../packages/cowsay { }) # from packages/cowsay — cowsay pinned to v3.8.4
     ])
     ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
       flux
