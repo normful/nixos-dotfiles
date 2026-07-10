@@ -70,6 +70,10 @@
       gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
       # Packages I'm only installing on this computer for now
+      hello-wrapped    # from overlays/hello-wrapped-config — hello with default --greeting flag
+      figlet-patched   # from overlays/figlet-patched — figlet defaulting to smslant font
+      (callPackage ../../packages/cowsay { })  # from packages/cowsay — cowsay pinned to v3.8.4
+
       mariadb_118
       jre25_minimal
       terminal-notifier

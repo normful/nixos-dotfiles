@@ -42,6 +42,14 @@
       nixosSystem2605 = nixpkgs-2605.lib.nixosSystem;
       darwinSystem2605 = inputs.nix-darwin-2605.lib.darwinSystem;
 
+      # Load custom overlays from the overlays/ directory.
+      # Each subdirectory there is an overlay (see overlays/default.nix).
+      # Applying this overlay lets us use packages like hello-wrapped,
+      # figlet-patched, etc. in system environment.systemPackages.
+      myOverlays = import ./overlays {
+        lib = nixpkgs-2605.lib;
+      };
+
       createGcpConfig =
         hostname: configFile:
         nixosSystem2605 rec {
@@ -112,6 +120,9 @@
                 pysilero-vad.broken = "ignore";
               };
             };
+          # Apply custom overlays so overlay-defined packages (hello-wrapped,
+          # figlet-patched, etc.) are available in pkgs-pinned-unstable.
+          overlays = [ myOverlays ];
           };
         };
       };
