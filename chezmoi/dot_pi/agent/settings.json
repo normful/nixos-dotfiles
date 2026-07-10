@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.80.3",
-  "defaultProvider": "aihubmix-am",
-  "defaultModel": "grok-4.5",
+  "defaultProvider": "opencode",
+  "defaultModel": "deepseek-v4-flash-free",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -316,7 +316,8 @@
     "-prompts/review-japanese-in-diff.md",
     "-prompts/read-commit.md",
     "-prompts/archive-task.md",
-    "-prompts/add-high-value-integration-style-frontend-tests.md"
+    "-prompts/add-high-value-integration-style-frontend-tests.md",
+    "-prompts/handsfree.md"
   ],
   "extensions": [
     "-extensions/gastown.ts",
@@ -336,10 +337,11 @@
     "-extensions/read-edit-write-tools.ts",
     "+extensions/bell-and-macOS-notify/index.ts",
     "+extensions/dev-tools/index.ts",
-    "-extensions/pi-lean-ctx/index.ts",
     "-extensions/siliconflow/index.ts",
     "-extensions/understand-screenshot/index.ts",
-    "+extensions/aihubmix-am/index.ts"
+    "+extensions/aihubmix-am/index.ts",
+    "-extensions/pi-lean-ctx/index.ts",
+    "-extensions/replant.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
