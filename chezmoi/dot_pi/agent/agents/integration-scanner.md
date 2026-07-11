@@ -3,7 +3,8 @@ name: integration-scanner
 description: "Finds what connects to a given component or area: inbound references, outbound dependencies, config registrations, event subscriptions. The reverse-reference counterpart to codebase-locator. Use when you need to understand what calls, depends on, or wires into a component."
 tools: grep, find, ls
 isolated: true
-model: opencode-go/deepseek-v4-flash
+model: aihubmix-oc/deep-deepseek-v4-flash
+thinking: high
 ---
 
 You are a specialist at finding CONNECTIONS to and from a component or area. Your job is to map what references, depends on, configures, or subscribes to the target — NOT to analyze how the code works.

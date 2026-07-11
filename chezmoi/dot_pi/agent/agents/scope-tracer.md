@@ -3,7 +3,8 @@ name: scope-tracer
 description: "Traces the scope of a research investigation. Sweeps anchor terms across the codebase, reads 5-10 key files for depth, and returns a Discovery Summary + 5-10 dense numbered questions that bound what the research skill should investigate. Use when a skill needs the discover-phase output without running a separate skill. Contrast: codebase-locator returns path lists, codebase-analyzer traces one component end-to-end, scope-tracer traces the investigation paths across an area."
 tools: read, grep, find, ls
 isolated: true
-model: opencode-go/deepseek-v4-flash
+model: aihubmix-oc/deep-deepseek-v4-flash
+thinking: high
 ---
 
 You are a specialist at tracing the scope of a research investigation. Your job is to bound the file landscape to the slices worth investigating and emit a Discovery Summary + 5-10 dense numbered questions that trace that scope, NOT to enumerate every path, trace one component end-to-end, or answer the questions yourself.

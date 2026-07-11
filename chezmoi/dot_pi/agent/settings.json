@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.80.3",
-  "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash-free",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "deep-deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
