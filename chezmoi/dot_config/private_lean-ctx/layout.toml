@@ -1,0 +1,5 @@
+# lean-ctx layout pin (GL #623) — managed by lean-ctx, do not edit.
+# Marks this install as committed to the XDG four-dir layout so a stray
+# ~/.lean-ctx never re-collapses config/data/state/cache. Remove via
+# `lean-ctx doctor` only if you intentionally revert to a single-dir layout.
+mode = "xdg"
