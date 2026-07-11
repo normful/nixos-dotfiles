@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.6",
   "defaultProvider": "aihubmix-oc",
   "defaultModel": "deep-deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -120,7 +120,10 @@
     "-skills/curated-ai-skills/axiom-vision/SKILL.md",
     "-skills/curated-ai-skills/axiom-watchos/SKILL.md",
     "-skills/curated-ai-skills/axiom-xcode-mcp/SKILL.md",
-    "-skills/curated-ai-skills/md-to-pdf-via-typst/SKILL.md"
+    "-skills/curated-ai-skills/md-to-pdf-via-typst/SKILL.md",
+    "-skills/curated-ai-skills/writing-multiagent-workflows/SKILL.md",
+    "-skills/curated-ai-skills/writing-workflow-agents/SKILL.md",
+    "-skills/curated-ai-skills/orchestrator/SKILL.md"
   ],
   "packages": [
     {
@@ -138,30 +141,12 @@
       ]
     },
     {
-      "source": "https://github.com/normful/pi-kagi-search",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
-    {
       "source": "git:github.com/normful/pi-side-agents",
       "skills": [
         "-skills/agent-setup/SKILL.md"
       ],
       "extensions": [
         "+extensions/side-agents/index.ts"
-      ]
-    },
-    {
-      "source": "https://github.com/normful/pi-scheduler",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
-    {
-      "source": "https://github.com/normful/pi-supervisor",
-      "extensions": [
-        "-src/index.ts"
       ]
     },
     {
@@ -231,39 +216,8 @@
         "-src/index.ts"
       ]
     },
-    {
-      "source": "npm:@agnishc/edb-quit-summary",
-      "extensions": [
-        "-src/index.ts"
-      ]
-    },
-    {
-      "source": "npm:@juicesharp/rpiv-pi",
-      "skills": [
-        "+skills/validate/SKILL.md",
-        "+skills/revise/SKILL.md",
-        "+skills/plan/SKILL.md",
-        "+skills/design/SKILL.md",
-        "+skills/create-handoff/SKILL.md",
-        "-skills/migrate-to-guidance/SKILL.md",
-        "-skills/pr-triage/SKILL.md",
-        "+skills/annotate-guidance/SKILL.md",
-        "-skills/annotate-inline/SKILL.md"
-      ]
-    },
     "npm:@juicesharp/rpiv-config",
     "npm:@tintinweb/pi-subagents",
-    {
-      "source": "npm:@juicesharp/rpiv-ask-user-question",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
-    "npm:@juicesharp/rpiv-todo",
-    "npm:@juicesharp/rpiv-advisor",
-    "npm:@juicesharp/rpiv-i18n",
-    "npm:@juicesharp/rpiv-args",
-    "npm:@juicesharp/rpiv-workflow",
     {
       "source": "npm:@vigolium/piolium",
       "themes": [
@@ -340,8 +294,8 @@
     "-extensions/siliconflow/index.ts",
     "-extensions/understand-screenshot/index.ts",
     "+extensions/aihubmix-am/index.ts",
-    "-extensions/pi-lean-ctx/index.ts",
-    "-extensions/replant.ts"
+    "-extensions/replant.ts",
+    "+extensions/pi-lean-ctx/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
@@ -355,6 +309,8 @@
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
     "opencode/deepseek-v4-flash-free",
+    "aihubmix-oc/coding-glm-5.2-free",
+    "xai/grok-4.5",
     "opencode-go/glm-5.2",
     "opencode-go/qwen3.7-max",
     "opencode-go/kimi-k2.7-code",

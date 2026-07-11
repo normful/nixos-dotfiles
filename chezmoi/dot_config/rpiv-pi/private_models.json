@@ -1,22 +1,163 @@
 {
-  "defaults": "opencode-go/deepseek-v4-flash",
+  "defaults": {
+    "model": "aihubmix-oc/deep-deepseek-v4-flash",
+    "thinking": "high"
+  },
   "agents": {
     "codebase-analyzer": "opencode-go/deepseek-v4-flash",
     "claim-verifier": {
       "model": "opencode-go/minimax-m3",
-      "thinking": "high"
+      "thinking": "xhigh"
     },
     "slice-verifier": {
       "model": "opencode-go/minimax-m3",
-      "thinking": "medium"
+      "thinking": "xhigh"
     },
     "artifact-code-reviewer": {
       "model": "opencode-go/minimax-m3",
-      "thinking": "medium"
+      "thinking": "xhigh"
     },
     "artifact-coverage-reviewer": {
       "model": "opencode-go/minimax-m3",
+      "thinking": "xhigh"
+    }
+  },
+  "stages": {
+    "research": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "xhigh"
+    },
+    "architecture-review": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "validate": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "code-review": {
+      "model": "aihubmix-am/cc-minimax-m3",
       "thinking": "medium"
+    },
+    "blueprint": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "commit": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "thinking": "off"
+    },
+    "design": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    }
+  },
+  "skills": {
+    "blueprint": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "commit": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "thinking": "off"
+    },
+    "create-handoff": {
+      "model": "aihubmix-am/deep-deepseek-v4-flash",
+      "thinking": "high"
+    },
+    "design": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "discover": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "explore": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "code-review": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "validate": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "resume-handoff": {
+      "model": "aihubmix-am/deep-deepseek-v4-flash",
+      "thinking": "xhigh"
+    },
+    "frontend-design": {
+      "model": "aihubmix-am/xiaomi-mimo-v2.5",
+      "thinking": "high"
+    },
+    "plan": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "xhigh"
+    },
+    "implement": {
+      "model": "aihubmix-am/cc-minimax-m3",
+      "thinking": "high"
+    },
+    "research": {
+      "model": "aihubmix-am/deep-deepseek-v4-flash",
+      "thinking": "xhigh"
+    }
+  },
+  "presets": {
+    "build": {
+      "stages": {
+        "blueprint": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        },
+        "code-review": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        },
+        "commit": {
+          "model": "aihubmix-am/deep-deepseek-v4-flash",
+          "thinking": "off"
+        },
+        "implement": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        },
+        "research": {
+          "model": "aihubmix-am/deep-deepseek-v4-flash",
+          "thinking": "xhigh"
+        },
+        "revise": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        },
+        "validate": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        }
+      }
+    },
+    "ship": {
+      "stages": {
+        "blueprint": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        },
+        "commit": {
+          "model": "opencode/deepseek-v4-flash-free",
+          "thinking": "off"
+        },
+        "implement": {
+          "model": "aihubmix-am/deep-deepseek-v4-flash",
+          "thinking": "xhigh"
+        },
+        "validate": {
+          "model": "aihubmix-am/cc-minimax-m3",
+          "thinking": "high"
+        }
+      }
     }
   }
 }

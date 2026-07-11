@@ -76,6 +76,7 @@
       texliveSmall
       ansible
       fswatch
+      herdr
 
       git-credential-oauth
       sesh
