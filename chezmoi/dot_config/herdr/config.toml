@@ -9,30 +9,30 @@ version_check = false
 manifest_check = false
 
 [keys]
-# Prefix key to enter prefix mode (default: "ctrl+b")
 prefix = "alt+l"
 
 # Prefix-mode actions
 help = "prefix+?"
-settings = "prefix+s"
-detach = "prefix+q"
-reload_config = "prefix+r"
+detach = "prefix+d"
 open_notification_target = "prefix+o"
 workspace_picker = "prefix+w"
 goto = "prefix+g"
 remote_image_paste = "ctrl+v"
 
-new_workspace = "prefix+shift+n"
+new_workspace = ["ctrl+alt+w"]
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+
 # rename_workspace = "prefix+shift+w"
 # close_workspace = "prefix+shift+d"
 
-new_worktree = "prefix+shift+t"
+new_worktree = "prefix+t"
 open_worktree = ""
 remove_worktree = ""
 
-previous_agent = ""
-next_agent = ""
-focus_agent = ""
+previous_agent = "alt+9"
+next_agent = "alt+0"
+focus_agent = "alt+8"
 
 new_tab = "f8"
 previous_workspace = "f9"
@@ -41,10 +41,8 @@ previous_tab = "f11"
 next_tab = "f12"
 
 close_tab = "prefix+x"
-
-cycle_pane_next = "prefix+p"
-edit_scrollback = "prefix+e"
-toggle_sidebar = "prefix+b"
+edit_scrollback = "alt+e"
+toggle_sidebar = "alt+b"
 
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""
@@ -59,13 +57,6 @@ toggle_sidebar = "prefix+b"
 # zoom = "prefix+z"
 # resize_mode = "prefix+ctrl+r"
 
-# Navigate-mode movement.
-navigate_workspace_up = "up"
-navigate_workspace_down = "down"
-navigate_pane_left = "h"
-navigate_pane_down = "j"
-navigate_pane_up = "k"
-navigate_pane_right = "l"
 
 # Custom commands
 [[keys.command]]
