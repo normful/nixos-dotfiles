@@ -35,7 +35,7 @@ toggle_sidebar = ["prefix+s"]
 open_notification_target = ["prefix+n"]
 new_worktree = ["prefix+t"]
 
-remote_image_paste = ["ctrl+v"]
+remote_image_paste = "ctrl+v"
 
 help = ["prefix+?"]
 detach = ["prefix+d"]
