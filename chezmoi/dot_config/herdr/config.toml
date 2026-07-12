@@ -14,30 +14,29 @@ manifest_check = false
 prefix = "alt+l"
 
 # Workspace management
-new_workspace = ["shift+alt+n", "shift+alt+c", "prefix+n", "prefix+c"]
-previous_workspace = ["shift+alt+w", "f9", "prefix+w"]
-next_workspace = ["shift+alt+s", "f10", "prefix+s"]
-rename_workspace = ["shift+alt+r", "prefix+r"]
-close_workspace = ["shift+alt+x"]
+new_workspace = ["prefix+n"]
+previous_workspace = ["f9"]
+next_workspace = ["f10"]
+rename_workspace = ["prefix+r"]
+close_workspace = ["prefix+z"]
 
 # Tab management
 new_tab = ["f8", "prefix+t"]
-previous_tab = ["f11", "prefix+q"]
-next_tab = ["f12", "prefix+e"]
+previous_tab = ["f11"]
+next_tab = ["f12"]
 close_tab = ["prefix+x"]
 
 # Agent pane navigation
-previous_agent = ["alt+1", "prefix+1"]
-next_agent = ["alt+2", "prefix+2"]
+previous_agent = ["super+-"]
+next_agent = ["super+="]
 
 # Pane management
 cycle_pane_next = ["prefix+p"]
 
 # Navigation & misc
-goto = ["super+g", "prefix+g"]
-new_worktree = ["prefix+y"]
-edit_scrollback = ["alt+e", "prefix+e"]
-remote_image_paste = "ctrl+v"
+goto = ["super+g"]
+new_worktree = ["super+y"]
+edit_scrollback = ["alt+e"]
 help = ["prefix+?"]
 detach = ["prefix+d"]
 
