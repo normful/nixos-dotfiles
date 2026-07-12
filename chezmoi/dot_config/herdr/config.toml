@@ -125,7 +125,7 @@ manifest_check = false
 
 # Ask for a tab name before creating a new tab.
 # Set false to create tabs immediately with generated names.
-# prompt_new_tab_name = true
+prompt_new_tab_name = false
 
 # Draw borders around split panes.
 # pane_borders = true
@@ -142,19 +142,19 @@ manifest_check = false
 
 # Accent color for highlights, borders, and navigation UI.
 # Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)
-# accent = "cyan"
+accent = "cyan"
 
 # Background notification popup delivery
 show_agent_labels_on_pane_borders = true
+
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
 # system = ask the OS notification service directly
-# delivery = "off"
+delivery = "herdr"
 # delay_seconds = 1
 
-delivery = "herdr"
 [ui.toast.herdr]
 # position = "bottom-right"
 
@@ -162,20 +162,9 @@ delivery = "herdr"
 # enabled = true
 # position = "bottom-center"
 
-# Play sounds when agents change state in background workspaces
 [ui.sound]
-# enabled = true
-# Optional custom mp3 sound files. Relative paths are resolved from this config file's directory.
-# path = "sounds/notification.mp3"   # one mp3 file for all sound notifications
-# done_path = "sounds/done.mp3"      # overrides only finished notifications
-# request_path = "sounds/request.mp3" # overrides only needs-attention notifications
-
-# Per-agent overrides: default | on | off
-# By default, droid is muted.
-# [ui.sound.agents]
-# droid = "off"
-
 enabled = true
+
 [session]
 # Resume supported AI-agent panes into their native conversation sessions after
 # a Herdr server restart. Requires official integrations that report session refs.
@@ -192,34 +181,12 @@ enabled = true
 # manage_ssh_config = true
 
 [experimental]
-# Allow launching herdr from inside a herdr-managed pane.
-# allow_nested = false
-# Experimental local Kitty graphics rendering for attached clients.
-# Requires a Kitty graphics-compatible outer terminal.
-# kitty_graphics = false
-# Save recent pane screen history across full server restarts.
+kitty_graphics = true
 pane_history = false
-# While prefix mode is active, temporarily switch the macOS host input
-# source to an ASCII-capable keyboard layout so prefix commands register
-# even when a CJK IME is active, then restore the previous input source
-# when prefix mode exits. macOS only; best-effort. Default: false.
-# switch_ascii_input_source_in_prefix = false
-# Expose the focused pane's cursor to the outer terminal so macOS input
-# methods keep tracking the candidate window when TUIs paint their own
-# cursor (Claude Code, pi, codex). Trade-off: extra cursor visible for
-# apps that hide it without painting a replacement (vim normal mode, etc.).
-# reveal_hidden_cursor_for_cjk_ime = false
-# Optional allow-list: only reveal for focused panes whose detected agent
-# matches one of these names. Empty means apply to any focused pane.
-# If the list contains no valid names, the reveal does not apply.
-# Accepted: pi, claude, codex, gemini, cursor, devin, cline, opencode,
-# copilot, kimi, kiro, droid, amp, grok, hermes, kilo, qodercli, qoder.
-# cjk_ime_agents = []
-# Cursor shape rendered when reveal_hidden_cursor_for_cjk_ime is true.
-# Values: block, steady_block (default), underline, steady_underline, bar, steady_bar.
-# cjk_ime_cursor_shape = "steady_block"
+switch_ascii_input_source_in_prefix = true
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["pi"]
+cjk_ime_cursor_shape = "steady_block"
 
 [advanced]
-# Maximum scrollback buffer size in bytes retained per pane terminal.
-# Matches Ghostty's default scrollback-limit behavior.
-# scrollback_limit_bytes = 10000000
+scrollback_limit_bytes = 10000000
