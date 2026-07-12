@@ -55,6 +55,11 @@ key = "f5"
 type = "plugin_action"
 command = "persiyanov.reviewr.toggle"
 
+[[keys.command]]
+key = "prefix+s"
+type = "shell"
+command = "herdr plugin action invoke herdr-spreader.apply"
+
 [worktrees]
 directory = "~/.herdr/worktrees"
 
