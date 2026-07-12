@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.80.6",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "qwen3.7-max",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "deep-deepseek-v4-flash",
   "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
