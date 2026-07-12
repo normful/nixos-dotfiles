@@ -13,13 +13,11 @@ manifest_check = false
 [keys]
 prefix = "alt+l"
 
-goto = ["prefix+o"]
-
-new_workspace = ["ctrl+alt+n", "ctrl+alt+c"]
-previous_workspace = ["f9"]
-next_workspace = ["f10"]
-close_workspace = ["ctrl+alt+x"]
-rename_workspace = ["ctrl+alt+r", "super+y"]
+new_workspace = ["shift+alt+n", "shift+alt+c"]
+previous_workspace = ["shift+alt+w", "f9"]
+next_workspace = ["shift+alt+s", "f10"]
+close_workspace = ["shift+alt+x"]
+rename_workspace = ["shift+alt+r"]
 
 new_tab = ["f8"]
 previous_tab = ["f11"]
@@ -29,46 +27,27 @@ close_tab = ["prefix+x"]
 previous_agent = ["alt+1"]
 next_agent = ["alt+2"]
 
+goto = ["super+g"]
+
+new_worktree = ["prefix+w"]
 edit_scrollback = ["alt+e"]
-
-toggle_sidebar = ["super+t"]
-open_notification_target = ["prefix+n"]
-new_worktree = ["prefix+t"]
-
-remote_image_paste = "ctrl+v"
 
 help = ["prefix+?"]
 detach = ["prefix+d"]
 
-zoom = ["prefix+z"]
-resize_mode = ["prefix+y"]
+remote_image_paste = "ctrl+v"
 
 # Custom commands
 [[keys.command]]
 key = "f2"
-type = "pane"
-command = "bash -c '~/.config/tmux/tpluck.tmux open 2>/dev/null || fzf'"
+type = "plugin_action"
+command = "rmarganti.herdr-pluck.pluck"
 
-[[keys.command]]
-key = "f3"
-type = "shell"
-command = "pbpaste"
-
-# Legacy indexed shortcut config is still parsed for compatibility.
-[keys.indexed]
-tabs = ""
-workspaces = ""
-agents = ""
-
-# [worktrees]
-# directory = "~/.herdr/worktrees"
+[worktrees]
+directory = "~/.herdr/worktrees"
 
 [ui]
-# Sidebar width (auto-scaled based on workspace names, this sets the default)
-# sidebar_width = 26
-
-# Minimum sidebar width when expanded (columns)
-# sidebar_min_width = 18
+sidebar_min_width = 30
 
 # Maximum sidebar width when expanded (columns)
 # sidebar_max_width = 36
