@@ -37,11 +37,15 @@ detach = ["prefix+d"]
 
 remote_image_paste = "ctrl+v"
 
-# Custom commands
 [[keys.command]]
 key = "f2"
 type = "plugin_action"
 command = "rmarganti.herdr-pluck.pluck"
+
+[[keys.command]]
+key = "f4"
+type = "shell"
+command = "herdr plugin action invoke open-file-viewer-tab --plugin herdr-file-viewer"
 
 [worktrees]
 directory = "~/.herdr/worktrees"
