@@ -30,8 +30,8 @@ navigate_workspace_down = ["ctrl+alt+s"]
 
 new_worktree = "prefix+t"
 
-previous_agent = ["alt+1", "q"]
-next_agent = ["alt+2", "e"]
+previous_agent = ["alt+1"]
+next_agent = ["alt+2"]
 
 new_tab = "f8"
 previous_workspace = "f9"
@@ -41,7 +41,7 @@ next_tab = "f12"
 
 close_tab = "prefix+x"
 edit_scrollback = "alt+e"
-toggle_sidebar = "alt+b"
+toggle_sidebar = "f20"
 
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""
