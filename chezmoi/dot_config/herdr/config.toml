@@ -13,49 +13,35 @@ manifest_check = false
 [keys]
 prefix = "alt+l"
 
-# Prefix-mode actions
-help = "prefix+?"
-detach = "prefix+d"
-open_notification_target = "prefix+o"
-workspace_picker = "prefix+w"
-goto = "prefix+g"
-remote_image_paste = "ctrl+v"
+goto = ["prefix+o"]
 
 new_workspace = ["ctrl+alt+n", "ctrl+alt+c"]
-navigate_workspace_up = ["ctrl+alt+w"]
-navigate_workspace_down = ["ctrl+alt+s"]
+previous_workspace = ["f9"]
+next_workspace = ["f10"]
+close_workspace = ["ctrl+alt+x"]
+rename_workspace = ["ctrl+alt+r"]
 
-# rename_workspace = "prefix+shift+w"
-# close_workspace = "prefix+shift+d"
-
-new_worktree = "prefix+t"
+new_tab = ["f8"]
+previous_tab = ["f11"]
+next_tab = ["f12"]
+close_tab = ["prefix+x"]
 
 previous_agent = ["alt+1"]
 next_agent = ["alt+2"]
 
-new_tab = "f8"
-previous_workspace = "f9"
-next_workspace = "f10"
-previous_tab = "f11"
-next_tab = "f12"
+edit_scrollback = ["alt+e"]
 
-close_tab = "prefix+x"
-edit_scrollback = "alt+e"
-toggle_sidebar = "f20"
+toggle_sidebar = ["prefix+s"]
+open_notification_target = ["prefix+n"]
+new_worktree = ["prefix+t"]
 
-# switch_tab = "prefix+1..9"
-# switch_workspace = ""
-# rename_pane = "prefix+shift+p"
-# focus_pane_left = "prefix+h"
-# focus_pane_down = "prefix+j"
-# focus_pane_up = "prefix+k"
-# focus_pane_right = "prefix+l"
-# split_vertical = "prefix+v"
-# split_horizontal = "prefix+minus"
-# close_pane = "prefix+shift+x"
-# zoom = "prefix+z"
-# resize_mode = "prefix+ctrl+r"
+remote_image_paste = ["ctrl+v"]
 
+help = ["prefix+?"]
+detach = ["prefix+d"]
+
+zoom = ["prefix+z"]
+resize_mode = ["prefix+y"]
 
 # Custom commands
 [[keys.command]]
