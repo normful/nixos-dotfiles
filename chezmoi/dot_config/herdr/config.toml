@@ -19,7 +19,7 @@ new_workspace = ["ctrl+alt+n", "ctrl+alt+c"]
 previous_workspace = ["f9"]
 next_workspace = ["f10"]
 close_workspace = ["ctrl+alt+x"]
-rename_workspace = ["ctrl+alt+r"]
+rename_workspace = ["ctrl+alt+r", "super+y"]
 
 new_tab = ["f8"]
 previous_tab = ["f11"]
@@ -31,7 +31,7 @@ next_agent = ["alt+2"]
 
 edit_scrollback = ["alt+e"]
 
-toggle_sidebar = ["prefix+s"]
+toggle_sidebar = ["super+t"]
 open_notification_target = ["prefix+n"]
 new_worktree = ["prefix+t"]
 
