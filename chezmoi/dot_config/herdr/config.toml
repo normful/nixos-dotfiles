@@ -14,35 +14,32 @@ manifest_check = false
 prefix = "alt+l"
 
 # Workspace management
-new_workspace = ["shift+alt+n", "shift+alt+c"]
-previous_workspace = ["shift+alt+w", "f9"]
-next_workspace = ["shift+alt+s", "f10"]
+new_workspace = ["shift+alt+n", "shift+alt+c", "prefix+n", "prefix+c"]
+previous_workspace = ["shift+alt+w", "f9", "prefix+w"]
+next_workspace = ["shift+alt+s", "f10", "prefix+s"]
+rename_workspace = ["shift+alt+r", "prefix+r"]
 close_workspace = ["shift+alt+x"]
-rename_workspace = ["shift+alt+r"]
 
 # Tab management
-new_tab = ["f8"]
-previous_tab = ["f11"]
-next_tab = ["f12"]
+new_tab = ["f8", "prefix+t"]
+previous_tab = ["f11", "prefix+q"]
+next_tab = ["f12", "prefix+e"]
 close_tab = ["prefix+x"]
 
 # Agent pane navigation
-previous_agent = ["alt+1"]
-next_agent = ["alt+2"]
+previous_agent = ["alt+1", "prefix+1"]
+next_agent = ["alt+2", "prefix+2"]
 
 # Pane management
 cycle_pane_next = ["prefix+p"]
 
 # Navigation & misc
-goto = ["super+g"]
-
-new_worktree = ["prefix+w"]
-edit_scrollback = ["alt+e"]
-
+goto = ["super+g", "prefix+g"]
+new_worktree = ["prefix+y"]
+edit_scrollback = ["alt+e", "prefix+e"]
+remote_image_paste = "ctrl+v"
 help = ["prefix+?"]
 detach = ["prefix+d"]
-
-remote_image_paste = "ctrl+v"
 
 [[keys.command]]
 key = "f2"
@@ -55,7 +52,7 @@ type = "shell"
 command = "herdr plugin action invoke open-file-viewer-tab --plugin herdr-file-viewer"
 
 [[keys.command]]
-key = "prefix+r"
+key = "f5"
 type = "plugin_action"
 command = "persiyanov.reviewr.toggle"
 
@@ -64,90 +61,35 @@ directory = "~/.herdr/worktrees"
 
 [ui]
 sidebar_min_width = 34
-
-# Maximum sidebar width when expanded (columns)
-# sidebar_max_width = 36
-
-# Terminal width at or below which Herdr uses the mobile single-column layout.
-# Increase this for foldables, tablets, or wide phone terminals.
-# mobile_width_threshold = 64
-
-# Capture mouse input for Herdr's mouse UI.
-# Set false to let the terminal handle normal clicks, such as Cmd-clicking URLs.
-# Pane apps like lazygit and btop can still receive mouse when they request it.
-# mouse_capture = true
-
-# Optional modifier that forwards right-click hold/drag gestures to pane apps instead of opening Herdr's pane menu.
-# Empty/off disables this. Shift is intentionally unsupported because terminals commonly reserve Shift+mouse.
-# right_click_passthrough_modifier = ""
-
-# Force a full redraw when the outer terminal regains focus.
-# Set false to reduce visible flashing when switching back to Herdr.
-# Trade-off: rare host terminal surface corruption may persist until the next full redraw.
-# redraw_on_focus_gained = true
-
-# Pane scrollback lines to scroll per mouse wheel notch.
 mouse_scroll_lines = 5
-
-# Ask for confirmation before closing a workspace
-# confirm_close = true
-
-# Ask for a tab name before creating a new tab.
-# Set false to create tabs immediately with generated names.
 prompt_new_tab_name = false
-
-# Draw borders around split panes.
-# pane_borders = true
-
-# Keep split panes visually separated instead of sharing divider borders.
-# pane_gaps = true
-
-# Show detected/reported agent labels in split pane borders when no manual pane name is set.
-# show_agent_labels_on_pane_borders = false
-
-# Agent panel ordering: "spaces" (grouped by space) or "priority" (attention queue).
-# "workspaces" is accepted as an alias for "spaces".
-# agent_panel_sort = "spaces"
-
-# Accent color for highlights, borders, and navigation UI.
-# Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)
-accent = "cyan"
-
-# Background notification popup delivery
 show_agent_labels_on_pane_borders = true
+pane_borders = false
+pane_gaps = false
+agent_panel_sort = "priority"
 
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
 # system = ask the OS notification service directly
-delivery = "herdr"
-# delay_seconds = 1
+delivery = "terminal"
 
 [ui.toast.herdr]
-# position = "bottom-right"
+position = "bottom-right"
 
 [ui.toast.clipboard]
-# enabled = true
-# position = "bottom-center"
+enabled = true
+position = "bottom-center"
 
 [ui.sound]
-enabled = true
+enabled = false
+
+[advanced]
+scrollback_limit_bytes = 10000000
 
 [session]
-# Resume supported AI-agent panes into their native conversation sessions after
-# a Herdr server restart. Requires official integrations that report session refs.
-# resume_agents_on_restore = true
-
-[remote]
-# Whether herdr manages the ssh config used for the `herdr --remote` bridge.
-# When true (default), herdr runs the bridge ssh through a generated config that
-# includes your ~/.ssh/config first and adds ServerAliveInterval/
-# ServerAliveCountMax as a fallback (so any keepalive you set yourself still
-# wins) to survive idle network/NAT timeouts. Set false to run plain ssh against
-# your ssh config unchanged — this does not force keepalive off, it only stops
-# herdr from adding its own.
-# manage_ssh_config = true
+resume_agents_on_restore = true
 
 [experimental]
 kitty_graphics = true
@@ -156,6 +98,3 @@ switch_ascii_input_source_in_prefix = true
 reveal_hidden_cursor_for_cjk_ime = true
 cjk_ime_agents = ["pi"]
 cjk_ime_cursor_shape = "steady_block"
-
-[advanced]
-scrollback_limit_bytes = 10000000
