@@ -163,7 +163,7 @@ keybind = cmd+x=text:\x1b[17;2~
 keybind = cmd+i=text:\x1b[18;2~
 
 # F20 (Kitty PUA 57383)
-# keybind = cmd+t=text:TODO?????????
+keybind = cmd+t=text:\x1b[19;2~
 
 # --------------------------------------
 # Keyboard Mappings For
