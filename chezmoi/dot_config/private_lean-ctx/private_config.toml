@@ -67,6 +67,11 @@ shell_allowlist_extra = [
     "just",
     "gofumpt",
     "rsync",
+    "env",
+    "/tmp/nback",
+    "nback",
+    "tmux",
+    "herdr",
 ]
 
 [cloud]

@@ -46,12 +46,12 @@ type = "plugin_action"
 command = "rmarganti.herdr-pluck.pluck"
 
 [[keys.command]]
-key = "f4"
+key = "f6"
 type = "shell"
 command = "herdr plugin action invoke open-file-viewer-tab --plugin herdr-file-viewer"
 
 [[keys.command]]
-key = "f5"
+key = "f7"
 type = "plugin_action"
 command = "persiyanov.reviewr.toggle"
 
@@ -67,7 +67,7 @@ directory = "~/.herdr/worktrees"
 sidebar_min_width = 34
 mouse_scroll_lines = 5
 prompt_new_tab_name = false
-show_agent_labels_on_pane_borders = true
+show_agent_labels_on_pane_borders = false
 pane_borders = false
 pane_gaps = false
 agent_panel_sort = "priority"
