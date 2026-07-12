@@ -250,8 +250,18 @@
       ]
     },
     "npm:@gotgenes/pi-nocd",
-    "npm:@spences10/pi-redact",
-    "npm:@arvoretech/pi-secret-firewall"
+    {
+      "source": "npm:@spences10/pi-redact",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    {
+      "source": "npm:@arvoretech/pi-secret-firewall",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    }
   ],
   "pi-screenshots": {
     "sources": [
