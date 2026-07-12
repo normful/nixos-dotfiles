@@ -61,6 +61,7 @@ shell_allowlist_extra = [
     "side-agent-finish.sh",
     "import",
     "[",
+    "infocmp",
 ]
 
 [cloud]
