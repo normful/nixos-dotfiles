@@ -47,7 +47,7 @@ command = "rmarganti.herdr-pluck.pluck"
 directory = "~/.herdr/worktrees"
 
 [ui]
-sidebar_min_width = 30
+sidebar_min_width = 34
 
 # Maximum sidebar width when expanded (columns)
 # sidebar_max_width = 36
