@@ -13,22 +13,27 @@ manifest_check = false
 [keys]
 prefix = "alt+l"
 
+# Workspace management
 new_workspace = ["shift+alt+n", "shift+alt+c"]
 previous_workspace = ["shift+alt+w", "f9"]
 next_workspace = ["shift+alt+s", "f10"]
 close_workspace = ["shift+alt+x"]
 rename_workspace = ["shift+alt+r"]
 
+# Tab management
 new_tab = ["f8"]
 previous_tab = ["f11"]
 next_tab = ["f12"]
 close_tab = ["prefix+x"]
 
+# Agent pane navigation
 previous_agent = ["alt+1"]
 next_agent = ["alt+2"]
 
+# Pane management
 cycle_pane_next = ["prefix+p"]
 
+# Navigation & misc
 goto = ["super+g"]
 
 new_worktree = ["prefix+w"]
