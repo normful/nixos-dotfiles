@@ -249,19 +249,7 @@
         "-skills/zeroize-audit/SKILL.md"
       ]
     },
-    "npm:@gotgenes/pi-nocd",
-    {
-      "source": "npm:@spences10/pi-redact",
-      "extensions": [
-        "-dist/index.js"
-      ]
-    },
-    {
-      "source": "npm:@arvoretech/pi-secret-firewall",
-      "extensions": [
-        "-dist/index.js"
-      ]
-    }
+    "npm:@gotgenes/pi-nocd"
   ],
   "pi-screenshots": {
     "sources": [
