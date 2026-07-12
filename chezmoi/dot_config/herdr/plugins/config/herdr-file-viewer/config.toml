@@ -1,0 +1,6 @@
+markdown = "glow -s $HOME/Library/Preferences/glow/night-owl -"
+diff = "delta"
+syntax = "bat --color=always --style=numbers --paging=never --file-name={name} -"
+
+hide_dotfiles = false
+update_check = false
