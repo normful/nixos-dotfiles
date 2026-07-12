@@ -59,6 +59,8 @@ shell_allowlist_extra = [
     "biome",
     "bash",
     "side-agent-finish.sh",
+    "import",
+    "[",
 ]
 
 [cloud]
