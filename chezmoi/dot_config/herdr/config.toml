@@ -145,6 +145,7 @@ manifest_check = false
 # accent = "cyan"
 
 # Background notification popup delivery
+show_agent_labels_on_pane_borders = true
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
@@ -153,6 +154,7 @@ manifest_check = false
 # delivery = "off"
 # delay_seconds = 1
 
+delivery = "herdr"
 [ui.toast.herdr]
 # position = "bottom-right"
 
@@ -173,6 +175,7 @@ manifest_check = false
 # [ui.sound.agents]
 # droid = "off"
 
+enabled = true
 [session]
 # Resume supported AI-agent panes into their native conversation sessions after
 # a Herdr server restart. Requires official integrations that report session refs.
