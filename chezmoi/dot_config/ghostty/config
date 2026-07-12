@@ -119,10 +119,6 @@ keybind = cmd+c=text:\x03
 # Send CTRL+O (for vim/nvim jump motions)
 keybind = cmd+o=text:\x0f
 
-# Send F19
-# NOTE: Don't bind CTRL+I because it's indistinguishable from Tab in terminals.
-keybind = cmd+i=text:\x1b[18;2~
-
 # Send CTRL+N (for selecting next item in vim completion menu)
 keybind = cmd+n=text:\x0e
 
@@ -161,6 +157,13 @@ keybind = cmd+e=text:\x1b[15;2~
 
 # F18 (Kitty PUA 57381)
 keybind = cmd+x=text:\x1b[17;2~
+
+# F19 (Kitty PUA 57382)
+# NOTE: Don't bind CTRL+I because it's indistinguishable from Tab in terminals.
+keybind = cmd+i=text:\x1b[18;2~
+
+# F20 (Kitty PUA 57383)
+# keybind = cmd+t=text:TODO?????????
 
 # --------------------------------------
 # Keyboard Mappings For

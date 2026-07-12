@@ -1,5 +1,7 @@
+onboarding = false
+
 [theme]
-name = "one-light"
+name = "dracula"
 
 [terminal]
 new_cwd = "follow"
@@ -19,20 +21,17 @@ workspace_picker = "prefix+w"
 goto = "prefix+g"
 remote_image_paste = "ctrl+v"
 
-new_workspace = ["ctrl+alt+w"]
-navigate_workspace_up = "k"
-navigate_workspace_down = "j"
+new_workspace = ["ctrl+alt+n", "ctrl+alt+c"]
+navigate_workspace_up = ["ctrl+alt+w"]
+navigate_workspace_down = ["ctrl+alt+s"]
 
 # rename_workspace = "prefix+shift+w"
 # close_workspace = "prefix+shift+d"
 
 new_worktree = "prefix+t"
-open_worktree = ""
-remove_worktree = ""
 
-previous_agent = "alt+9"
-next_agent = "alt+0"
-focus_agent = "alt+8"
+previous_agent = ["alt+1", "q"]
+next_agent = ["alt+2", "e"]
 
 new_tab = "f8"
 previous_workspace = "f9"
