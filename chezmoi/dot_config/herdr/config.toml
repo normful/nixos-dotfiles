@@ -27,6 +27,8 @@ close_tab = ["prefix+x"]
 previous_agent = ["alt+1"]
 next_agent = ["alt+2"]
 
+cycle_pane_next = ["prefix+p"]
+
 goto = ["super+g"]
 
 new_worktree = ["prefix+w"]
@@ -46,6 +48,11 @@ command = "rmarganti.herdr-pluck.pluck"
 key = "f4"
 type = "shell"
 command = "herdr plugin action invoke open-file-viewer-tab --plugin herdr-file-viewer"
+
+[[keys.command]]
+key = "prefix+r"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
 
 [worktrees]
 directory = "~/.herdr/worktrees"
