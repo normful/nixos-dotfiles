@@ -56,7 +56,7 @@ type = "plugin_action"
 command = "persiyanov.reviewr.toggle"
 
 [[keys.command]]
-key = "prefix+s"
+key = "prefix+l"
 type = "shell"
 command = "herdr plugin action invoke herdr-spreader.apply"
 
