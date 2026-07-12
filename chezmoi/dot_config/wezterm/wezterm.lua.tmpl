@@ -25,7 +25,6 @@ config.keys = {
   { mods = 'CTRL', key = 'F10', action = 'ToggleFullScreen' },
 
   -- Tabs: open and navigate
-  { mods = 'LEADER', key = 'c', action = act.SpawnTab('CurrentPaneDomain') },
   { mods = 'LEADER', key = 'n', action = act.SpawnTab('CurrentPaneDomain') },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '[', action = act.ActivateTabRelative(-1) },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },

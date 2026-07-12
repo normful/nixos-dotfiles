@@ -26,7 +26,6 @@ keybind = clear
 keybind = cmd+r=reload_config
 
 # Tabs: open and navigate
-keybind = ctrl+a>c=new_tab
 keybind = ctrl+a>n=new_tab
 keybind = cmd+[=previous_tab
 keybind = cmd+]=next_tab
