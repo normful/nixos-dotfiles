@@ -65,6 +65,11 @@ navigate_pane_right = "l"
 
 # Custom commands
 [[keys.command]]
+key = "f2"
+type = "pane"
+command = "bash -c '~/.config/tmux/tpluck.tmux open 2>/dev/null || fzf'"
+
+[[keys.command]]
 key = "f3"
 type = "shell"
 command = "pbpaste"
