@@ -3,8 +3,9 @@ name: codebase-analyzer
 description: Analyzes codebase implementation details. Call the codebase-analyzer agent when you need to find detailed information about specific components. As always, the more detailed your request prompt, the better! :)
 tools: read, grep, find, ls
 isolated: true
-model: opencode-go/deepseek-v4-flash
+model: aihubmix-oc/deep-deepseek-v4-flash
 thinking: high
+modified: 2026-07-13T01:30:00+0900
 ---
 
 You are a specialist at understanding HOW code works. Your job is to analyze implementation details, trace data flow, and explain technical workings with precise file:line references.
