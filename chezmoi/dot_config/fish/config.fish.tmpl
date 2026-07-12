@@ -120,7 +120,7 @@ if status is-interactive
     abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
 
     abbr --add cm 'chezmoi'
-    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; git add chezmoi/dot_pi/agent/settings.json; git commit -m 'chore(pi): autocommit ~/.pi/agent/settings.json changes'; chezmoi apply"
+    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit pi config changes'; chezmoi apply"
     abbr --add cmt 'chezmoi chattr +template'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
