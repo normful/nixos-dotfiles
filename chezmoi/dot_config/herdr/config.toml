@@ -17,7 +17,7 @@ help = "prefix+?"
 settings = "prefix+s"
 detach = "prefix+q"
 reload_config = "prefix+r"
-open_notification_target = "prefix+o"
+open_notification_target = "prefix+shift+o"
 workspace_picker = "prefix+w"
 goto = "prefix+g"
 new_workspace = "prefix+shift+n"
@@ -74,10 +74,7 @@ key = "prefix+o"
 type = "pane"
 command = "bash -c '~/.config/tmux/tpluck.tmux open 2>/dev/null || fzf'"
 
-[[keys.command]]
-key = "prefix+alt+l"
-type = "pane"
-command = "bash -c '~/.config/tmux/tpluck.tmux open 2>/dev/null || fzf'"
+# (prefix+alt+l can't be used — pressing prefix twice sends a literal prefix key)
 
 [[keys.command]]
 key = "f3"
