@@ -18,20 +18,23 @@ new_workspace = ["prefix+n"]
 previous_workspace = ["f9"]
 next_workspace = ["f10"]
 rename_workspace = ["prefix+r"]
-close_workspace = ["prefix+z"]
+close_workspace = ["prefix+q"]
 
 # Tab management
 new_tab = ["f8", "prefix+t"]
 previous_tab = ["f11"]
 next_tab = ["f12"]
-close_tab = ["prefix+x"]
+close_tab = ["prefix+z"]
 
 # Agent pane navigation
 previous_agent = ["super+-"]
 next_agent = ["super+="]
 
 # Pane management
+split_horizontal = ["prefix+s"]
+split_vertical = ["prefix+v"]
 cycle_pane_next = ["prefix+p"]
+close_pane = ["prefix+x"]
 
 # Navigation & misc
 goto = ["super+g"]
