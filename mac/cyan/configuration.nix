@@ -73,7 +73,7 @@
       mariadb_118
       jre25_minimal
       terminal-notifier
-      texliveSmall
+      texliveMedium
       ansible
       fswatch
       herdr
