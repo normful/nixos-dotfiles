@@ -73,7 +73,12 @@
       mariadb_118
       jre25_minimal
       terminal-notifier
-      texliveMedium
+
+      # TeX Live Medium + extra CJK/XeTeX packages
+      (texliveMedium.withPackages (ps: with ps; [
+        xecjk
+        fontspec
+      ]))
       ansible
       fswatch
       herdr
