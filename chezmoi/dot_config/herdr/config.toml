@@ -71,7 +71,7 @@ sidebar_min_width = 34
 mouse_scroll_lines = 5
 prompt_new_tab_name = false
 show_agent_labels_on_pane_borders = false
-pane_borders = false
+pane_borders = true
 pane_gaps = false
 agent_panel_sort = "priority"
 
