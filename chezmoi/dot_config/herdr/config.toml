@@ -17,24 +17,46 @@ prefix = "alt+l"
 new_workspace = ["prefix+n"]
 previous_workspace = ["f9"]
 next_workspace = ["f10"]
-rename_workspace = ["prefix+r"]
+rename_workspace = ["prefix+1"]
 close_workspace = ["prefix+q"]
+workspace_picker = ""
+switch_workspace = ""
 
 # Tab management
 new_tab = ["f8", "prefix+t"]
 previous_tab = ["f11"]
 next_tab = ["f12"]
 close_tab = ["prefix+z"]
-
-# Agent pane navigation
-previous_agent = ["super+-"]
-next_agent = ["super+="]
+rename_tab = ["prefix+2"]
+switch_tab = ""
 
 # Pane management
 split_horizontal = ["prefix+s"]
 split_vertical = ["prefix+v"]
 cycle_pane_next = ["prefix+p"]
+cycle_pane_previous = ""
 close_pane = ["prefix+x"]
+last_pane = ""
+rename_pane = ["prefix+3"]
+
+# Pane focus & swap
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+swap_pane_left = ""
+swap_pane_down = ""
+swap_pane_up = ""
+swap_pane_right = ""
+
+# Zoom & resize
+zoom = ""
+resize_mode = ""
+
+# Agent pane navigation
+previous_agent = ["super+-"]
+next_agent = ["super+="]
+focus_agent = ""
 
 # Navigation & misc
 goto = ["super+g"]
@@ -42,6 +64,26 @@ new_worktree = ["super+y"]
 edit_scrollback = ["alt+e"]
 help = ["prefix+?"]
 detach = ["prefix+d"]
+settings = ""
+reload_config = ["prefix+shift+r"]
+open_notification_target = ""
+copy_mode = ""
+toggle_sidebar = ""
+
+# Open/remove worktree
+open_worktree = ""
+remove_worktree = ""
+
+# Remote
+remote_image_paste = ""
+
+# Navigate-mode movement (disabled to avoid conflicts with shell/apps)
+navigate_workspace_up = ""
+navigate_workspace_down = ""
+navigate_pane_left = ""
+navigate_pane_down = ""
+navigate_pane_up = ""
+navigate_pane_right = ""
 
 [[keys.command]]
 key = "f2"
@@ -59,7 +101,7 @@ type = "plugin_action"
 command = "persiyanov.reviewr.toggle"
 
 [[keys.command]]
-key = "prefix+l"
+key = "prefix+shift+o"
 type = "shell"
 command = "herdr plugin action invoke herdr-spreader.apply"
 
