@@ -14,6 +14,18 @@ Primary focus: **nix-darwin config for macOS (hostname: cyan)** and **neovim con
 - `.git`, `gcp/`, `wsl/`, `secrets/`, `.venv/`, `node_modules/`
 - Pulumi files, README.md, LICENSE, .sops.yaml
 
+## Flake Maintenance
+
+### Updating nixpkgs-unstable
+
+To update the pinned unstable input:
+
+1. Get the latest commit hash:
+   `git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1`
+2. Update the commit hash in the `nixpkgs-unstable-2611.url` in `flake.nix`
+3. Run: `nix flake lock --update-input nixpkgs-unstable-2611`
+4. **NEVER** manually edit `flake.lock` — always use the `nix flake lock` command
+
 ## Neovim Config Organization
 
 ### Layer 1: Nix Integration (`modules/neovim.nix`)
