@@ -8,8 +8,29 @@ if status is-interactive
     # SETTINGS AND ENV VARS
     ##############################################################
 
+    # Use vi-style modal key bindings (normal/insert/visual modes)
+    # rather than the default Emacs-style bindings.
     set -g fish_key_bindings fish_vi_key_bindings
-    set -U fish_escape_delay_ms 10
+    # How long (ms) fish waits after receiving an escape character to
+    # decide if it's the standalone Escape key or the start of an escape
+    # sequence (e.g. arrow keys, function keys). Default is 30ms.
+    # Lower values feel more responsive but may break Alt+key combos
+    # that send escape+char sequences.
+    set -g fish_escape_delay_ms 10
+
+    # ----- DOUBLE-ESCAPE: CLEAR COMMAND LINE ---------------------------------
+    # How long (ms) fish waits for a multi-key sequence like escape,escape
+    # before treating the first keypress as standalone. Higher = more
+    # forgiving for double-tap, but adds slight delay to single keypresses.
+    set -g fish_sequence_key_delay_ms 300
+
+    # Double-escape clears the entire command line.
+    # -M insert: works while typing (first escape exits insert→normal mode,
+    #   second escape within the delay fires the bind)
+    # -M default: also works if you're already in vi normal mode
+    bind -M insert escape,escape 'commandline -r ""; commandline -f repaint'
+    bind -M default escape,escape 'commandline -r ""; commandline -f repaint'
+    # -------------------------------------------------------------------------
 
     # If SSH'ing in, attach to any tmux session (or create one named pi none exist)
     if set -q SSH_CONNECTION && ! set -q TMUX
