@@ -61,13 +61,13 @@ focus_agent = ""
 # Navigation & misc
 goto = ["super+g"]
 new_worktree = ["super+y"]
+copy_mode = ["f1"]
 edit_scrollback = ["alt+e"]
 help = ["prefix+?"]
 detach = ["prefix+d"]
-settings = ""
 reload_config = ["prefix+shift+r"]
+settings = ""
 open_notification_target = ""
-copy_mode = ""
 toggle_sidebar = ""
 
 # Open/remove worktree
@@ -109,13 +109,15 @@ command = "herdr plugin action invoke herdr-spreader.apply"
 directory = "~/.herdr/worktrees"
 
 [ui]
-sidebar_min_width = 34
+sidebar_min_width = 22
 mouse_scroll_lines = 5
 prompt_new_tab_name = false
 show_agent_labels_on_pane_borders = false
 pane_borders = true
-pane_gaps = false
+pane_gaps = true
 agent_panel_sort = "priority"
+hide_tab_bar_when_single_tab = true
+sidebar_collapsed_mode = "hidden"
 
 [ui.toast]
 # off = disable pop-up notifications
@@ -129,7 +131,7 @@ position = "bottom-right"
 
 [ui.toast.clipboard]
 enabled = true
-position = "bottom-center"
+position = "bottom-left"
 
 [ui.sound]
 enabled = false
