@@ -14,7 +14,7 @@ manifest_check = false
 prefix = "alt+l"
 
 # Workspace management
-new_workspace = ["prefix+n"]
+new_workspace = ["prefix+w"]
 previous_workspace = ["f9"]
 next_workspace = ["f10"]
 rename_workspace = ["prefix+1"]
@@ -23,7 +23,7 @@ workspace_picker = ""
 switch_workspace = ""
 
 # Tab management
-new_tab = ["f8", "prefix+t"]
+new_tab = ["f8", "prefix+n"]
 previous_tab = ["f11"]
 next_tab = ["f12"]
 close_tab = ["prefix+z"]
@@ -33,7 +33,7 @@ switch_tab = ""
 # Pane management
 split_horizontal = ["prefix+s"]
 split_vertical = ["prefix+v"]
-cycle_pane_next = ["prefix+p"]
+cycle_pane_next = ["prefix+5"]
 cycle_pane_previous = ""
 close_pane = ["prefix+x"]
 last_pane = ""
