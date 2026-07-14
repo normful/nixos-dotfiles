@@ -89,6 +89,10 @@ shell_allowlist_extra = [
     "xelatex",
     "nix-shell",
     "pbcopy",
+    "perl",
+    "read",
+    "start-dev-server.sh",
+    "php",
 ]
 
 [cloud]

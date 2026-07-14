@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.80.6",
-  "defaultProvider": "aihubmix-oc",
-  "defaultModel": "deep-deepseek-v4-flash",
-  "defaultThinkingLevel": "xhigh",
+  "lastChangelogVersion": "0.80.7",
+  "defaultProvider": "aihubmix-am",
+  "defaultModel": "cc-minimax-m3",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,

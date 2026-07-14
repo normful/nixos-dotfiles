@@ -115,7 +115,7 @@ prompt_new_tab_name = false
 show_agent_labels_on_pane_borders = false
 pane_borders = true
 pane_gaps = true
-agent_panel_sort = "priority"
+agent_panel_sort = "spaces"
 hide_tab_bar_when_single_tab = true
 sidebar_collapsed_mode = "hidden"
 
