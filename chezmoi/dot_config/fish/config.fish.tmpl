@@ -32,9 +32,9 @@ if status is-interactive
     bind -M default escape,escape 'commandline -r ""; commandline -f repaint'
     # -------------------------------------------------------------------------
 
-    # If SSH'ing in, attach to any tmux session (or create one named pi none exist)
-    if set -q SSH_CONNECTION && ! set -q TMUX
-        tmux -u attach-session 2>/dev/null; or tmux -u new-session -s tailscale
+    # If SSH'ing in, attach to herdr
+    if set -q SSH_CONNECTION
+        herdr
     end
 
     if command -v hh >/dev/null 2>&1
