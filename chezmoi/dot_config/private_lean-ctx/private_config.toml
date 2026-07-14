@@ -72,6 +72,23 @@ shell_allowlist_extra = [
     "nback",
     "tmux",
     "herdr",
+    "mktemp",
+    "betterleaks",
+    "hyperfine",
+    "od",
+    "rtk",
+    "compgen",
+    "print",
+    "xargs",
+    "openssl",
+    "pandoc",
+    "#",
+    "---",
+    "fc-list",
+    "kpsewhich",
+    "xelatex",
+    "nix-shell",
+    "pbcopy",
 ]
 
 [cloud]

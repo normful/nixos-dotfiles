@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.80.6",
-  "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash-free",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "deep-deepseek-v4-flash",
   "defaultThinkingLevel": "xhigh",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -168,15 +168,6 @@
       ]
     },
     {
-      "source": "git:github.com/normful/pi-side-agents",
-      "skills": [
-        "-skills/agent-setup/SKILL.md"
-      ],
-      "extensions": [
-        "+extensions/side-agents/index.ts"
-      ]
-    },
-    {
       "source": "https://github.com/normful/pi-autoresearch",
       "skills": [
         "-skills/autoresearch-create/SKILL.md"
@@ -320,7 +311,8 @@
     "-extensions/understand-screenshot/index.ts",
     "+extensions/aihubmix-am/index.ts",
     "-extensions/replant.ts",
-    "+extensions/pi-lean-ctx/index.ts"
+    "+extensions/pi-lean-ctx/index.ts",
+    "+extensions/local-normful-pi-side-agents/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
