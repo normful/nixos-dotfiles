@@ -93,6 +93,8 @@ shell_allowlist_extra = [
     "read",
     "start-dev-server.sh",
     "php",
+    "restart-dev-server.sh",
+    "backlog",
 ]
 
 [cloud]
