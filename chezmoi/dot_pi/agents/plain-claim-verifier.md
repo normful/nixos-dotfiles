@@ -8,7 +8,8 @@ tools:
   - rtk_ls
   - bash
   - advisor
-model: opencode-go/minimax-m3
+model: aihubmix-oc/deep-deepseek-v4-flash
+thinking: xhigh
 contextMode: "scoped"
 modified: 2026-07-12T06:01:12+0900
 ---
