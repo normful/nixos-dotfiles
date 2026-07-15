@@ -95,6 +95,10 @@ shell_allowlist_extra = [
     "php",
     "restart-dev-server.sh",
     "backlog",
+    "pest",
+    "pkill",
+    "ssh",
+    "ansible-playbook",
 ]
 
 [cloud]
