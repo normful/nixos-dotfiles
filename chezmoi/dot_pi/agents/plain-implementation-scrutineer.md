@@ -8,7 +8,8 @@ tools:
   - ctx_find
   - ctx_grep
   - bash
-model: opencode-go/minimax-m3
+model: aihubmix-oc/deep-deepseek-v4-flash
+thinking: xhigh
 contextMode: "scoped"
 modified: 2026-07-12T05:51:05+0900
 ---
