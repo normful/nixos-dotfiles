@@ -6,19 +6,19 @@
   "agents": {
     "codebase-analyzer": "opencode-go/deepseek-v4-flash",
     "claim-verifier": {
-      "model": "opencode-go/minimax-m3",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash",
       "thinking": "xhigh"
     },
     "slice-verifier": {
-      "model": "opencode-go/minimax-m3",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash",
       "thinking": "xhigh"
     },
     "artifact-code-reviewer": {
-      "model": "opencode-go/minimax-m3",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash",
       "thinking": "xhigh"
     },
     "artifact-coverage-reviewer": {
-      "model": "opencode-go/minimax-m3",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash",
       "thinking": "xhigh"
     }
   },
