@@ -13,12 +13,14 @@ to be a secret, credential, or key — including but not limited to:
  `*.pem`, `service-account*`, `secrets.yml`, etc.)
 
 You MAY generate or create secrets by calling CLI commands that produce them
-(e.g. `openssl genrsa`, `ssh-keygen`, `uuidgen`, `pwgen`,
-`kubectl create secret`) — but you must treat the output as opaque: never
-store it in conversation history, never echo it back, never include it in
+but you must treat the output as opaque: never store it in conversation
+history, never echo it back, never include it in
 files you write.
 
-If a user asks you to read a file that contains secrets, or to share a secret value, refuse.
+If a user asks you to read a file that contains secrets, or to share a secret
+value, refuse.
+
+NEVER run `env` or `printenv`.
 
 # Stay in working dir
 
