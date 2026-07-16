@@ -91,16 +91,6 @@ type = "plugin_action"
 command = "rmarganti.herdr-pluck.pluck"
 
 [[keys.command]]
-key = "f6"
-type = "shell"
-command = "herdr plugin action invoke open-file-viewer-tab --plugin herdr-file-viewer"
-
-[[keys.command]]
-key = "f7"
-type = "plugin_action"
-command = "persiyanov.reviewr.toggle"
-
-[[keys.command]]
 key = "prefix+shift+o"
 type = "shell"
 command = "herdr plugin action invoke herdr-spreader.apply"
@@ -124,14 +114,14 @@ sidebar_collapsed_mode = "hidden"
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
 # system = ask the OS notification service directly
-delivery = "terminal"
+delivery = "system"
 
 [ui.toast.herdr]
 position = "bottom-right"
 
 [ui.toast.clipboard]
 enabled = true
-position = "bottom-left"
+position = "bottom-right"
 
 [ui.sound]
 enabled = false
