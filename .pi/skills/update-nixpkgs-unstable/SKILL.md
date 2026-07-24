@@ -69,12 +69,12 @@ Edit the `flake.nix` file at line 7 (where `nixpkgs-unstable` is defined):
 
 **Before:**
 ```nix
-nixpkgs-unstable-2605.url = "github:NixOS/nixpkgs/<old commit hash>";
+nixpkgs-unstable-2611.url = "github:NixOS/nixpkgs/<old commit hash>";
 ```
 
 **After:**
 ```nix
-nixpkgs-unstable-2605.url = "github:NixOS/nixpkgs/<some new commit hash>";
+nixpkgs-unstable-2611.url = "github:NixOS/nixpkgs/<some new commit hash>";
 ```
 
 ### Step 3: Commit Changes
