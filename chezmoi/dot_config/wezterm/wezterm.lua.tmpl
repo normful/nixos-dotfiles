@@ -25,10 +25,9 @@ config.keys = {
   { mods = 'CTRL', key = 'F10', action = 'ToggleFullScreen' },
 
   -- Tabs: open and navigate
-  { mods = 'LEADER', key = 'c', action = act.SpawnTab('CurrentPaneDomain') },
   { mods = 'LEADER', key = 'n', action = act.SpawnTab('CurrentPaneDomain') },
-  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '[', action = act.ActivateTabRelative(-1) },
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = ']', action = act.ActivateTabRelative(1) },
   { mods = 'LEADER', key = 't', action = act.ShowTabNavigator },
 
   -- Current Tab: retitle
@@ -95,6 +94,9 @@ config.keys = {
 
   -- Send CTRL+S (for fish pager-toggle-search https://www.youtube.com/watch?v=dnj-Hpg7Qlo&t=20s)
   { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = '`', action = act({ SendString = '\x13' }) },
+
+  -- Send ALT+L (for tmux prefix key)
+  { mods = '{{- if .windows }}ALT{{- else }}CMD{{- end }}', key = 'l', action = act({ SendString = '\x1bl' }) },
 
   -- F-13... were copied from http://aperiodic.net/phil/archives/Geekery/term-function-keys.html
 
