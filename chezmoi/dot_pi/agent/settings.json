@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.81.1",
-  "defaultProvider": "aihubmix-oc",
-  "defaultModel": "coding-xiaomi-mimo-v2.5",
+  "lastChangelogVersion": "0.82.0",
+  "defaultProvider": "openrouter",
+  "defaultModel": "poolside/laguna-s-2.1",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -198,12 +198,6 @@
       ]
     },
     {
-      "source": "npm:@spences10/pi-telemetry",
-      "extensions": [
-        "-dist/index.js"
-      ]
-    },
-    {
       "source": "npm:@spences10/pi-lsp",
       "extensions": [
         "-dist/index.js"
@@ -216,21 +210,9 @@
       ]
     },
     {
-      "source": "https://github.com/normful/pi-zenmux",
-      "extensions": [
-        "-index.ts"
-      ]
-    },
-    {
       "source": "npm:@agnishc/edb-context-viewer",
       "extensions": [
         "+src/index.ts"
-      ]
-    },
-    {
-      "source": "npm:@agnishc/edb-diff-files",
-      "extensions": [
-        "-src/index.ts"
       ]
     },
     "npm:@juicesharp/rpiv-config",
@@ -270,7 +252,14 @@
     "npm:@normful/pi-statusline",
     "npm:@normful/pi-show-files-read",
     "npm:@normful/pi-show-theme-colors",
-    "npm:@normful/pi-stop-secrets-leaks"
+    "npm:@normful/pi-stop-secrets-leaks",
+    "npm:@agnishc/edb-herald",
+    {
+      "source": "npm:@spences10/pi-git-ui",
+      "extensions": [
+        "+dist/index.js"
+      ]
+    }
   ],
   "pi-screenshots": {
     "sources": [
