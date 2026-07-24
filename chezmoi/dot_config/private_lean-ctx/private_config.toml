@@ -1,0 +1,185 @@
+ultra_compact = false
+tee_mode = "failures"
+output_density = "normal"
+checkpoint_interval = 15
+excluded_commands = []
+passthrough_urls = []
+custom_aliases = []
+slow_command_threshold_ms = 5000
+theme = "default"
+buddy_enabled = true
+redirect_exclude = []
+disabled_tools = []
+extra_ignore_patterns = []
+terse_agent = "off"
+compression_level = "standard"
+allow_paths = []
+content_defined_chunking = false
+minimal_overhead = false
+shell_hook_disabled = false
+shell_activation = "always"
+update_check_disabled = false
+bm25_max_cache_mb = 128
+graph_index_max_files = 5000
+memory_profile = "balanced"
+memory_cleanup = "aggressive"
+max_ram_percent = 5
+savings_footer = "auto"
+shell_allowlist_extra = [
+    "git",
+    "mv",
+    "python3",
+    "shutil",
+    "os",
+    "wc",
+    "bun",
+    "bunx",
+    "npm",
+    "curl",
+    "wget",
+    "gh",
+    "docker",
+    "ping",
+    "dig",
+    "jq",
+    "rg",
+    "sed",
+    "find",
+    "ls",
+    "ps",
+    "tsc",
+    "date",
+    "mkdir",
+    "cp",
+    "rip",
+    "composer",
+    "artisan",
+    "npx",
+    "opensrc",
+    "biome",
+    "bash",
+    "side-agent-finish.sh",
+    "import",
+    "[",
+    "infocmp",
+    "continue",
+    "comm",
+    "just",
+    "gofumpt",
+    "rsync",
+    "env",
+    "nback",
+    "tmux",
+    "herdr",
+    "mktemp",
+    "betterleaks",
+    "hyperfine",
+    "od",
+    "rtk",
+    "compgen",
+    "print",
+    "xargs",
+    "openssl",
+    "pandoc",
+    "fc-list",
+    "kpsewhich",
+    "xelatex",
+    "nix-shell",
+    "pbcopy",
+    "perl",
+    "read",
+    "start-dev-server.sh",
+    "php",
+    "restart-dev-server.sh",
+    "backlog",
+    "pest",
+    "pkill",
+    "ssh",
+    "ansible-playbook",
+    "colima",
+    "start-colima.sh",
+    "up.sh",
+    "docker-compose",
+    "mariadb",
+    "nc",
+    "mkfifo",
+    "kill",
+    "mmdc",
+    "open",
+    "prek",
+    "deploy-production.sh",
+    "run-frontend-quality-gates.sh",
+    "node",
+    "function",
+    "nohup",
+    "list_example_vars.sh",
+    "ffmpeg",
+    "split",
+    "production-mariadb-shell.sh",
+]
+
+[cloud]
+contribute_enabled = false
+
+[autonomy]
+enabled = true
+auto_preload = true
+auto_dedup = true
+auto_related = true
+auto_consolidate = true
+silent_preload = true
+dedup_threshold = 8
+consolidate_every_calls = 25
+consolidate_cooldown_secs = 120
+
+[proxy]
+
+[loop_detection]
+normal_threshold = 2
+reduced_threshold = 4
+blocked_threshold = 0
+window_secs = 300
+search_group_limit = 10
+
+[archive]
+enabled = true
+threshold_chars = 4096
+max_age_hours = 48
+max_disk_mb = 500
+
+[memory.knowledge]
+max_facts = 200
+max_patterns = 50
+max_history = 100
+contradiction_threshold = 0.5
+recall_facts_limit = 10
+rooms_limit = 25
+timeline_limit = 25
+relations_limit = 40
+
+[memory.episodic]
+max_episodes = 500
+max_actions_per_episode = 50
+summary_max_chars = 200
+
+[memory.procedural]
+min_repetitions = 3
+min_sequence_len = 2
+max_procedures = 100
+max_window_size = 10
+
+[memory.lifecycle]
+decay_rate = 0.01
+low_confidence_threshold = 0.3
+stale_days = 30
+similarity_threshold = 0.85
+
+[memory.embeddings]
+max_facts = 2000
+
+[memory.gotcha]
+max_gotchas_per_project = 100
+retrieval_budget_per_room = 10
+default_decay_rate = 0.03
+
+[memory.gotcha.category_decay_overrides]
