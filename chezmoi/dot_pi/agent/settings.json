@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.82.0",
-  "defaultProvider": "openrouter",
-  "defaultModel": "poolside/laguna-s-2.1",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -320,16 +320,17 @@
   "enableInstallTelemetry": false,
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
+    "openrouter/inclusionai/ling-3.0-flash:free",
+    "opencode/ling-3.0-flash-free",
     "opencode/deepseek-v4-flash-free",
-    "aihubmix-oc/coding-glm-5.2-free",
-    "opencode-go/glm-5.2",
-    "aihubmix-am/xiaomi-mimo-v2.5",
     "aihubmix-oc/deep-deepseek-v4-flash",
-    "aihubmix-oc/qwen3.8-max-preview",
-    "openrouter/nex-agi/nex-n2-mini",
+    "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
     "aihubmix-am/cc-minimax-m3",
-    "openrouter/tencent/hy3",
+    "aihubmix-oc/coding-glm-5.2-free",
+    "aihubmix-oc/qwen3.8-max-preview",
+    "opencode-go/glm-5.2",
+    "openrouter/nex-agi/nex-n2-mini",
     "openrouter/poolside/laguna-s-2.1"
   ],
   "terminal": {
