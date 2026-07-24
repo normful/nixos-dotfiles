@@ -1,7 +1,52 @@
 {
-  "suspend": [],
-  "externalEditor": ["alt+v"],
-  "followUp": ["alt+q"],
-  "cycleModelForward": ["alt+i"],
-  "cycleModelBackward": ["alt+u"]
+  "tui.editor.cursorUp": ["up"],
+  "tui.editor.cursorDown": ["down"],
+  "tui.editor.cursorLeft": ["left"],
+  "tui.editor.cursorRight": ["right"],
+  "tui.editor.cursorWordLeft": [],
+  "tui.editor.cursorWordRight": [],
+  "tui.editor.cursorLineStart":	[],
+  "tui.editor.cursorLineEnd":	[],
+  "tui.editor.jumpForward":	[],
+  "tui.editor.jumpBackward": [],
+  "tui.editor.pageUp": [],
+  "tui.editor.pageDown": [],
+
+  "tui.editor.deleteCharBackward": ["backspace"],
+  "tui.editor.deleteWordForward": [],
+  "tui.editor.deleteCharForward": [],
+  "tui.editor.deleteWordBackward": [],
+  "tui.editor.deleteWordForward": [],
+  "tui.editor.deleteToLineStart": [],
+  "tui.editor.deleteToLineEnd": [],
+
+  "tui.editor.yank": [],
+  "tui.editor.yankPop": [],
+  "tui.editor.undo": [],
+
+  "tui.select.pageUp": [],
+  "tui.select.pageDown": [],
+
+  "app.interrupt": ["f4", "alt+x"],
+  "app.clear": ["ctrl+shift+alt+d"],
+  "app.suspend": ["f5", "alt+s"],
+  "app.editor.external": ["alt+v"],
+
+  "app.session.tree": [],
+  "app.session.resume": [],
+  "app.session.togglePath": [],
+  "app.session.toggleSort": [],
+  "app.session.toggleNamedFilter": [],
+  "app.session.rename": [],
+  "app.session.delete": [],
+  "app.session.deleteNoninvasive": [],
+
+  "app.model.select": [],
+  "app.model.cycleForward": ["alt+i"],
+  "app.model.cycleBackward": ["alt+u"],
+  "app.thinking.cycle": ["alt+t"],
+  "app.message.followUp": ["alt+q"],
+
+  "app.tree.foldOrUp": ["ctrl+left"],
+  "app.tree.unfoldOrDown": ["ctrl+right"]
 }
