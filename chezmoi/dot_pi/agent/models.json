@@ -1,43 +1,9 @@
 {
   "providers": {
-    "opencode": {
-      "models": [
-        {
-          "id": "laguna-s-2.1-free",
-          "name": "Poolside Laguna S 2.1 FREE (added manually in ~/.pi/agent/models.json)",
-          "reasoning": true,
-          "input": ["text"],
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0,
-          },
-          "contextWindow": 256000,
-          "maxTokens": 32000
-        },
-      ],
-    },
     "openrouter": {
-      "models": [
-        {
-          "id": "poolside/laguna-s-2.1",
-          "name": "Poolside Laguna S 2.1 (added manually in ~/.pi/agent/models.json)",
-          "reasoning": true,
-          "input": ["text"],
-          "cost": {
-            "input": 0.1,
-            "output": 0.2,
-            "cacheRead": 0.01,
-            "cacheWrite": 0,
-          },
-          "contextWindow": 1048576,
-          "maxTokens": 131072
-        },
-      ],
       "modelOverrides": {
         "deepseek/deepseek-v4-flash": {
-          "name": "DeepSeek v4 Flash through only Alibaba",
+          "name": "DeepSeek v4 Flash through only Alibaba (configured in ~/.pi/agent/models.json)",
           "reasoning": true,
           "compat": {
             "supportsDeveloperRole": false,
@@ -49,7 +15,7 @@
           }
         },
         "deepseek/deepseek-v4-pro": {
-          "name": "DeepSeek v4 Pro through only Deepseek",
+          "name": "DeepSeek v4 Pro through only Deepseek (configured in ~/.pi/agent/models.json)",
           "reasoning": true,
           "compat": {
             "supportsDeveloperRole": false,
@@ -57,36 +23,6 @@
             "thinkingFormat": "deepseek",
             "openRouterRouting": {
               "only": ["deepseek"]
-            }
-          }
-        },
-        "minimax/minimax-m2.7": {
-          "name": "Minimax 2.7 on OpenRouter with routing prefs",
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null
-          },
-          "compat": {
-            "thinkingFormat": "openai",
-            "supportsDeveloperRole": false,
-            "requiresReasoningContentOnAssistantMessages": true,
-            "openRouterRouting": {
-              "sort": "throughput"
-            }
-          }
-        },
-        "minimax/minimax-m2.5": {
-          "name": "Minimax 2.5 on OpenRouter with routing prefs",
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null
-          },
-          "compat": {
-            "thinkingFormat": "openai",
-            "supportsDeveloperRole": false,
-            "requiresReasoningContentOnAssistantMessages": true,
-            "openRouterRouting": {
-              "sort": "throughput"
             }
           }
         }
@@ -132,13 +68,6 @@
         },
         "qwen3.6-plus": {
           "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min) ⟐  54.5 · ●  888k"
-        }
-      }
-    },
-    "xai": {
-      "modelOverrides": {
-        "grok-4.20-0309-reasoning": {
-          "name": "Grok 4.20 Reasoning ($2.00/M input)"
         }
       }
     }
