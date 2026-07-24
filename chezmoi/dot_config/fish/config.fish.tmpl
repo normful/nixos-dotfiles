@@ -1,17 +1,103 @@
 set -U fish_greeting ""
 
+set -gx LANG 'en_US.UTF-8'
+set -gx LC_ALL 'en_US.UTF-8'
+
 if status is-interactive
+    ##############################################################
+    # SETTINGS AND ENV VARS
+    ##############################################################
+
+    # Use vi-style modal key bindings (normal/insert/visual modes)
+    # rather than the default Emacs-style bindings.
     set -g fish_key_bindings fish_vi_key_bindings
-    set -U fish_escape_delay_ms 10
+    # How long (ms) fish waits after receiving an escape character to
+    # decide if it's the standalone Escape key or the start of an escape
+    # sequence (e.g. arrow keys, function keys). Default is 30ms.
+    # Lower values feel more responsive but may break Alt+key combos
+    # that send escape+char sequences.
+    set -g fish_escape_delay_ms 10
 
-    # TODO: Make it work with wezterm
-    # bind alt-f accept-autosuggestion
+    # ----- DOUBLE-ESCAPE: CLEAR COMMAND LINE ---------------------------------
+    # How long (ms) fish waits for a multi-key sequence like escape,escape
+    # before treating the first keypress as standalone. Higher = more
+    # forgiving for double-tap, but adds slight delay to single keypresses.
+    set -g fish_sequence_key_delay_ms 300
 
-    set --export HISTFILE ~/.config/fish/hh.history
-    set --export HSTR_CONFIG hicolor,prompt-bottom
+    # Double-escape clears the entire command line.
+    # -M insert: works while typing (first escape exits insert→normal mode,
+    #   second escape within the delay fires the bind)
+    # -M default: also works if you're already in vi normal mode
+    bind -M insert escape,escape 'commandline -r ""; commandline -f repaint'
+    bind -M default escape,escape 'commandline -r ""; commandline -f repaint'
+    # -------------------------------------------------------------------------
+
+    # If SSH'ing in, attach to herdr
+    if set -q SSH_CONNECTION
+        herdr
+    end
+
+    if command -v hh >/dev/null 2>&1
+      set --export HISTFILE ~/.config/fish/hh.history
+      set --export HSTR_CONFIG hicolor,prompt-bottom
+    end
+
+    if command -v intelephense >/dev/null 2>&1
+      set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
+    end
+
+    if command -v lean-ctx >/dev/null 2>&1
+      # See https://github.com/yvgude/lean-ctx/blob/6588c16a18d5637d65f1fb810e23de1f728a7a9a/rust/src/core/config/schema.rs
+      set --export LEAN_CTX_BIN /run/current-system/sw/bin/lean-ctx
+      set --export LEAN_CTX_NO_UPDATE_CHECK "1"
+      set --export LEAN_CTX_OUTPUT_DENSITY "normal" # normal, terse, or ultra
+      set --export LEAN_CTX_TERSE_AGENT "lite" # off, lite, full, ultra
+      set --export LEAN_CTX_COMPRESSION "standard" # off, lite, standard, max
+      set --export LEAN_CTX_MINIMAL "true"
+      set --export LEAN_CTX_SAVINGS_FOOTER "auto" # auto, always, never
+    end
+
+    if command -v prek >/dev/null 2>&1
+      set --export PREK_QUIET "1"
+    end
+
+    set --export PI_TELEMETRY "0"
+    set --export PI_OFFLINE "1"
     set --export TELEMETRY_ENABLED false
-    set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
+    set --export DO_NOT_TRACK "1"
+    set --export OPENSPEC_TELEMETRY "0"
+
     set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+
+    {{ if .mac -}}
+    source "$HOME/.settings.fish"
+    {{ end -}}
+
+    ##############################################################
+    # SOURCING OTHER PROGRAM'S FISH SCRIPTS
+    ##############################################################
+
+    if command -v mise >/dev/null 2>&1
+      mise activate fish | source
+    end
+
+    if test -f "$HOME/.config/lean-ctx/shell-hook.fish"
+      source "$HOME/.config/lean-ctx/shell-hook.fish"
+    end
+
+    ##############################################################
+    # ABBREVIATIONS
+    ##############################################################
+
+    {{ if .mac -}}
+    abbr --add mm "sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)"
+    {{ else if .linux -}}
+    if command -v nh >/dev/null 2>&1
+        abbr --add mm "nh os switch $HOME/code/nixos-dotfiles --hostname (hostname -s)"
+    else
+        abbr --add mm "sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)"
+    end
+    {{ end -}}
 
     abbr --add c clear
     abbr --add q exit
@@ -19,7 +105,6 @@ if status is-interactive
     abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --sort time'
 
     abbr --add man 'batman'
-    abbr --add catp 'prettybat'
 
     abbr --add d dirh
     abbr --add nd nextd
@@ -30,9 +115,6 @@ if status is-interactive
     abbr --add ag 'rg'
     abbr --add rgd --position command --set-cursor=% 'rg % --json | delta'
     abbr --add rglit 'rg -F'
-    abbr --add rgu 'rg -u'
-    abbr --add rguu 'rg -uu'
-    abbr --add rguuu 'rg -uuu --debug'
 
     abbr --add g git
     abbr --add qg git
@@ -42,61 +124,37 @@ if status is-interactive
     abbr --add n "nvim"
     abbr --add v "nvim"
 
+    abbr --add pimin 'cd (mktemp -d); and pi'
+    abbr --add piall "cd (mktemp -d); and touch foo; and pi --skill $HOME/.pi/agent/skills/curated-ai-skills"
+    abbr --add pilean "pi -e $HOME/.pi/agent/extensions/pi-lean-ctx/"
+    abbr --add piorchestrator "pi 'read $HOME/.pi/agent/skills/curated-ai-skills/orchestrator/SKILL.md and $HOME/.pi/agent/skills/curated-ai-skills/writing-multiagent-workflows/SKILL.md and the workflow agents in $HOME/.pi/agents'"
+
+    abbr --add sss 'git show HEAD'
+
     abbr --add em "nvim $HOME/code/nixos-dotfiles/mac/cyan/configuration.nix"
 
-    abbr --add ek "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf"
     abbr --add et "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config"
+    abbr --add ek "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf"
     abbr --add ew "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua.tmpl"
 
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
     abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
-    abbr --add eps "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
+    abbr --add eh "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/herdr/config.toml"
+    abbr --add ehs "nvim $HOME/.config/herdr/plugins/config/herdr-spreader/config.yaml"
+
+    abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
+    abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
 
     abbr --add cm 'chezmoi'
-    abbr --add cmd 'chezmoi diff'
-    abbr --add cme 'chezmoi edit --apply'
-    abbr --add cma 'chezmoi apply'
+    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit pi config changes'; chezmoi apply"
     abbr --add cmt 'chezmoi chattr +template'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
-
-    {{ if .mac -}}
-    abbr --add mm 'sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
-    {{ else if .linux -}}
-    if command -v nh >/dev/null 2>&1
-        abbr --add mm 'nh os switch $HOME/code/nixos-dotfiles --hostname (hostname -s)'
-    else
-        abbr --add mm 'sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)'
-    end
-    {{ end -}}
-
-    # abbr --add oc15 "OPENCODE_CONFIG=$HOME/code/ai-agents-configs/opencode/combined.json bunx opencode-ai@0.15.31"
-    # abbr --add oc "bunx opencode-ai@latest"
-
-    if not command -v gemini >/dev/null 2>&1
-        abbr --add gemini "bunx @google/gemini-cli"
-    end
-
-    if not command -v qwen >/dev/null 2>&1
-        abbr --add qwen "bunx @qwen-code/qwen-code@latest"
-    end
-
-    if not command -v crush >/dev/null 2>&1
-        abbr --add crush "bunx @charmland/crush"
-    end
-
-    if not command -v codex >/dev/null 2>&1
-        abbr --add codex "bunx @openai/codex"
-    end
-
-    if not command -v grok >/dev/null 2>&1
-        abbr --add grok "bunx @vibe-kit/grok-cli"
-    end
+    abbr --add mdcat 'mdcat --columns 180 --paginate'
+    abbr --add glow "glow -s $HOME/Library/Preferences/glow/night-owl.json"
 
     if command -v cargo >/dev/null 2>&1
-        fish_add_path --global "$HOME/.cargo/bin"
-
         abbr --add cf 'cargo fmt'
         abbr --add cl 'cargo clippy'
         abbr --add ck 'cargo check'
@@ -113,75 +171,31 @@ if status is-interactive
         abbr --add cdo 'cargo doc --open'
     end
 
-    if command -v npm >/dev/null 2>&1
-        abbr --add nrb 'npm run build'
-        abbr --add nrs 'npm run start'
-    end
-
     {{ if .mac -}}
-    source "$HOME/.api_keys.fish"
-
-    fish_add_path --global "$HOME/code/dotfiles/bin"
-    fish_add_path --global "$HOME/.codeium/windsurf/bin"
-    fish_add_path --global "/Applications/WezTerm.app/Contents/MacOS"
-    fish_add_path --global "$HOME/.bun/bin"
-    fish_add_path --global "$HOME/.antigravity/antigravity/bin"
-
-    source $HOME/.config/fish/abbreviations/pi.fish
-
-    if not command -v claude >/dev/null 2>&1
-        abbr --add cld "bunx @anthropic-ai/claude-code"
-        abbr --add claude "bunx @anthropic-ai/claude-code"
-    else
-        abbr --add cld "claude"
-    end
-
-    if command -v composer >/dev/null 2>&1
-        fish_add_path --global "$HOME/.config/composer/vendor/bin"
-
-        abbr --add com composer
-    end
-
-    abbr --add es 'exercism submit'
     abbr --add mus "musikcube"
-    abbr --add zs 'zola serve'
     abbr --add dua 'dua interactive'
-    abbr --add p1start "infisical run --projectId=todo1 --project-config-dir todo2 --env=dev --silent -- todo3"
-
-    abbr --add mdglow "glow"
-
-    abbr --add epush "nvim ~/code/dotfiles/bin/_push_and_pull_android.sh"
-    abbr --add epull "nvim ~/code/dotfiles/bin/_push_and_pull_android.sh"
-    abbr --add pireviewja "pi --provider aihubmix-am --model cc-glm-5 -p '/review-japanese-in-diff"
-
-    if not command -v pandoc >/dev/null 2>&1
-        abbr --add pandoc "pandoc --pdf-engine=xelatex"
-    end
-
+    abbr --add zs 'zola serve'
+    abbr --add epush "nvim $HOME/code/dotfiles/bin/_push_and_pull_android.sh"
+    abbr --add epull "nvim $HOME/code/dotfiles/bin/_push_and_pull_android.sh"
+    abbr --add pandoc "pandoc --pdf-engine=xelatex"
     {{ end -}}
 
-    abbr --add pimakeskill "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/writing-skills/ --skill ~/.pi/agent/skills/curated-ai-skills/skill-creator/"
-    abbr --add pimakepycli "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/single-py-script/ --skill ~/.pi/agent/skills/curated-ai-skills/create-cli/"
-    abbr --add pinotion "pi -ns --skill ~/.pi/agent/skills/curated-ai-skills/notion-task-manager/"
+    ##############################################################
+    # PATH
+    ##############################################################
 
-    if command -v mise >/dev/null 2>&1
-        mise activate fish | source
-    end
-
-    if command -v direnv >/dev/null 2>&1
-        direnv hook fish | source
-    end
+    {{ if .mac -}}
+    fish_add_path --global --prepend "/usr/local/share/dotnet"
+    fish_add_path --global --prepend "/Applications/WezTerm.app/Contents/MacOS"
+    fish_add_path --global --prepend "/Applications/LibreOffice.app/Contents/MacOS"
+    fish_add_path --global --prepend "$HOME/.config/composer/vendor/bin"
+    fish_add_path --global --prepend "$HOME/.cargo/bin"
+    fish_add_path --global --prepend "$HOME/.bun/bin"
+    fish_add_path --global --prepend "$HOME/.local/bin"
+    fish_add_path --global --prepend "$HOME/code/dotfiles/bin"
+    {{ end -}}
 end
 
 function __should_na --on-event fish_prompt
-    echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> ~/.config/fish/hh.history
+    echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
 end
-
-# Fixes order of $PATH entries in fish shell when using nix-darwin
-# Based on https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1345383219
-fish_add_path --prepend --global "$HOME/.local/bin"
-{{ if .mac -}}
-fish_add_path --prepend --global /run/current-system/sw/bin
-fish_add_path --prepend --global /nix/var/nix/profiles/default/bin
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
-{{ end -}}
