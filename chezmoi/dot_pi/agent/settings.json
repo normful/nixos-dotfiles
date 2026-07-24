@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.60.0",
-  "defaultProvider": "aihubmix-am",
-  "defaultModel": "cc-glm-5",
+  "lastChangelogVersion": "0.81.1",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "coding-xiaomi-mimo-v2.5",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -10,70 +10,156 @@
   "hideThinkingBlock": false,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
+  "branchSummary": {
+    "skipPrompt": true
+  },
+  "npmCommand": [
+    "bun"
+  ],
+  "retry": {
+    "enabled": true,
+    "maxRetries": 5,
+    "baseDelayMs": 3000,
+    "provider": {
+      "timeoutMs": 3600000,
+      "maxRetries": 0,
+      "maxRetryDelayMs": 60000
+    }
+  },
   "skills": [
     "-skills/curated-ai-skills/brainstorming/SKILL.md",
     "-skills/curated-ai-skills/configure-neovim/SKILL.md",
     "-skills/curated-ai-skills/dispatching-parallel-agents/SKILL.md",
     "-skills/curated-ai-skills/executing-plans/SKILL.md",
-    "-skills/pi-skills/vscode/SKILL.md",
     "-skills/curated-ai-skills/using-tmux-for-interactive-commands/SKILL.md",
     "-skills/curated-ai-skills/using-superpowers/SKILL.md",
     "-skills/curated-ai-skills/using-git-worktrees/SKILL.md",
     "-skills/curated-ai-skills/typst/SKILL.md",
     "-skills/curated-ai-skills/nano-banana-pro/SKILL.md",
-    "-skills/pi-skills/gmcli/SKILL.md",
-    "-skills/pi-skills/gdcli/SKILL.md",
-    "-skills/pi-skills/gccli/SKILL.md",
     "-skills/curated-ai-skills/finishing-a-development-branch/SKILL.md",
     "-skills/curated-ai-skills/writing-plans/SKILL.md",
-    "-skills/pi-skills/youtube-transcript/SKILL.md",
     "-skills/curated-ai-skills/nix-package/SKILL.md",
     "-skills/curated-ai-skills/receiving-code-review/SKILL.md",
     "-skills/curated-ai-skills/requesting-code-review/SKILL.md",
     "-skills/curated-ai-skills/subagent-driven-development/SKILL.md",
     "-skills/curated-ai-skills/systematic-debugging/SKILL.md",
-    "-skills/curated-ai-skills/test-driven-development/SKILL.md",
-    "-skills/pi-skills/transcribe/SKILL.md",
     "-skills/curated-ai-skills/verification-before-completion/SKILL.md",
     "-skills/curated-ai-skills/stop-slop/SKILL.md",
     "-skills/curated-ai-skills/run-clean-pi-with-one-extension-for-demo/SKILL.md",
     "-skills/curated-ai-skills/writing-kotlin/SKILL.md",
-    "-skills/pi-skills/brave-search/SKILL.md",
     "-skills/curated-ai-skills/finding-duplicate-functions/SKILL.md",
     "-skills/curated-ai-skills/schematic/SKILL.md",
-    "-skills/curated-ai-skills/make-pi-extensions/SKILL.md",
-    "-skills/curated-ai-skills/notion-task-manager/SKILL.md",
     "-skills/curated-ai-skills/prek/SKILL.md",
     "-skills/curated-ai-skills/prompt-creator/SKILL.md",
     "-skills/curated-ai-skills/mcp-cli/SKILL.md",
     "-skills/curated-ai-skills/create-cli/SKILL.md",
-    "-skills/curated-ai-skills/writing-skills/SKILL.md",
     "-skills/curated-ai-skills/skill-creator/SKILL.md",
     "-skills/curated-ai-skills/single-py-script/SKILL.md",
     "-skills/curated-ai-skills/grepai/SKILL.md",
     "-skills/curated-ai-skills/pyramid-summaries/SKILL.md",
-    "+skills/curated-ai-skills/playwright-cli/SKILL.md",
-    "-skills/pi-skills/browser-tools/SKILL.md"
+    "-skills/curated-ai-skills/lightpanda-browser/SKILL.md",
+    "-skills/curated-ai-skills/git-stage-partial/SKILL.md",
+    "-skills/curated-ai-skills/make-pi-extensions/SKILL.md",
+    "-skills/curated-ai-skills/git-clean-history/SKILL.md",
+    "-skills/curated-ai-skills/cdp-browser/SKILL.md",
+    "-skills/curated-ai-skills/postgres-schema-design/SKILL.md",
+    "-skills/curated-ai-skills/writing-skills/SKILL.md",
+    "-skills/curated-ai-skills/youtube-transcript/SKILL.md",
+    "-skills/curated-ai-skills/trim-mp4/SKILL.md",
+    "-skills/curated-ai-skills/pyrsum/SKILL.md",
+    "-skills/curated-ai-skills/topdjmixes/SKILL.md",
+    "-skills/curated-ai-skills/notion-task-manager/SKILL.md",
+    "-skills/curated-ai-skills/pexels/SKILL.md",
+    "-skills/curated-ai-skills/md-to-pdf-with-japanese/SKILL.md",
+    "+skills/curated-ai-skills/fetch-source-code/SKILL.md",
+    "-skills/curated-ai-skills/fill-pdf-form/SKILL.md",
+    "-skills/curated-ai-skills/parallel-agentic-mass-document-generation/SKILL.md",
+    "-skills/curated-ai-skills/pasky-chrome-cdp/SKILL.md",
+    "-skills/curated-ai-skills/configure-xserver-firewall/SKILL.md",
+    "-skills/curated-ai-skills/interview-to-create-image/SKILL.md",
+    "-skills/curated-ai-skills/minimax-docx/SKILL.md",
+    "-skills/curated-ai-skills/reply-to-japanese-boss-email/SKILL.md",
+    "-skills/curated-ai-skills/weather-japan/SKILL.md",
+    "-skills/curated-ai-skills/betterleaks/SKILL.md",
+    "-skills/curated-ai-skills/lean-ctx/SKILL.md",
+    "-skills/curated-ai-skills/fetch-source-code-with-opensrc/SKILL.md",
+    "-skills/curated-ai-skills/test-driven-development/SKILL.md",
+    "-skills/curated-ai-skills/playwright-currents/SKILL.md",
+    "-skills/curated-ai-skills/domain-check/SKILL.md",
+    "-skills/curated-ai-skills/podcast-transcripts/SKILL.md",
+    "-skills/curated-ai-skills/writing-rust/SKILL.md",
+    "-skills/curated-ai-skills/chrome-devtools-cli/SKILL.md",
+    "-skills/curated-ai-skills/markitdown/SKILL.md",
+    "-skills/curated-ai-skills/chrome-devtools-axi/SKILL.md",
+    "-skills/curated-ai-skills/jp-boss-email/SKILL.md",
+    "-skills/curated-ai-skills/playwright-cli/SKILL.md",
+    "-skills/curated-ai-skills/axiom-accessibility/SKILL.md",
+    "-skills/curated-ai-skills/axiom-ai/SKILL.md",
+    "-skills/curated-ai-skills/axiom-apple-docs/SKILL.md",
+    "-skills/curated-ai-skills/axiom-build/SKILL.md",
+    "-skills/curated-ai-skills/axiom-concurrency/SKILL.md",
+    "-skills/curated-ai-skills/axiom-data/SKILL.md",
+    "-skills/curated-ai-skills/axiom-design/SKILL.md",
+    "-skills/curated-ai-skills/axiom-games/SKILL.md",
+    "-skills/curated-ai-skills/axiom-graphics/SKILL.md",
+    "-skills/curated-ai-skills/axiom-health/SKILL.md",
+    "-skills/curated-ai-skills/axiom-integration/SKILL.md",
+    "-skills/curated-ai-skills/axiom-location/SKILL.md",
+    "-skills/curated-ai-skills/axiom-macos/SKILL.md",
+    "-skills/curated-ai-skills/axiom-media/SKILL.md",
+    "-skills/curated-ai-skills/axiom-networking/SKILL.md",
+    "-skills/curated-ai-skills/axiom-payments/SKILL.md",
+    "-skills/curated-ai-skills/axiom-performance/SKILL.md",
+    "-skills/curated-ai-skills/axiom-security/SKILL.md",
+    "-skills/curated-ai-skills/axiom-shipping/SKILL.md",
+    "-skills/curated-ai-skills/axiom-swift/SKILL.md",
+    "-skills/curated-ai-skills/axiom-swiftui/SKILL.md",
+    "-skills/curated-ai-skills/axiom-testing/SKILL.md",
+    "-skills/curated-ai-skills/axiom-tools/SKILL.md",
+    "-skills/curated-ai-skills/axiom-uikit/SKILL.md",
+    "-skills/curated-ai-skills/axiom-vision/SKILL.md",
+    "-skills/curated-ai-skills/axiom-watchos/SKILL.md",
+    "-skills/curated-ai-skills/axiom-xcode-mcp/SKILL.md",
+    "-skills/curated-ai-skills/md-to-pdf-via-typst/SKILL.md",
+    "-skills/curated-ai-skills/writing-multiagent-workflows/SKILL.md",
+    "-skills/curated-ai-skills/writing-workflow-agents/SKILL.md",
+    "-skills/curated-ai-skills/orchestrator/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/amend/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/annotate-guidance/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/annotate-inline/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/architecture-review/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/blueprint/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/changelog/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/commit/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/code-review/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/create-handoff/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/design/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/design-review/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/design-slice/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/discover/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/elaborate/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/explore/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/frontend-design/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/grade/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/implement/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/migrate-to-guidance/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/plan/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/pr-triage/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/research/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/resume-handoff/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/revise/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/slice/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/synthesize/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/validate/SKILL.md"
   ],
   "packages": [
-    {
-      "source": "https://github.com/Graffioh/pi-screenshots-picker",
-      "extensions": [
-        "+index.ts"
-      ]
-    },
-    {
-      "source": "https://github.com/nicobailon/pi-mcp-adapter",
-      "extensions": [
-        "+index.ts"
-      ]
-    },
     {
       "source": "https://github.com/normful/picadillo",
       "extensions": [
         "-extensions/overstory.ts",
         "-extensions/mulch.ts",
         "-extensions/gastown.ts",
+        "-extensions/respond.ts",
         "+extensions/parrot.ts"
       ],
       "skills": [
@@ -82,32 +168,109 @@
       ]
     },
     {
-      "source": "https://github.com/pasky/pi-side-agents",
-      "extensions": [
-        "-extensions/side-agents.ts"
-      ],
+      "source": "https://github.com/normful/pi-autoresearch",
       "skills": [
-        "-skills/agent-setup/SKILL.md"
+        "-skills/autoresearch-create/SKILL.md"
+      ],
+      "extensions": [
+        "-extensions/pi-autoresearch/index.ts"
       ]
     },
     {
-      "source": "https://github.com/manojlds/ralphi",
-      "skills": [
-        "-skills/ralphi-prd/SKILL.md",
-        "-skills/ralphi-loop/SKILL.md",
-        "-skills/ralphi-init/SKILL.md",
-        "-skills/ralphi-convert/SKILL.md"
-      ],
+      "source": "https://github.com/normful/pi-mcp-adapter",
       "extensions": [
-        "-extensions/ralphi/index.ts"
+        "+index.ts"
       ]
     },
-    "https://github.com/burggraf/pi-teams",
-    "https://github.com/manojlds/pi-scheduler",
-    "https://github.com/arpagon/pi-rewind",
-    "https://github.com/mjakl/pi-kagi-search",
-    "https://github.com/mjakl/pi-subagent",
-    "https://github.com/ogulcancelik/pi-extensions"
+    "git:github.com/iRonin/pi-clear-on-double-esc",
+    "git:github.com/default-anton/pi-tmux-window-name",
+    "https://github.com/normful/pi-agent-browser-native",
+    {
+      "source": "npm:@spences10/pi-context",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    {
+      "source": "npm:@spences10/pi-mcp",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    {
+      "source": "npm:@spences10/pi-telemetry",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    {
+      "source": "npm:@spences10/pi-lsp",
+      "extensions": [
+        "-dist/index.js"
+      ]
+    },
+    {
+      "source": "npm:@spences10/pi-themes",
+      "themes": [
+        "+themes/solarized-dark.json"
+      ]
+    },
+    {
+      "source": "https://github.com/normful/pi-zenmux",
+      "extensions": [
+        "-index.ts"
+      ]
+    },
+    {
+      "source": "npm:@agnishc/edb-context-viewer",
+      "extensions": [
+        "+src/index.ts"
+      ]
+    },
+    {
+      "source": "npm:@agnishc/edb-diff-files",
+      "extensions": [
+        "-src/index.ts"
+      ]
+    },
+    "npm:@juicesharp/rpiv-config",
+    "npm:@tintinweb/pi-subagents",
+    {
+      "source": "npm:@vigolium/piolium",
+      "themes": [
+        "-themes/piolium-srcery.json"
+      ],
+      "extensions": [
+        "-extensions/piolium/index.ts"
+      ],
+      "skills": [
+        "-skills/agentic-actions-auditor/SKILL.md",
+        "-skills/audit/SKILL.md",
+        "-skills/code-reviewer/SKILL.md",
+        "-skills/codeql/SKILL.md",
+        "-skills/differential-review/SKILL.md",
+        "-skills/fp-check/SKILL.md",
+        "-skills/insecure-defaults/SKILL.md",
+        "-skills/last30days/SKILL.md",
+        "-skills/sarif-parsing/SKILL.md",
+        "-skills/security-threat-model/SKILL.md",
+        "-skills/semgrep/SKILL.md",
+        "-skills/semgrep-rule-creator/SKILL.md",
+        "-skills/semgrep-rule-variant-creator/SKILL.md",
+        "-skills/sharp-edges/SKILL.md",
+        "-skills/spec-to-code-compliance/SKILL.md",
+        "-skills/supply-chain-risk-auditor/SKILL.md",
+        "-skills/variant-analysis/SKILL.md",
+        "-skills/vuln-report/SKILL.md",
+        "-skills/wooyun-legacy/SKILL.md",
+        "-skills/zeroize-audit/SKILL.md"
+      ]
+    },
+    "npm:@gotgenes/pi-nocd",
+    "npm:@normful/pi-statusline",
+    "npm:@normful/pi-show-files-read",
+    "npm:@normful/pi-show-theme-colors",
+    "npm:@normful/pi-stop-secrets-leaks"
   ],
   "pi-screenshots": {
     "sources": [
@@ -118,17 +281,78 @@
     "-prompts/setup-pi-extension-demo.md",
     "+prompts/code-review.md",
     "+prompts/check-completion.md",
-    "+prompts/run-bdd-test.md"
+    "+prompts/run-bdd-test.md",
+    "-prompts/5x-meta-prompt.md",
+    "-prompts/interview-me.md",
+    "-prompts/dynamic-pi-tool-registration.md",
+    "-prompts/chunky-stage-and-commit.md",
+    "-prompts/review-japanese-in-diff.md",
+    "-prompts/read-commit.md",
+    "-prompts/archive-task.md",
+    "-prompts/add-high-value-integration-style-frontend-tests.md",
+    "-prompts/handsfree.md"
   ],
   "extensions": [
     "-extensions/gastown.ts",
     "-extensions/mulch.ts",
     "-extensions/overstory.ts",
     "-extensions/respond.ts",
-    "-extensions/parrot.ts"
+    "-extensions/parrot.ts",
+    "+extensions/show-tools-and-system-prompt/index.ts",
+    "-extensions/network-sandbox/index.ts",
+    "-extensions/cmux-sidebar.ts",
+    "-extensions/mgabor3141-yapp-safeguard/index.ts",
+    "-extensions/iRonin-pi-less-shitty-smart-compactiion/index.ts",
+    "+extensions/token-efficient-read-tools.ts",
+    "-extensions/token-efficient-read-write-tools.ts",
+    "-extensions/token-efficient-read-write-tools-without-bash.ts",
+    "-extensions/grep-find-ls-tools.ts",
+    "-extensions/read-edit-write-tools.ts",
+    "+extensions/bell-and-macOS-notify/index.ts",
+    "+extensions/dev-tools/index.ts",
+    "-extensions/siliconflow/index.ts",
+    "-extensions/understand-screenshot/index.ts",
+    "+extensions/aihubmix-am/index.ts",
+    "-extensions/replant.ts",
+    "+extensions/pi-lean-ctx/index.ts",
+    "+extensions/local-normful-pi-side-agents/index.ts",
+    "-extensions/personal-tui.ts",
+    "-extensions/show-files-read/index.ts",
+    "-extensions/theme-colors/index.ts"
   ],
   "transport": "auto",
+  "pi-image-gen": {
+    "defaultModel": "openrouter/google/gemini-3.1-flash-image"
+  },
   "doubleEscapeAction": "tree",
-  "theme": "dark",
-  "treeFilterMode": "default"
+  "theme": "night-owl",
+  "treeFilterMode": "user-only",
+  "enableSkillCommands": true,
+  "enableInstallTelemetry": false,
+  "enabledModels": [
+    "opencode-go/deepseek-v4-flash",
+    "opencode/deepseek-v4-flash-free",
+    "aihubmix-oc/coding-glm-5.2-free",
+    "opencode-go/glm-5.2",
+    "aihubmix-am/xiaomi-mimo-v2.5",
+    "aihubmix-oc/deep-deepseek-v4-flash",
+    "aihubmix-oc/qwen3.8-max-preview",
+    "openrouter/nex-agi/nex-n2-mini",
+    "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+    "aihubmix-am/cc-minimax-m3",
+    "openrouter/tencent/hy3",
+    "openrouter/poolside/laguna-s-2.1"
+  ],
+  "terminal": {
+    "showTerminalProgress": false,
+    "imageWidthCells": 60
+  },
+  "autocompleteMaxVisible": 20,
+  "compaction": {
+    "enabled": true
+  },
+  "warnings": {
+    "anthropicExtraUsage": false
+  },
+  "httpIdleTimeoutMs": 300000
 }
