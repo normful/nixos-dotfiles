@@ -1,0 +1,13 @@
+# Patch: change figlet's default font from "standard" to "smslant"
+#
+# This single-line change in the Makefile's DEFAULTFONTFILE variable
+# makes figlet use the smslant font when no -f flag is specified.
+#
+# Most test outputs are unaffected because they pass explicit -f flags.
+# Only a handful of test input files rely on the default font — those
+# fixtures are overridden in the figlet-patched overlay's preCheck.
+--- a/Makefile
++++ b/Makefile
+@@ -49 +49 @@
+-DEFAULTFONTFILE = standard
++DEFAULTFONTFILE = smslant
