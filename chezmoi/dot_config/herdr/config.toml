@@ -1,0 +1,149 @@
+onboarding = false
+
+[theme]
+name = "dracula"
+
+[terminal]
+new_cwd = "follow"
+
+[update]
+version_check = false
+manifest_check = false
+
+[keys]
+prefix = "alt+l"
+
+# Workspace management
+new_workspace = ["prefix+w"]
+previous_workspace = ["f9"]
+next_workspace = ["f10"]
+rename_workspace = ["prefix+1"]
+close_workspace = ["prefix+q"]
+workspace_picker = ""
+switch_workspace = ""
+
+# Tab management
+new_tab = ["f8", "prefix+n"]
+previous_tab = ["f11"]
+next_tab = ["f12"]
+close_tab = ["prefix+z"]
+rename_tab = ["prefix+2"]
+switch_tab = ""
+
+# Pane management
+split_horizontal = ["prefix+s"]
+split_vertical = ["prefix+v"]
+cycle_pane_next = ["prefix+5"]
+cycle_pane_previous = ""
+close_pane = ["prefix+x"]
+last_pane = ""
+rename_pane = ["prefix+3"]
+
+# Pane focus & swap
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+swap_pane_left = ""
+swap_pane_down = ""
+swap_pane_up = ""
+swap_pane_right = ""
+
+# Zoom & resize
+zoom = ""
+resize_mode = ""
+
+# Agent pane navigation
+previous_agent = ["super+-"]
+next_agent = ["super+="]
+focus_agent = ""
+
+# Navigation & misc
+goto = ["super+g"]
+new_worktree = ["super+y"]
+copy_mode = ["f1"]
+edit_scrollback = ["alt+e"]
+help = ["prefix+?"]
+detach = ["prefix+d"]
+reload_config = ["prefix+shift+r"]
+settings = ""
+open_notification_target = ""
+toggle_sidebar = ""
+
+# Open/remove worktree
+open_worktree = ""
+remove_worktree = ""
+
+# Remote
+remote_image_paste = ""
+
+# Navigate-mode movement (disabled to avoid conflicts with shell/apps)
+navigate_workspace_up = ""
+navigate_workspace_down = ""
+navigate_pane_left = ""
+navigate_pane_down = ""
+navigate_pane_up = ""
+navigate_pane_right = ""
+
+[[keys.command]]
+key = "f2"
+type = "plugin_action"
+command = "rmarganti.herdr-pluck.pluck"
+
+[[keys.command]]
+key = "prefix+o"
+type = "shell"
+command = "herdr plugin action invoke herdr-spreader.apply"
+
+[[keys.command]]
+key = "prefix+g"
+type = "popup"
+command = "hunk diff"
+description = "hunk diff"
+width = "100%"
+height = "100%"
+
+[worktrees]
+directory = "~/.herdr/worktrees"
+
+[ui]
+sidebar_min_width = 22
+mouse_scroll_lines = 5
+prompt_new_tab_name = false
+show_agent_labels_on_pane_borders = false
+pane_borders = true
+pane_gaps = true
+agent_panel_sort = "spaces"
+hide_tab_bar_when_single_tab = true
+sidebar_collapsed_mode = "hidden"
+
+[ui.toast]
+# off = disable pop-up notifications
+# herdr = show in-app toasts
+# terminal = ask the outer terminal to show a desktop notification
+# system = ask the OS notification service directly
+delivery = "off"
+
+[ui.toast.herdr]
+position = "bottom-right"
+
+[ui.toast.clipboard]
+enabled = true
+position = "bottom-right"
+
+[ui.sound]
+enabled = false
+
+[advanced]
+scrollback_limit_bytes = 10000000
+
+[session]
+resume_agents_on_restore = true
+
+[experimental]
+kitty_graphics = true
+pane_history = false
+switch_ascii_input_source_in_prefix = true
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["pi"]
+cjk_ime_cursor_shape = "steady_block"
