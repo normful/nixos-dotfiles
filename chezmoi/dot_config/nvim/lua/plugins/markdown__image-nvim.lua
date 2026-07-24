@@ -12,7 +12,7 @@ end
 
 return {
   '3rd/image.nvim',
-  ft = { 'markdown', 'norg' },
+  ft = { 'markdown' },
   config = configure_image_nvim,
   cond = function()
     return not vim.g.neovide

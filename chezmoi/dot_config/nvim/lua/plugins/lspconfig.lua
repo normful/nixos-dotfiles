@@ -14,7 +14,7 @@ local function configure_lspconfig()
       'ts_ls',
       'eslint',
       'biome',
-      'cssls',
+      'tailwindcss',
       'golangci_lint_ls',
       'elp',
       'basedpyright',
@@ -75,7 +75,7 @@ local function configure_lspconfig()
     biome = {},
 
     -- CSS
-    cssls = {},
+    tailwindcss = {},
 
     -- Go
     gopls = {},
@@ -162,9 +162,9 @@ return {
     -- Note to self!
     -- Toggle this boolean below manually when you want to see
     -- more verbose logging temporarily in :LspLog
-    local enable_lsp_log = true
+    -- local enable_lsp_log = true
 
-    vim.lsp.set_log_level(enable_lsp_log and 'debug' or 'off')
+    -- vim.lsp.set_log_level(enable_lsp_log and 'debug' or 'off')
   end,
   config = configure_lspconfig,
 }

@@ -8,7 +8,7 @@ local function configure_zk_nvim()
 end
 
 return {
-  'zk-org/zk-nvim',
+  'normful/zk-nvim',
   config = configure_zk_nvim,
   lazy = false,
   keys = {
@@ -55,10 +55,10 @@ return {
       desc = 'Open notes',
     },
     {
-      '<Leader>zt',
-      '<Cmd>ZkTags<CR>',
+      '<Leader>zj',
+      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'created' }, tags = { 'daily' } }, { title = 'Daily notes' })<CR>",
       mode = 'n',
-      desc = 'Open notes by tags',
+      desc = 'Open daily notes',
     },
 
     ----------------------------

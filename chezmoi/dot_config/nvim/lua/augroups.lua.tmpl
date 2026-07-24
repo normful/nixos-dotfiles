@@ -61,6 +61,7 @@ nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
   callback = function (ev)
     vim.opt.spell = false
     vim.opt.autowriteall = true
+    vim.opt.foldlevel = 4
 
     -- At some point, I thought it was better to not use nvim-ufo for folding in Markdown
     -- require("ufo").detach()
@@ -78,6 +79,44 @@ nvim_create_autocmd({ 'BufEnter', 'BufWinEnter', 'FileType' }, {
       { mode = 'n', key = '<Leader>zk' },
       { mode = 'v', key = '<Leader>zk' },
     }, '<Cmd>NormfulInsertLink<CR>', 'Insert link (to copied URL or local note)')
+  end,
+})
+
+-- Update YAML frontmatter "modified" field on save for markdown files
+nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.md', '*.rmd', '*.markdown' },
+  group = markdown_augroup,
+  desc = 'Update YAML frontmatter modified timestamp before save',
+  callback = function()
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    if #lines < 1 or lines[1] ~= '---' then return end
+
+    -- Find closing --- of frontmatter
+    local end_idx
+    for i = 2, #lines do
+      if lines[i] == '---' then
+        end_idx = i
+        break
+      end
+    end
+    if not end_idx then return end
+
+    local offset = os.date('%z')
+    if offset == '' then offset = '+0000' end
+    offset = offset:gsub(':', '')
+    local ts = os.date('%Y-%m-%dT%H:%M:%S') .. offset
+
+    for i = 2, end_idx - 1 do
+      local line = lines[i]
+      local prefix = line:match('^(modified%s*:%s*).*$')
+      if prefix then
+        vim.api.nvim_buf_set_lines(0, i - 1, i, false, { prefix .. ts })
+        return
+      end
+    end
+
+    -- No existing modified key — insert before closing ---
+    vim.api.nvim_buf_set_lines(0, end_idx - 1, end_idx - 1, false, { 'modified: ' .. ts })
   end,
 })
 

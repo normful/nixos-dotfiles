@@ -12,6 +12,8 @@ opt.lazyredraw = true
 opt.redrawtime = 10000
 opt.listchars = 'tab:▶ ,eol:■,trail:•'
 opt.conceallevel = 2
+opt.ambiwidth = 'single'
+opt.emoji = true
 
 -- Cursor line
 opt.cursorline = true
