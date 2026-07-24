@@ -1,0 +1,146 @@
+{
+  "providers": {
+    "opencode": {
+      "models": [
+        {
+          "id": "laguna-s-2.1-free",
+          "name": "Poolside Laguna S 2.1 FREE (added manually in ~/.pi/agent/models.json)",
+          "reasoning": true,
+          "input": ["text"],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+          },
+          "contextWindow": 256000,
+          "maxTokens": 32000
+        },
+      ],
+    },
+    "openrouter": {
+      "models": [
+        {
+          "id": "poolside/laguna-s-2.1",
+          "name": "Poolside Laguna S 2.1 (added manually in ~/.pi/agent/models.json)",
+          "reasoning": true,
+          "input": ["text"],
+          "cost": {
+            "input": 0.1,
+            "output": 0.2,
+            "cacheRead": 0.01,
+            "cacheWrite": 0,
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072
+        },
+      ],
+      "modelOverrides": {
+        "deepseek/deepseek-v4-flash": {
+          "name": "DeepSeek v4 Flash through only Alibaba",
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "requiresReasoningContentOnAssistantMessages": true,
+            "thinkingFormat": "deepseek",
+            "openRouterRouting": {
+              "only": ["alibaba"]
+            }
+          }
+        },
+        "deepseek/deepseek-v4-pro": {
+          "name": "DeepSeek v4 Pro through only Deepseek",
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "requiresReasoningContentOnAssistantMessages": true,
+            "thinkingFormat": "deepseek",
+            "openRouterRouting": {
+              "only": ["deepseek"]
+            }
+          }
+        },
+        "minimax/minimax-m2.7": {
+          "name": "Minimax 2.7 on OpenRouter with routing prefs",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null
+          },
+          "compat": {
+            "thinkingFormat": "openai",
+            "supportsDeveloperRole": false,
+            "requiresReasoningContentOnAssistantMessages": true,
+            "openRouterRouting": {
+              "sort": "throughput"
+            }
+          }
+        },
+        "minimax/minimax-m2.5": {
+          "name": "Minimax 2.5 on OpenRouter with routing prefs",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null
+          },
+          "compat": {
+            "thinkingFormat": "openai",
+            "supportsDeveloperRole": false,
+            "requiresReasoningContentOnAssistantMessages": true,
+            "openRouterRouting": {
+              "sort": "throughput"
+            }
+          }
+        }
+      }
+    },
+    "opencode-go": {
+      "modelOverrides": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash (reqs: 6330/hr 105.5/min) ⟐  56.2 · ●  8888k"
+        },
+        "deepseek-v4-pro": {
+          "name": "DeepSeek V4 Pro (reqs: 690/hr 11.5/min) ⟐  59.4 · ●  1019k"
+        },
+        "glm-5.2": {
+          "name": "GLM-5.2 (reqs: 176/hr 2.9/min) ⟐  68.8 · ●  296k"
+        },
+        "glm-5.1": {
+          "name": "GLM-5.1 (reqs: 176/hr 2.9/min) ⟐  55.8 · ●  240k"
+        },
+        "kimi-k2.7-code": {
+          "name": "Kimi K2.7 Code (reqs: 270/hr 4.5/min) ⟐  60.8 · ●  562k"
+        },
+        "kimi-k2.6": {
+          "name": "Kimi K2.6 (reqs: 230/hr 3.8/min) ⟐  56 · ●  322k"
+        },
+        "mimo-v2.5-pro": {
+          "name": "MiMo-V2.5-Pro (reqs: 650/hr 10.8/min) ⟐  60.2 · ●  981k"
+        },
+        "mimo-v2.5": {
+          "name": "MiMo-V2.5 (reqs: 6020/hr 100.3/min)"
+        },
+        "minimax-m3": {
+          "name": "MiniMax M3 (reqs: 640/hr 10.7/min) ⟐  58.6 · ●  938k"
+        },
+        "minimax-m2.7": {
+          "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min) ⟐  52.6 · ●  894k"
+        },
+        "qwen3.7-max": {
+          "name": "Qwen3.7 Max (reqs: 190/hr 3.2/min) ⟐  66 · ●  315k"
+        },
+        "qwen3.7-plus": {
+          "name": "Qwen3.7 Plus (reqs: 860/hr 14.3/min) ⟐  55.9 · ●  1207k"
+        },
+        "qwen3.6-plus": {
+          "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min) ⟐  54.5 · ●  888k"
+        }
+      }
+    },
+    "xai": {
+      "modelOverrides": {
+        "grok-4.20-0309-reasoning": {
+          "name": "Grok 4.20 Reasoning ($2.00/M input)"
+        }
+      }
+    }
+  }
+}
