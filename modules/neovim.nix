@@ -17,6 +17,12 @@ let
     vimAlias = true;
     viAlias = true;
 
+    plugins = with pkgs-pinned-unstable.vimPlugins; [
+      nvim-treesitter.withAllGrammars
+      nvim-treesitter-context
+      nvim-treesitter-textobjects
+    ];
+
     configure = {
       customRC = pkgs-pinned-unstable.callPackage ../packages/neovim { };
     };
@@ -31,7 +37,6 @@ in
           luajit
           luajitPackages.luarocks
           stylua
-          tree-sitter
         ])
         ++ (optionals (!config.my.enableLangTsJs) (with pkgs-pinned-unstable; [ deno ]))
         ++ (optionals (!config.my.enableLangRust) (with pkgs-pinned-unstable; [ cargo ]))
@@ -46,8 +51,8 @@ in
         ++ (optionals (!config.my.enableLangPython) (
           with pkgs-pinned-unstable;
           [
-            python313
-            python313Packages.pip
+            python314
+            python314Packages.pip
           ]
         ))
         ++ (optionals (!config.my.enableLangC) (

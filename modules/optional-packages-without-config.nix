@@ -20,15 +20,16 @@ let
           mysqli
           pdo
           pdo_mysql
+          zip
+
+          # Only enable either pcov or xdebug.
           # pcov
           xdebug
-          zip
         ])
       );
 
-      # Also read https://thephp.cc/articles/pcov-or-xdebug
-      # Only enable either pcov or xdebug.
-      # When pcov is enabled by configuration pcov.enabled = On, interoperability with Xdebug is not possible
+      # When pcov.enabled = On, interoperability with Xdebug is NOT possible
+      # More info https://thephp.cc/articles/pcov-or-xdebug
       extraConfig = ''
         display_errors = On
         display_startup_errors = On
@@ -48,23 +49,32 @@ in
     environment.systemPackages =
       with pkgs-pinned-unstable;
       (optionals config.my.enableMultiLangTools [
-        just
+        mise
         cloc
-        cmake
         just
+        cmake
         modd
         efm-langserver
         hyperfine
         unixtools.watch
+        goreleaser
+        grex
       ])
       ++ (optionals config.my.enableLangTsJs [
-        nodejs
-        bun
+        nodejs_26
         yarn
+        bun
+        pnpm
         deno
-        nodePackages.prettier
+
+        typescript-go
+        typescript-language-server
+
         prettierd
         eslint_d
+        oxfmt
+        oxlint
+        tsgolint
       ])
       ++ (optionals config.my.enableLangGo [
         go
@@ -72,7 +82,6 @@ in
         gotools
         protoc-gen-go
         cobra-cli
-        lefthook
         golangci-lint
       ])
       ++ (optionals config.my.enableLangRust [
@@ -80,6 +89,7 @@ in
       ])
       ++ (optionals config.my.enableLangPython [
         uv
+        python314Packages.python-lsp-server
       ])
       ++ (optionals config.my.enableLangC [
         gcc
@@ -107,6 +117,7 @@ in
       ++ (optionals config.my.enableLangNix [
         nixfmt
         nix-prefetch-github
+        nix-search-cli
       ])
       ++ (optionals config.my.enableLangGleam [
         gleam
@@ -121,6 +132,7 @@ in
         d2
         gnuplot
         graphviz
+        gnuplot
       ])
       ++ (optionals config.my.enableLangTypst [
         typst
@@ -133,14 +145,12 @@ in
         doctoc
         mdp
         panvimdoc
-        mermaid-cli
         gtree
         mdq
         codebraid
         presenterm
-      ])
-      ++ (optionals config.my.enableMarkdownGuiTools [
-        folio
+        pandoc
+        rumdl
       ])
       ++ (optionals (config.my.enableMarkdownGuiTools && isX86_64Linux) [
         percollate
@@ -164,10 +174,9 @@ in
         taplo
 
         fastgron
+
+        # Not using source-meta-json-schema and instead preferring jsonschema-cli for now, because jsonschema-cli looks faster
         jsonschema-cli
-        # I'm not using
-        # source-meta-json-schema
-        # and instead preferring jsonschema-cli for now, because jsonschema-cli looks faster
 
         cue
       ])
@@ -204,7 +213,6 @@ in
 
         timoni
 
-        werf
         nelm
 
         devspace
@@ -225,6 +233,12 @@ in
       ++ (optionals config.my.enableLogTools [
         lnav
         hl-log-viewer
+      ])
+      ++ (optionals config.my.enableSecretsTools [
+        sops
+        age
+        betterleaks
+        yubikey-manager
       ])
       ++ (optionals config.my.enableNetworkingTools [
         doggo
@@ -264,17 +278,21 @@ in
         git-cliff
         opencommit
       ])
+      ++ (optionals config.my.enableGitHookTools [
+        lefthook
+        prek
+      ])
       ++ (optionals config.my.enableAudioVideoTools [
         ffmpeg
         vorbis-tools
         musikcube
-        asciinema_3
+        lowfi
+        asciinema
       ])
       ++ (optionals config.my.enableImageTools [
         imagemagick
         pngcrush
-      ])
-      ++ (optionals (config.my.enableImageTools && isLinux) [
+        exiftool
         darktable
       ])
       ++ (optionals (config.my.enableImageTools && isDarwin) [
@@ -291,26 +309,30 @@ in
     fonts.packages =
       with pkgs-pinned-unstable;
       (optionals config.my.enableFonts [
-        annotation-mono
-        atkinson-hyperlegible-next
-        hasklig
         hubot-sans
         mona-sans
         nerd-fonts._0xproto
         nerd-fonts.inconsolata
         nerd-fonts.monaspace
         nerd-fonts.recursive-mono
-        pecita
-        recursive
-        tt2020
+
+        # Fonts that looked nice, but did not end up using
+        # annotation-mono
+        # atkinson-hyperlegible-next
+        # hasklig
+        # pecita
+        # recursive
+        # tt2020
       ])
       ++ (optionals config.my.enableJapaneseFonts [
-        biz-ud-gothic
-        dotcolon-fonts
-        explex-nf
-        hachimarupop
-        moralerspace-hwjpdoc
         noto-fonts-cjk-sans
+        moralerspace-hwjpdoc
+
+        # Fonts that looked nice, but did not end up using
+        # biz-ud-gothic
+        # dotcolon-fonts
+        # explex-nf
+        # hachimarupop
       ]);
   };
 }

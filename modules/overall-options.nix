@@ -235,6 +235,12 @@ in
       default = false;
     };
 
+    enableSecretsTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Secrets tools";
+      default = false;
+    };
+
     enableJujutsu = lib.mkOption {
       type = lib.types.bool;
       description = "Jujutsu VCS tools";
@@ -244,6 +250,12 @@ in
     enableGitTools = lib.mkOption {
       type = lib.types.bool;
       description = "Git version control tools";
+      default = false;
+    };
+
+    enableGitHookTools = lib.mkOption {
+      type = lib.types.bool;
+      description = "Git hooks (pre-commit, etc) tools";
       default = false;
     };
 

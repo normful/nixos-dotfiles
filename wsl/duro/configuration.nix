@@ -6,7 +6,7 @@
   imports = [
     ../../modules/overall-options.nix
     ./my-config.nix
-    inputs.nixos-wsl-2505.nixosModules.default
+    inputs.nixos-wsl-2605.nixosModules.default
     ../../modules/core-wsl.nix
     ../../modules/nix.nix
     ../../modules/user-minimal.nix

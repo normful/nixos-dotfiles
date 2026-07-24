@@ -12,9 +12,11 @@ in
     environment.systemPackages = (
       with pkgs-pinned-unstable;
       [
-        chezmoi
+        #################################################################################
+        # Dotfiles maanger
+        #################################################################################
 
-        mise
+        chezmoi
 
         #################################################################################
         # Basic utilities
@@ -23,6 +25,9 @@ in
         # https://www.gnu.org/software/coreutils/manual/html_node/index.html
         # https://www.mankier.com/package/coreutils-common
         coreutils-full
+
+        # https://joeyh.name/code/moreutils/
+        moreutils
 
         # https://uutils.github.io/coreutils/docs/
         # uutils-coreutils-noprefix
@@ -49,11 +54,23 @@ in
 
         openssl
 
+        mkpasswd
+
+        #################################################################################
+        # Terminal multiplexers and their plugins
+        #################################################################################
+
+        # https://github.com/tmux/tmux
+        tmux
+
+        # https://github.com/fcsonline/tmux-thumbs
+        thumbs
+
         #################################################################################
         # Shell history
         #################################################################################
 
-        # hh
+        # https://github.com/dvorka/hstr
         hstr
 
         #################################################################################
@@ -121,6 +138,9 @@ in
         #################################################################################
         # Rename files
         #################################################################################
+
+        # https://www.nongnu.org/renameutils/
+        renameutils
 
         # https://github.com/marcusbuffett/pipe-rename
         pipe-rename

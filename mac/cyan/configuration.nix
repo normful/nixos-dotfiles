@@ -1,4 +1,5 @@
 {
+  pkgs,
   pkgs-stable,
   pkgs-pinned-unstable,
   config,
@@ -40,7 +41,7 @@
     my.enableConfigLangsTools = true;
 
     my.enableDocker = true;
-    my.enableKubernetes = true;
+    my.enableKubernetes = false;
     my.enableSqlDbTools = true;
     my.enableMysqlMariaDbTools = true;
     my.enableNetworkingTools = true;
@@ -49,8 +50,10 @@
     my.enablePdfTools = true;
     my.enableWindowsTools = true;
     my.enableLogTools = true;
+    my.enableSecretsTools = true;
     my.enableJujutsu = true;
     my.enableGitTools = true;
+    my.enableGitHookTools = true;
     my.enableDiagramTools = true;
     my.enableAudioVideoTools = true;
     my.enableImageTools = true;
@@ -59,118 +62,247 @@
     my.enableFonts = true;
     my.enableJapaneseFonts = true;
 
-    environment.systemPackages =
-      with pkgs-pinned-unstable;
-      [
-        tailscale
-        sops
-        age
-        mise
-        mkpasswd
-        keepassxc
-        zola
-        pandoc
-        terminal-notifier
-        texliveSmall
-        repomix
+    environment.systemPackages = [
+    ]
+    ++ (with pkgs-pinned-unstable; [
+      tailscale
+      keepassxc
+      gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
 
-        # Packages I'm only installing on this computer for now
-        mariadb_118
-        infisical
-        grex
-        xonsh
-        thumbs
-        putty
-        # oletools
-        yubikey-manager
-        gnuplot
-        breakpad
-        antlr
-        jre25_minimal
-        tmux
-        zellij
-        fswatch
-        lowfi
-        pnpm_9
-        goreleaser
-        (callPackage ../../packages/beads { })
-        (callPackage ../../packages/grepai { })
-        (callPackage ../../packages/lightpanda { })
-        gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
-        direnv
-        dolt
-        brush
-        rumdl
-        tuios
-      ]
-      ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
-        ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
-        # anki
-        # brave-browser
-        # cursor
-        # discord
-        # docker
-        # firefox_nightly
-        flux
-        # inkscape
-        # iptvnator
-        keka
-        key-codes
-        # libreoffice
-        mp3gain-express
-        neovide
-        # notion-calendar
-        # orion
-        # rustrover
-        # slack
-        # superwhisper
-        # tor-browser
-        # tunnelblick
-        # visual-studio-code_insiders
-        vlc
-        # zed
-      ]);
+      # Packages I'm only installing on this computer for now
+      mariadb_118
+      jre25_minimal
+      terminal-notifier
+
+      # TeX Live Medium + extra CJK/XeTeX packages
+      (texliveMedium.withPackages (
+        ps: with ps; [
+          xecjk
+          fontspec
+        ]
+      ))
+      ansible
+      fswatch
+
+      git-credential-oauth
+      sesh
+
+      # ────────────────────────────────────────────────────────────────────────
+      # TODO: Replace many (all?) with https://github.com/berberman/nvfetcher
+      # Examples of other people also using nvfetcher:
+      # - https://github.com/search?q=path%3A_sources%2Fgenerated.nix&type=code
+      # - https://github.com/search?q=path%3AREADME.md+nvfetcher&type=code
+      # ────────────────────────────────────────────────────────────────────────
+
+      # ── keepers ──
+
+      (callPackage ../../packages/agent-browser { })
+      (callPackage ../../packages/lean-ctx { })
+      (callPackage ../../packages/tpluck { })
+      (callPackage ../../packages/tree-sitter { })
+
+      # ── high interest ──
+
+      # CLI coding agent for open AI models. Connects to LM Studio,
+      # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
+      (callPackage ../../packages/swival { })
+
+      # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
+      # line-level comments. Agent reads full files, cross-references context.
+      (callPackage ../../packages/open-code-review { })
+
+      # AI-powered code review for GitHub PRs. Posts inline comments on
+      # exact diff lines, incremental re-triage, conversational resolution.
+      (callPackage ../../packages/codecanary { })
+
+      # Design guidance for AI coding agents. 23 commands (polish, audit,
+      # critique), 44 detector rules, live browser iteration.
+      (callPackage ../../packages/impeccable { })
+
+      # ── medium interest ──
+
+      # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
+      # agents into one live surface. Real-time compose/extend/observe.
+      (callPackage ../../packages/iii-engine { })
+
+      # Semantic code intelligence. Pre-indexed knowledge graph: symbol
+      # relationships, call graphs, code structure. ~35% cheaper, ~70%
+      # fewer agent tool calls.
+      (callPackage ../../packages/codegraph { })
+
+      # Security scanner for AI agent skills. 68 vulnerability patterns
+      # across 17 categories. Fast static + optional LLM analysis.
+      (callPackage ../../packages/skillspector { })
+
+      # Persistent memory for AI coding agents. Captures sessions,
+      # compresses to searchable memory, injects context on next start.
+      (callPackage ../../packages/agentmemory { })
+
+      # Permanent memory for AI agents — single binary, zero deps, MCP native.
+      (callPackage ../../packages/icm { })
+
+      # Local real-time voice transcription TUI with speaker diarization.
+      (callPackage ../../packages/voxterm { })
+
+      # Talk to one agent. Ship with a crew.
+      (callPackage ../../packages/firstmate { })
+
+      # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
+      (callPackage ../../packages/lumen { })
+
+      # Git extension that tracks AI-generated code. Every line linked
+      # to agent, model, and prompts that generated it.
+      (callPackage ../../packages/git-ai { })
+
+      # High-performance file search MCP server. Typo-resistant path &
+      # content search, frecency-ranked, background watcher. Faster than
+      # ripgrep+fzf in long-running processes.
+      (callPackage ../../packages/fff-mcp { })
+
+      # ── low interest ──
+
+      # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
+      # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
+      (callPackage ../../packages/docling { })
+
+      # AI git commit message generator from staged diff. Supports
+      # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
+      (callPackage ../../packages/aicommits { })
+
+      # Knowledge graph from any folder. /graphify . → graph.html +
+      # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
+      (callPackage ../../packages/graphify { })
+
+      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
+      # code execution, subagent task delegation. Fast startup, 60 FPS.
+      (callPackage ../../packages/maki { })
+
+      # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
+      # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
+      (callPackage ../../packages/disky { })
+
+      # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
+      # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
+      (callPackage ../../packages/openfang { })
+
+      # Multi-agent orchestrator. Runs a crew of CLI coding agents
+      # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
+      (callPackage ../../packages/bernstein { })
+
+      # Terminal coding agent for any model. TUI + CLI. DeepSeek,
+      # Claude, GPT, open-weight models via vLLM/Ollama.
+      (callPackage ../../packages/codewhale { })
+
+      # ── already tried ──
+
+      # AI spend tracker. Reads 31 tools' session files, breaks down
+      # tokens & dollars by task, model, tool, project. All local.
+      (callPackage ../../packages/codeburn { })
+
+      # (callPackage ../../packages/grepai { })
+      # (callPackage ../../packages/lightpanda { })
+
+      # ────────────────────────────────────────────────────────────────────────
+      # Packages I've used before but don't need now
+      # ────────────────────────────────────────────────────────────────────────
+
+      # infisical
+      # direnv
+      # dolt
+      # tuios
+      # zola
+      # repomix
+      # sqlite-web
+
+      # ────────────────────────────────────────────────────────────────────────
+      # Example packages and overlaid packages
+      # ────────────────────────────────────────────────────────────────────────
+
+      hello-wrapped # from overlays/hello-wrapped-config — hello with default --greeting flag
+      figlet-patched # from overlays/figlet-patched — figlet defaulting to smslant font
+      (callPackage ../../packages/cowsay { }) # from packages/cowsay — cowsay pinned to v3.8.4
+    ])
+    ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
+      flux
+      vlc
+      keka
+      key-codes
+      mp3gain-express
+      neovide
+
+      ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
+      # anki
+      # brave-browser
+      # cursor
+      # discord
+      # docker
+      # firefox_nightly
+      # inkscape
+      # iptvnator
+      # libreoffice
+      # notion-calendar
+      # orion
+      # rustrover
+      # slack
+      # superwhisper
+      # tor-browser
+      # tunnelblick
+      # visual-studio-code_insiders
+      # zed
+    ])
+    ++ (with inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}; [
+      herdr
+    ])
+    ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
+      rtk
+
+      # AI Coding Agents
+      # jules
+
+      # Workflow & Project Management
+      # beads-rust
+      # beads-viewer
+      # openspec # Small
+      # cc-sdd # Large
+      # spec-kit # Large
+      # workmux
+
+      # Code Review
+      # tuicr
+
+      # Utilities
+      # ck
+      # gno
+      # qmd
+      # showboat
+    ]);
 
     system.defaults.dock.persistent-apps = [
       # Terminals
-      "/Applications/WezTerm.app"
-      "/Applications/kitty.app"
       "/Applications/Ghostty.app"
-      "/Applications/cmux NIGHTLY.app"
+      "/Applications/kitty.app"
+      # "/Applications/WezTerm.app"
 
       # Browsers
       "/Applications/Vivaldi.app"
-      "/Applications/Comet.app"
+      "/Applications/Zen.app"
 
       # Notes
       "/Applications/Notion.app"
       "/Applications/Obsidian.app"
 
       # Others
-      "/Applications/Jan.app"
       "/System/Applications/Calendar.app"
-      "/Applications/Notion Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
       "/Applications/OptiCull.app"
       "/Applications/darktable.app"
-      "/Applications/FileZilla.app"
       "/Applications/QuickShade.app"
       "/System/Applications/System Settings.app"
-      /*
-            {
-              spacer = {
-                small = true;
-              };
-            }
 
-            # Apps I'm temporarily trying to use a bit more
-            "/Applications/Warp.app"
-            "/Applications/Insta360 Studio.app"
-            "/Applications/Orion.app"
-            "/Applications/RustRover.app"
-      */
+      # "/Applications/FileZilla.app"
+      # "/Applications/Insta360 Studio.app"
     ];
 
     system.defaults.dock.persistent-others = [
@@ -233,6 +365,17 @@
       fish = {
         enable = true;
       };
+
+      # Also see:
+      # https://github.com/nix-darwin/nix-darwin/blob/master/modules/programs/tmux.nix
+      # https://github.com/ScopeCreep-zip/kalilix/blob/e526cd72ef2686143ae83460d380aa04dacede34/modules/programs/tmux/config.nix
+      tmux = {
+        enable = true;
+        extraConfig = ''
+          # Load user config
+          if-shell '[ -f ~/.config/tmux/tmux.conf ]' 'source-file ~/.config/tmux/tmux.conf'
+        '';
+      };
     };
 
     services = {
@@ -268,7 +411,22 @@
             DSDontWriteNetworkStores = true;
             DSDontWriteUSBStores = true;
           };
+          "com.apple.CloudSubscriptionFeatures.optIn" = {
+            "545129924" = false;
+            "8187947588" = false;
+          };
           "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+          "com.apple.assistant.support"."Assistant Enabled" = false;
+          "com.apple.Siri".StatusMenuVisible = false;
+          "com.apple.Siri".VoiceTriggerUserEnabled = false;
+          "com.apple.suggestions".AppCanBeSuggested = false;
+          "com.apple.suggestions".CloudKitSyncDisabled = true;
+          "com.apple.suggestions".ContactsDisabled = true;
+          "com.apple.suggestions".EventsDisabled = true;
+          "com.apple.suggestions".IntentsDisabled = true;
+          "com.apple.suggestions".LocationsDisabled = true;
+          "com.apple.suggestions".SiriDisabledOnLockscreen = true;
+          "com.apple.suggestions".UniversalLinksDisabled = true;
           "com.apple.TimeMachine".DoNotOfferNewDisksForBackup = true;
           "com.apple.ImageCapture".disableHotPlug = true;
           "com.apple.CrashReporter".DialogType = "none";
@@ -326,8 +484,8 @@
 
         WindowManager = {
           EnableStandardClickToShowDesktop = false;
-          EnableTiledWindowMargins = false;
-          EnableTopTilingByEdgeDrag = false;
+          EnableTiledWindowMargins = true;
+          EnableTopTilingByEdgeDrag = true;
           EnableTilingOptionAccelerator = true;
           GloballyEnabled = false;
           StandardHideDesktopIcons = true;
@@ -336,16 +494,125 @@
       };
 
       activationScripts = {
+        # Apply macOS user defaults that cannot be set via nix-darwin's defaults module.
+        # Most defaults are set declaratively in system.defaults.CustomUserPreferences above;
+        # this script covers the few that require ad-hoc commands (e.g. LSHandlers array-add).
         setAppleDefaults.text = ''
+          # Disable creation of .DS_Store files on network volumes (SMB, NFS, etc.)
           defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+          # Suppress the "Are you sure you want to empty the Trash?" warning dialog
           defaults write com.apple.finder WarnOnEmptyTrash -bool false
+
+          # Require password immediately (0s delay) after waking from sleep/screensaver
           defaults write com.apple.screensaver askForPassword -int 1
           defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+          # Register Neovide as the default handler for plain text files (public.plain-tex)
           defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add '{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.neovide.neovide;}'
+
+          # Disable telemetry & analytics services
+          for service in \
+            system/com.apple.analyticsd \
+            system/com.apple.analyticsd.system \
+            user/501/com.apple.diagnostics_agent \
+            user/501/com.apple.diagnosticextensionsd \
+            user/501/com.apple.inputanalyticsd \
+            user/501/com.apple.feedbackd \
+            user/501/com.apple.spindump_agent \
+            system/com.apple.spindump \
+            system/com.apple.tailspind \
+            user/501/com.apple.geoanalyticsd \
+            user/501/com.apple.ap.adprivacyd \
+            user/501/com.apple.SubmitDiagInfo \
+            user/501/com.apple.DiagnosticsReporter \
+            user/501/com.apple.diagnosticspushd \
+            user/501/com.apple.analyticsagent \
+            user/501/com.apple.osanalyticshelper \
+            user/501/com.apple.audioanalyticsd \
+            user/501/com.apple.wifianalyticsd \
+            user/501/com.apple.EcosystemAnalytics \
+          ; do
+            sudo launchctl disable "$service" 2>/dev/null || true
+          done
+
+          # Disable Apple Intelligence / ML model services (still load even with optIn=off)
+          for service in \
+            system/com.apple.generativeexperiencesd \
+            user/501/com.apple.intelligenceplatformd \
+            user/501/com.apple.intelligencetasksd \
+            user/501/com.apple.intelligenceflowd \
+            user/501/com.apple.intelligencecontextd \
+            user/501/com.apple.mlhostd \
+            user/501/com.apple.ModelCatalogAgent \
+            system/com.apple.modelcatalogd \
+            system/com.apple.modelmanagerd \
+          ; do
+            sudo launchctl disable "$service" 2>/dev/null || true
+          done
+
+          # Kill running processes that should no longer be active
+          for proc in \
+            analyticsd \
+            diagnostics_agent \
+            diagnosticextensionsd \
+            inputanalyticsd \
+            feedbackd \
+            spindump_agent \
+            tailspind \
+            geoanalyticsd \
+            adprivacyd \
+            SubmitDiagInfo \
+            DiagnosticsReporter \
+            analyticsagent \
+            osanalyticshelper \
+            audioanalyticsd \
+            wifianalyticsd \
+            ecosystemanalyticsd \
+            generativeexperiencesd \
+            intelligenceplatformd \
+            intelligencetasksd \
+            intelligenceflowd \
+            intelligencecontextd \
+            mlhostd \
+            ModelCatalogAgent \
+            modelcatalogd \
+            modelmanagerd \
+          ; do
+            pkill -x "$proc" 2>/dev/null || true
+            pkill -x "$proc"d 2>/dev/null || true
+          done
         '';
+
       };
 
       primaryUser = config.my.user.name;
+    };
+
+    launchd.daemons.my-pmset-settings = {
+      script = ''
+        # Low Power Mode (throttles CPU, network keepalives, background processes): 0 = disabled, 1 = enabled
+        /usr/bin/pmset -c lowpowermode 0
+
+        # Wake on Ethernet magic packet: 0 = disabled, 1 = enabled
+        # Allows the machine to be woken remotely over the network
+        /usr/bin/pmset -c womp 1
+
+        # System sleep timer: value in minutes, or 0 to disable sleep entirely
+        # Set to 0 so the machine never sleeps on AC power
+        /usr/bin/pmset -c sleep 0
+
+        # Disk spindown timer: value in minutes, or 0 to disable
+        # Set to 0 to prevent disk sleeping, which can interfere with system wakefulness on AC
+        /usr/bin/pmset -c disksleep 0
+
+        # Power Nap: 0 = disabled, 1 = enabled (allows background network activity during display sleep)
+        /usr/bin/pmset -c powernap 1
+      '';
+      serviceConfig = {
+        RunAtLoad = true; # apply settings immediately when the daemon loads at boot
+        KeepAlive = false; # run once and exit, no need to keep the process running
+      };
     };
   };
 }
