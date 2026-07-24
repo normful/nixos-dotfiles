@@ -128,6 +128,7 @@
     adel = "!f() { git add --all $(git diff --diff-filter=D --name-only); }; f" # stage deleted
 
     ap = add -p                              # stage commits chunk by chunk
+    ap2 = !git-plan stage $1                 # stage commits by hunk using tool that is easy for AI agents to use
 
     ae = add -e                              # stage commits by manually editing patch
 
@@ -217,8 +218,7 @@
 
     # cnm       = commit -n -m             # commit without pre-commit and commit-msg hooks, and message
 
-    # quickly commit everything with an AI-generated commit message
-    w         = "!f() { $HOME/.local/bin/git-commit-with-ai-generated-message; }; f"
+    w         = !git add --all && git commit -m various
 
     # commit each file in its own commit
     ce        = "!f() { $HOME/.local/bin/git-commit-each-file-in-own-commit; }; f"
