@@ -33,7 +33,7 @@ switch_tab = ""
 # Pane management
 split_horizontal = ["prefix+s"]
 split_vertical = ["prefix+v"]
-cycle_pane_next = ["prefix+5"]
+cycle_pane_next = ["prefix+p"]
 cycle_pane_previous = ""
 close_pane = ["prefix+x"]
 last_pane = ""
@@ -96,7 +96,15 @@ type = "shell"
 command = "herdr plugin action invoke herdr-spreader.apply"
 
 [[keys.command]]
-key = "prefix+g"
+key = "prefix+4"
+type = "popup"
+command = "hunk show HEAD"
+description = "hunk show HEAD"
+width = "100%"
+height = "100%"
+
+[[keys.command]]
+key = "prefix+5"
 type = "popup"
 command = "hunk diff"
 description = "hunk diff"
@@ -110,12 +118,12 @@ directory = "~/.herdr/worktrees"
 sidebar_min_width = 22
 mouse_scroll_lines = 5
 prompt_new_tab_name = false
-show_agent_labels_on_pane_borders = false
+show_agent_labels_on_pane_borders = true
 pane_borders = true
 pane_gaps = true
 agent_panel_sort = "spaces"
-hide_tab_bar_when_single_tab = true
-sidebar_collapsed_mode = "hidden"
+hide_tab_bar_when_single_tab = false
+sidebar_collapsed_mode = "compact"
 
 [ui.toast]
 # off = disable pop-up notifications

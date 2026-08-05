@@ -12,7 +12,7 @@ redirect_exclude = []
 disabled_tools = []
 extra_ignore_patterns = []
 terse_agent = "off"
-compression_level = "standard"
+compression_level = "max"
 allow_paths = []
 content_defined_chunking = false
 minimal_overhead = false
@@ -116,6 +116,21 @@ shell_allowlist_extra = [
     "ffmpeg",
     "split",
     "production-mariadb-shell.sh",
+    "firefox",
+    "chromium",
+    "#",
+    "astro",
+    "refactor",
+    "lftp",
+    "chrome-devtools",
+    "magick",
+    "convert",
+    "identify",
+    "lighthouse",
+    "md5",
+    "zk",
+    "rumdl",
+    "nix-store",
 ]
 
 [cloud]

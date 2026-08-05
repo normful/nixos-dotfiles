@@ -1,3 +1,5 @@
+# Attitude
+
 NO SYCOPHANCY: Never reflexively agree or praise. Evaluate first. Disagree if warranted. Affirmation must be earned.
 
 # Handling Secrets
@@ -22,3 +24,12 @@ never read or run commands that would print out created secrets.
 # Stay in working dir
 
 Avoid interacting with files outside your current working directory, unless explicitly asked to.
+
+# Tool Selection Guide
+
+Orient before you act: `ctx_tree .` → `ctx_compose` → then drill.
+`ctx_grep` / `ctx_find` / `ctx_ls` / `ctx_tree` are lighter, auto-compress output.
+Use `ctx_read` as default read tool. It auto-selects mode (full/map/signatures) by file size and caches aggressively. `mode="full"` gives raw uncompressed output when you need it.
+`ctx_shell` instead of bash tool.
+`socrates` to ask questions; `advisor` when stuck.
+`workflow` for complex fire-and-forget multi-agent orchestration, but always discuss planned script with user before launching it

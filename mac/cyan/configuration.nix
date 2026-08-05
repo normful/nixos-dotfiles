@@ -73,6 +73,9 @@
       mariadb_118
       jre25_minimal
       terminal-notifier
+      atuin
+      zellij
+      mdwatch
 
       # TeX Live Medium + extra CJK/XeTeX packages
       (texliveMedium.withPackages (
@@ -102,6 +105,11 @@
       (callPackage ../../packages/tree-sitter { })
 
       # ── high interest ──
+
+      # Multi-agent safety hook. Blocks destructive shell commands
+      # (rm -rf, :(){:|:&};:, etc.) before they run. Designed for
+      # AI coding agents.
+      (callPackage ../../packages/dcg { })
 
       # CLI coding agent for open AI models. Connects to LM Studio,
       # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.

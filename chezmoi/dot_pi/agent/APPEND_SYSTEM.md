@@ -16,3 +16,7 @@ Exception: if the command is dangerous, do NOT allow it — ask the user instead
 What makes a command dangerous: anything that can destroy data, change system state,
 execute untrusted code, escalate privileges, interfere with other processes, or
 make irreversible changes.
+
+# Skills
+
+SKILL.md files are in subdirectories of /Users/norman/.pi/agent/skills/curated-ai-skills/

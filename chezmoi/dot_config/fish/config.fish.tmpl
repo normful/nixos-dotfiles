@@ -81,6 +81,10 @@ if status is-interactive
       mise activate fish | source
     end
 
+    if command -v atuin >/dev/null 2>&1
+      source "$HOME/.config/atuin/shell-hook.fish"
+    end
+
     if test -f "$HOME/.config/lean-ctx/shell-hook.fish"
       source "$HOME/.config/lean-ctx/shell-hook.fish"
     end

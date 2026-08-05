@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.82.0",
+  "lastChangelogVersion": "0.83.0",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "max",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -150,7 +150,8 @@
     "-skills/curated-ai-skills/rpiv-pi-skills/revise/SKILL.md",
     "-skills/curated-ai-skills/rpiv-pi-skills/slice/SKILL.md",
     "-skills/curated-ai-skills/rpiv-pi-skills/synthesize/SKILL.md",
-    "-skills/curated-ai-skills/rpiv-pi-skills/validate/SKILL.md"
+    "-skills/curated-ai-skills/rpiv-pi-skills/validate/SKILL.md",
+    "-skills/curated-ai-skills/web-asset-generator/SKILL.md"
   ],
   "packages": [
     {
@@ -183,7 +184,12 @@
       ]
     },
     "git:github.com/iRonin/pi-clear-on-double-esc",
-    "git:github.com/default-anton/pi-tmux-window-name",
+    {
+      "source": "git:github.com/default-anton/pi-tmux-window-name",
+      "extensions": [
+        "-extensions/index.ts"
+      ]
+    },
     "https://github.com/normful/pi-agent-browser-native",
     {
       "source": "npm:@spences10/pi-context",
@@ -249,7 +255,12 @@
       ]
     },
     "npm:@gotgenes/pi-nocd",
-    "npm:@normful/pi-statusline",
+    {
+      "source": "npm:@normful/pi-statusline",
+      "extensions": [
+        "+src/index.ts"
+      ]
+    },
     "npm:@normful/pi-show-files-read",
     "npm:@normful/pi-show-theme-colors",
     "npm:@normful/pi-stop-secrets-leaks",
@@ -259,7 +270,8 @@
       "extensions": [
         "+dist/index.js"
       ]
-    }
+    },
+    "npm:pi-lean-ctx"
   ],
   "pi-screenshots": {
     "sources": [
@@ -301,13 +313,14 @@
     "+extensions/dev-tools/index.ts",
     "-extensions/siliconflow/index.ts",
     "-extensions/understand-screenshot/index.ts",
-    "+extensions/aihubmix-am/index.ts",
     "-extensions/replant.ts",
-    "+extensions/pi-lean-ctx/index.ts",
     "+extensions/local-normful-pi-side-agents/index.ts",
     "-extensions/personal-tui.ts",
     "-extensions/show-files-read/index.ts",
-    "-extensions/theme-colors/index.ts"
+    "-extensions/theme-colors/index.ts",
+    "-extensions/pi-lean-ctx/index.ts",
+    "+extensions/aihubmix-am/index.ts",
+    "-extensions/pi-tmux-herdr-auto-rename-window-tab-pane/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
@@ -320,18 +333,20 @@
   "enableInstallTelemetry": false,
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
+    "opencode-go/mimo-v2.5",
     "openrouter/inclusionai/ling-3.0-flash:free",
-    "opencode/ling-3.0-flash-free",
     "opencode/deepseek-v4-flash-free",
-    "aihubmix-oc/deep-deepseek-v4-flash",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-glm-5.2-free",
     "aihubmix-oc/qwen3.8-max-preview",
-    "opencode-go/glm-5.2",
-    "openrouter/nex-agi/nex-n2-mini",
-    "openrouter/poolside/laguna-s-2.1"
+    "opencode/laguna-s-2.1-free",
+    "opencode/ling-3.0-flash-free",
+    "opencode/mimo-v2.5-free",
+    "aihubmix-oc/deepinfra-deepseek-v4-flash-0731",
+    "aihubmix-oc/deep-deepseek-v4-flash-0731",
+    "aihubmix-oc/alicloud-deepseek-v4-flash-0731"
   ],
   "terminal": {
     "showTerminalProgress": false,

@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "initialRenameTrigger": "first-agent-settled",
+  "language": "en",
+  "namingContextDepth": "recent-user-messages",
+  "namingModel": "openrouter/inclusionai/ling-3.0-flash:free",
+  "namingStyle": "natural",
+  "replaceExistingName": "always",
+  "reRenameEveryNTurns": 5,
+  "respectExternalRenames": false,
+  "sessionNameMaxLength": 200,
+  "skipSessionNameDedup": false,
+  "surfaces": {
+    "renameHerdrPane": true,
+    "renameHerdrTab": true,
+    "renamePiSession": true,
+    "renameTmuxWindow": true,
+    "renameZellijPane": true,
+    "renameZellijTab": true
+  },
+  "windowNameMaxLength": 40
+}

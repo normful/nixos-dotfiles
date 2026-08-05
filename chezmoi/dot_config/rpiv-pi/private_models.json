@@ -1,45 +1,45 @@
 {
   "defaults": {
-    "model": "aihubmix-oc/deep-deepseek-v4-flash",
+    "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
     "thinking": "xhigh"
   },
   "agents": {
     "codebase-analyzer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "claim-verifier": {
-      "model": "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+      "model": "opencode-go/mimo-v2.5-pro",
       "thinking": "high"
     },
     "slice-verifier": {
-      "model": "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+      "model": "opencode-go/mimo-v2.5-pro",
       "thinking": "high"
     },
     "artifact-code-reviewer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "artifact-coverage-reviewer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "scope-tracer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     }
   },
   "stages": {
     "research": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "architecture-review": {
-      "model": "aihubmix-oc/qwen3.8-max-preview",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "high"
     },
     "validate": {
-      "model": "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+      "model": "opencode-go/mimo-v2.5-pro",
       "thinking": "high"
     },
     "code-review": {
@@ -47,41 +47,41 @@
       "thinking": "high"
     },
     "blueprint": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "commit": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "off"
     },
     "design": {
-      "model": "aihubmix-oc/qwen3.8-max-preview",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "high"
     }
   },
   "skills": {
     "blueprint": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "commit": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "off"
     },
     "create-handoff": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "design": {
-      "model": "aihubmix-oc/qwen3.8-max-preview",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "high"
     },
     "discover": {
-      "model": "openrouter/nex-agi/nex-n2-mini",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "high"
     },
     "explore": {
-      "model": "openrouter/nex-agi/nex-n2-mini",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "high"
     },
     "code-review": {
@@ -89,15 +89,15 @@
       "thinking": "high"
     },
     "validate": {
-      "model": "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+      "model": "opencode-go/mimo-v2.5-pro",
       "thinking": "high"
     },
     "resume-handoff": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "frontend-design": {
-      "model": "aihubmix-am/xiaomi-mimo-v2.5",
+      "model": "opencode-go/mimo-v2.5",
       "thinking": "high"
     },
     "plan": {
@@ -105,19 +105,19 @@
       "thinking": "xhigh"
     },
     "implement": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "research": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     },
     "browser-tool": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "high"
     },
     "hunk-review": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash",
+      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
       "thinking": "xhigh"
     }
   },
@@ -125,7 +125,7 @@
     "build": {
       "stages": {
         "blueprint": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "xhigh"
         },
         "code-review": {
@@ -133,15 +133,15 @@
           "thinking": "high"
         },
         "commit": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "off"
         },
         "implement": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "xhigh"
         },
         "research": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "xhigh"
         },
         "revise": {
@@ -149,7 +149,7 @@
           "thinking": "high"
         },
         "validate": {
-          "model": "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+          "model": "opencode-go/mimo-v2.5-pro",
           "thinking": "xhigh"
         }
       }
@@ -157,19 +157,19 @@
     "ship": {
       "stages": {
         "blueprint": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "xhigh"
         },
         "commit": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "minimal"
         },
         "implement": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash",
+          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
           "thinking": "xhigh"
         },
         "validate": {
-          "model": "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
+          "model": "opencode-go/mimo-v2.5-pro",
           "thinking": "xhigh"
         }
       }
