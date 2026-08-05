@@ -59,3 +59,14 @@ To update the pinned unstable input:
 - Individual plugin spec files in lazy.nvim format
 - Naming: `plugin-name.lua` (e.g., `telescope.lua`, `treesitter.lua`)
 - Each file returns a lazy.nvim plugin spec table
+
+## Local Skills (`.pi/skills/`)
+
+| Skill | Description |
+|-------|-------------|
+| [maintain-herdr](.pi/skills/maintain-herdr/SKILL.md) | Maintain and upgrade herdr pin in flake.nix/flake.lock plus config.toml compatibility |
+| [maintain-rpiv-pi-models](.pi/skills/maintain-rpiv-pi-models/SKILL.md) | Maintain models used for rpiv-pi skills and agents (`private_models.json`) |
+| [maintain-terminal-configs](.pi/skills/maintain-terminal-configs/SKILL.md) | Maintain synchronized keybindings across Ghostty, WezTerm, and Kitty |
+| [maintain-tokscale-models-custom-pricing](.pi/skills/maintain-tokscale-models-custom-pricing/SKILL.md) | Maintain tokscale custom pricing for aihubmix models (`custom-pricing.json`) |
+| [update-nixpkgs-unstable](.pi/skills/update-nixpkgs-unstable/SKILL.md) | Update nixpkgs-unstable reference in flake.nix to latest commit |
+| [update-pi-model-overrides](.pi/skills/update-pi-model-overrides/SKILL.md) | Update OpenCode Go model rate limits and availability in `models.json` |
