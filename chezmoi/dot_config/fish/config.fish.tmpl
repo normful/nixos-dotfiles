@@ -37,10 +37,11 @@ if status is-interactive
         herdr
     end
 
-    if command -v hh >/dev/null 2>&1
-      set --export HISTFILE ~/.config/fish/hh.history
-      set --export HSTR_CONFIG hicolor,prompt-bottom
-    end
+
+    # if command -v hh >/dev/null 2>&1
+    #   set --export HISTFILE ~/.config/fish/hh.history
+    #   set --export HSTR_CONFIG hicolor,prompt-bottom
+    # end
 
     if command -v intelephense >/dev/null 2>&1
       set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
@@ -81,8 +82,8 @@ if status is-interactive
       mise activate fish | source
     end
 
-    if command -v atuin >/dev/null 2>&1
-      source "$HOME/.config/atuin/shell-hook.fish"
+    if command -v atuin >/dev/null >&1
+      atuin init fish --disable-up-arrow --disable-ctrl-r | source
     end
 
     if test -f "$HOME/.config/lean-ctx/shell-hook.fish"
@@ -107,6 +108,8 @@ if status is-interactive
     abbr --add q exit
 
     abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --sort time'
+
+    abbr --add hh _atuin_search
 
     abbr --add man 'batman'
 
@@ -200,6 +203,6 @@ if status is-interactive
     {{ end -}}
 end
 
-function __should_na --on-event fish_prompt
-    echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
-end
+# function __should_na --on-event fish_prompt
+#     echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
+# end
