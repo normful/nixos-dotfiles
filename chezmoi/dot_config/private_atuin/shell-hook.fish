@@ -153,14 +153,10 @@ function _atuin_bind_up
 end
 
 if string match -q '4.*' $version
-    bind ctrl-r _atuin_search
     if bind -M insert >/dev/null 2>&1
-        bind -M insert ctrl-r _atuin_search
     end
 else
-    bind \cr _atuin_search
     if bind -M insert >/dev/null 2>&1
-        bind -M insert \cr _atuin_search
     end
 end
 # Question mark at start of line - natural language mode
