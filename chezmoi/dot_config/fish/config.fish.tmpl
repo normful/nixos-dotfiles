@@ -161,6 +161,12 @@ if status is-interactive
     abbr --add mdcat 'mdcat --columns 180 --paginate'
     abbr --add glow "glow -s $HOME/Library/Preferences/glow/night-owl.json"
 
+    if command -v zk >/dev/null 2>&1
+        abbr --add zn  "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
+        abbr --add zkn "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
+        abbr --add znt "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
+    end
+
     if command -v cargo >/dev/null 2>&1
         abbr --add cf 'cargo fmt'
         abbr --add cl 'cargo clippy'
@@ -181,7 +187,6 @@ if status is-interactive
     {{ if .mac -}}
     abbr --add mus "musikcube"
     abbr --add dua 'dua interactive'
-    abbr --add zs 'zola serve'
     abbr --add epush "nvim $HOME/code/dotfiles/bin/_push_and_pull_android.sh"
     abbr --add epull "nvim $HOME/code/dotfiles/bin/_push_and_pull_android.sh"
     abbr --add pandoc "pandoc --pdf-engine=xelatex"
