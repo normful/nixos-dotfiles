@@ -1,0 +1,26 @@
+{
+  "installed": true,
+  "firstMessageSent": true,
+  "tasteLearning": true,
+  "theme": "dark",
+  "treeFilterMode": "all",
+  "onDemandToolDescriptions": true,
+  "defaultExportFormat": "md",
+  "defaultShareGistFormat": "md",
+  "featureModels": {
+    "titleGeneration": "poolside/laguna-s-2.1-free",
+    "compaction": "deepseek/deepseek-v4-flash",
+    "toolDescription": "deepseek/deepseek-v4-flash",
+    "tasteLearning": "deepseek/deepseek-v4-flash",
+    "tasteOnboarding": "deepseek/deepseek-v4-flash",
+    "branchSummarization": "deepseek/deepseek-v4-flash"
+  },
+  "branchSummarySkipPrompt": true,
+  "model": "meta/muse-spark-1.2-contributor",
+  "compactMode": "default",
+  "reasoningEffort": {
+    "meta/muse-spark-1.2-contributor": "high"
+  },
+  "forceOAuth": false,
+  "imageVision": "enabled"
+}
