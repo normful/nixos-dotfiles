@@ -54,8 +54,8 @@ zoom = ""
 resize_mode = ""
 
 # Agent pane navigation
-previous_agent = ["super+-"]
-next_agent = ["super+="]
+previous_agent = ["super+-", "f13"]
+next_agent = ["super+=", "f14"]
 focus_agent = ""
 
 # Navigation & misc
