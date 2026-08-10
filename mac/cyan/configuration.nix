@@ -129,6 +129,17 @@
       # critique), 44 detector rules, live browser iteration.
       (callPackage ../../packages/impeccable { })
 
+      # AI research papers from your terminal. Search, read, cite, and
+      # explore the full Hugging Face Papers ecosystem. Includes an MCP
+      # server (hfpaper mcp) with 7 paper tools.
+      (callPackage ../../packages/hfpaper { })
+
+      # Academic paper reader + multi-source search for agentic deep
+      # research. `paper` reads/skims/navigates PDFs; `paper-search`
+      # queries Google (Serper), Semantic Scholar, PubMed. Includes
+      # figure/table/equation detection (layout extra).
+      (callPackage ../../packages/agent-papers-cli { })
+
       # ── medium interest ──
 
       # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
