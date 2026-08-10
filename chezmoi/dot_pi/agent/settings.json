@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.1",
-  "defaultProvider": "aihubmix-oc",
-  "defaultModel": "coding-glm-5.2-free",
+  "defaultProvider": "opencode",
+  "defaultModel": "deepseek-v4-flash-free",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -335,20 +335,11 @@
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
     "opencode-go/mimo-v2.5",
-    "openrouter/inclusionai/ling-3.0-flash:free",
-    "opencode/deepseek-v4-flash-free",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
-    "aihubmix-oc/coding-xiaomi-mimo-v2.5-pro",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-glm-5.2-free",
     "aihubmix-oc/qwen3.8-max-preview",
-    "opencode/laguna-s-2.1-free",
-    "opencode/ling-3.0-flash-free",
-    "opencode/mimo-v2.5-free",
-    "aihubmix-oc/deepinfra-deepseek-v4-flash-0731",
-    "aihubmix-oc/deep-deepseek-v4-flash-0731",
-    "aihubmix-oc/alicloud-deepseek-v4-flash-0731",
-    "opencode-go/kimi-k3"
+    "aihubmix-oc/deep-deepseek-v4-flash-0731"
   ],
   "terminal": {
     "showTerminalProgress": false,
