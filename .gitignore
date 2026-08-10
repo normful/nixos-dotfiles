@@ -13,3 +13,4 @@
 /node_modules/
 gcp/tidegate/tidegate
 result
+.commandcode/
