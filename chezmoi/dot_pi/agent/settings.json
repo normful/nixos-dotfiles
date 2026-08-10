@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.1",
-  "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash-free",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -334,12 +334,16 @@
   "enableInstallTelemetry": false,
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
+    "opencode/deepseek-v4-flash-free",
+    "aihubmix-oc/deep-deepseek-v4-flash-0731",
+    "openrouter/inclusionai/ling-3.0-tiny:free",
+    "openrouter/inclusionai/ling-3.0-flash",
     "opencode-go/mimo-v2.5",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-glm-5.2-free",
     "aihubmix-oc/qwen3.8-max-preview",
-    "aihubmix-oc/deep-deepseek-v4-flash-0731"
+    "opencode/longcat-2.0-free"
   ],
   "terminal": {
     "showTerminalProgress": false,
