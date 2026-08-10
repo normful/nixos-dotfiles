@@ -90,6 +90,7 @@ in
       ++ (optionals config.my.enableLangPython [
         uv
         python314Packages.python-lsp-server
+        python314Packages.huggingface-hub
       ])
       ++ (optionals config.my.enableLangC [
         gcc
