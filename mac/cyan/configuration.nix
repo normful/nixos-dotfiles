@@ -100,6 +100,7 @@
 
       # ── keepers ──
 
+      (callPackage ../../packages/arxiv-cli { })
       (callPackage ../../packages/agent-browser { })
       (callPackage ../../packages/lean-ctx { })
       (callPackage ../../packages/tpluck { })

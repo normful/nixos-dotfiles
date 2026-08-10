@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.83.0",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
-  "defaultThinkingLevel": "max",
+  "lastChangelogVersion": "0.84.1",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "coding-glm-5.2-free",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
@@ -151,7 +151,11 @@
     "-skills/curated-ai-skills/rpiv-pi-skills/slice/SKILL.md",
     "-skills/curated-ai-skills/rpiv-pi-skills/synthesize/SKILL.md",
     "-skills/curated-ai-skills/rpiv-pi-skills/validate/SKILL.md",
-    "-skills/curated-ai-skills/web-asset-generator/SKILL.md"
+    "-skills/curated-ai-skills/web-asset-generator/SKILL.md",
+    "-skills/curated-ai-skills/escalate-to-human/SKILL.md",
+    "-skills/curated-ai-skills/mattpocock-wayfinder/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/remediate/SKILL.md",
+    "-skills/curated-ai-skills/writing-changelogs/SKILL.md"
   ],
   "packages": [
     {
@@ -184,12 +188,6 @@
       ]
     },
     "git:github.com/iRonin/pi-clear-on-double-esc",
-    {
-      "source": "git:github.com/default-anton/pi-tmux-window-name",
-      "extensions": [
-        "-extensions/index.ts"
-      ]
-    },
     "https://github.com/normful/pi-agent-browser-native",
     {
       "source": "npm:@spences10/pi-context",
@@ -271,7 +269,10 @@
         "+dist/index.js"
       ]
     },
-    "npm:pi-lean-ctx"
+    "npm:pi-lean-ctx",
+    "npm:@normful/pi-auto-name",
+    "npm:@code-fixer-23/pi-session-manager",
+    "npm:@vanillagreen/pi-session-manager"
   ],
   "pi-screenshots": {
     "sources": [
@@ -309,7 +310,6 @@
     "-extensions/token-efficient-read-write-tools-without-bash.ts",
     "-extensions/grep-find-ls-tools.ts",
     "-extensions/read-edit-write-tools.ts",
-    "+extensions/bell-and-macOS-notify/index.ts",
     "+extensions/dev-tools/index.ts",
     "-extensions/siliconflow/index.ts",
     "-extensions/understand-screenshot/index.ts",
@@ -320,7 +320,8 @@
     "-extensions/theme-colors/index.ts",
     "-extensions/pi-lean-ctx/index.ts",
     "+extensions/aihubmix-am/index.ts",
-    "-extensions/pi-tmux-herdr-auto-rename-window-tab-pane/index.ts"
+    "-extensions/pi-tmux-herdr-auto-rename-window-tab-pane/index.ts",
+    "-extensions/bell-and-macOS-notify/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
@@ -346,7 +347,8 @@
     "opencode/mimo-v2.5-free",
     "aihubmix-oc/deepinfra-deepseek-v4-flash-0731",
     "aihubmix-oc/deep-deepseek-v4-flash-0731",
-    "aihubmix-oc/alicloud-deepseek-v4-flash-0731"
+    "aihubmix-oc/alicloud-deepseek-v4-flash-0731",
+    "opencode-go/kimi-k3"
   ],
   "terminal": {
     "showTerminalProgress": false,
