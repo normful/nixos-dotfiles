@@ -169,6 +169,10 @@ if status is-interactive
         abbr --add zj 'today'
     end
 
+    if command -v commandcode >/dev/null >&1
+        abbr --add cmd 'cmd --yolo --no-auto-update'
+    end
+
     if command -v cargo >/dev/null 2>&1
         abbr --add cf 'cargo fmt'
         abbr --add cl 'cargo clippy'
