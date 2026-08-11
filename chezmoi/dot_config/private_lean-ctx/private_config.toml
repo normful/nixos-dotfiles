@@ -167,6 +167,7 @@ shell_allowlist_extra = [
     "php-cs-fixer",
     "vendor/bin/rector",
     "rector",
+    "base64",
 ]
 
 [cloud]

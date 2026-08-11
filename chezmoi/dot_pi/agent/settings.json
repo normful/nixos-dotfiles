@@ -334,16 +334,15 @@
   "enableInstallTelemetry": false,
   "enabledModels": [
     "opencode-go/deepseek-v4-flash",
-    "opencode/deepseek-v4-flash-free",
-    "aihubmix-oc/deep-deepseek-v4-flash-0731",
-    "openrouter/inclusionai/ling-3.0-tiny:free",
-    "openrouter/inclusionai/ling-3.0-flash",
     "opencode-go/mimo-v2.5",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-glm-5.2-free",
     "aihubmix-oc/qwen3.8-max-preview",
-    "opencode/longcat-2.0-free"
+    "aihubmix-oc/deep-deepseek-v4-flash-0731",
+    "openrouter/inclusionai/ling-3.0-tiny:free",
+    "openrouter/inclusionai/ling-3.0-flash",
+    "opencode-go/gpt-5.6-luna"
   ],
   "terminal": {
     "showTerminalProgress": false,
