@@ -125,6 +125,10 @@
       # exact diff lines, incremental re-triage, conversational resolution.
       (callPackage ../../packages/codecanary { })
 
+      # LLM-powered JS deobfuscator. Reverses minified/obfuscated code
+      # back to readable source via OpenAI, Gemini, or local Ollama.
+      (callPackage ../../packages/humanify { })
+
       # Design guidance for AI coding agents. 23 commands (polish, audit,
       # critique), 44 detector rules, live browser iteration.
       (callPackage ../../packages/impeccable { })
