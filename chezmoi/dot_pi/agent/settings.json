@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.1",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
+  "defaultProvider": "opencode",
+  "defaultModel": "mimo-v2.5-free",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -155,7 +155,22 @@
     "-skills/curated-ai-skills/escalate-to-human/SKILL.md",
     "-skills/curated-ai-skills/mattpocock-wayfinder/SKILL.md",
     "-skills/curated-ai-skills/rpiv-pi-skills/remediate/SKILL.md",
-    "-skills/curated-ai-skills/writing-changelogs/SKILL.md"
+    "-skills/curated-ai-skills/writing-changelogs/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-company-directories/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-competitive-intel/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-deep-research/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-demo-walkthrough/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-developer-index/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-knowledge-base/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-knowledge-ingest/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-lead-gen/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-lead-research/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-qa/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-research-index/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-research-papers/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-seo-audit/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-website-design-clone/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl-workflows/SKILL.md"
   ],
   "packages": [
     {
@@ -342,7 +357,11 @@
     "aihubmix-oc/deep-deepseek-v4-flash-0731",
     "openrouter/inclusionai/ling-3.0-tiny:free",
     "openrouter/inclusionai/ling-3.0-flash",
-    "opencode-go/gpt-5.6-luna"
+    "opencode-go/gpt-5.6-luna",
+    "opencode/laguna-s-2.1-free",
+    "opencode/ling-3.0-flash-free",
+    "opencode/deepseek-v4-flash-free",
+    "opencode/mimo-v2.5-free"
   ],
   "terminal": {
     "showTerminalProgress": false,

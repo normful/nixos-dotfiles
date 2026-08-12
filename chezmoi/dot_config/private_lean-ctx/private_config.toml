@@ -168,6 +168,15 @@ shell_allowlist_extra = [
     "vendor/bin/rector",
     "rector",
     "base64",
+    "-0pi",
+    "humanify",
+    "playwright-cli",
+    "openspec",
+    "agentmail",
+    "wait",
+    "cmp",
+    "time",
+    "cli.sh",
 ]
 
 [cloud]
