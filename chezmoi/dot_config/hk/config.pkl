@@ -1,0 +1,9 @@
+amends "package://github.com/jdx/hk/releases/download/v1.54.0/hk@1.54.0#/Config.pkl"
+
+hooks {
+    ["pre-commit"] {
+        steps {
+            ["gitleaks"] { check = "gitleaks git --staged" }
+        }
+    }
+}
