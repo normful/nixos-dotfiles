@@ -16,11 +16,15 @@
     "branchSummarization": "deepseek/deepseek-v4-flash"
   },
   "branchSummarySkipPrompt": true,
-  "model": "meta/muse-spark-1.2-contributor",
+  "model": "MiniMaxAI/MiniMax-M3",
   "compactMode": "default",
   "reasoningEffort": {
-    "meta/muse-spark-1.2-contributor": "high"
+    "meta/muse-spark-1.2-contributor": "high",
+    "deepseek/deepseek-v4-flash": "high",
+    "google/gemini-3.6-flash": "medium",
+    "gpt-5.6-luna": "high"
   },
   "forceOAuth": false,
-  "imageVision": "enabled"
+  "imageVision": "enabled",
+  "provider": "command-code"
 }
