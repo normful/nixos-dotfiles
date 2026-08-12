@@ -77,6 +77,7 @@
       zellij
       mdwatch
       sqlite
+      hk
 
       # TeX Live Medium + extra CJK/XeTeX packages
       (texliveMedium.withPackages (
