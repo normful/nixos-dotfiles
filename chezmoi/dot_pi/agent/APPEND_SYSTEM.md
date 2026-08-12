@@ -19,4 +19,6 @@ make irreversible changes.
 
 # Skills
 
-SKILL.md files are in subdirectories of /Users/norman/.pi/agent/skills/curated-ai-skills/
+Skill files are in:
+1. This project's <git_repo_root>/.pi/skills/
+2. Subdirectories of /Users/norman/.pi/agent/skills/curated-ai-skills/
