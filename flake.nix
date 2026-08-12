@@ -9,7 +9,7 @@
     # Upcoming stable (currently unstable)
     # To get latest unstable commit, run:
     # git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1
-    nixpkgs-unstable-2611.url = "github:NixOS/nixpkgs/f205b5574fd0cb7da5b702a2da51507b7f4fdd1b";
+    nixpkgs-unstable-2611.url = "github:NixOS/nixpkgs/d482ef84049d9b7276b83a06e4e4d76983830097";
 
     nix-darwin-2605.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
