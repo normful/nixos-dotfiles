@@ -58,7 +58,6 @@ let
         py-cpuinfo
         pandas
         seaborn
-        albumentations
       ])
       ++ [ thop ];
 

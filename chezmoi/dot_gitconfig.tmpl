@@ -967,4 +967,16 @@
 [gitbutler]
 	aiModelProvider = openai
 [fetch]
-	writeCommitGraph = true
+    writeCommitGraph = true
+[hook "hk-commit-msg"]
+	command = test \"${HK:-1}\" = \"0\" || /run/current-system/sw/bin/hk run commit-msg --from-hook
+	event = commit-msg
+[hook "hk-pre-commit"]
+	command = test \"${HK:-1}\" = \"0\" || /run/current-system/sw/bin/hk run pre-commit --from-hook --staged
+	event = pre-commit
+[hook "hk-pre-push"]
+	command = test \"${HK:-1}\" = \"0\" || /run/current-system/sw/bin/hk run pre-push --from-hook
+	event = pre-push
+[hook "hk-prepare-commit-msg"]
+	command = test \"${HK:-1}\" = \"0\" || /run/current-system/sw/bin/hk run prepare-commit-msg --from-hook
+	event = prepare-commit-msg

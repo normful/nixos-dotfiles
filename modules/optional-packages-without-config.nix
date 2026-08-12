@@ -73,7 +73,7 @@ in
         prettierd
         eslint_d
         oxfmt
-        oxlint
+        # oxlint
         tsgolint
       ])
       ++ (optionals config.my.enableLangGo [
