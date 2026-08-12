@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.1",
   "defaultProvider": "opencode",
-  "defaultModel": "mimo-v2.5-free",
+  "defaultModel": "laguna-s-2.1-free",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -359,9 +359,7 @@
     "openrouter/inclusionai/ling-3.0-flash",
     "opencode-go/gpt-5.6-luna",
     "opencode/laguna-s-2.1-free",
-    "opencode/ling-3.0-flash-free",
-    "opencode/deepseek-v4-flash-free",
-    "opencode/mimo-v2.5-free"
+    "opencode/deepseek-v4-flash-free"
   ],
   "terminal": {
     "showTerminalProgress": false,
