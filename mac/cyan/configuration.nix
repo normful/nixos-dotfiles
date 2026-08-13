@@ -79,6 +79,11 @@
       sqlite
       hk
 
+      # adoc
+      asciidoctor-with-extensions
+      asciidoc-full-with-plugins
+      kramdown-asciidoc
+
       # TeX Live Medium + extra CJK/XeTeX packages
       (texliveMedium.withPackages (
         ps: with ps; [
