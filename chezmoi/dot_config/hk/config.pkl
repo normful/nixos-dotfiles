@@ -1,9 +1,12 @@
 amends "package://github.com/jdx/hk/releases/download/v1.54.0/hk@1.54.0#/Config.pkl"
 
+exclude = List("node_modules", "dist", "build")
+quiet = true
+
 hooks {
     ["pre-commit"] {
         steps {
-            ["gitleaks"] { check = "gitleaks git --staged" }
+            ["betterleaks"] { check = "betterleaks git --staged" }
         }
     }
 }

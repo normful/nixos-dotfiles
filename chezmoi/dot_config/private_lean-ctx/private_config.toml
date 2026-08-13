@@ -177,6 +177,20 @@ shell_allowlist_extra = [
     "cmp",
     "time",
     "cli.sh",
+    "hk",
+    "command",
+    "asciidoctor-pdf",
+    "pdfinfo",
+    "pdftotext",
+    "mdls",
+    "qpdf",
+    "gs",
+    "sh",
+    "render-pdfs.sh",
+    "pdffonts",
+    "-c",
+    "gem",
+    "copy-student-pdfs.sh",
 ]
 
 [cloud]

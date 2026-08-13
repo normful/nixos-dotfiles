@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.1",
-  "defaultProvider": "opencode",
-  "defaultModel": "laguna-s-2.1-free",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "agnes-2.5-flash",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -170,7 +170,8 @@
     "-skills/curated-ai-skills/firecrawl-research-papers/SKILL.md",
     "-skills/curated-ai-skills/firecrawl-seo-audit/SKILL.md",
     "-skills/curated-ai-skills/firecrawl-website-design-clone/SKILL.md",
-    "-skills/curated-ai-skills/firecrawl-workflows/SKILL.md"
+    "-skills/curated-ai-skills/firecrawl-workflows/SKILL.md",
+    "-skills/curated-ai-skills/firecrawl/SKILL.md"
   ],
   "packages": [
     {
@@ -336,7 +337,8 @@
     "-extensions/pi-lean-ctx/index.ts",
     "+extensions/aihubmix-am/index.ts",
     "-extensions/pi-tmux-herdr-auto-rename-window-tab-pane/index.ts",
-    "-extensions/bell-and-macOS-notify/index.ts"
+    "-extensions/bell-and-macOS-notify/index.ts",
+    "-extensions/rpiv-advisor/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
