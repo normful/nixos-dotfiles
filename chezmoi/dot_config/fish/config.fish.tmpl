@@ -37,7 +37,6 @@ if status is-interactive
         herdr
     end
 
-
     # if command -v hh >/dev/null 2>&1
     #   set --export HISTFILE ~/.config/fish/hh.history
     #   set --export HSTR_CONFIG hicolor,prompt-bottom
@@ -148,7 +147,6 @@ if status is-interactive
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
     abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
     abbr --add eh "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/herdr/config.toml"
-    abbr --add ehs "nvim $HOME/.config/herdr/plugins/config/herdr-spreader/config.yaml"
 
     abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
     abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
@@ -160,6 +158,7 @@ if status is-interactive
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
     abbr --add mdcat 'mdcat --columns 180 --paginate'
     abbr --add glow "glow -s $HOME/Library/Preferences/glow/night-owl.json"
+    abbr --add hsr 'herdr server reload-configuration'
 
     if command -v zk >/dev/null 2>&1
         abbr --add zn  "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
