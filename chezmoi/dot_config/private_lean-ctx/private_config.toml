@@ -9,7 +9,11 @@ slow_command_threshold_ms = 5000
 theme = "default"
 buddy_enabled = true
 redirect_exclude = []
-disabled_tools = ["ctx_callgraph", "ctx_graph", "ctx_tree"]
+disabled_tools = [
+    "ctx_callgraph",
+    "ctx_graph",
+    "ctx_tree",
+]
 extra_ignore_patterns = []
 terse_agent = "off"
 compression_level = "max"
@@ -191,6 +195,7 @@ shell_allowlist_extra = [
     "-c",
     "gem",
     "copy-student-pdfs.sh",
+    "obsidian",
 ]
 
 [cloud]
