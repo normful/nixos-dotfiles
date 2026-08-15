@@ -26,7 +26,7 @@ switch_workspace = ""
 new_tab = ["f8", "prefix+n"]
 previous_tab = ["f11"]
 next_tab = ["f12"]
-close_tab = ["prefix+z"]
+close_tab = ["prefix+t"]
 rename_tab = ["prefix+2"]
 switch_tab = ""
 
@@ -50,12 +50,12 @@ swap_pane_up = ""
 swap_pane_right = ""
 
 # Zoom & resize
-zoom = ""
+zoom = "prefix+z"
 resize_mode = ""
 
 # Agent pane navigation
-previous_agent = ["super+-", "super+1", "f6"]
-next_agent = ["super+=", "super+2", "f7"]
+previous_agent = ["ctrl+option+shift+super+e", "f6"]
+next_agent = ["ctrl+option+shift+super+r", "f7"]
 focus_agent = ""
 
 # Navigation & misc
