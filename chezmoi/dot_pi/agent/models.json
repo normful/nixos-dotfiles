@@ -3,6 +3,20 @@
     "openrouter": {
       "models": [
         {
+          "id": "dots-studio/dots-3-note-preview:free",
+          "name": "Dots Studio: Dots3-Note Preview (free) (added manually in ~/.pi/agent/models.json)",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0,
+          },
+          "contextWindow": 512000,
+          "maxTokens": 512000
+        },
+        {
           "id": "upstage/solar-pro4",
           "name": "Upstage Solar Pro 4 (added manually in ~/.pi/agent/models.json)",
           "reasoning": true,
