@@ -58,9 +58,9 @@ keybind = ctrl+a>,=prompt_surface_title
 # keybind = ctrl+a>x=close_surface
 
 # Adjust font size
-keybind = all:alt+shift+zero=reset_font_size
-keybind = all:alt+shift+minus=decrease_font_size:0.5
-keybind = all:alt+shift+equal=increase_font_size:0.5
+keybind = all:cmd+zero=reset_font_size
+keybind = all:cmd+minus=decrease_font_size:0.5
+keybind = all:cmd+equal=increase_font_size:0.5
 
 # Scrolling
 keybind = cmd+k=scroll_page_up
