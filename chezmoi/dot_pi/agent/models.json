@@ -3,22 +3,8 @@
     "openrouter": {
       "models": [
         {
-          "id": "dots-studio/dots-3-note-preview:free",
-          "name": "Dots Studio: Dots3-Note Preview (free) (added manually in ~/.pi/agent/models.json)",
-          "reasoning": true,
-          "input": ["text", "image"],
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0,
-          },
-          "contextWindow": 512000,
-          "maxTokens": 512000
-        },
-        {
           "id": "upstage/solar-pro4",
-          "name": "Upstage Solar Pro 4 (added manually in ~/.pi/agent/models.json)",
+          "name": "Upstage Solar Pro 4 (added in ~/.pi/agent/models.json)",
           "reasoning": true,
           "input": ["text"],
           "cost": {
@@ -32,7 +18,7 @@
         },
         {
           "id": "deepseek/deepseek-v4-flash-0731",
-          "name": "DeepSeek V4 Flash 0731 (added manually in ~/.pi/agent/models.json)",
+          "name": "Baidu DeepSeek V4 Flash 0731 (added in ~/.pi/agent/models.json)",
           "reasoning": true,
           "thinkingLevelMap": {
             "minimal": null,
@@ -54,24 +40,13 @@
           "compat": {
             "supportsDeveloperRole": false,
             "requiresReasoningContentOnAssistantMessages": true,
-            "thinkingFormat": "deepseek"
-          }
-        },
-      ],
-      "modelOverrides": {
-        "deepseek/deepseek-v4-flash": {
-          "name": "DeepSeek v4 Flash through only Baidu (configured in ~/.pi/agent/models.json)",
-          "reasoning": true,
-          "compat": {
-            "supportsDeveloperRole": false,
-            "requiresReasoningContentOnAssistantMessages": true,
             "thinkingFormat": "deepseek",
             "openRouterRouting": {
               "only": ["baidu"]
             }
           }
         }
-      }
+      ]
     },
     "opencode-go": {
       "modelOverrides": {
