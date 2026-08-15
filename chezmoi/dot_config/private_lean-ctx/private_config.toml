@@ -196,6 +196,14 @@ shell_allowlist_extra = [
     "gem",
     "copy-student-pdfs.sh",
     "obsidian",
+    "ssh-into-production.sh",
+    "strings",
+    "asciidoctor",
+    "ruby",
+    "-n",
+    "-l",
+    "pgrep",
+    "pi",
 ]
 
 [cloud]
