@@ -1,7 +1,7 @@
 {
   "installed": true,
   "firstMessageSent": true,
-  "tasteLearning": true,
+  "tasteLearning": false,
   "theme": "dark",
   "treeFilterMode": "all",
   "onDemandToolDescriptions": true,
@@ -16,7 +16,7 @@
     "branchSummarization": "deepseek/deepseek-v4-flash"
   },
   "branchSummarySkipPrompt": true,
-  "model": "MiniMaxAI/MiniMax-M3",
+  "model": "meta/muse-spark-1.2-contributor",
   "compactMode": "default",
   "reasoningEffort": {
     "meta/muse-spark-1.2-contributor": "high",
