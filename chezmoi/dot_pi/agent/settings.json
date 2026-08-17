@@ -1,13 +1,13 @@
 {
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.2",
   "defaultProvider": "aihubmix-oc",
   "defaultModel": "deep-deepseek-v4-flash-0731",
-  "defaultThinkingLevel": "off",
+  "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
   "branchSummary": {
@@ -360,7 +360,8 @@
     "openrouter/inclusionai/ling-3.0-flash",
     "opencode-go/gpt-5.6-luna",
     "opencode/laguna-s-2.1-free",
-    "opencode/deepseek-v4-flash-free"
+    "opencode/deepseek-v4-flash-free",
+    "aihubmix-oc/coding-glm-5.3"
   ],
   "terminal": {
     "showTerminalProgress": false,

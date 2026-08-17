@@ -204,6 +204,7 @@ shell_allowlist_extra = [
     "-l",
     "pgrep",
     "pi",
+    "titlecheck",
 ]
 
 [cloud]
