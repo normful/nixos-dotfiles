@@ -1,13 +1,13 @@
 {
   "lastChangelogVersion": "0.84.2",
   "defaultProvider": "aihubmix-oc",
-  "defaultModel": "deep-deepseek-v4-flash-0731",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "baidu-deepseek-v4-flash-0731",
+  "defaultThinkingLevel": "low",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
   "branchSummary": {
@@ -353,14 +353,17 @@
     "aihubmix-oc/baidu-deepseek-v4-flash-0731",
     "opencode-go/deepseek-v4-flash",
     "opencode-go/mimo-v2.5",
-    "opencode-go/gpt-5.6-luna",
     "opencode/laguna-s-2.1-free",
     "opencode/deepseek-v4-flash-free",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-oc/coding-glm-5.2-free",
     "aihubmix-oc/coding-glm-5.3",
-    "openrouter/inclusionai/ling-3.0-flash"
+    "openrouter/inclusionai/ling-3.0-flash",
+    "aihubmix-oc/agnes-2.5-flash",
+    "openrouter/google/gemini-3.7-flash",
+    "openrouter/google/gemini-3.7-flash:batch",
+    "opencode-go/hy3"
   ],
   "terminal": {
     "showTerminalProgress": false,

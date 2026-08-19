@@ -205,6 +205,12 @@ shell_allowlist_extra = [
     "pgrep",
     "pi",
     "titlecheck",
+    "cmd",
+    "launchctl",
+    "firecrawl",
+    "agent-browser",
+    "build.sh",
+    "tune.sh",
 ]
 
 [cloud]
