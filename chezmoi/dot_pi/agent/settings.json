@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.2",
   "defaultProvider": "aihubmix-oc",
-  "defaultModel": "baidu-deepseek-v4-flash-0731",
+  "defaultModel": "fireworks-deepseek-v4-flash-0731",
   "defaultThinkingLevel": "low",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -350,7 +350,6 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "aihubmix-oc/baidu-deepseek-v4-flash-0731",
     "opencode-go/deepseek-v4-flash",
     "opencode-go/mimo-v2.5",
     "opencode/laguna-s-2.1-free",
@@ -363,7 +362,8 @@
     "aihubmix-oc/agnes-2.5-flash",
     "openrouter/google/gemini-3.7-flash",
     "openrouter/google/gemini-3.7-flash:batch",
-    "opencode-go/hy3"
+    "opencode-go/hy3",
+    "aihubmix-oc/fireworks-deepseek-v4-flash-0731"
   ],
   "terminal": {
     "showTerminalProgress": false,
