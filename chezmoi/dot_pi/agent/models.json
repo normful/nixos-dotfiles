@@ -49,15 +49,34 @@
       ]
     },
     "opencode-go": {
+      "models": [
+        {
+          "id": "muse-spark-1.2",
+          "name": "Muse Spark 1.2 Contributor (added in ~/.pi/agent/models.json)",
+          "reasoning": true,
+          "input": ["text"],
+          "cost": {
+            "input": 0.1,
+            "output": 0.2,
+            "cacheRead": 0.15,
+            "cacheWrite": 0,
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072
+        }
+      ],
       "modelOverrides": {
         "deepseek-v4-flash": {
-          "name": "DeepSeek V4 Flash (reqs: 6330/hr 105.5/min) ⟐  69.1 · ●  10928k"
+          "name": "DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2612k"
         },
         "deepseek-v4-pro": {
-          "name": "DeepSeek V4 Pro (reqs: 690/hr 11.5/min) ⟐  59.4 · ●  1019k"
+          "name": "DeepSeek V4 Pro (reqs: 210/hr 3.5/min) ⟐  68.8 · ●  358k"
         },
         "glm-5.2": {
           "name": "GLM-5.2 (reqs: 176/hr 2.9/min) ⟐  68.8 · ●  296k"
+        },
+        "glm-5.3": {
+          "name": "GLM-5.3 (reqs: 44/hr 0.7/min) ⟐  74.8 · ●  81k"
         },
         "glm-5.1": {
           "name": "GLM-5.1 (reqs: 176/hr 2.9/min) ⟐  55.8 · ●  240k"
@@ -88,6 +107,9 @@
         },
         "qwen3.6-plus": {
           "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min) ⟐  54.5 · ●  888k"
+        },
+        "muse-spark-1.2": {
+          "name": "Muse Spark 1.2 (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16361k"
         },
         "grok-4.5": {
           "name": "Grok 4.5 (reqs: 24/hr 0.4/min) ⟐  72.4 · ●  43k"
