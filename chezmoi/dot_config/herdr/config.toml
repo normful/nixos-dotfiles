@@ -1,8 +1,9 @@
 onboarding = false
 
 [theme]
-name = "dracula"
+name = "rose-pine"
 
+auto_switch = false
 [terminal]
 new_cwd = "follow"
 
