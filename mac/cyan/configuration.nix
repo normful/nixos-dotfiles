@@ -78,6 +78,7 @@
       mdwatch
       sqlite
       hk
+      opencode
 
       # adoc
       asciidoctor-with-extensions
