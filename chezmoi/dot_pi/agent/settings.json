@@ -360,7 +360,11 @@
     "aihubmix-oc/agnes-2.5-flash",
     "openrouter/inclusionai/ling-3.0-flash",
     "openrouter/google/gemini-3.7-flash",
-    "opencode/deepseek-v4-flash-free"
+    "opencode/deepseek-v4-flash-free",
+    "opencode-go/muse-spark-1.2-contributor",
+    "opencode-go/glm-5.2",
+    "opencode-go/minimax-m3",
+    "opencode/muse-spark-1.2-contributor-free"
   ],
   "terminal": {
     "showTerminalProgress": false,
