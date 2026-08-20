@@ -16,8 +16,8 @@
             "cacheRead": 0.14,
             "cacheWrite": 0
           },
-          "contextWindow": 262144,
-          "maxTokens": 262144,
+          "contextWindow": 256000,
+          "maxTokens": 256000,
           "compat": {
             "supportsDeveloperRole": false,
             "thinkingFormat": "openrouter"
