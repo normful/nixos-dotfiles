@@ -60,7 +60,15 @@
             }
           }
         }
-      ]
+      ],
+      "modelOverrides": {
+        "google/gemini-3.7-flash": {
+          "name": "Gemini 3.7 Flash (reqs: 34/hr 0.6/min) ⟐  76.1 · ●  1,873k"
+        },
+        "inclusionai/ling-3.0-flash": {
+          "name": "Ling-3.0-flash (reqs: 353/hr 5.9/min) ⟐  50.6 · ●  13,024k"
+        }
+      }
     },
     "opencode": {
       "models": [
@@ -88,7 +96,15 @@
           "contextWindow": 1048576,
           "maxTokens": 131072
         }
-      ]
+      ],
+      "modelOverrides": {
+        "muse-spark-1.2-contributor-free": {
+          "name": "Muse Spark 1.2 Contributor Free ⟐  72.2"
+        },
+        "deepseek-v4-flash-free": {
+          "name": "DeepSeek V4 Flash Free ⟐  69.1"
+        }
+      }
     },
     "opencode-go": {
       "models": [
@@ -618,13 +634,13 @@
           "name": "Grok 4.5 (reqs: 24/hr 0.4/min) ⟐  72.4 · ●  43k"
         },
         "muse-spark-1.2": {
-          "name": "Muse Spark 1.2 Contributor (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16361k"
+          "name": "Muse Spark 1.2 Contributor (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16,361k"
         },
         "qwen3.8-max": {
           "name": "Qwen3.8 Max (reqs: 32/hr 0.5/min) ⟐  71.8 · ●  58k"
         },
         "deepseek-v4-flash": {
-          "name": "DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2612k"
+          "name": "DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2,612k"
         },
         "deepseek-v4-pro": {
           "name": "DeepSeek V4 Pro (reqs: 210/hr 3.5/min) ⟐  68.8 · ●  358k"
@@ -648,16 +664,16 @@
           "name": "MiMo-V2.5-Pro (reqs: 650/hr 10.8/min) ⟐  60.2 · ●  981k"
         },
         "hy3": {
-          "name": "Hy3 (reqs: 860/hr 14.3/min) ⟐  58.8 · ●  1264k"
+          "name": "Hy3 (reqs: 860/hr 14.3/min) ⟐  58.8 · ●  1,264k"
         },
         "minimax-m3": {
           "name": "MiniMax M3 (reqs: 640/hr 10.7/min) ⟐  58.6 · ●  938k"
         },
         "mimo-v2.5": {
-          "name": "MiMo-V2.5 (reqs: 6020/hr 100.3/min) ⟐  56.8 · ●  8543k"
+          "name": "MiMo-V2.5 (reqs: 6020/hr 100.3/min) ⟐  56.8 · ●  8,543k"
         },
         "qwen3.7-plus": {
-          "name": "Qwen3.7 Plus (reqs: 860/hr 14.3/min) ⟐  55.9 · ●  1207k"
+          "name": "Qwen3.7 Plus (reqs: 860/hr 14.3/min) ⟐  55.9 · ●  1,207k"
         },
         "glm-5.1": {
           "name": "GLM-5.1 (reqs: 176/hr 2.9/min) ⟐  55.8 · ●  240k"
@@ -667,6 +683,29 @@
         },
         "minimax-m2.7": {
           "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min) ⟐  52.6 · ●  894k"
+        }
+      }
+    },
+    "aihubmix-am": {
+      "modelOverrides": {
+        "cc-minimax-m3": {
+          "name": "CC MiniMax M3 (reqs: 1174/hr 19.6/min) ⟐  58.6 · ●  50,229k"
+        }
+      }
+    },
+    "aihubmix-oc": {
+      "modelOverrides": {
+        "coding-glm-5.3": {
+          "name": "Coding GLM 5.3 (reqs: 1111/hr 18.5/min) ⟐  74.8 · ●  60,649k"
+        },
+        "coding-glm-5.2-free": {
+          "name": "Coding GLM 5.2 (free) ⟐  68.8"
+        },
+        "agnes-2.5-flash": {
+          "name": "Agnes 2.5 Flash (reqs: 1826/hr 30.4/min) ⟐  58.8 · ●  78,400k"
+        },
+        "coding-xiaomi-mimo-v2.5": {
+          "name": "Coding Xiaomi Mimo V2.5 (reqs: 541/hr 9.0/min) ⟐  56.8 · ●  22,421k"
         }
       }
     }
