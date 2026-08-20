@@ -3,30 +3,6 @@
     "openrouter": {
       "models": [
         {
-          "id": "z-ai/glm-5.2:free",
-          "name": "Z.ai: GLM 5.2 free",
-          "api": "openai-completions",
-          "reasoning": true,
-          "input": [
-            "text"
-          ],
-          "cost": {
-            "input": 0.76,
-            "output": 2.42,
-            "cacheRead": 0.14,
-            "cacheWrite": 0
-          },
-          "contextWindow": 256000,
-          "maxTokens": 256000,
-          "compat": {
-            "supportsDeveloperRole": false,
-            "thinkingFormat": "openrouter"
-          },
-          "thinkingLevelMap": {
-            "xhigh": "xhigh"
-          }
-        },
-        {
           "id": "upstage/solar-pro4",
           "name": "Upstage Solar Pro 4 (added in ~/.pi/agent/models.json)",
           "reasoning": true,
@@ -83,22 +59,6 @@
       ]
     },
     "opencode-go": {
-      "models": [
-        {
-          "id": "muse-spark-1.2",
-          "name": "Muse Spark 1.2 Contributor (added in ~/.pi/agent/models.json)",
-          "reasoning": true,
-          "input": ["text"],
-          "cost": {
-            "input": 0.1,
-            "output": 0.2,
-            "cacheRead": 0.15,
-            "cacheWrite": 0,
-          },
-          "contextWindow": 1048576,
-          "maxTokens": 131072
-        }
-      ],
       "modelOverrides": {
         "deepseek-v4-flash": {
           "name": "DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2612k"
