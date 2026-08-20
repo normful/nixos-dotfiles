@@ -6,12 +6,14 @@
           "id": "upstage/solar-pro4",
           "name": "Upstage Solar Pro 4 (added in ~/.pi/agent/models.json)",
           "reasoning": true,
-          "input": ["text"],
+          "input": [
+            "text"
+          ],
           "cost": {
-            "input": 0.30,
-            "output": 1.20,
+            "input": 0.3,
+            "output": 1.2,
             "cacheRead": 0.06,
-            "cacheWrite": 0,
+            "cacheWrite": 0
           },
           "contextWindow": 524288,
           "maxTokens": 128000
@@ -28,12 +30,14 @@
             "xhigh": null,
             "max": "max"
           },
-          "input": ["text"],
+          "input": [
+            "text"
+          ],
           "cost": {
             "input": 0.14,
             "output": 0.28,
             "cacheRead": 0.0028,
-            "cacheWrite": 0,
+            "cacheWrite": 0
           },
           "contextWindow": 1048576,
           "maxTokens": 384000,
@@ -100,8 +104,8 @@
             "image"
           ],
           "cost": {
-            "input": 0.10,
-            "output": 0.20,
+            "input": 0.1,
+            "output": 0.2,
             "cacheRead": 0,
             "cacheWrite": 0
           },
@@ -608,7 +612,7 @@
           "name": "DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2612k"
         },
         "deepseek-v4-pro": {
-          "name": "DeepSeek V4 Pro (reqs: 210/hr 3.5/min) ⟐  68.8 · ●  358k"
+          "name": "DeepSeek V4 Pro (reqs: 210/hr 3.5/min) ⟐  58.7 · ●  305k"
         },
         "glm-5.2": {
           "name": "GLM-5.2 (reqs: 176/hr 2.9/min) ⟐  68.8 · ●  296k"
@@ -647,13 +651,13 @@
           "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min) ⟐  54.5 · ●  888k"
         },
         "muse-spark-1.2": {
-          "name": "Muse Spark 1.2 (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16361k"
+          "name": "Muse Spark 1.2 Contributor (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16361k"
         },
         "grok-4.5": {
           "name": "Grok 4.5 (reqs: 24/hr 0.4/min) ⟐  72.4 · ●  43k"
         },
         "gpt-5.6-luna": {
-          "name": "GPT 5.6 Luna (reqs: 410/hr 6.8/min) ⟐  71.4 · ●  732k"
+          "name": "GPT 5.6 Luna (reqs: 410/hr 6.8/min) ⟐  63.3 · ●  649k"
         },
         "kimi-k3": {
           "name": "Kimi K3 (reqs: 22/hr 0.4/min) ⟐  76.2 · ●  37k"
