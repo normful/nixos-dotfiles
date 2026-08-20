@@ -58,14 +58,17 @@ Where:
 | GLM-5.2 | `GLM-5.2 (reqs: 176/hr 2.9/min) ⟐  68.8 · ●  296k` |
 | Muse Spark 1.2 Contributor | `Muse Spark 1.2 Contributor (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16361k` |
 
+### Ordering
+
+Entries in `providers.opencode-go.modelOverrides` **must be written top-to-bottom in descending order of `⟐` (AA coding index) value** — highest coding first, `null` (no suffix) last. On ties, sort alphabetically by display name ascending. E.g. `Kimi K3 (76.2)` → `GLM-5.3 (74.8)` → … → `MiniMax M2.7 (52.6)`.
+
 ## AA Slug Mapping to OpenCode Go Model IDs
 
 AA uses hyphenated slugs. Map from AA slug to OpenCode Go model ID. For models with multiple effort variants, pick **high → xhigh → max** priority (high if AA has it, else xhigh, else max):
 
 | AA Slug | OpenCode Go Model ID | Effort |
-| `deepseek-v4-pro-0424-high` | `deepseek-v4-pro` | high (fallback to `deepseek-v4-pro` max) |
-| `deepseek-v4-pro` | `deepseek-v4-pro` | max |
-| `deepseek-v4-flash` | `deepseek-v4-flash` | max |
+| `deepseek-v4-pro` | `deepseek-v4-pro` | **0813 Max — 68.8 coding / 53.2 intel / $1.98 blended ($1.32 in / $3.96 out) 75.2 tps** — canonical for DeepSeek V4 Pro |
+| `deepseek-v4-flash` | `deepseek-v4-flash` | **0731 Max — 69.1 coding / 51.8 intel / $0.66 blended ($0.44 in / $1.32 out) 114.6 tps** — canonical for DeepSeek V4 Flash |
 | `glm-5-3` | `glm-5.3` | — |
 | `glm-5-2` | `glm-5.2` | — |
 | `glm-5-1` | `glm-5.1` | — |
@@ -86,6 +89,11 @@ AA uses hyphenated slugs. Map from AA slug to OpenCode Go model ID. For models w
 | `qwen3-7-plus` | `qwen3.7-plus` | — |
 | `qwen3-6-plus` | `qwen3.6-plus` | — |
 | `hy3` | `hy3` | — |
+
+> **DeepSeek canonical (override — use this data specifically):**
+> | AA Slug | Name | Release | Coding | Intelligence | AA Pricing (blended / in / out) | Median tps |
+> | `deepseek-v4-pro` | DeepSeek V4 Pro **0813** (Reasoning, Max) | 2026-08-13 | **68.8** | **53.2** | $1.98 / $1.32 / $3.96 | 75.2 |
+> | `deepseek-v4-flash` | DeepSeek V4 Flash **0731** (Reasoning, Max) | 2026-07-31 | **69.1** | **51.8** | $0.66 / $0.44 / $1.32 | 114.6 |
 
 ## Rate Limit Reference Table
 
@@ -251,16 +259,15 @@ AA_SLUG_TO_MODEL_ID = {
     "qwen3-7-max":             "qwen3.7-max",
     "qwen3-7-plus":            "qwen3.7-plus",
     "qwen3-6-plus":            "qwen3.6-plus",
-    "deepseek-v4-pro-0424-high": "deepseek-v4-pro",
     "deepseek-v4-pro":         "deepseek-v4-pro",
     "deepseek-v4-flash":       "deepseek-v4-flash",
     "hy3":                     "hy3",
 }
 
 # Priority for models with multiple effort variants: high → xhigh → max
+# DeepSeek uses canonical 0813/0731 Max directly (68.8/69.1) — no fallback
 AA_PRIORITY = {
     "gpt-5.6-luna":    ["gpt-5-6-luna-high", "gpt-5-6-luna-xhigh", "gpt-5-6-luna"],
-    "deepseek-v4-pro": ["deepseek-v4-pro-0424-high", "deepseek-v4-pro"],
 }
 
 def load_aa_coding(path="/var/tmp/aa.json"):
@@ -320,9 +327,11 @@ def full_name(display_name, reqs_5hr, reqs_mo, coding):
 
 def main():
     aa_coding = load_aa_coding()
+    # sort by coding descending (nulls last), tie-break alphabetically ascending
+    sorted_items = sorted(MODELS.items(), key=lambda kv: (-(aa_coding.get(DISPLAY_TO_ID[kv[0]]) if aa_coding.get(DISPLAY_TO_ID[kv[0]]) is not None else -1), kv[0]))
 
     print("Model ID | Display Name | Reqs/5hr | Per Hour | Per Min | Coding | Product(k)")
-    for display_name, data in sorted(MODELS.items()):
+    for display_name, data in sorted_items:
         model_id = DISPLAY_TO_ID[display_name]
         coding = aa_coding.get(model_id)
         pH = per_hour(data["reqs_5hr"])
@@ -335,7 +344,7 @@ def main():
 
     print("\n--- JSON snippet ---")
     entries = []
-    for display_name, data in sorted(MODELS.items()):
+    for display_name, data in sorted_items:
         model_id = DISPLAY_TO_ID[display_name]
         coding = aa_coding.get(model_id)
         entries.append(f'        "{model_id}": {{"name": "{full_name(display_name, data["reqs_5hr"], data["reqs_mo"], coding)}"}}')
