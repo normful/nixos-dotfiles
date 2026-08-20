@@ -115,7 +115,14 @@ def extract_sessions():
     # Persist for inspection / skill reuse
     UNIQUE_IDS_TMP.write_text(json.dumps(sorted_ids, indent=2))
     PROVIDER_MAP_TMP.write_text(json.dumps({k: list(v) for k, v in id_to_providers.items()}, indent=2))
-    Path("/tmp/provider_counter.json").write_text(json.dumps({f"{p}::{m}": c for (p, m), c in counter.most_common()}, indent=2))
+    counter_dump = {}
+    for k, c in counter.most_common():
+        if isinstance(k, tuple) and len(k) == 2:
+            p, m = k
+            counter_dump[f"{p}::{m}"] = c
+        else:
+            counter_dump[str(k)] = c
+    Path("/tmp/provider_counter.json").write_text(json.dumps(counter_dump, indent=2))
     print(f"  wrote {UNIQUE_IDS_TMP} ({len(sorted_ids)}) and {PROVIDER_MAP_TMP}")
     return sorted_ids, {k: set(v) for k, v in id_to_providers.items()}
 
