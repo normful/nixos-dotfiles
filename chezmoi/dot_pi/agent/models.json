@@ -3,6 +3,30 @@
     "openrouter": {
       "models": [
         {
+          "id": "z-ai/glm-5.2:free",
+          "name": "Z.ai: GLM 5.2 free",
+          "api": "openai-completions",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0.76,
+            "output": 2.42,
+            "cacheRead": 0.14,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 262144,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "thinkingFormat": "openrouter"
+          },
+          "thinkingLevelMap": {
+            "xhigh": "xhigh"
+          }
+        },
+        {
           "id": "upstage/solar-pro4",
           "name": "Upstage Solar Pro 4 (added in ~/.pi/agent/models.json)",
           "reasoning": true,
