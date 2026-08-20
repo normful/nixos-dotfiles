@@ -1,5 +1,5 @@
 ---
-name: update-opencode-go-models
+name: update-pi-model-overrides
 description: Update OpenCode Go model rate limits and availability in chezmoi/dot_pi/agent/models.json
 ---
 
