@@ -350,17 +350,17 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "opencode-go/deepseek-v4-flash",
     "opencode-go/mimo-v2.5",
-    "opencode/deepseek-v4-flash-free",
+    "opencode-go/hy3",
+    "opencode-go/deepseek-v4-flash",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-oc/coding-glm-5.2-free",
     "aihubmix-oc/coding-glm-5.3",
-    "openrouter/inclusionai/ling-3.0-flash",
     "aihubmix-oc/agnes-2.5-flash",
+    "openrouter/inclusionai/ling-3.0-flash",
     "openrouter/google/gemini-3.7-flash",
-    "opencode-go/hy3"
+    "opencode/deepseek-v4-flash-free"
   ],
   "terminal": {
     "showTerminalProgress": false,
