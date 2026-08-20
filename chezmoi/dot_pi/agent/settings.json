@@ -350,9 +350,14 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enabledModels": [
-    "opencode-go/mimo-v2.5",
-    "opencode-go/hy3",
+    "opencode-go/muse-spark-1.2-contributor",
     "opencode-go/deepseek-v4-flash",
+    "opencode-go/mimo-v2.5",
+    "opencode-go/minimax-m3",
+    "opencode-go/hy3",
+    "opencode-go/glm-5.2",
+    "opencode/muse-spark-1.2-contributor-free",
+    "opencode/deepseek-v4-flash-free",
     "aihubmix-am/cc-minimax-m3",
     "aihubmix-oc/coding-xiaomi-mimo-v2.5",
     "aihubmix-oc/coding-glm-5.2-free",
@@ -360,11 +365,6 @@
     "aihubmix-oc/agnes-2.5-flash",
     "openrouter/inclusionai/ling-3.0-flash",
     "openrouter/google/gemini-3.7-flash",
-    "opencode/deepseek-v4-flash-free",
-    "opencode-go/muse-spark-1.2-contributor",
-    "opencode-go/glm-5.2",
-    "opencode-go/minimax-m3",
-    "opencode/muse-spark-1.2-contributor-free"
   ],
   "terminal": {
     "showTerminalProgress": false,
