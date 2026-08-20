@@ -150,6 +150,8 @@ if status is-interactive
 
     abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
     abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
+    abbr --add epim   "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/models.json"
+    abbr --add epims  "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/models-store.json"
 
     abbr --add cm 'chezmoi'
     abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit config changes'; chezmoi apply"
