@@ -312,7 +312,7 @@
     system.defaults.dock.persistent-apps = [
       # Terminals
       "/Applications/Ghostty.app"
-      "/Applications/kitty.app"
+      # "/Applications/kitty.app"
       # "/Applications/WezTerm.app"
 
       # Browsers
@@ -324,6 +324,7 @@
       "/Applications/Obsidian.app"
 
       # Others
+      "/Applications/MacParakeet.app"
       "/System/Applications/Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
