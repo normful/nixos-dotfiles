@@ -1,4 +1,4 @@
 return {
   'davidmh/mdx.nvim',
-  ft = 'markdown',
+  lazy = false,
 }
