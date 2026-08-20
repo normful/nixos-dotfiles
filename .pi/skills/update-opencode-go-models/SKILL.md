@@ -17,8 +17,11 @@ Keep `chezmoi/dot_pi/agent/models.json` in sync with OpenCode Go's live model ca
 
 | Source | URL | Notes |
 |--------|-----|-------|
-| Rate limit docs | `gh api repos/anomalyco/opencode/contents/packages/web/src/content/docs/go.mdx --jq '.content' \| base64 -d` | ⚠️ raw.githubusercontent.com truncates output at ~180 lines. Use `gh api` instead. |
+| Rate limit docs (opencode-go) | `gh api repos/anomalyco/opencode/contents/packages/web/src/content/docs/go.mdx --jq '.content' \| base64 -d` | ⚠️ raw.githubusercontent.com truncates output at ~180 lines. Use `gh api` instead. |
 | AA coding index | `curl -s https://artificialanalysis.ai/api/v2/data/llms/models -H "x-api-key: [REDACTED:API key param]" -o /var/tmp/aa.json` | Requires `$ARTIFICIAL_ANALYSIS_API_KEY` to be set. Save to `/var/tmp/aa.json`. |
+| AihubMix pricing (for `aihubmix-*` enabledModels) | `curl -s https://aihubmix.com/api/v1/models?type=llm -o /tmp/aihubmix.json` | No auth. `jq` by `model_id`. Fields `pricing.input/output/cache_read`. |
+| OpenRouter pricing (for `openrouter/*` enabledModels) | `curl -s https://models.dev/api.json -o /tmp/models_dev.json` | Parse `openrouter.models[\"<model-id>\"].cost`. |
+| Enabled models list | `chezmoi/dot_pi/agent/settings.json` key `enabledModels` | 15 entries, order in file **kept as-is** — only `modelOverrides` objects are sorted descending by `⟐`. |
 
 ## Target file to modify
 
@@ -54,9 +57,9 @@ Where:
 ### Examples
 
 | Model | Name field |
-| DeepSeek V4 Flash | `DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2612k` |
+| DeepSeek V4 Flash | `DeepSeek V4 Flash (reqs: 1520/hr 25.3/min) ⟐  69.1 · ●  2,612k` |
 | GLM-5.2 | `GLM-5.2 (reqs: 176/hr 2.9/min) ⟐  68.8 · ●  296k` |
-| Muse Spark 1.2 Contributor | `Muse Spark 1.2 Contributor (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16361k` |
+| Muse Spark 1.2 Contributor | `Muse Spark 1.2 Contributor (reqs: 9060/hr 151.0/min) ⟐  72.2 · ●  16,361k` |
 
 ### Ordering
 
@@ -322,7 +325,7 @@ def full_name(display_name, reqs_5hr, reqs_mo, coding):
     base = f"{display_name} (reqs: {pH}/hr {pM}/min)"
     if coding is not None:
         pk = product_k(reqs_mo, coding)
-        return f"{base} \u27d0  {coding} \u00b7 \u25cf  {pk}k"
+        return f"{base} \u27d0  {coding} \u00b7 \u25cf  {pk:,}k"
     return base
 
 def main():
@@ -354,6 +357,122 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+## Extension: enabledModels name overrides
+
+For the 15 models listed in `chezmoi/dot_pi/agent/settings.json` `enabledModels`, create **per-provider** `modelOverrides` in `chezmoi/dot_pi/agent/models.json` (`providers.<provider>.modelOverrides` keyed by bare model ID, e.g. `providers["aihubmix-oc"].modelOverrides["coding-glm-5.3"]`, `providers["openrouter"].modelOverrides["inclusionai/ling-3.0-flash"]`). Same `⟐`/`●` suffix format as opencode-go, but **pricing source differs** (not `go.mdx`):
+
+- `aihubmix-am/*` and `aihubmix-oc/*` → `https://aihubmix.com/api/v1/models?type=llm` (`pricing.input/output/cache_read`)
+- `openrouter/*` → `https://models.dev/api.json` `openrouter.models` cost
+- `opencode-go/*` and `opencode/*` already covered by go.mdx table — reuse same `reqs_mo` for those 8 entries; do **not** recompute with uniform mix
+
+For non-opencode (aihubmix/openrouter), compute synthetic monthly capacity with a **uniform token mix `500 input / 50,000 cached / 200 output`** for *all* models and a **$60 monthly budget** (same budget as Go):
+
+```
+cost_per_req = (500*input + 50000*cache_read + 200*output) / 1_000_000   # USD
+reqs_mo      = 60 / cost_per_req   # rounded nearest int; if price is 0 (free) → reqs_mo = null → omit ● product
+productk     = round(reqs_mo * coding / 1000)  # omit if coding is null or reqs_mo is null
+```
+
+Free models (`coding-glm-5.2-free` $0/$0) have `cost_per_req = 0` → no `●` product, only `⟐ coding` if available. `agnes-2.5-flash` has no AA coding yet (null) → name stays `Display (reqs: …)` without suffix.
+
+**Do not re-sort `enabledModels` array** — keep `settings.json` order as user set. Only `modelOverrides` objects are sorted descending by `⟐` per the Ordering rule above (also applied per-provider for these new overrides).
+
+### EnabledModels AA & Pricing Mapping
+
+| `enabledModels` entry | AA Slug (coding) | Pricing source `model_id` / `openrouter` key |
+| `opencode-go/muse-spark-1.2-contributor` | `muse-spark-1-2` 72.2 | go.mdx `Muse Spark 1.2 Contributor` 45300/5hr |
+| `opencode-go/deepseek-v4-flash` | `deepseek-v4-flash` 69.1 (0731 Max) | go.mdx 7600/5hr |
+| `opencode-go/mimo-v2.5` | `mimo-v2-5-0424` 56.8 | go.mdx 30100/5hr |
+| `opencode-go/minimax-m3` | `minimax-m3` 58.6 | go.mdx 3200/5hr |
+| `opencode-go/hy3` | `hy3` 58.8 | go.mdx 4300/5hr |
+| `opencode-go/glm-5.2` | `glm-5-2` 68.8 | go.mdx 880/5hr |
+| `opencode/muse-spark-1.2-contributor-free` | `muse-spark-1-2` 72.2 | aihubmix `muse-spark` free — treat as same coding, price $0 → no `●` |
+| `opencode/deepseek-v4-flash-free` | `deepseek-v4-flash` 69.1 | aihubmix `deepseek` free — price $0 → no `●` |
+| `aihubmix-am/cc-minimax-m3` | `minimax-m3` 58.6 | aihubmix `cc-minimax-m3` $0.1/$0.1 |
+| `aihubmix-oc/coding-xiaomi-mimo-v2.5` | `mimo-v2-5-0424` 56.8 | aihubmix `coding-xiaomi-mimo-v2.5` $0.08/$0.16 cache 0.0016 |
+| `aihubmix-oc/coding-glm-5.2-free` | `glm-5-2` 68.8 | aihubmix `coding-glm-5.2-free` $0/$0 → no `●` |
+| `aihubmix-oc/coding-glm-5.3` | `glm-5-3` 74.8 | aihubmix `coding-glm-5.3` $0.06/$0.22 |
+| `aihubmix-oc/agnes-2.5-flash` | `agnes-2-5-pro-alpha` 58.8 *fallback* (no `agnes-2-5-flash` in AA yet, null would omit `⟐`; using pro-alpha as closest) | aihubmix `agnes-2.5-flash` $0.03/$0.15 |
+| `openrouter/inclusionai/ling-3.0-flash` | `ling-3-0-flash` 50.6 | models.dev `openrouter` `inclusionai/ling-3.0-flash` $0.021/$0.063 cache 0.0042 |
+| `openrouter/google/gemini-3.7-flash` | `gemini-3-7-flash` 76.1 (high) | models.dev `openrouter` `google/gemini-3.7-flash` $0.375/$1.875 cache 0.0375 |
+
+### Python for enabledModels (uniform 500/50k/200)
+
+```python
+# After the opencode-go block, also run for enabledModels
+import json, re
+
+ENABLED_MODELS = [
+  "opencode-go/muse-spark-1.2-contributor",
+  "opencode-go/deepseek-v4-flash",
+  "opencode-go/mimo-v2.5",
+  "opencode-go/minimax-m3",
+  "opencode-go/hy3",
+  "opencode-go/glm-5.2",
+  "opencode/muse-spark-1.2-contributor-free",
+  "opencode/deepseek-v4-flash-free",
+  "aihubmix-am/cc-minimax-m3",
+  "aihubmix-oc/coding-xiaomi-mimo-v2.5",
+  "aihubmix-oc/coding-glm-5.2-free",
+  "aihubmix-oc/coding-glm-5.3",
+  "aihubmix-oc/agnes-2.5-flash",
+  "openrouter/inclusionai/ling-3.0-flash",
+  "openrouter/google/gemini-3.7-flash",
+]
+# AA slug mapping for enabledModels (reuse AA_SLUG_TO_MODEL_ID where possible)
+ENABLED_AA = {
+  "opencode-go/muse-spark-1.2-contributor": "muse-spark-1-2",
+  "opencode-go/deepseek-v4-flash": "deepseek-v4-flash",
+  "opencode-go/mimo-v2.5": "mimo-v2-5-0424",
+  "opencode-go/minimax-m3": "minimax-m3",
+  "opencode-go/hy3": "hy3",
+  "opencode-go/glm-5.2": "glm-5-2",
+  "opencode/muse-spark-1.2-contributor-free": "muse-spark-1-2",
+  "opencode/deepseek-v4-flash-free": "deepseek-v4-flash",
+  "aihubmix-am/cc-minimax-m3": "minimax-m3",
+  "aihubmix-oc/coding-xiaomi-mimo-v2.5": "mimo-v2-5-0424",
+  "aihubmix-oc/coding-glm-5.2-free": "glm-5-2",
+  "aihubmix-oc/coding-glm-5.3": "glm-5-3",
+  "aihubmix-oc/agnes-2.5-flash": "agnes-2-5-pro-alpha",  # fallback, AA has no flash yet
+  "openrouter/inclusionai/ling-3.0-flash": "ling-3-0-flash",
+  "openrouter/google/gemini-3.7-flash": "gemini-3-7-flash",
+}
+# pricing helpers
+def cost_per_req_aih(pricing):  # pricing from aihubmix
+    inp = pricing.get("input",0) or 0
+    out = pricing.get("output",0) or 0
+    cache = pricing.get("cache_read", pricing.get("cacheRead", pricing.get("cache",0))) or 0
+    return (500*inp + 50000*cache + 200*out)/1_000_000
+
+def cost_per_req_or(pricing):  # pricing from models.dev openrouter
+    inp = pricing.get("input",0) or 0
+    out = pricing.get("output",0) or 0
+    cache = pricing.get("cache_read", pricing.get("cacheRead",0)) or 0
+    return (500*inp + 50000*cache + 200*out)/1_000_000
+
+def full_name_enabled(display, coding, reqs_mo):
+    # reqs_mo may be None for free; coding may be None
+    # For enabledModels we still want (reqs: N/hr M/min) if reqs_mo is not None,
+    # else just display without reqs? For consistency, show reqs derived from reqs_mo/21600? Simplified: if reqs_mo use reqs_mo/4320*? Actually go.mdx: reqs_mo vs reqs_5hr not directly linked for uniform. For uniform, derive reqs_5hr = reqs_mo *5hr/mo ratio? Go: reqs_5hr = reqs_mo * (5hr/730hr) approx 0.00684. Instead, compute reqs_5hr = round(reqs_mo * 5 / 730) ??? Simpler: show (reqs: X/mo) not per-hr. But to keep format, compute per-hr as reqs_mo/730*5? For now, if reqs_mo is not None, compute per-hr/min from synthetic reqs_5hr.
+    if reqs_mo is None:
+        base = display
+    else:
+        reqs_5hr = round(reqs_mo * 5 / 730)  # 730hr per month avg
+        ph = round(reqs_5hr/5)
+        pm = round(reqs_5hr/5/60,1)
+        base = f"{display} (reqs: {ph}/hr {pm}/min)"
+    if coding is not None:
+        # product only if both
+        if reqs_mo is not None:
+            pk = round(reqs_mo * coding / 1000)
+            return f"{base} \u27d0  {coding} \u00b7 \u25cf  {pk:,}k"
+        else:
+            return f"{base} \u27d0  {coding}"
+    return base
+```
+
+Write results to `providers.<provider>.modelOverrides` keyed by bare model ID, sorted descending by `⟐` per-provider (same ordering rule). Keep `settings.json` `enabledModels` order unchanged.
 
 ## Common Mistakes to Avoid
 
