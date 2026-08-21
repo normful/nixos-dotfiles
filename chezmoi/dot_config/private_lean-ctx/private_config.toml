@@ -211,6 +211,17 @@ shell_allowlist_extra = [
     "agent-browser",
     "build.sh",
     "tune.sh",
+    "click",
+    "fill",
+    "goto",
+    "snapshot",
+    "eval",
+    "dialog-accept",
+    "dialog-dismiss",
+    "cookie-list",
+    "cookie-get",
+    "cookie-set",
+    "close",
 ]
 
 [cloud]
