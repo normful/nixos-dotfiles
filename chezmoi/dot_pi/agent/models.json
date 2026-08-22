@@ -710,6 +710,9 @@
         },
         "minimax-m2.7": {
           "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min) ⟐  52.6 · ●  894k"
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision Exp (reqs: 760/hr 12.7/min)"
         }
       }
     },
