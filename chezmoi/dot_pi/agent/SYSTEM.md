@@ -38,3 +38,6 @@ Use `ctx_read` as default read tool. It auto-selects mode (full/map/signatures) 
 `ctx_shell` instead of bash tool.
 `socrates` to ask questions; `advisor` when stuck.
 `workflow` for complex fire-and-forget multi-agent orchestration, but always discuss planned script with user before launching it
+Avoid using `web_fetch` because it costs money, so use `ctx_url_read` first.
+Use `ctx_url_read` to get markdown from PDF URLs, YouTube, GitHub
+Use `web_fetch` only if `ctx_url_read` hard-fails, for exact code fidelity, or batch `urls[]`. Never use `web_fetch` on YouTube links.
