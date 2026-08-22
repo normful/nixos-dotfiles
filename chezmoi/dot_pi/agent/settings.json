@@ -289,7 +289,8 @@
     "npm:pi-lean-ctx",
     "npm:@normful/pi-auto-name",
     "npm:@code-fixer-23/pi-session-manager",
-    "npm:@vanillagreen/pi-session-manager"
+    "npm:@vanillagreen/pi-session-manager",
+    "npm:@parallel-web/pi-extension"
   ],
   "pi-screenshots": {
     "sources": [
@@ -309,7 +310,13 @@
     "-prompts/read-commit.md",
     "-prompts/archive-task.md",
     "-prompts/add-high-value-integration-style-frontend-tests.md",
-    "-prompts/handsfree.md"
+    "-prompts/handsfree.md",
+    "-prompts/tool-play-then-min-rewrite.md",
+    "-prompts/read-entirely-and-rewrite-tidy.md",
+    "-prompts/launch-subagents-from-task-docs-to-improve-plan-and-SPC-specs.md",
+    "-prompts/introspective-uncertainty-register.md",
+    "-prompts/intropsect.md",
+    "-prompts/fix-bugs-and-chat.md"
   ],
   "extensions": [
     "-extensions/gastown.ts",
@@ -339,7 +346,8 @@
     "+extensions/aihubmix-am/index.ts",
     "-extensions/pi-tmux-herdr-auto-rename-window-tab-pane/index.ts",
     "-extensions/bell-and-macOS-notify/index.ts",
-    "-extensions/rpiv-advisor/index.ts"
+    "-extensions/rpiv-advisor/index.ts",
+    "-extensions/rpiv-web-tools/index.ts"
   ],
   "transport": "auto",
   "pi-image-gen": {
