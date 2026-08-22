@@ -235,6 +235,10 @@ shell_allowlist_extra = [
     "alcove",
     "scripts/alcove",
     "go",
+    "with",
+    "def",
+    "apply_patch",
+    "sanitize",
 ]
 
 [cloud]
