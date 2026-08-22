@@ -1,11 +1,11 @@
 {
   "defaults": {
-    "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+    "model": "opencode-go/muse-spark-1.2-contributor",
     "thinking": "xhigh"
   },
   "agents": {
     "codebase-analyzer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "claim-verifier": {
@@ -17,25 +17,25 @@
       "thinking": "high"
     },
     "artifact-code-reviewer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "artifact-coverage-reviewer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "scope-tracer": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     }
   },
   "stages": {
     "research": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "architecture-review": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "high"
     },
     "validate": {
@@ -47,41 +47,41 @@
       "thinking": "high"
     },
     "blueprint": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "commit": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "off"
     },
     "design": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "high"
     }
   },
   "skills": {
     "blueprint": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "commit": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "off"
     },
     "create-handoff": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "design": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "high"
     },
     "discover": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "high"
     },
     "explore": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "high"
     },
     "code-review": {
@@ -93,11 +93,11 @@
       "thinking": "high"
     },
     "resume-handoff": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "frontend-design": {
-      "model": "opencode-go/mimo-v2.5",
+      "model": "opencode-go/deepseek-v4-flash-vision-exp",
       "thinking": "high"
     },
     "plan": {
@@ -105,19 +105,19 @@
       "thinking": "xhigh"
     },
     "implement": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "research": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
     "browser-tool": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "high"
     },
     "hunk-review": {
-      "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+      "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     }
   },
@@ -125,7 +125,7 @@
     "build": {
       "stages": {
         "blueprint": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "xhigh"
         },
         "code-review": {
@@ -133,15 +133,15 @@
           "thinking": "high"
         },
         "commit": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "off"
         },
         "implement": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "xhigh"
         },
         "research": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "xhigh"
         },
         "revise": {
@@ -157,15 +157,15 @@
     "ship": {
       "stages": {
         "blueprint": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "xhigh"
         },
         "commit": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "minimal"
         },
         "implement": {
-          "model": "aihubmix-oc/deep-deepseek-v4-flash-0731",
+          "model": "opencode-go/muse-spark-1.2-contributor",
           "thinking": "xhigh"
         },
         "validate": {
