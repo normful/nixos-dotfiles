@@ -119,6 +119,98 @@
           },
           "contextWindow": 1048576,
           "maxTokens": 131072
+        },
+        {
+          "id": "deepseek-v4-flash-free",
+          "name": "DeepSeek V4 Flash Free",
+          "api": "openai-completions",
+          "provider": "opencode",
+          "baseUrl": "https://opencode.ai/zen/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens",
+            "requiresReasoningContentOnAssistantMessages": true
+          },
+          "contextWindow": 200000,
+          "maxTokens": 128000,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          }
+        },
+        {
+          "id": "mimo-v2.5-free",
+          "name": "MiMo V2.5 Free",
+          "api": "openai-completions",
+          "provider": "opencode",
+          "baseUrl": "https://opencode.ai/zen/v1",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 200000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "hy3-free",
+          "name": "Hy3 Free",
+          "api": "openai-completions",
+          "provider": "opencode",
+          "baseUrl": "https://opencode.ai/zen/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 190000,
+          "maxTokens": 64000,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": null,
+            "max": null
+          }
         }
       ],
       "modelOverrides": {
@@ -645,6 +737,273 @@
           },
           "contextWindow": 1000000,
           "maxTokens": 131072
+        },
+        {
+          "id": "glm-5.3",
+          "name": "GLM-5.3",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          }
+        },
+        {
+          "id": "deepseek-v4-flash-vision-exp",
+          "name": "DeepSeek V4 Flash Vision Exp",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.14,
+            "output": 0.28,
+            "cacheRead": 0.0028,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens",
+            "requiresReasoningContentOnAssistantMessages": true,
+            "thinkingFormat": "deepseek"
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": null,
+            "medium": null,
+            "high": "high",
+            "max": "max"
+          }
+        },
+        {
+          "id": "ox-alpha-free",
+          "name": "Ox Alpha Free",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 131072
+        },
+        {
+          "id": "minimax-m2.5",
+          "name": "MiniMax-M2.5",
+          "api": "anthropic-messages",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.06,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 204800,
+          "maxTokens": 131072
+        },
+        {
+          "id": "kimi-k2.5",
+          "name": "Kimi K2.5",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.6,
+            "output": 3,
+            "cacheRead": 0.08,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens",
+            "supportsLongCacheRetention": false
+          },
+          "contextWindow": 262144,
+          "maxTokens": 65536
+        },
+        {
+          "id": "glm-5",
+          "name": "GLM-5",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 1,
+            "output": 3.2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 204800,
+          "maxTokens": 131072
+        },
+        {
+          "id": "qwen3.5-plus",
+          "name": "Qwen3.5 Plus",
+          "api": "anthropic-messages",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.2,
+            "output": 1.2,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25
+          },
+          "contextWindow": 262144,
+          "maxTokens": 65536
+        },
+        {
+          "id": "mimo-v2-pro",
+          "name": "MiMo V2 Pro",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0.435,
+            "output": 0.87,
+            "cacheRead": 0.003625,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 128000
+        },
+        {
+          "id": "mimo-v2-omni",
+          "name": "MiMo V2 Omni",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.14,
+            "output": 0.28,
+            "cacheRead": 0.0028,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "hy3-preview",
+          "name": "Hy3 Preview",
+          "api": "openai-completions",
+          "provider": "opencode-go",
+          "baseUrl": "https://opencode.ai/zen/go/v1",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0.14,
+            "output": 0.58,
+            "cacheRead": 0.035,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "maxTokensField": "max_tokens"
+          },
+          "contextWindow": 256000,
+          "maxTokens": 64000,
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": null
+          }
         }
       ],
       "modelOverrides": {
@@ -708,11 +1067,17 @@
         "qwen3.6-plus": {
           "name": "Qwen3.6 Plus (reqs: 660/hr 11.0/min) ⟐  54.5 · ●  888k"
         },
+        "minimax-m2.5": {
+          "name": "MiniMax M2.5 (reqs: 680/hr 11.3/min) ⟐  52.6 · ●  894k"
+        },
         "minimax-m2.7": {
           "name": "MiniMax M2.7 (reqs: 680/hr 11.3/min) ⟐  52.6 · ●  894k"
         },
         "deepseek-v4-flash-vision-exp": {
           "name": "DeepSeek V4 Flash Vision Exp (reqs: 760/hr 12.7/min)"
+        },
+        "ox-alpha-free": {
+          "name": "Ox Alpha Free"
         }
       }
     },
