@@ -22,15 +22,15 @@ Prefer **task-specific model assignment** rather than using one model everywhere
 
 | Task type | Preferred model |
 |---|---|
-| Default | `aihubmix-oc/deep-deepseek-v4-flash-0731` |
-| Research / implementation / agent work | `aihubmix-oc/deep-deepseek-v4-flash-0731` |
+| Default | `opencode-go/muse-spark-1.2-contributor` |
+| Research / implementation / agent work | `opencode-go/muse-spark-1.2-contributor` |
 | Planning / code review / revise | `aihubmix-am/cc-minimax-m3` |
 | Validation / slice verification | `opencode-go/mimo-v2.5-pro` |
-| Blueprint | `aihubmix-oc/deep-deepseek-v4-flash-0731` |
-| Architecture / design | `aihubmix-oc/deep-deepseek-v4-flash-0731` |
+| Blueprint | `opencode-go/muse-spark-1.2-contributor` |
+| Architecture / design | `opencode-go/muse-spark-1.2-contributor` |
 | Claim verification | `opencode-go/mimo-v2.5-pro` |
-| Commit generation | `aihubmix-oc/deep-deepseek-v4-flash-0731` (ship preset: `thinking: minimal`) |
-| Visual/frontend design | `opencode-go/mimo-v2.5` |
+| Commit generation | `opencode-go/muse-spark-1.2-contributor` (ship preset: `thinking: minimal`) |
+| Visual/frontend design | `opencode-go/deepseek-v4-flash-vision-exp` |
 
 ## Low-hallucination models
 
@@ -41,7 +41,7 @@ Use `aihubmix-am/cc-minimax-m3` and `opencode-go/mimo-v2.5-pro` for tasks requir
 
 ## Current usage
 
-### `aihubmix-oc/deep-deepseek-v4-flash-0731`
+### `opencode-go/muse-spark-1.2-contributor`
 
 Use for default, research, implementation, blueprint, commit, architecture/design, discovery, and agent support:
 
@@ -95,21 +95,21 @@ Use for planning, code review, and revision:
 - `presets.build.stages.code-review`
 - `presets.build.stages.revise`
 
-### `opencode-go/mimo-v2.5`
+### `opencode-go/deepseek-v4-flash-vision-exp`
 
 Use for visual/frontend design:
 
 - `skills.frontend-design`
 
-This is the non-pro MiMo-V2.5 model. It is a cheap model with image input and visual understanding, so use it for any UI, UX, or visual-related work.
+This is a vision-capable flash model with image input and visual understanding, so use it for any UI, UX, or visual-related work.
 
-<!-- `openrouter/nex-agi/nex-n2-mini` no longer used; discover/explore now use `aihubmix-oc/deep-deepseek-v4-flash-0731` -->
-<!-- `aihubmix-oc/qwen3.8-max-preview` no longer used; architecture/design now use `aihubmix-oc/deep-deepseek-v4-flash-0731` -->
+<!-- `openrouter/nex-agi/nex-n2-mini` no longer used; discover/explore now use `opencode-go/muse-spark-1.2-contributor` -->
+<!-- `aihubmix-oc/qwen3.8-max-preview` no longer used; architecture/design now use `opencode-go/muse-spark-1.2-contributor` -->
 
 ## Maintenance rules
 
-- Keep `skills.frontend-design` on `opencode-go/mimo-v2.5` for visual work.
-- Keep commit generation on `aihubmix-oc/deep-deepseek-v4-flash-0731` with minimal or no thinking for speed. Use `thinking: minimal` for the ship preset commit stage.
+- Keep `skills.frontend-design` on `opencode-go/deepseek-v4-flash-vision-exp` for visual work.
+- Keep commit generation on `opencode-go/muse-spark-1.2-contributor` with minimal or no thinking for speed. Use `thinking: minimal` for the ship preset commit stage.
 - Use `opencode-go/mimo-v2.5-pro` for validation, slice verification, and claim verification.
 - Use `aihubmix-am/cc-minimax-m3` for code review, planning, and revise.
-- Use `aihubmix-oc/deep-deepseek-v4-flash-0731` for research, implementation, handoffs, blueprint, architecture/design, and agent support.
+- Use `opencode-go/muse-spark-1.2-contributor` for research, implementation, handoffs, blueprint, architecture/design, and agent support.
