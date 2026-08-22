@@ -79,6 +79,7 @@
       sqlite
       hk
       opencode
+      vultr-cli
 
       # adoc
       asciidoctor-with-extensions
