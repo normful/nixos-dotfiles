@@ -783,9 +783,9 @@
             "image"
           ],
           "cost": {
-            "input": 0.14,
-            "output": 0.28,
-            "cacheRead": 0.0028,
+            "input": 0.22,
+            "output": 0.66,
+            "cacheRead": 0.007,
             "cacheWrite": 0
           },
           "compat": {
@@ -826,7 +826,7 @@
             "supportsDeveloperRole": false,
             "maxTokensField": "max_tokens"
           },
-          "contextWindow": 1048576,
+          "contextWindow": 1000000,
           "maxTokens": 131072
         },
         {
@@ -934,9 +934,9 @@
             "text"
           ],
           "cost": {
-            "input": 0.435,
-            "output": 0.87,
-            "cacheRead": 0.003625,
+            "input": 1,
+            "output": 3,
+            "cacheRead": 0.2,
             "cacheWrite": 0
           },
           "compat": {
@@ -959,9 +959,9 @@
             "image"
           ],
           "cost": {
-            "input": 0.14,
-            "output": 0.28,
-            "cacheRead": 0.0028,
+            "input": 0.4,
+            "output": 2,
+            "cacheRead": 0.08,
             "cacheWrite": 0
           },
           "compat": {
@@ -969,7 +969,7 @@
             "supportsDeveloperRole": false,
             "maxTokensField": "max_tokens"
           },
-          "contextWindow": 1000000,
+          "contextWindow": 262144,
           "maxTokens": 128000
         },
         {
