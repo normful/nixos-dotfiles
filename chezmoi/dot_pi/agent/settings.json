@@ -1,13 +1,13 @@
 {
   "lastChangelogVersion": "0.84.2",
-  "defaultProvider": "opencode",
-  "defaultModel": "x-preview-f-free",
+  "defaultProvider": "aihubmix-oc",
+  "defaultModel": "deepseek-v4-flash-0731-fast",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,
   "editorPaddingX": 3,
   "showHardwareCursor": true,
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "steeringMode": "one-at-a-time",
   "followUpMode": "one-at-a-time",
   "branchSummary": {
@@ -171,7 +171,8 @@
     "-skills/curated-ai-skills/firecrawl-seo-audit/SKILL.md",
     "-skills/curated-ai-skills/firecrawl-website-design-clone/SKILL.md",
     "-skills/curated-ai-skills/firecrawl-workflows/SKILL.md",
-    "-skills/curated-ai-skills/firecrawl/SKILL.md"
+    "-skills/curated-ai-skills/firecrawl/SKILL.md",
+    "-skills/curated-ai-skills/rpiv-pi-skills/quick-plan/SKILL.md"
   ],
   "packages": [
     {
@@ -368,7 +369,9 @@
     "openrouter/google/gemini-3.7-flash",
     "vercel-ai-gateway/inclusionai/ling-3.0-flash",
     "vercel-ai-gateway/xiaomi/mimo-v2.5",
-    "vercel-ai-gateway/openai/gpt-5.4-nano"
+    "vercel-ai-gateway/openai/gpt-5.4-nano",
+    "aihubmix-oc/deepseek-v4-flash-0731-fast",
+    "aihubmix-oc/deep-deepseek-v4-flash-vision-exp"
   ],
   "terminal": {
     "showTerminalProgress": false,

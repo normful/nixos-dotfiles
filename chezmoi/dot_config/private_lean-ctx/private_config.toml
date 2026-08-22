@@ -222,6 +222,19 @@ shell_allowlist_extra = [
     "cookie-get",
     "cookie-set",
     "close",
+    "-s",
+    "ss",
+    "lsof",
+    "break",
+    "GIT_EDITOR",
+    "set",
+    "otool",
+    "codesign",
+    "hexdump",
+    "install-launchd.sh",
+    "alcove",
+    "scripts/alcove",
+    "go",
 ]
 
 [cloud]
