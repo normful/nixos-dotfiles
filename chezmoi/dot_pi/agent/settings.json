@@ -360,7 +360,6 @@
   "enableInstallTelemetry": false,
   "enabledModels": [
     "opencode/muse-spark-1.2-contributor-free",
-    "opencode/deepseek-v4-flash-free",
     "opencode-go/muse-spark-1.2-contributor",
     "opencode-go/deepseek-v4-flash",
     "opencode-go/hy3",
