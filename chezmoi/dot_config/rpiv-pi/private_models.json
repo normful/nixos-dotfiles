@@ -52,7 +52,7 @@
     },
     "commit": {
       "model": "opencode-go/muse-spark-1.2-contributor",
-      "thinking": "off"
+      "thinking": "low"
     },
     "design": {
       "model": "opencode-go/muse-spark-1.2-contributor",
@@ -66,9 +66,9 @@
     },
     "commit": {
       "model": "opencode-go/muse-spark-1.2-contributor",
-      "thinking": "off"
+      "thinking": "low"
     },
-    "create-handoff": {
+    "create-handlow": {
       "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
@@ -92,7 +92,7 @@
       "model": "opencode-go/mimo-v2.5-pro",
       "thinking": "high"
     },
-    "resume-handoff": {
+    "resume-handlow": {
       "model": "opencode-go/muse-spark-1.2-contributor",
       "thinking": "xhigh"
     },
@@ -134,7 +134,7 @@
         },
         "commit": {
           "model": "opencode-go/muse-spark-1.2-contributor",
-          "thinking": "off"
+          "thinking": "low"
         },
         "implement": {
           "model": "opencode-go/muse-spark-1.2-contributor",

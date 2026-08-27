@@ -74,12 +74,11 @@
       jre25_minimal
       terminal-notifier
       atuin
-      zellij
       mdwatch
       sqlite
       hk
       opencode
-      vultr-cli
+      himalaya
 
       # adoc
       asciidoctor-with-extensions
@@ -330,6 +329,7 @@
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
+      "/Applications/Discord.app"
       "/Applications/OptiCull.app"
       "/Applications/darktable.app"
       "/Applications/QuickShade.app"

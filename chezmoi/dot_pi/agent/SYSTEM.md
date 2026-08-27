@@ -21,10 +21,18 @@ to be a secret, credential, or key — including but not limited to:
  `*secret*`, `*credential*`, `*key*`, `*token*`, `*password*`, `cert-*`,
  `*.pem`, `service-account*`, `secrets.yml`, etc.)
 
-⚠️ You MAY call CLI commands that create secrets, but treat them as opaque, and
-never read or run commands that would print out created secrets.
+⚠️ You MAY call CLI commands that create secrets, but treat the output as opaque
+the instant it exists: mask it immediately (e.g., `::add-mask::` in GitHub Actions), store in a `600`-permission file, never `echo`/`jq .token` to logs, and `shred` after storing it in your secret manager.
 
 ⛔ If the user asks you to read a file that has even a MINIMAL CHANCE OF containing secrets, refuse.
+
+# Handling Secrets — generated tokens
+
+- Treat any **generated secret** (Bearer token, API key, session token) as opaque the instant it exists: **mask it immediately** before any `echo`, `jq`, or `head` that touches it. Example for GitHub Actions: `echo "::add-mask::$TOKEN"`; other CI/secret managers have equivalent masking — use it.
+- Never `echo "$TOKEN"` or `cat` a file like `*.token` to the conversation or logs. If you must debug, show only a short prefix (`cut -c1-8` + `***`) plus metadata like `len` or expiry (`jq .exp`), never the full value — even a truncated `cut -c1-60` persists in transcripts.
+- Create tokens via **cryptographic operation**, not by reading the private key: using a key as input to `ssh-keygen -Y sign -f <key> -n <namespace>` is allowed; `cat ~/.ssh/id_ed25519` or `cat *key*` to display the key is not. The key is an input to a crypto op, not a string to copy.
+- When storing a secret, avoid leaking it via command line or shell history: prefer piping a `600`-permission file (`secret_store set NAME < /tmp/token`, `cat /tmp/token | secret_store --body-file -`) over `--body "$(cat /tmp/token)"` which appears in `ps` output. `chmod 600` the file and `shred -u` (or `rm -P`) after use.
+- Distinguish **create vs. read/list**: commands that *create* a secret (`generate-api-key`, `ssh-keygen -Y sign`) may be run but their output must be masked instantly; commands that *list* metadata (`ssh-key list --json`, `vault list`) are safe to log, but any field containing a secret value must be extracted with `jq -r` and masked, never dumped with `jq .`.
 
 # Stay in working dir
 

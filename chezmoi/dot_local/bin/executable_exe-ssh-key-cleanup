@@ -1,0 +1,444 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ==============================================================================
+# bin/exe-ssh-key-cleanup — Local orphan cleanup for exe.dev SSH keys
+# ==============================================================================
+#
+# INTENT & PROBLEM IT SOLVES
+# --------------------------
+# Every PR that runs `.github/workflows/pr-exe-smoke.yml` provisions an ephemeral
+# exe.dev VM named `jr4-pr-<PR>-<SHORT>` (legacy `pr-<PR>-<SHORT>`) and then
+# generates a per-VM API key via:
+#   ssh-key generate-api-key --vm=$VM --label=$VM-smoke --json
+# That key is stored as an exe.dev SSH key with label `$VM-smoke` (e.g.
+# `jr4-pr-1-235107a-smoke`). It is used as the Bearer token for the private
+# HTTPS proxy (`X-Exedev-Authorization: Bearer <token>`).
+#
+# The complementary workflow `.github/workflows/pr-exe-cleanup.yml` (triggered on
+# PR close) deletes the VM via `rm $VM`. However, `rm` does NOT auto-delete the
+# associated `*-smoke` SSH key — the key is an account-level resource, not a
+# VM-level one. We verified this: after `rm jr4-pr-1-695f6f0` the key
+# `jr4-pr-1-695f6f0-smoke` persisted, and later `jr4-pr-1-f64c059-smoke` and
+# `jr4-pr-1-235107a-smoke` were also orphaned. With 0 VMs running, all
+# `*-smoke`/`*-nightly` keys are orphans and cost-free but clutter the account
+# and risk hitting key limits. At time of writing there were 23 orphans.
+#
+# The GitHub Actions `EXE_API_TOKEN` used by `pr-exe-cleanup.yml` currently lacks
+# the `ssh-key remove` permission (verified: `{"error":"command not allowed by
+# token permissions"}` on `exe "ssh-key remove jr4-pr-1-235107a-smoke"` in run
+# 32964325294). Therefore automated cleanup cannot delete keys until the repo
+# secret is regenerated with `ssh-key remove` in its allowlist. Until then, this
+# script is the *local* workaround: it uses *your* local SSH authentication
+# (`ssh exe.dev`, key `cyan` — `~/.ssh/id_ed25519`) which *does* have full
+# `ssh-key` permissions, to list and delete orphans on demand. Use it after
+# closing a PR or periodically to keep the account tidy.
+#
+# REQUIREMENTS
+# ------------
+# - `ssh` configured with Host `exe.dev` (user `norman`, key `cyan` at
+#   `~/.ssh/id_ed25519`). Test with `ssh exe.dev ls` / `ssh exe.dev ssh-key list`.
+# - `jq` (brew install jq) — used for all JSON parsing; script fails fast if missing.
+# - No GitHub token needed; this script never uses `EXE_API_TOKEN` or `curl`
+#   `https://exe.dev/exec`. It is purely local-SSH.
+# - Key naming conventions: ephemeral keys end in `-smoke` (PR VM) or `-nightly`
+#   (nightly full-E2E). Only these are considered for deletion; other keys (e.g.
+#   `cyan`) are ignored.
+#
+# ORPHAN DETERMINATION ALGORITHM (the core of the script)
+# -------------------------------------------------------
+# 1. Fetch keys: `ssh exe.dev ssh-key list --json` → `{"ssh_keys":[{"name", "added_at",
+#    "current":bool, "fingerprint", ...}, ...]}`. Also handles the rarer
+#    `{"keys":[...]}` and stdout-wrapped `{"stdout":"{\"ssh_keys\":...}"}` shapes
+#    for robustness (see normalization with `try ... catch`).
+# 2. Fetch VMs: `ssh exe.dev ls --json` → `{"vms":[{"vm_name":"jr4-pr-1-...", ...}, ...]}`.
+#    With no VMs, `{"vms":[]}`.
+# 3. For each key, derive:
+#      name        = .name
+#      current     = .current // false   (true for the key you authenticated with, here `cyan`)
+#      ephemeral   = name | test("-(smoke|nightly)$")  → true for `pr-13-*-smoke`, false for `cyan`
+#      vm_base     = if ephemeral then name | sub("-smoke$";"") | sub("-nightly$";"") else "" end
+#                    e.g. `pr-13-3c0e71a-smoke` → `pr-13-3c0e71a`; `cyan` → `""`
+#      orphan      = vm_base != "" and (vm_names | index(vm_base) | not) and (current | not)
+#                    → true only if: has a base, base NOT in current VM list, and not current.
+#    Examples with `vms=[]`:
+#      `cyan` (current:true, ephemeral:false, base:"") → orphan=false
+#      `pr-13-3c0e71a-smoke` (ephemeral:true, base:"pr-13-3c0e71a" not in []) → orphan=true
+#      `jr4-pr-1-235107a-smoke` (same) → orphan=true
+#    If `pr-17-56a3ac7` VM were still running, its key `pr-17-56a3ac7-smoke` would have
+#    base `pr-17-56a3ac7` found in `vm_names` → orphan=false → NEVER deleted.
+#
+# SAFETY INVARIANTS (HARD RULES — enforced at every selection layer)
+# ------------------------------------------------------------------
+# 1. `cyan` is NEVER deleted. Even if you type `cyan`, `--filter cyan`, or `A`,
+#    every `select()` that builds a deletion candidate includes `and .name != "cyan"`,
+#    and the delete loop has an explicit `if [[ "$name" == "cyan" ]]; then skip; fi`.
+#    This is a name check, not just a `current` check, so it holds even if the
+#    `current` flag were ever mis-reported.
+# 2. Non-orphan keys are NEVER deleted. Every deletion path requires
+#    `and .orphan==true`. If a VM still exists, its key is in-use and skipped.
+#    The delete loop double-checks `is_orphan != "true" → skip`.
+# 3. Current key (`current:true`) is never deleted (redundant with above, but
+#    enforced via `and .current==false` everywhere).
+# 4. Interactive confirmation is required unless `--yes` is given. Even with `--yes`,
+#    only orphans are deleted. Dry-run (`--dry-run`) never deletes.
+# 5. The script is idempotent: re-running after cleanup finds `orphan==0` and exits
+#    with "No orphaned keys...".
+#
+# DESIGN DECISIONS & TRADE-OFFS
+# -----------------------------
+# - Uses `ssh exe.dev` not `curl https://exe.dev/exec` → no token, no 30s timeout,
+#   no 64KB limit, and `ssh-key remove` works with your local key. The CI token
+#   path is intentionally not used here; fixing the token is a separate repo-secret
+#   rotation task.
+# - Normalizes both `ssh_keys` and `keys` top-level keys and handles stdout-wrapped
+#   JSON for forward-compatibility with the HTTPS API shape.
+# - Sorts display: `current` first, then `orphan` first, then oldest `added_at`
+#   first — so the oldest orphans (most likely safe to delete) appear top.
+# - Supports regex filtering via `--filter` (jq `test($filter)`) so you can scope
+#   to `jr4-`, `pr-13-`, etc., without deleting unrelated `kinki` keys if you share
+#   the account.
+# - The script lives in two places: versioned `bin/exe-ssh-key-cleanup` (for the
+#   team) and installed `~/.local/bin/exe-ssh-key-cleanup` (for your global PATH).
+#   Both are kept in sync (`cp bin/... ~/.local/bin/...`).
+#
+# RELATION TO CI WORKFLOWS
+# ------------------------
+# - `pr-exe-smoke.yml` provision step: `ssh-key generate-api-key --vm=$VM --label=$VM-smoke`
+#   now also does `ssh-key remove $VM-smoke || true` before generation for
+#   idempotency on retries (cancel-in-progress can leave a stale label).
+# - `pr-exe-cleanup.yml` now attempts `ssh-key list` + `ssh-key remove $KEY` per
+#   PR after VM deletion, but currently fails with token permission error until
+#   `EXE_API_TOKEN` is regenerated with `ssh-key remove`. This local script is the
+#   workaround until that rotation happens. Once the token is fixed, the CI cleanup
+#   will handle orphans automatically and this script becomes optional/periodic.
+#
+# USAGE
+# -----
+#   bin/exe-ssh-key-cleanup                  # interactive: list 24 keys, highlight orphans, prompt
+#   bin/exe-ssh-key-cleanup --orphans        # pre-filter to orphans only (23 with 0 VMs)
+#   bin/exe-ssh-key-cleanup --filter 'jr4-'  # regex on name (jq test)
+#   bin/exe-ssh-key-cleanup --dry-run        # list only, never deletes
+#   bin/exe-ssh-key-cleanup --yes --orphans  # non-interactive: delete all orphans
+#   bin/exe-ssh-key-cleanup --list --json    # machine-readable, no prompts
+#   exe-ssh-key-cleanup --list               # from any dir (via ~/.local/bin in PATH)
+#
+# EXIT CODES
+#   0 = success (including “nothing to do”)
+#   1 = missing deps, no keys, user abort, or all deletions failed
+#
+# DEPENDENCIES
+#   `ssh` (Host exe.dev), `jq`
+#
+usage() {
+  sed -n '2,150p' "$0" | sed 's/^# //;s/^#//'
+  exit 0
+}
+
+# ---- arg parsing ----
+FILTER="."
+ORPHANS_ONLY=0
+DRY_RUN=0
+YES=0
+LIST_ONLY=0
+JSON_OUT=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help) usage ;;
+    --filter) FILTER="${2:-}"; shift 2 ;;
+    --filter=*) FILTER="${1#*=}"; shift ;;
+    --orphans|--orphan|--orphaned) ORPHANS_ONLY=1; shift ;;
+    --dry-run|--dry) DRY_RUN=1; shift ;;
+    --yes|-y|--force) YES=1; shift ;;
+    --list) LIST_ONLY=1; shift ;;
+    --json) JSON_OUT=1; shift ;;
+    --) shift; break ;;
+    -*) echo "unknown option: $1" >&2; usage ;;
+    *) break ;;
+  esac
+done
+
+# ---- deps ----
+if ! command -v ssh >/dev/null 2>&1; then echo "missing: ssh" >&2; exit 1; fi
+if ! command -v jq >/dev/null 2>&1; then echo "missing: jq (brew install jq)" >&2; exit 1; fi
+if ! ssh -G exe.dev >/dev/null 2>&1; then echo "ssh host exe.dev not configured" >&2; exit 1; fi
+
+# ---- fetch ----
+echo "Fetching keys via ssh exe.dev ssh-key list --json ..." >&2
+KEYS_JSON=$(ssh exe.dev ssh-key\ list\ --json 2>&1) || { echo "failed: ssh exe.dev ssh-key list --json" >&2; exit 1; }
+
+# Validate JSON shape: expect {"ssh_keys":[...]} or {"keys":[...]}
+if ! echo "$KEYS_JSON" | jq -e 'has("ssh_keys") or has("keys") or has("stdout")' >/dev/null 2>&1; then
+  echo "unexpected JSON from ssh-key list:" >&2
+  echo "$KEYS_JSON" | head -c 1000 >&2; echo >&2
+  exit 1
+fi
+
+# Normalize to array at .keys (handle both ssh_keys / keys / stdout-wrapped)
+KEYS_JSON_NORM=$(echo "$KEYS_JSON" | jq -c '
+  if has("ssh_keys") then {keys: .ssh_keys}
+  elif has("keys") then {keys: .keys}
+  elif has("stdout") then (try (.stdout | fromjson | if has("ssh_keys") then {keys: .ssh_keys} else {keys: .keys} end) catch {keys: []})
+  else {keys: []}
+  end
+')
+
+echo "Fetching VMs via ssh exe.dev ls --json ..." >&2
+VMS_JSON=$(ssh exe.dev ls\ --json 2>&1 || echo '{"vms":[]}')
+# Normalize VMs
+VMS_JSON_NORM=$(echo "$VMS_JSON" | jq -c '
+  if has("vms") then {vms: .vms}
+  elif has("stdout") then (try (.stdout | fromjson | {vms: .vms}) catch {vms: []})
+  else {vms: []}
+  end
+')
+
+VM_NAMES=$(echo "$VMS_JSON_NORM" | jq -r '.vms[].vm_name // .vms[].name // empty' 2>/dev/null || true)
+
+# ---- build table ----
+# For each key, compute derived fields: is_current, is_ephemeral (smoke|nightly), vm_base (name minus -smoke|-nightly), orphan (vm_base not in VM_NAMES and not current)
+# Output TSV: name | added_at | current | ephemeral | orphan | fingerprint_short
+
+# Build set of VM names as JSON array for jq
+VM_JSON_ARRAY=$(printf '%s\n' "$VM_NAMES" | jq -R . | jq -s -c '.' 2>/dev/null || echo '[]')
+
+TABLE_JSON=$(echo "$KEYS_JSON_NORM" | jq -c --argjson vms "$VM_JSON_ARRAY" --arg filter "$FILTER" '
+  .keys
+  | map(
+      .name as $n
+      | .added_at as $a
+      | (.current // false) as $cur
+      | ($n | test("-(smoke|nightly)$")) as $eph
+      | (if $eph then ($n | sub("-smoke$";"") | sub("-nightly$";"")) else "" end) as $base
+      | ($base != "" and ($vms | index($base) | not) and ($cur | not)) as $orphan
+      | {
+          name: $n,
+          added_at: ($a // ""),
+          current: $cur,
+          ephemeral: $eph,
+          vm_base: $base,
+          orphan: $orphan,
+          fingerprint: (.fingerprint // "" | split(":")[1] // "" | .[0:8]),
+          last_used_at: (.last_used_at // "")
+        }
+    )
+  # apply regex filter on name if provided (distinct from orphan filter)
+  | map(select(.name | test($filter)))
+  # sort: current first, then orphans first, then newest added_at last (so oldest orphans top)
+  | sort_by([(.current | not), (.orphan | not), .added_at])
+')
+
+if [[ "$JSON_OUT" == "1" ]]; then
+  echo "$TABLE_JSON" | jq .
+  exit 0
+fi
+
+TOTAL=$(echo "$TABLE_JSON" | jq 'length')
+NON_CURRENT=$(echo "$TABLE_JSON" | jq '[.[] | select(.current==false)] | length')
+ORPHAN_COUNT=$(echo "$TABLE_JSON" | jq '[.[] | select(.orphan==true)] | length')
+EPHEMERAL_COUNT=$(echo "$TABLE_JSON" | jq '[.[] | select(.ephemeral==true)] | length')
+
+if [[ "$TOTAL" -eq 0 ]]; then
+  echo "No keys returned." >&2
+  exit 0
+fi
+
+echo "" >&2
+echo "VMs running: $(echo "$VMS_JSON_NORM" | jq '.vms | length')  $(echo "$VM_NAMES" | tr '\n' ' ' | head -c 200)" >&2
+echo "Keys: total=$TOTAL  non-current=$NON_CURRENT  ephemeral(smoke|nightly)=$EPHEMERAL_COUNT  orphaned=$ORPHAN_COUNT  current=$(echo "$TABLE_JSON" | jq -r '.[] | select(.current==true) | .name' | tr '\n' ',' | sed 's/,$//')" >&2
+echo "" >&2
+
+# If --list, just print table and exit
+if [[ "$LIST_ONLY" == "1" ]]; then
+  # fall through to table print below, then exit without prompt
+  :
+fi
+
+# Print table
+# Header
+printf "%3s  %-32s  %-10s  %-7s  %-7s  %-10s  %s\n" "#" "NAME" "ADDED_AT" "CUR" "ORPHAN" "FPRINT" "VM_BASE" >&2
+printf "%3s  %-32s  %-10s  %-7s  %-7s  %-10s  %s\n" "---" "--------------------------------" "----------" "-------" "-------" "----------" "-------" >&2
+
+# Build display list (optionally filter to orphans)
+DISPLAY_JSON="$TABLE_JSON"
+if [[ "$ORPHANS_ONLY" == "1" ]]; then
+  DISPLAY_JSON=$(echo "$TABLE_JSON" | jq '[.[] | select(.orphan==true)]')
+fi
+DISPLAY_COUNT=$(echo "$DISPLAY_JSON" | jq 'length')
+
+if [[ "$DISPLAY_COUNT" -eq 0 ]]; then
+  if [[ "$ORPHANS_ONLY" == "1" ]]; then
+    echo "No orphaned keys matching filter '$FILTER'." >&2
+  else
+    echo "No keys matching filter '$FILTER'." >&2
+  fi
+  exit 0
+fi
+
+# Print rows with index
+echo "$DISPLAY_JSON" | jq -r '
+  to_entries[]
+  | "\(.key) \(.value.name) \(.value.added_at) \(.value.current) \(.value.orphan) \(.value.fingerprint) \(.value.vm_base)"
+' | while read -r idx name added cur orphan fp base; do
+  # color markers: orphan = yellow, current = green
+  marker=""
+  if [[ "$cur" == "true" ]]; then
+    marker="*current*"
+  elif [[ "$orphan" == "true" ]]; then
+    marker="orphan"
+  fi
+  # trim added_at to date part
+  added_short=$(echo "$added" | cut -dT -f1)
+  printf "%3d  %-32s  %-10s  %-7s  %-7s  %-10s  %s  %s\n" "$idx" "$name" "$added_short" "$cur" "$orphan" "$fp" "$base" "$marker" >&2
+done
+
+echo "" >&2
+
+if [[ "$LIST_ONLY" == "1" ]]; then
+  if [[ "$DRY_RUN" == "1" ]]; then echo "(dry-run, not deleting)" >&2; fi
+  exit 0
+fi
+
+if [[ "$DRY_RUN" == "1" ]]; then
+  would=$(echo "$DISPLAY_JSON" | jq -r '[.[] | select(.current==false and .orphan==true and .name != "cyan")] | length')
+  echo "Dry-run: would delete $would orphan keys (cyan protected, non-orphan never deleted; $ORPHAN_COUNT orphans total, $NON_CURRENT non-current)." >&2
+  echo "Re-run without --dry-run to actually delete." >&2
+  exit 0
+fi
+
+# ---- selection ----
+# If --yes, delete all displayed non-current keys (or all orphans if --orphans)
+# Otherwise interactive prompt
+
+if [[ "$YES" == "1" ]]; then
+  # HARD RULES: never delete cyan, never delete non-orphan (VM still exists)
+  if [[ "$ORPHANS_ONLY" == "1" ]]; then
+    TO_DELETE_JSON=$(echo "$DISPLAY_JSON" | jq '[.[] | select(.current==false and .orphan==true and .name != "cyan")]')
+  else
+    # Without --orphans, --yes still only deletes orphans (safety: non-orphan are in-use)
+    TO_DELETE_JSON=$(echo "$DISPLAY_JSON" | jq '[.[] | select(.current==false and .orphan==true and .name != "cyan")]')
+  fi
+  echo "Non-interactive --yes: will delete $(echo "$TO_DELETE_JSON" | jq 'length') keys (orphans only, cyan protected)." >&2
+else
+  echo "Select keys to delete:" >&2
+  echo "  - Enter indices like: 0,2,5  or  0-3  or  a (=all orphaned)  or  A (=all non-current shown)" >&2
+  echo "  - Or enter names like: pr-13-3c0e71a-smoke" >&2
+  echo "  - Leave empty to cancel, 'q' to quit" >&2
+  printf "Delete> " >&2
+  read -r sel || sel=""
+  if [[ "$sel" == "q" || "$sel" == "quit" ]]; then echo "Cancelled." >&2; exit 0; fi
+  if [[ -z "$sel" ]]; then echo "No selection — cancelled." >&2; exit 0; fi
+
+  # Parse selection into list of names
+  # Expand ranges and lists
+  TO_DELETE_NAMES=()
+  if [[ "$sel" == "a" ]]; then
+    # all orphaned (cyan protected, non-orphan never)
+    TO_DELETE_NAMES=($(echo "$DISPLAY_JSON" | jq -r '.[] | select(.orphan==true and .current==false and .name != "cyan") | .name'))
+  elif [[ "$sel" == "A" ]]; then
+    # A = all orphans as well (non-orphan are in-use, never delete — cyan also protected)
+    TO_DELETE_NAMES=($(echo "$DISPLAY_JSON" | jq -r '.[] | select(.orphan==true and .current==false and .name != "cyan") | .name'))
+  elif [[ "$sel" == *","* || "$sel" == *"-"* || "$sel" =~ ^[0-9\ ]+$ ]]; then
+    # numeric indices
+    # Expand comma and dash ranges via python-ish: use bash loop
+    # Normalize: split by comma
+    IFS=',' read -ra PARTS <<< "$sel"
+    for p in "${PARTS[@]}"; do
+      p=$(echo "$p" | xargs) # trim
+      if [[ "$p" == *"-"* ]]; then
+        start=$(echo "$p" | cut -d- -f1 | xargs)
+        end=$(echo "$p" | cut -d- -f2 | xargs)
+        for ((i=start; i<=end; i++)); do
+          n=$(echo "$DISPLAY_JSON" | jq -r ".[$i].name // empty")
+          [[ -n "$n" ]] && TO_DELETE_NAMES+=("$n")
+        done
+      elif [[ "$p" =~ ^[0-9]+$ ]]; then
+        n=$(echo "$DISPLAY_JSON" | jq -r ".[$p].name // empty")
+        [[ -n "$n" ]] && TO_DELETE_NAMES+=("$n")
+      else
+        # treat as name
+        [[ -n "$p" ]] && TO_DELETE_NAMES+=("$p")
+      fi
+    done
+  else
+    # treat as space-separated names
+    for n in $sel; do TO_DELETE_NAMES+=("$n"); done
+  fi
+
+  if [[ ${#TO_DELETE_NAMES[@]} -eq 0 ]]; then echo "No valid selection." >&2; exit 0; fi
+
+  # Remove duplicates and filter out current/cyan/non-orphan
+  TO_DELETE_JSON=$(printf '%s\n' "${TO_DELETE_NAMES[@]}" | jq -R . | jq -s -c --argjson disp "$DISPLAY_JSON" '
+    unique
+    | map(select(. as $n | $disp | map(select(.name==$n and .current==false and .orphan==true and .name != "cyan")) | length>0))
+    | map({name: .})
+  ')
+  # Expand to full objects for display
+  TO_DELETE_JSON=$(echo "$TO_DELETE_JSON" | jq --argjson disp "$DISPLAY_JSON" '[.[] | .name as $n | $disp[] | select(.name==$n)]')
+fi
+
+COUNT=$(echo "$TO_DELETE_JSON" | jq 'length')
+if [[ "$COUNT" -eq 0 ]]; then echo "Nothing to delete (selection was empty or only current key)." >&2; exit 0; fi
+
+echo "" >&2
+echo "Will delete $COUNT key(s):" >&2
+echo "$TO_DELETE_JSON" | jq -r '.[] | "  - \(.name)  (\(.added_at) orphan=\(.orphan) current=\(.current))"' >&2
+echo "" >&2
+
+if [[ "$YES" != "1" ]]; then
+  printf "Confirm delete %d keys? [y/N] " "$COUNT" >&2
+  read -r ans || ans=""
+  if [[ "$ans" != "y" && "$ans" != "Y" ]]; then echo "Cancelled." >&2; exit 0; fi
+fi
+
+# ---- delete loop ----
+FAILED=0
+DELETED=0
+SKIPPED=0
+for name in $(echo "$TO_DELETE_JSON" | jq -r '.[].name'); do
+  # HARD RULES: never delete cyan, never delete non-orphan
+  if [[ "$name" == "cyan" ]]; then
+    echo "Skipping protected key cyan (NEVER delete) — $name" >&2
+    SKIPPED=$((SKIPPED+1))
+    continue
+  fi
+  is_orphan=$(echo "$TO_DELETE_JSON" | jq -r --arg n "$name" '.[] | select(.name==$n) | .orphan')
+  if [[ "$is_orphan" != "true" ]]; then
+    echo "Skipping non-orphan key (VM still exists, in-use) — $name" >&2
+    SKIPPED=$((SKIPPED+1))
+    continue
+  fi
+  echo "Deleting $name ..." >&2
+  out=$(ssh exe.dev ssh-key\ remove\ "$name" 2>&1 || true)
+  echo "$out" | head -c 500; echo "" >&2
+  if echo "$out" | grep -qi "deleted"; then
+    DELETED=$((DELETED+1))
+  else
+    echo "  warning: unexpected output (maybe already gone): $out" >&2
+    FAILED=$((FAILED+1))
+  fi
+done
+
+# Verify remaining
+echo "" >&2
+echo "Verifying ..." >&2
+REMAIN_JSON=$(ssh exe.dev ssh-key\ list\ --json 2>&1 | jq -c '
+  if has("ssh_keys") then {keys: .ssh_keys} elif has("keys") then {keys: .keys} else {keys: []} end
+')
+REMAIN_COUNT=$(echo "$REMAIN_JSON" | jq --argjson del "$TO_DELETE_JSON" '[.keys[] | .name as $n | select($del | map(.name) | index($n) | not)] | length' 2>/dev/null || echo "?")
+STILL_THERE=$(echo "$REMAIN_JSON" | jq --argjson del "$TO_DELETE_JSON" '[.keys[] | .name as $n | select($del | map(.name) | index($n))] | map(.name) | join(", ")')
+if [[ -n "$STILL_THERE" && "$STILL_THERE" != "" ]]; then
+  echo "Keys still present after delete: $STILL_THERE" >&2
+else
+  echo "All selected keys removed." >&2
+fi
+echo "Done. Deleted=$DELETED, warnings=$FAILED, keys remaining total (excluding deleted) ref check=$REMAIN_COUNT" >&2
+
+if [[ "$SKIPPED" -gt 0 ]]; then
+  echo "Skipped $SKIPPED protected/in-use keys (cyan or non-orphan)." >&2
+fi
+if [[ "$FAILED" -gt 0 && "$DELETED" -eq 0 ]]; then
+  echo "All deletions failed — check 'ssh exe.dev ssh-key list' and permissions." >&2
+  exit 1
+fi
