@@ -1,138 +1,32 @@
 onboarding = false
 
 [theme]
-name = "dracula"
+dark_name = "rose-pine"
+light_name = "catppuccin-latte"
+auto_switch = false
+
+[theme.custom]
+active_row_bg = "#224B79"
 
 [terminal]
 new_cwd = "follow"
+default_shell = ""
+shell_mode = "auto"
 
 [update]
 version_check = false
 manifest_check = false
-
-[keys]
-prefix = "alt+l"
-
-# Workspace management
-new_workspace = ["prefix+w"]
-previous_workspace = ["f9"]
-next_workspace = ["f10"]
-rename_workspace = ["prefix+1"]
-close_workspace = ["prefix+q"]
-workspace_picker = ""
-switch_workspace = ""
-
-# Tab management
-new_tab = ["f8", "prefix+n"]
-previous_tab = ["f11"]
-next_tab = ["f12"]
-close_tab = ["prefix+z"]
-rename_tab = ["prefix+2"]
-switch_tab = ""
-
-# Pane management
-split_horizontal = ["prefix+s"]
-split_vertical = ["prefix+v"]
-cycle_pane_next = ["prefix+5"]
-cycle_pane_previous = ""
-close_pane = ["prefix+x"]
-last_pane = ""
-rename_pane = ["prefix+3"]
-
-# Pane focus & swap
-focus_pane_left = ""
-focus_pane_down = ""
-focus_pane_up = ""
-focus_pane_right = ""
-swap_pane_left = ""
-swap_pane_down = ""
-swap_pane_up = ""
-swap_pane_right = ""
-
-# Zoom & resize
-zoom = ""
-resize_mode = ""
-
-# Agent pane navigation
-previous_agent = ["super+-"]
-next_agent = ["super+="]
-focus_agent = ""
-
-# Navigation & misc
-goto = ["super+g"]
-new_worktree = ["super+y"]
-copy_mode = ["f1"]
-edit_scrollback = ["alt+e"]
-help = ["prefix+?"]
-detach = ["prefix+d"]
-reload_config = ["prefix+shift+r"]
-settings = ""
-open_notification_target = ""
-toggle_sidebar = ""
-
-# Open/remove worktree
-open_worktree = ""
-remove_worktree = ""
-
-# Remote
-remote_image_paste = ""
-
-# Navigate-mode movement (disabled to avoid conflicts with shell/apps)
-navigate_workspace_up = ""
-navigate_workspace_down = ""
-navigate_pane_left = ""
-navigate_pane_down = ""
-navigate_pane_up = ""
-navigate_pane_right = ""
-
-[[keys.command]]
-key = "f2"
-type = "plugin_action"
-command = "rmarganti.herdr-pluck.pluck"
-
-[[keys.command]]
-key = "prefix+o"
-type = "shell"
-command = "herdr plugin action invoke herdr-spreader.apply"
-
-[[keys.command]]
-key = "prefix+g"
-type = "popup"
-command = "hunk diff"
-description = "hunk diff"
-width = "100%"
-height = "100%"
+channel = "stable"
 
 [worktrees]
 directory = "~/.herdr/worktrees"
 
-[ui]
-sidebar_min_width = 22
-mouse_scroll_lines = 5
-prompt_new_tab_name = false
-show_agent_labels_on_pane_borders = false
-pane_borders = true
-pane_gaps = true
-agent_panel_sort = "spaces"
-hide_tab_bar_when_single_tab = true
-sidebar_collapsed_mode = "hidden"
+[server]
+headless_cols = 120
+headless_rows = 40
 
-[ui.toast]
-# off = disable pop-up notifications
-# herdr = show in-app toasts
-# terminal = ask the outer terminal to show a desktop notification
-# system = ask the OS notification service directly
-delivery = "off"
-
-[ui.toast.herdr]
-position = "bottom-right"
-
-[ui.toast.clipboard]
-enabled = true
-position = "bottom-right"
-
-[ui.sound]
-enabled = false
+[remote]
+manage_ssh_config = true
 
 [advanced]
 scrollback_limit_bytes = 10000000
@@ -147,3 +41,173 @@ switch_ascii_input_source_in_prefix = true
 reveal_hidden_cursor_for_cjk_ime = true
 cjk_ime_agents = ["pi"]
 cjk_ime_cursor_shape = "steady_block"
+allow_nested = false
+
+[keys]
+prefix = "alt+l"
+
+# Workspace management
+new_workspace = ""
+previous_workspace = ["f9"]
+next_workspace = ["f10"]
+rename_workspace = ["prefix+1"]
+close_workspace = ""
+workspace_picker = ""
+switch_workspace = ""
+
+# Tab management
+new_tab = ["f8", "prefix+n"]
+previous_tab = ["f11"]
+next_tab = ["f12"]
+close_tab = ""
+rename_tab = ["prefix+2"]
+switch_tab = ""
+move_tab_previous = ""
+move_tab_next = ""
+
+# Pane management
+split_horizontal = ["prefix+s"]
+split_vertical = ["prefix+v"]
+cycle_pane_next = ["prefix+p"]
+cycle_pane_previous = ""
+close_pane = ["prefix+x"]
+last_pane = ""
+rename_pane = ["prefix+3"]
+resize_pane_left = ""
+resize_pane_down = ""
+resize_pane_up = ""
+resize_pane_right = ""
+
+# Pane focus & swap
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+swap_pane_left = ""
+swap_pane_down = ""
+swap_pane_up = ""
+swap_pane_right = ""
+
+# Zoom & resize
+zoom = ["prefix+z"]
+resize_mode = ""
+
+# Agent pane navigation
+# ctrl+option+shift+super = Hyper = Caps Lock when held down on macOS (mapped with Karabiner)
+previous_agent = ["ctrl+option+shift+super+a", "f6"]
+next_agent = ["ctrl+option+shift+super+s", "f7"]
+focus_agent = ""
+
+# Worktrees
+new_worktree = ["prefix+w"]
+open_worktree = ["prefix+o"]
+remove_worktree = ""
+
+# Remote
+remote_image_paste = ""
+
+# Navigate-mode movement (disabled to avoid conflicts with shell/apps)
+navigate_workspace_up = ""
+navigate_workspace_down = ""
+navigate_pane_left = ""
+navigate_pane_down = ""
+navigate_pane_up = ""
+navigate_pane_right = ""
+
+# Navigation & misc
+settings = ""
+reload_config = ""
+open_notification_target = ""
+toggle_sidebar = ""
+
+goto = ["prefix+g"]
+edit_scrollback = ["prefix+e", "alt+e"]
+help = ["prefix+?"]
+detach = ["prefix+d"]
+
+copy_mode = ["f1"]
+
+[[keys.command]]
+key = "f2"
+type = "plugin_action"
+command = "rmarganti.herdr-pluck.pluck"
+
+[[keys.command]]
+key = "prefix+4"
+type = "popup"
+command = "hunk show HEAD"
+description = "hunk show HEAD"
+width = "100%"
+height = "100%"
+
+[[keys.command]]
+key = "prefix+5"
+type = "popup"
+command = "hunk diff"
+description = "hunk diff"
+width = "100%"
+height = "100%"
+
+[ui]
+sidebar_min_width = 22
+sidebar_width = 32
+sidebar_max_width = 50
+sidebar_collapsed_mode = "compact"
+sidebar_start_collapsed = false
+mouse_scroll_lines = 5
+prompt_new_tab_name = false
+prompt_new_workspace_name = false
+show_agent_labels_on_pane_borders = true
+pane_borders = true
+pane_gaps = true
+pane_outer_borders = true
+pane_scrollbars = true
+agent_panel_sort = "spaces"
+hide_tab_bar_when_single_tab = false
+confirm_close = true
+copy_on_select = true
+host_cursor = "auto"
+mobile_width_threshold = 64
+mouse_capture = true
+redraw_on_focus_gained = true
+right_click_passthrough_modifier = ""
+status_indicators = "dots"
+tab_bar_position = "top"
+tab_bar_right = [
+  { type = "zoom" },
+  { type = "hostname" },
+]
+tab_bar_right_separator = " "
+window_title = "{workspace} {pane} ({hostname})"
+
+[ui.toast]
+# off = disable pop-up notifications
+# herdr = show in-app toasts
+# terminal = ask the outer terminal to show a desktop notification
+# system = ask the OS notification service directly
+delivery = "off"
+delay_seconds = 1
+
+[ui.toast.herdr]
+position = "bottom-right"
+
+[ui.toast.clipboard]
+enabled = true
+position = "bottom-right"
+
+[ui.sound]
+enabled = false
+
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace", "state_text"],
+  ["branch", "git_status"],
+]
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "state_text", { token = "pane", dim = false, bold = false, fg = "#cccccc" } ],
+  [ { token = "workspace", dim = false, bold = false, fg = "#aaaaaa" } ],
+]
