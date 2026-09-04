@@ -73,6 +73,17 @@
       mariadb_118
       jre25_minimal
       terminal-notifier
+      atuin
+      mdwatch
+      sqlite
+      hk
+      opencode
+      himalaya
+
+      # adoc
+      asciidoctor-with-extensions
+      asciidoc-full-with-plugins
+      kramdown-asciidoc
 
       # TeX Live Medium + extra CJK/XeTeX packages
       (texliveMedium.withPackages (
@@ -96,12 +107,18 @@
 
       # ── keepers ──
 
+      (callPackage ../../packages/arxiv-cli { })
       (callPackage ../../packages/agent-browser { })
       (callPackage ../../packages/lean-ctx { })
       (callPackage ../../packages/tpluck { })
       (callPackage ../../packages/tree-sitter { })
 
       # ── high interest ──
+
+      # Multi-agent safety hook. Blocks destructive shell commands
+      # (rm -rf, :(){:|:&};:, etc.) before they run. Designed for
+      # AI coding agents.
+      (callPackage ../../packages/dcg { })
 
       # CLI coding agent for open AI models. Connects to LM Studio,
       # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
@@ -115,9 +132,24 @@
       # exact diff lines, incremental re-triage, conversational resolution.
       (callPackage ../../packages/codecanary { })
 
+      # LLM-powered JS deobfuscator. Reverses minified/obfuscated code
+      # back to readable source via OpenAI, Gemini, or local Ollama.
+      (callPackage ../../packages/humanify { })
+
       # Design guidance for AI coding agents. 23 commands (polish, audit,
       # critique), 44 detector rules, live browser iteration.
       (callPackage ../../packages/impeccable { })
+
+      # AI research papers from your terminal. Search, read, cite, and
+      # explore the full Hugging Face Papers ecosystem. Includes an MCP
+      # server (hfpaper mcp) with 7 paper tools.
+      (callPackage ../../packages/hfpaper { })
+
+      # Academic paper reader + multi-source search for agentic deep
+      # research. `paper` reads/skims/navigates PDFs; `paper-search`
+      # queries Google (Serper), Semantic Scholar, PubMed. Includes
+      # figure/table/equation detection (layout extra).
+      (callPackage ../../packages/agent-papers-cli { })
 
       # ── medium interest ──
 
@@ -280,7 +312,7 @@
     system.defaults.dock.persistent-apps = [
       # Terminals
       "/Applications/Ghostty.app"
-      "/Applications/kitty.app"
+      # "/Applications/kitty.app"
       # "/Applications/WezTerm.app"
 
       # Browsers
@@ -292,10 +324,12 @@
       "/Applications/Obsidian.app"
 
       # Others
+      "/Applications/MacParakeet.app"
       "/System/Applications/Calendar.app"
       "/Applications/Nix Apps/KeePassXC.app"
       "/Applications/LINE.app"
       "/Applications/Spark.app"
+      "/Applications/Discord.app"
       "/Applications/OptiCull.app"
       "/Applications/darktable.app"
       "/Applications/QuickShade.app"
