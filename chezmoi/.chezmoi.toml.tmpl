@@ -2,7 +2,7 @@
 {{ if stdinIsATTY -}}
 {{   $customSourceDir = promptStringOnce . "customSourceDir" "What is the absolute path to nixos-dotfiles/chezmoi" "/home/norman/code/nixos-dotfiles/chezmoi" -}}
 {{ else -}}
-{{   $customSourceDir = "/home/norman/code/nixos-dotfiles/chezmoi" -}}
+{{   $customSourceDir = joinPath .chezmoi.homeDir "code/nixos-dotfiles/chezmoi" -}}
 {{ end -}}
 
 {{ $gitName := "" -}}

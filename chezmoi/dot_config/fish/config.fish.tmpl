@@ -42,9 +42,11 @@ if status is-interactive
     #   set --export HSTR_CONFIG hicolor,prompt-bottom
     # end
 
+    {{ if .mac -}}
     if command -v intelephense >/dev/null 2>&1
       set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
     end
+    {{ end -}}
 
     if command -v lean-ctx >/dev/null 2>&1
       # See https://github.com/yvgude/lean-ctx/blob/6588c16a18d5637d65f1fb810e23de1f728a7a9a/rust/src/core/config/schema.rs
@@ -71,7 +73,9 @@ if status is-interactive
     set --export DO_NOT_TRACK "1"
     set --export OPENSPEC_TELEMETRY "0"
 
+    {{ if .mac -}}
     set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    {{ end -}}
 
     {{ if .mac -}}
     source "$HOME/.settings.fish"
@@ -102,6 +106,8 @@ if status is-interactive
     {{ else if .linux -}}
     if command -v nh >/dev/null 2>&1
         abbr --add mm "nh os switch $HOME/code/nixos-dotfiles --hostname (hostname -s)"
+    else if test (hostname -s) = "tmp-herm-2"
+        abbr --add mm "echo 'tmp-herm-2 is Ubuntu without Nix; dotfiles managed by chezmoi (abbr ca)'"
     else
         abbr --add mm "sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)"
     end
@@ -218,6 +224,10 @@ if status is-interactive
     fish_add_path --global --prepend "$HOME/.bun/bin"
     fish_add_path --global --prepend "$HOME/.local/bin"
     fish_add_path --global --prepend "$HOME/code/dotfiles/bin"
+    {{ else if .linux -}}
+    fish_add_path --global --prepend "$HOME/go/bin"
+    fish_add_path --global --prepend "$HOME/.cargo/bin"
+    fish_add_path --global --prepend "$HOME/.local/bin"
     {{ end -}}
 end
 

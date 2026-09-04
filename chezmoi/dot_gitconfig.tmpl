@@ -968,6 +968,7 @@
 	aiModelProvider = openai
 [fetch]
     writeCommitGraph = true
+{{ if .mac -}}
 [hook "hk-commit-msg"]
 	command = test \"${HK:-1}\" = \"0\" || /run/current-system/sw/bin/hk run commit-msg --from-hook
 	event = commit-msg
@@ -980,3 +981,4 @@
 [hook "hk-prepare-commit-msg"]
 	command = test \"${HK:-1}\" = \"0\" || /run/current-system/sw/bin/hk run prepare-commit-msg --from-hook
 	event = prepare-commit-msg
+{{ end -}}
