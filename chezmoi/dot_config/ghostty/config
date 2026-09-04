@@ -34,33 +34,33 @@ keybind = cmd+]=next_tab
 keybind = ctrl+a>,=prompt_surface_title
 
 # Splits: open
-keybind = ctrl+a>v=new_split:right
-keybind = ctrl+a>s=new_split:down
+# keybind = ctrl+a>v=new_split:right
+# keybind = ctrl+a>s=new_split:down
 
 # Splits: goto
-keybind = ctrl+a>ctrl+a=goto_split:next
-keybind = ctrl+a>h=goto_split:left
-keybind = ctrl+a>j=goto_split:bottom
-keybind = ctrl+a>k=goto_split:top
-keybind = ctrl+a>l=goto_split:right
+# keybind = ctrl+a>ctrl+a=goto_split:next
+# keybind = ctrl+a>h=goto_split:left
+# keybind = ctrl+a>j=goto_split:bottom
+# keybind = ctrl+a>k=goto_split:top
+# keybind = ctrl+a>l=goto_split:right
 
 # Splits: resize
-keybind = ctrl+a>equal=equalize_splits
-keybind = ctrl+a>r>h=resize_split:left,80
-keybind = ctrl+a>r>j=resize_split:down,80
-keybind = ctrl+a>r>k=resize_split:up,80
-keybind = ctrl+a>r>l=resize_split:right,80
+# keybind = ctrl+a>equal=equalize_splits
+# keybind = ctrl+a>r>h=resize_split:left,80
+# keybind = ctrl+a>r>j=resize_split:down,80
+# keybind = ctrl+a>r>k=resize_split:up,80
+# keybind = ctrl+a>r>l=resize_split:right,80
 
 # Splits: zoom/unzoom
-keybind = ctrl+a>o=toggle_split_zoom
+# keybind = ctrl+a>o=toggle_split_zoom
 
 # Splits (and other surfaces): close
-keybind = ctrl+a>x=close_surface
+# keybind = ctrl+a>x=close_surface
 
 # Adjust font size
-keybind = all:alt+shift+zero=reset_font_size
-keybind = all:alt+shift+minus=decrease_font_size:0.5
-keybind = all:alt+shift+equal=increase_font_size:0.5
+keybind = all:cmd+zero=reset_font_size
+keybind = all:cmd+minus=decrease_font_size:0.5
+keybind = all:cmd+equal=increase_font_size:0.5
 
 # Scrolling
 keybind = cmd+k=scroll_page_up
