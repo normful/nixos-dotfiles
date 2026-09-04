@@ -33,7 +33,7 @@ if status is-interactive
     # -------------------------------------------------------------------------
 
     # If SSH'ing in, attach to herdr
-    if set -q SSH_CONNECTION
+    if set -q SSH_CONNECTION; and command -v herdr >/dev/null 2>&1
         herdr
     end
 
