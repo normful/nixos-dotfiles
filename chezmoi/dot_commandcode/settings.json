@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "defaultMode": "auto-accept"
+  },
+  "attribution": {
+    "commit": ""
+  },
+  "skills": [
+    "/Users/norman/.pi/agent/skills/curated-ai-skills"
+  ]
+}
