@@ -50,7 +50,7 @@ if status is-interactive
 
     if command -v lean-ctx >/dev/null 2>&1
       # See https://github.com/yvgude/lean-ctx/blob/6588c16a18d5637d65f1fb810e23de1f728a7a9a/rust/src/core/config/schema.rs
-      set --export LEAN_CTX_BIN /run/current-system/sw/bin/lean-ctx
+      set --export LEAN_CTX_BIN (command -v lean-ctx)
       set --export LEAN_CTX_NO_UPDATE_CHECK "1"
       set --export LEAN_CTX_OUTPUT_DENSITY "normal" # normal, terse, or ultra
       set --export LEAN_CTX_TERSE_AGENT "lite" # off, lite, full, ultra
