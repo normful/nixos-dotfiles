@@ -37,10 +37,10 @@ if status is-interactive
         herdr
     end
 
-    if command -v hh >/dev/null 2>&1
-      set --export HISTFILE ~/.config/fish/hh.history
-      set --export HSTR_CONFIG hicolor,prompt-bottom
-    end
+    # if command -v hh >/dev/null 2>&1
+    #   set --export HISTFILE ~/.config/fish/hh.history
+    #   set --export HSTR_CONFIG hicolor,prompt-bottom
+    # end
 
     if command -v intelephense >/dev/null 2>&1
       set --export INTELEPHENSE_LICENSE_KEY {{ (keepassxc "intelephense-key").Password }}
@@ -54,11 +54,15 @@ if status is-interactive
       set --export LEAN_CTX_TERSE_AGENT "lite" # off, lite, full, ultra
       set --export LEAN_CTX_COMPRESSION "standard" # off, lite, standard, max
       set --export LEAN_CTX_MINIMAL "true"
-      set --export LEAN_CTX_SAVINGS_FOOTER "auto" # auto, always, never
+      set --export LEAN_CTX_SAVINGS_FOOTER "never" # auto, always, never
     end
 
     if command -v prek >/dev/null 2>&1
       set --export PREK_QUIET "1"
+    end
+
+    if command -v temari >/dev/null 2>&1
+      set --export TEMARI_MODEL "openrouter/z-ai/glm-5.3-flash"
     end
 
     set --export PI_TELEMETRY "0"
@@ -79,6 +83,10 @@ if status is-interactive
 
     if command -v mise >/dev/null 2>&1
       mise activate fish | source
+    end
+
+    if command -v atuin >/dev/null >&1
+      atuin init fish --disable-up-arrow --disable-ctrl-r | source
     end
 
     if test -f "$HOME/.config/lean-ctx/shell-hook.fish"
@@ -103,6 +111,8 @@ if status is-interactive
     abbr --add q exit
 
     abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --sort time'
+
+    abbr --add hh _atuin_search
 
     abbr --add man 'batman'
 
@@ -141,18 +151,32 @@ if status is-interactive
     abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
     abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
     abbr --add eh "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/herdr/config.toml"
-    abbr --add ehs "nvim $HOME/.config/herdr/plugins/config/herdr-spreader/config.yaml"
 
     abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
     abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
+    abbr --add epim   "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/models.json"
+    abbr --add epims  "nvim $HOME/.pi/agent/models-store.json"
 
-    abbr --add cm 'chezmoi'
-    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit pi config changes'; chezmoi apply"
+    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit config changes'; chezmoi apply"
+    abbr --add ca 'chezmoi apply'
     abbr --add cmt 'chezmoi chattr +template'
 
     abbr --add catjis 'iconv -f shift-jis -t utf-8'
     abbr --add mdcat 'mdcat --columns 180 --paginate'
     abbr --add glow "glow -s $HOME/Library/Preferences/glow/night-owl.json"
+    abbr --add hsr 'herdr server reload-config'
+
+    if command -v zk >/dev/null 2>&1
+        abbr --add zn  "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
+        abbr --add zkn "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
+        abbr --add znt "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
+
+        abbr --add zj 'today'
+    end
+
+    if command -v commandcode >/dev/null >&1
+        abbr --add cmd 'cmd --yolo --no-auto-update'
+    end
 
     if command -v cargo >/dev/null 2>&1
         abbr --add cf 'cargo fmt'
@@ -174,7 +198,6 @@ if status is-interactive
     {{ if .mac -}}
     abbr --add mus "musikcube"
     abbr --add dua 'dua interactive'
-    abbr --add zs 'zola serve'
     abbr --add epush "nvim $HOME/code/dotfiles/bin/_push_and_pull_android.sh"
     abbr --add epull "nvim $HOME/code/dotfiles/bin/_push_and_pull_android.sh"
     abbr --add pandoc "pandoc --pdf-engine=xelatex"
@@ -188,14 +211,16 @@ if status is-interactive
     fish_add_path --global --prepend "/usr/local/share/dotnet"
     fish_add_path --global --prepend "/Applications/WezTerm.app/Contents/MacOS"
     fish_add_path --global --prepend "/Applications/LibreOffice.app/Contents/MacOS"
+    fish_add_path --global --prepend "$HOME/go/bin"
     fish_add_path --global --prepend "$HOME/.config/composer/vendor/bin"
     fish_add_path --global --prepend "$HOME/.cargo/bin"
+    fish_add_path --global --prepend "$HOME/Library/pnpm/bin"
     fish_add_path --global --prepend "$HOME/.bun/bin"
     fish_add_path --global --prepend "$HOME/.local/bin"
     fish_add_path --global --prepend "$HOME/code/dotfiles/bin"
     {{ end -}}
 end
 
-function __should_na --on-event fish_prompt
-    echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
-end
+# function __should_na --on-event fish_prompt
+#     echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
+# end

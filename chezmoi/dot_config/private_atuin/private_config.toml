@@ -1,0 +1,235 @@
+## enable or disable automatic sync
+auto_sync = false
+
+## enable or disable automatic update checks
+update_check = false
+
+style = "full"
+
+## the maximum number of lines the interface should take up
+## set it to 0 to always go full screen
+inline_height = 30
+
+## the maximum number of lines the interface should take up
+## when atuin is invoked from a shell up-key binding
+## the accepted values are identical to those of "inline_height"
+# inline_height_shell_up_key_binding = 0
+
+## Invert the UI - put the search bar at the top , Default to `false`
+# invert = false
+
+## enable or disable showing a preview of the selected command
+## useful when the command is longer than the terminal width and is cut off
+show_preview = true
+
+## what to do when the escape key is pressed when searching
+## possible values: return-original, return-query
+# exit_mode = "return-original"
+
+## possible values: emacs, subl
+# word_jump_mode = "emacs"
+
+## characters that count as a part of a word
+# word_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+## number of context lines to show when scrolling by pages
+# scroll_context_lines = 1
+
+## use ctrl instead of alt as the shortcut modifier key for numerical UI shortcuts
+## alt-0 .. alt-9
+# ctrl_n_shortcuts = false
+
+## Show numeric shortcuts (1..9) beside list items in the TUI
+## set to false to hide the moving numbers if you find them distracting
+show_numeric_shortcuts = false
+
+## default history list format - can also be specified with the --format arg
+# history_format = "{time}\t{command}\t{duration}"
+
+## Defaults to true. If enabled, strip trailing spaces and tabs from commands
+## before saving them to history.
+## Escaped trailing spaces (for example `printf foo\\ `) are preserved.
+# strip_trailing_whitespace = true
+
+## prevent commands matching any of these regexes from being written to history.
+## Note that these regular expressions are unanchored, i.e. if they don't start
+## with ^ or end with $, they'll match anywhere in the command.
+## For details on the supported regular expression syntax, see
+## https://docs.rs/regex/latest/regex/#syntax
+history_filter = [
+  "(API_KEY|SECRET|TOKEN|PASSWORD)=",
+  "--(api[-_]?key|token|secret|password)[= ]\\S+",
+  ".*--secret=.+",
+  "SG\\.[A-Za-z0-9_-]{20,}",
+  "\\b([a-z]+\\s){11,}[a-z]+\\b",
+  "\\b\\w*(API_KEY|SECRET_KEY|ACCESS_TOKEN|AUTH_TOKEN)\\w*=[\"']?\\S+",
+  "^[A-Z_]+=\\S+ ",
+  "^curl.*-u .*:.*",
+  "^export .*(?:TOKEN|KEY|SECRET|PASSWORD|PASSWD|API_KEY)=",
+  "^export\\s.*API_KEY",
+  "^export\\s.*API_TOKEN",
+  "^export\\s.*PASSWORD",
+  "^export\\s.*SECRET",
+  "^export\\s.*TOKEN",
+  "^gpg.*--passphrase",
+  "^secret-cmd",
+  "^sshpass",
+  "fc-[A-Za-z0-9]{20,}",
+  "gsk_[A-Za-z0-9]{20,}",
+  "hf_[A-Za-z0-9]{20,}",
+  "nvapi-[A-Za-z0-9_-]{20,}",
+  "pplx-[A-Za-z0-9]{20,}",
+  "pylf_v1_[a-z]+_[A-Za-z0-9]{20,}",
+  "r8_[A-Za-z0-9]{20,}",
+  "sk-ant-[A-Za-z0-9_-]{20,}",
+  "sk-or-[A-Za-z0-9_-]{20,}",
+  "sk-proj-[A-Za-z0-9_-]{20,}",
+  "tpuf_[A-Za-z0-9]{20,}",
+  "whsec_[A-Za-z0-9]{20,}",
+  "xai-[A-Za-z0-9]{20,}",
+
+  ".+API_KEY($| )",
+  ".+PASSW.+",
+  "^env .+",
+  "^printenv .+",
+  "^git .+$",
+  "^g.{1,5}$",
+  "^mv .+",
+  "^cat .+",
+  "^cd($| )",
+  "^clear$",
+  "^cp($| )",
+  "^curl($| )",
+  "^exit$",
+  "^history$",
+  "^la$",
+  "^l$",
+  "^ls($| )",
+  "^pwd$",
+  "^reset$",
+]
+
+## prevent commands run with cwd matching any of these regexes from being written
+## to history. Note that these regular expressions are unanchored, i.e. if they don't
+## start with ^ or end with $, they'll match anywhere in CWD.
+## For details on the supported regular expression syntax, see
+## https://docs.rs/regex/latest/regex/#syntax
+# cwd_filter = [
+#   "^/very/secret/area",
+# ]
+
+## Configure the maximum height of the preview to show.
+## Useful when you have long scripts in your history that you want to distinguish
+## by more than the first few lines.
+# max_preview_height = 4
+
+## Configure whether or not to show the help row, which includes the current Atuin
+## version (and whether an update is available), a keymap hint, and the total
+## amount of commands in your history.
+# show_help = true
+
+## Configure whether or not to show tabs for search and inspect
+# show_tabs = true
+
+## Configure whether or not the tabs row may be auto-hidden, which includes the current Atuin
+## tab, such as Search or Inspector, and other tabs you may wish to see. This will
+## only be hidden if there are fewer than this count of lines available, and does not affect the use
+## of keyboard shortcuts to switch tab. 0 to never auto-hide, default is 8 (lines).
+## This is ignored except in `compact` mode.
+# auto_hide_height = 8
+
+## Defaults to true. This matches history against a set of default regex, and will not save it if we get a match. Defaults include
+## 1. AWS key id
+## 2. Github pat (old and new)
+## 3. Slack oauth tokens (bot, user)
+## 4. Slack webhooks
+## 5. Stripe live/test keys
+secrets_filter = true
+
+## If enabled, upon hitting enter Atuin will immediately execute the command,
+## whereas tab will put the command in the prompt for editing.
+enter_accept = true
+
+## Defaults to false. If enabled, when triggered after &&, || or |, Atuin will complete commands to chain rather than replace the current line.
+# command_chaining = false
+
+keymap_mode = "vim-insert"
+
+prefers_reduced_motion = true
+
+search_mode = "fulltext"
+
+filter_mode = "workspace"
+
+[search]
+filters = ["workspace", "host"]
+
+[stats]
+## Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
+common_subcommands = [
+  "bun",
+  "bunx",
+  "cargo",
+  "composer",
+  "dnf",
+  "docker",
+  "dotnet",
+  "g",
+  "git",
+  "go",
+  "herdr",
+  "ip",
+  "jj",
+  "kubectl",
+  "nix",
+  "nmcli",
+  "npm",
+  "npx",
+  "pecl",
+  "pnpm",
+  "podman",
+  "port",
+  "systemctl",
+  "tmux",
+  "yarn",
+]
+
+## Set commands that should be totally stripped and ignored from stats
+common_prefix = []
+
+## Set commands that will be completely ignored from stats
+ignored_commands = [
+  "git",
+  "cd",
+  "ls",
+  "nvim"
+]
+
+[keys]
+scroll_exits = false
+exit_past_line_start = false
+accept_past_line_end = false
+accept_past_line_start = false
+accept_with_backspace = false
+
+[sync]
+records = false
+
+[daemon]
+enabled = false
+autostart = false
+
+[theme]
+name = "marine"
+
+[tmux]
+enabled = false
+
+[ui]
+columns = ["command", "directory", "time"]
+
+[ai]
+enabled = false
+
+[logs]
+enabled = false
