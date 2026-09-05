@@ -49,16 +49,19 @@ This skill maintains `custom-pricing.json` to inform `tokscale` of actual per-to
   | `tencent-hy3` | `hy3` | 0.1562/0.6248/0.03905 |
   | `cc-k2.6-code-preview` | `cc-k2.6-code-preview` (full catalog, not `kimi-k2.6`) | **0.2/0.2/0.02** (corrected from earlier wrong `kimi-k2.6` 0.95/3.9995) |
   | `gemini-3.1-flash-lite-preview` | `gemini-3.1-flash-lite` | 0.25/1.5/0.25 |
+  | `xiaomi-mimo-v2.5` | `mimo-v2.5` | 0.155/0.31/0.0031 (catalog renamed 2026-09-05; stored prices match exactly) |
+  | `xiaomi-mimo-v2.5-pro` | `mimo-v2.5-pro` | 0.48/0.96/0.00384 (catalog renamed 2026-09-05; stored prices match exactly) |
 - **Kimi-k2.5 cc version:** Checked (`jq -r '.data[].model_id' | grep k2.5`) → no `cc-kimi-k2.5` exists; `kimi-k2.5` stays 0.6/3/0.105, no extra cc entry (Norman: nevermind).
 - **Explicit free additions (non-aihubmix but requested):** `big-pickle` (opencode, not in catalog) and `solar-pro4:free` (not in catalog) added as `0/0/0`.
 - **Overwrite policy:** Directly overwrite the chezmoi source (backup `.bak` kept). For `cc-minimax-m2.7-highspeed`, Norman chose to **overwrite** catalog truth (0.1/0.1) over old custom (1.123/2.456/3.789), even though custom had higher cache cost.
 - **Full catalog required:** Use `https://aihubmix.com/api/v1/models` (no type) as primary — `?type=llm` misses code models.
 
-## Current State (2026-08-21 03:36)
+## Current State (2026-09-05)
 
-- `chezmoi/dot_config/tokscale/custom-pricing.json`: **85 models**, sorted keys, includes `cache_creation` for 5 (`qwen3.5-flash` 0.03525, `qwen3.5-plus` 0.137, `qwen3.6-plus` 0.3525, `qwen3.7-flash` 0.03525, `qwen3.8-max-preview` 0.4225), backup `custom-pricing.json.bak` (1 entry).
-- Sessions: 8221 jsonl, 271 unique, ~100 aihubmix-strict used before free additions.
-- Catalog snapshots: `/tmp/aihubmix_models.json` (398) and `/tmp/aihubmix_models_all.json` (856) fetched 2026-08-21 03:24.
+- `chezmoi/dot_config/tokscale/custom-pricing.json`: **90 models**, sorted keys, includes `cache_creation` for 6 (`qwen3.5-flash` 0.03525, `qwen3.5-plus` 0.137, `qwen3.6-plus` 0.3525, `qwen3.7-flash` 0.03525, `qwen3.8-max-preview` 0.4225, `qwen3.8-flash` 0.175937).
+- Sessions: 8536 jsonl, 282 unique, 92 strict-aihubmix used (4 skipped `cheap`/`crush-*`).
+- Catalog snapshots: `/tmp/aihubmix_models_all.json` (851) and `/tmp/aihubmix_models.json` (415) fetched 2026-09-05.
+- 2026-09-05 changes: added `coding-glm-5.3-flash` (0.02817/0.098595/0.007043) + `qwen3.8-flash` (0.1126/0.380025/0.014075/0.175937); `deepseek-v4-flash-0731-fast` output 0.56→1.4; `xiaomi-mimo-v2.5(-pro)` catalog IDs renamed to `mimo-v2.5(-pro)` (alias-mapped, values unchanged).
 
 ## Process
 
@@ -74,9 +77,9 @@ python3 scripts/maintain.py --extract       # force re-extract sessions (otherwi
 
 What the single script does internally (in order):
 1. `fetch_catalog()` — `curl -s https://aihubmix.com/api/v1/models` → `/tmp/aihubmix_models_all.json` (and `?type=llm` for reference), `jq '.data | length'` to verify.
-2. `extract_sessions()` — rglob `~/.pi/agent/sessions/**/*.jsonl`, `json.loads` per line + regex fallback, collects 271 unique + provider map → writes `/tmp/unique_model_ids.json` + `/tmp/provider_map.json`.
-3. `build()` — filters strict `aihubmix*` (87→83 after skips), resolves alias → catalog ID via `ALIAS_MAP` + generic `-deepseek-v4-flash` rule, `to_tokscale()` maps `input/output/cache_read/cache_write` → `input_cost.../output.../cache_read.../cache_creation...`, adds explicit free `big-pickle`/`solar-pro4:free` (0/0/0), writes sorted `chezmoi/dot_config/tokscale/custom-pricing.json` (backup `.bak`), syncs `~/.config` + `/tmp/custom-pricing.new.json`, `jq .` validation.
-4. `check()` — validates current file vs full catalog (85 OK, 0 bad after free handling; previously 4 skipped `cheap`/`crush-*` are intentionally absent).
+2. `extract_sessions()` — rglob `~/.pi/agent/sessions/**/*.jsonl`, `json.loads` per line + regex fallback, collects unique + provider map → writes `/tmp/unique_model_ids.json` + `/tmp/provider_map.json` (282 unique, 8536 files as of 2026-09-05).
+3. `build()` — filters strict `aihubmix*` (92 in 2026-09-05; 4 skipped `cheap`/`crush-*`), resolves alias → catalog ID via `ALIAS_MAP` + generic `-deepseek-v4-flash` rule, `to_tokscale()` maps `input/output/cache_read/cache_write` → `input_cost.../output.../cache_read.../cache_creation...`, adds explicit free `big-pickle`/`solar-pro4:free` (0/0/0), writes sorted `chezmoi/dot_config/tokscale/custom-pricing.json` (backup `.bak`), syncs `~/.config` + `/tmp/custom-pricing.new.json`, `jq .` validation.
+4. `check()` — validates current file vs full catalog (90 OK, 0 bad; the 4 skipped `cheap`/`crush-*` are intentionally absent).
 
 Manual `jq` checks still useful for gigantic file:
 ```bash

@@ -94,6 +94,11 @@
       "output_cost_per_million_tokens": 0.22,
       "cache_read_input_token_cost_per_million_tokens": 0.015
     },
+    "coding-glm-5.3-flash": {
+      "input_cost_per_million_tokens": 0.02817,
+      "output_cost_per_million_tokens": 0.098595,
+      "cache_read_input_token_cost_per_million_tokens": 0.007043
+    },
     "coding-kimi-k3": {
       "input_cost_per_million_tokens": 0.44,
       "output_cost_per_million_tokens": 1.61333,
@@ -162,7 +167,7 @@
     },
     "deepseek-v4-flash-0731-fast": {
       "input_cost_per_million_tokens": 0.28,
-      "output_cost_per_million_tokens": 0.56,
+      "output_cost_per_million_tokens": 1.4,
       "cache_read_input_token_cost_per_million_tokens": 0.07
     },
     "deepseek-v4-flash-think": {
@@ -390,6 +395,12 @@
       "output_cost_per_million_tokens": 0.1128,
       "cache_read_input_token_cost_per_million_tokens": 0.00564,
       "cache_creation_input_token_cost_per_million_tokens": 0.03525
+    },
+    "qwen3.8-flash": {
+      "input_cost_per_million_tokens": 0.1126,
+      "output_cost_per_million_tokens": 0.380025,
+      "cache_read_input_token_cost_per_million_tokens": 0.014075,
+      "cache_creation_input_token_cost_per_million_tokens": 0.175937
     },
     "qwen3.8-max-preview": {
       "input_cost_per_million_tokens": 0.338,

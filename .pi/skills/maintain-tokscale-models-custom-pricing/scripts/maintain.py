@@ -44,6 +44,8 @@ ALIAS_MAP = {
     "fireworks-deepseek-v4-pro": "deepseek-v4-pro-0813",
     "deepseek-v4-flash-think": "deepseek-v4-flash-0731",
     "tencent-hy3": "hy3",
+    "xiaomi-mimo-v2.5": "mimo-v2.5",  # catalog renamed (prices match 0.155/0.31/0.0031 exactly)
+    "xiaomi-mimo-v2.5-pro": "mimo-v2.5-pro",  # catalog renamed (prices match 0.48/0.96/0.00384 exactly)
     "cc-k2.6-code-preview": "cc-k2.6-code-preview",  # 0.2/0.2/0.02 via full catalog, not kimi-k2.6
     "gemini-3.1-flash-lite-preview": "gemini-3.1-flash-lite",
     "crush-glm-5-turbo": None,         # skip, Norman: ignore
