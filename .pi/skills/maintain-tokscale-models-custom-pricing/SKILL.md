@@ -34,7 +34,7 @@ This skill maintains `custom-pricing.json` to inform `tokscale` of actual per-to
   - `pricing.cache_read` → `cache_read_input_token_cost_per_million_tokens` (omit if missing)
   - `pricing.cache_write` → `cache_creation_input_token_cost_per_million_tokens` (omit if missing) — **initially Norman said ignore, later corrected to backfill**.
 - **Free models:** Include with explicit `0` for all three fields (e.g., `dots-3-note-preview-free`, `kimi-for-coding-free`). 5 of the 85 have `0/0/0`.
-- **Skipped (ignore, no TODO):** `cheap`, `crush-glm-5-turbo`, `crush-glm-5-turbo-free`, `crush-glm-5.1-free` — unknown mapping, leave out.
+- **Skipped (ignore, no TODO):** `cheap`, `crush-glm-5-turbo`, `crush-glm-5-turbo-free`, `crush-glm-5.1-free`, `@preset/glm47` — unknown mapping, leave out. (`@preset/glm47` is an openrouter preset alias; tokscale reports "no authoritative model-to-price mapping". 61 msgs / 1.7M tokens as of 2026-09-05 — accepted loss.)
 - **Specific alias mappings confirmed:**
   | Session ID | Catalog ID | Pricing |
   |------------|------------|---------|
@@ -56,7 +56,19 @@ This skill maintains `custom-pricing.json` to inform `tokscale` of actual per-to
 - **Overwrite policy:** Directly overwrite the chezmoi source (git is the backup — commit after each run). For `cc-minimax-m2.7-highspeed`, Norman chose to **overwrite** catalog truth (0.1/0.1) over old custom (1.123/2.456/3.789), even though custom had higher cache cost.
 - **Full catalog required:** Use `https://aihubmix.com/api/v1/models` (no type) as primary — `?type=llm` misses code models.
 
-## Current State (2026-09-05)
+## Current State (2026-09-05, second run)
+
+- `chezmoi/dot_config/tokscale/custom-pricing.json`: **99 models**, sorted keys, 12 with `cache_creation`.
+- Root cause of `tokscale submit` "unpriced … pricing does not cover every populated token bucket" warnings: entries existed but lacked rates for session-populated cache buckets. Local `models` report prices those buckets at $0; submit excludes them instead.
+- Fix: `backfill_buckets()` adds explicit `0` cache rates for populated-but-unpriced buckets (0 = unknown/unpublished rate, **not** free tier — matches local report math, verified cc-minimax-m2.7-highspeed $8.21 both ways). Bucket source: cached `tokscale models --json > /tmp/tokscale_models.json` (regenerate: ~1 min).
+- Scope widened beyond strict-aihubmix: `MODELS_DEV_MAP` covers non-aihubmix session IDs tokscale can't resolve, priced from models.dev per-provider section (or litellm probe values in `LITELLM_COSTS`):
+  - cerebras: `gpt-oss-120b` 0.35/0.75, `qwen-3-235b-a22b-instruct-2507` 0.2/0.6, `zai-glm-4.7` 2.25/2.75
+  - openrouter: `x-ai/grok-code-fast-1` 0.2/1.5/0.02 (zenmux), `google/gemini-3.7-flash` 0.75/3.75/0.075+w0.041667, `minimax/minimax-m3` 0.3/1.2/0.06, `z-ai/glm-4.7` 0.4/1.75/0.08, `upstage/solar-pro4` 0.03/0.12/0.006
+  - `upstage/solar-pro4:free` → explicit 0/0/0 (`FREE_IDS`); `MiniMax-M3` needs no key (case-insensitive match to `minimax-m3`); `temp/*`, `custom-aihubmix/*`, `zenmux/minimax/*`, `opencode-go/*` resolve via existing bare keys.
+- Result: `tokscale submit --dry-run` went from 31 bucket warnings to 1 (`openrouter/@preset/glm47`, skipped — unknown preset alias).
+- Sessions: 8536 files, 282 unique; catalog 851; models.dev 7127 costs.
+
+## Previous State (2026-09-05, first run)
 
 - `chezmoi/dot_config/tokscale/custom-pricing.json`: **90 models**, sorted keys, includes `cache_creation` for 6 (`qwen3.5-flash` 0.03525, `qwen3.5-plus` 0.137, `qwen3.6-plus` 0.3525, `qwen3.7-flash` 0.03525, `qwen3.8-max-preview` 0.4225, `qwen3.8-flash` 0.175937).
 - Sessions: 8536 jsonl, 282 unique, 92 strict-aihubmix used (4 skipped `cheap`/`crush-*`).
@@ -78,8 +90,8 @@ python3 scripts/maintain.py --extract       # force re-extract sessions (otherwi
 What the single script does internally (in order):
 1. `fetch_catalog()` — `curl -s https://aihubmix.com/api/v1/models` → `/tmp/aihubmix_models_all.json` (and `?type=llm` for reference), `jq '.data | length'` to verify.
 2. `extract_sessions()` — rglob `~/.pi/agent/sessions/**/*.jsonl`, `json.loads` per line + regex fallback, collects unique + provider map → writes `/tmp/unique_model_ids.json` + `/tmp/provider_map.json` (282 unique, 8536 files as of 2026-09-05).
-3. `build()` — filters strict `aihubmix*` (92 in 2026-09-05; 4 skipped `cheap`/`crush-*`), resolves alias → catalog ID via `ALIAS_MAP` + generic `-deepseek-v4-flash` rule, `to_tokscale()` maps `input/output/cache_read/cache_write` → `input_cost.../output.../cache_read.../cache_creation...`, adds explicit free `big-pickle`/`solar-pro4:free` (0/0/0), writes sorted `chezmoi/dot_config/tokscale/custom-pricing.json` (no `.bak` — git history is the backup; commit after each run), syncs `~/.config` + `/tmp/custom-pricing.new.json`, `jq .` validation.
-4. `check()` — validates current file vs full catalog (90 OK, 0 bad; the 4 skipped `cheap`/`crush-*` are intentionally absent).
+3. `build()` — filters strict `aihubmix*` (92 in 2026-09-05; 4 skipped `cheap`/`crush-*`), resolves alias → catalog ID via `ALIAS_MAP` + generic `-deepseek-v4-flash` rule, `to_tokscale()` maps `input/output/cache_read/cache_write` → `input_cost.../output.../cache_read.../cache_creation...`, then `backfill_buckets()` adds explicit `0` for session-populated cache buckets missing a rate (source: `/tmp/tokscale_models.json` via `load_session_buckets()`); non-aihubmix IDs in `MODELS_DEV_MAP` priced from models.dev (`load_models_dev_costs()`); `FREE_IDS` forced 0/0/0; adds explicit free `big-pickle`/`solar-pro4:free` (0/0/0), writes sorted `chezmoi/dot_config/tokscale/custom-pricing.json` (no `.bak` — git history is the backup; commit after each run), syncs `~/.config` + `/tmp/custom-pricing.new.json`, `jq .` validation.
+4. `check()` — validates current file vs full catalog + `MODELS_DEV_MAP` + same bucket backfill (99 OK, 0 bad; the 4 skipped `cheap`/`crush-*` + `@preset/glm47` are intentionally absent).
 
 Manual `jq` checks still useful for gigantic file:
 ```bash

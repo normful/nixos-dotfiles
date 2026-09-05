@@ -31,6 +31,7 @@ LIVE = Path.home() / ".config/tokscale/custom-pricing.json"
 SESSIONS_DIR = Path.home() / ".pi/agent/sessions"
 CATALOG_ALL = Path("/tmp/aihubmix_models_all.json")  # 856, full — authoritative
 CATALOG_LLM = Path("/tmp/aihubmix_models.json")      # 398, reference only
+MODELS_DEV = Path("/tmp/models_dev.json")           # models.dev per-provider costs (non-aihubmix)
 PROVIDER_MAP_TMP = Path("/tmp/provider_map.json")
 UNIQUE_IDS_TMP = Path("/tmp/unique_model_ids.json")
 
@@ -52,8 +53,40 @@ ALIAS_MAP = {
     "crush-glm-5-turbo-free": None,
     "crush-glm-5.1-free": None,
     "cheap": None,
+    "@preset/glm47": None,             # skip, openrouter preset alias: unknown mapping
+}
+# Explicit session-ID -> models.dev (provider, key) lookups for non-aihubmix
+# models tokscale can't resolve (verified 2026-09-05 via `tokscale pricing --provider`).
+# Values are per-1M-token USD from models.dev.
+MODELS_DEV_MAP = {
+    # cerebras (models.dev [cerebras] / litellm fallback)
+    "gpt-oss-120b": ("cerebras", "gpt-oss-120b"),  # 0.35/0.75
+    "qwen-3-235b-a22b-instruct-2507": ("litellm", "vercel_ai_gateway/alibaba/qwen-3-235b"),  # 0.2/0.6
+    "zai-glm-4.7": ("litellm", "cerebras/zai-glm-4.7"),  # 2.25/2.75
+    # openrouter (models.dev [openrouter]/[zenmux], provider's own price)
+    "x-ai/grok-code-fast-1": ("zenmux", "x-ai/grok-code-fast-1"),  # 0.2/1.5/0.02
+    "google/gemini-3.7-flash": ("openrouter", "google/gemini-3.7-flash"),  # 0.75/3.75/0.075+w0.041667
+    "minimax/minimax-m3": ("openrouter", "minimax/minimax-m3"),  # 0.3/1.2/0.06
+    "z-ai/glm-4.7": ("openrouter", "z-ai/glm-4.7"),  # 0.4/1.75/0.08
+    "upstage/solar-pro4": ("openrouter", "upstage/solar-pro4"),  # 0.03/0.12/0.006
+}
+# models.dev costs keyed inline for sources without a JSON section (litellm-only).
+# Format mirrors models.dev cost dicts.
+LITELLM_COSTS = {
+    "vercel_ai_gateway/alibaba/qwen-3-235b": {"input": 0.2, "output": 0.6},
+    "cerebras/zai-glm-4.7": {"input": 2.25, "output": 2.75},
 }
 FREE_ADDITIONS = ["big-pickle", "solar-pro4:free"]  # explicit free 0/0/0, not in catalog
+# Session IDs that are always free regardless of provider resolution.
+FREE_IDS = {"upstage/solar-pro4:free"}
+
+
+def zero_rates() -> dict:
+    return {
+        "input_cost_per_million_tokens": 0,
+        "output_cost_per_million_tokens": 0,
+        "cache_read_input_token_cost_per_million_tokens": 0,
+    }
 
 def fetch_catalog(force=False):
     if CATALOG_ALL.exists() and not force:
@@ -147,6 +180,78 @@ def to_tokscale(pricing: dict) -> dict:
         out["cache_creation_input_token_cost_per_million_tokens"] = pricing["cache_write"]
     return out
 
+
+def load_models_dev_costs():
+    """Load models.dev per-provider costs: {(provider, model_key) -> cost dict}."""
+    if not MODELS_DEV.exists():
+        return {}
+    dev = json.loads(MODELS_DEV.read_text())
+    costs = {}
+    for provider, pdata in dev.items():
+        if not isinstance(pdata, dict):
+            continue
+        for key, m in (pdata.get("models") or {}).items():
+            if isinstance(m, dict) and m.get("cost"):
+                costs[(provider, key)] = m["cost"]
+    return costs
+
+
+def models_dev_to_tokscale(cost: dict) -> dict:
+    """Map models.dev cost {input,output,cache_read,cache_write} to tokscale fields."""
+    return to_tokscale({
+        k: v for k, v in {
+            "input": cost.get("input"),
+            "output": cost.get("output"),
+            "cache_read": cost.get("cache_read", cost.get("cacheRead")),
+            "cache_write": cost.get("cache_write", cost.get("cacheWrite")),
+        }.items() if v is not None
+    })
+
+
+BUCKETS_TMP = Path("/tmp/session_buckets.json")
+
+# tokscale entry field per session token bucket
+BUCKET_FIELDS = {
+    "cacheRead": "cache_read_input_token_cost_per_million_tokens",
+    "cacheWrite": "cache_creation_input_token_cost_per_million_tokens",
+}
+
+
+def load_session_buckets():
+    """Per-model populated token buckets from cached `tokscale models --json` scan.
+
+    Regenerate with: tokscale models --json > /tmp/tokscale_models.json
+    (takes ~1 min). Falls back to {} when the cache is absent.
+    """
+    cache = Path("/tmp/tokscale_models.json")
+    if not cache.exists():
+        print("[buckets] no /tmp/tokscale_models.json, skipping bucket backfill")
+        return {}
+    d = json.loads(cache.read_text())
+    buckets = {}
+    for e in d.get("entries", []):
+        populated = {b for b in BUCKET_FIELDS if e.get(b)}
+        if populated:
+            buckets.setdefault(e["model"], set()).update(populated)
+    BUCKETS_TMP.write_text(json.dumps({k: sorted(v) for k, v in buckets.items()}, indent=2))
+    print(f"[buckets] {len(buckets)} models with cache buckets from {cache}")
+    return buckets
+
+
+def backfill_buckets(entry: dict, populated: set) -> dict:
+    """Add explicit 0 rates for populated buckets the catalog has no price for.
+
+    tokscale submit excludes messages when pricing lacks a rate for a populated
+    token bucket; the local report already prices those buckets at $0, so this
+    makes submit consistent with local (verified: cc-minimax-m2.7-highspeed
+    $8.21 both ways). 0 = unknown/unpublished rate, not free tier.
+    """
+    for bucket in populated:
+        field = BUCKET_FIELDS[bucket]
+        if field not in entry:
+            entry[field] = 0
+    return entry
+
 def build(dry_run=False):
     # Ensure we have data
     if not UNIQUE_IDS_TMP.exists() or not PROVIDER_MAP_TMP.exists():
@@ -170,6 +275,13 @@ def build(dry_run=False):
         llm = json.loads(CATALOG_LLM.read_text())
         llm_map = {m["model_id"]: m["pricing"] for m in llm["data"]}
 
+    dev_costs = load_models_dev_costs()
+    print(f"[build] models.dev costs {len(dev_costs)} entries")
+
+    # Session token buckets per model (from cached tokscale scan): messages
+    # are excluded at submit when pricing lacks a rate for a populated bucket.
+    buckets = load_session_buckets()
+
     new_models = {}
     skipped = []
     missing = []
@@ -184,17 +296,24 @@ def build(dry_run=False):
             continue
         if cid in llm_map and llm_map[cid] != pricing:
             print(f"  drift {cid}: llm {llm_map[cid]} vs full {pricing} (using full)")
-        new_models[sid] = to_tokscale(pricing)
+        new_models[sid] = backfill_buckets(to_tokscale(pricing), buckets.get(sid, set()))
+
+    # Non-aihubmix session IDs tokscale can't resolve itself (models.dev prices).
+    dev_ids = [mid for mid in used_ids if mid in MODELS_DEV_MAP and mid not in new_models]
+    print(f"[build] models.dev-mapped non-aihubmix used: {len(dev_ids)}")
+    for sid in sorted(dev_ids):
+        provider, key = MODELS_DEV_MAP[sid]
+        cost = dev_costs.get((provider, key), LITELLM_COSTS.get(key))
+        if cost is None:
+            missing.append((sid, f"{provider}:{key}"))
+            continue
+        new_models[sid] = backfill_buckets(models_dev_to_tokscale(cost), buckets.get(sid, set()))
 
     print(f"[build] built {len(new_models)} strict, skipped {len(skipped)} {skipped}, missing {len(missing)} {missing}")
 
-    for fid in FREE_ADDITIONS:
+    for fid in FREE_ADDITIONS + sorted(FREE_IDS):
         if fid not in new_models:
-            new_models[fid] = {
-                "input_cost_per_million_tokens": 0,
-                "output_cost_per_million_tokens": 0,
-                "cache_read_input_token_cost_per_million_tokens": 0,
-            }
+            new_models[fid] = zero_rates()
             print(f"[build] added free {fid}")
 
     final = {
@@ -228,36 +347,43 @@ def build(dry_run=False):
     return final
 
 def check():
-    """Validate current authoritative file vs full catalog."""
+    """Validate current authoritative file vs full catalog + models.dev map."""
     if not AUTHORITATIVE.exists():
         print(f"Missing {AUTHORITATIVE}")
         sys.exit(1)
     custom = json.loads(AUTHORITATIVE.read_text())
     catalog = json.loads(CATALOG_ALL.read_text())
     full_map = {m["model_id"]: m["pricing"] for m in catalog["data"]}
+    dev_costs = load_models_dev_costs()
+    buckets = load_session_buckets()
     ok = 0
     bad = []
     for sid, vals in custom["models"].items():
         # Explicit free additions (not in catalog) — Norman requested 0/0/0
-        if sid in FREE_ADDITIONS:
+        if sid in FREE_ADDITIONS or sid in FREE_IDS:
             if vals.get("input_cost_per_million_tokens") == 0 and vals.get("output_cost_per_million_tokens") == 0:
                 ok += 1
             else:
                 bad.append((sid, "expected free 0"))
             continue
-        cid = resolve_catalog_id(sid)
-        if cid is None:
-            # skipped cheap/crush etc. should not be in file; if present, expect 0
-            if vals.get("input_cost_per_million_tokens") == 0:
-                ok += 1
-            else:
-                bad.append((sid, "expected free 0"))
-            continue
-        exp = to_tokscale(full_map[cid]) if cid in full_map else None
+        if sid in MODELS_DEV_MAP:
+            provider, key = MODELS_DEV_MAP[sid]
+            cost = dev_costs.get((provider, key), LITELLM_COSTS.get(key))
+            exp = backfill_buckets(models_dev_to_tokscale(cost), buckets.get(sid, set())) if cost else None
+        else:
+            cid = resolve_catalog_id(sid)
+            if cid is None:
+                # skipped cheap/crush etc. should not be in file; if present, expect 0
+                if vals.get("input_cost_per_million_tokens") == 0:
+                    ok += 1
+                else:
+                    bad.append((sid, "expected free 0"))
+                continue
+            exp = backfill_buckets(to_tokscale(full_map[cid]), buckets.get(sid, set())) if cid in full_map else None
         if exp is None:
-            bad.append((sid, cid, "missing catalog", vals, None))
+            bad.append((sid, "missing catalog", vals, None))
         elif vals != exp:
-            bad.append((sid, cid, "mismatch", vals, exp))
+            bad.append((sid, "mismatch", vals, exp))
         else:
             ok += 1
     print(f"[check] {ok} OK, {len(bad)} bad out of {len(custom['models'])}")
