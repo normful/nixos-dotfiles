@@ -79,6 +79,38 @@ LITELLM_COSTS = {
 FREE_ADDITIONS = ["big-pickle", "solar-pro4:free"]  # explicit free 0/0/0, not in catalog
 # Session IDs that are always free regardless of provider resolution.
 FREE_IDS = {"upstage/solar-pro4:free"}
+# Any used ID ending in ":free" is an explicit 0/0/0 (free-tier endpoint).
+# Docs-grounded: explicit 0 declares a free model; omitted fields mean unknown.
+# OpenRouter confirms e.g. poolside/laguna-s-2.1:free at 0/0.
+FREE_SUFFIX = ":free"
+# Exact model-half keys for `tokscale submit` warnings, priced from the
+# provider Norman actually pays. Key = the `model` half of the submit
+# warning's provider/model pair (slashes included — exact-only match, so
+# "minimax-m3" does NOT cover "MiniMaxAI/MiniMax-M3", and one key covers
+# every provider/client using that model half, e.g. hermes+nous+openrouter
+# sharing "poolside/laguna-s-2.1:free").
+# Format: key -> dict(input, output, cache_read?, cache_write?, source).
+# Verified 2026-09-05 (see SKILL.md third-run section for sources).
+PINNED_RATES = {
+    "minimax-m2.7": {"input": 0.3, "output": 1.2, "cache_read": 0.06, "cache_write": 0,
+                     "source": "pi models.json opencode-go cost block + OpenRouter minimax/minimax-m2.7"},
+    "inclusionai/ling-3.0-flash": {"input": 0.021, "output": 0.063, "cache_read": 0.0042,
+                                   "source": "OpenRouter API + models.dev [openrouter]"},
+    "MiniMaxAI/MiniMax-M3": {"input": 0.3, "output": 1.2, "cache_read": 0.06,
+                             "source": "siliconflow.com/pricing row MiniMax-M3 0.3/0.06/1.2"},
+    "deepseek-ai/DeepSeek-V4-Flash": {"input": 0.14, "output": 0.28, "cache_read": 0.028,
+                                      "source": "models.dev [siliconflow]"},
+    "kwaipilot/kat-coder-air-v2.5": {"input": 0.15, "output": 0.6, "cache_read": 0.03,
+                                     "source": "openrouter.ai/kwaipilot/kat-coder-air-v2.5 + pricepertoken"},
+    # Norman 2026-09-05: include (paid endpoint, no :free suffix). haimaker
+    # 0.10/0.20 chosen over Requesty's "free upstream" (that's their router's
+    # upstream rate, not OpenRouter's bill). Flip to 0 if invoice says free.
+    "poolside/laguna-xs.2": {"input": 0.1, "output": 0.2,
+                             "source": "haimaker.ai + designforonline from-$0.10 (unverified, Norman default)"},
+}
+# Submit-warning model halves with NO entry (intentional, documented in SKILL.md):
+#   @preset/glm47, @preset/glm47-flash-fast, @preset/kimi25-high-reasoning
+#     -> router/preset labels, unknown rate (accepted loss, @preset/glm47 precedent)
 
 
 def zero_rates() -> dict:
@@ -309,6 +341,19 @@ def build(dry_run=False):
             continue
         new_models[sid] = backfill_buckets(models_dev_to_tokscale(cost), buckets.get(sid, set()))
 
+    # Exact model-half keys for tokscale submit warnings (any provider/client).
+    pinned_ids = [mid for mid in used_ids if mid in PINNED_RATES and mid not in new_models]
+    print(f"[build] pinned submit-warning keys used: {len(pinned_ids)}")
+    for sid in sorted(pinned_ids):
+        rate = PINNED_RATES[sid]
+        new_models[sid] = backfill_buckets(models_dev_to_tokscale(rate), buckets.get(sid, set()))
+
+    # Generic free-tier rule: any used ID ending in ":free" is explicit 0/0/0.
+    free_ids = [mid for mid in used_ids if mid.endswith(FREE_SUFFIX) and mid not in new_models]
+    print(f"[build] free-suffix used: {len(free_ids)}")
+    for sid in sorted(free_ids):
+        new_models[sid] = backfill_buckets(zero_rates(), buckets.get(sid, set()))
+
     print(f"[build] built {len(new_models)} strict, skipped {len(skipped)} {skipped}, missing {len(missing)} {missing}")
 
     for fid in FREE_ADDITIONS + sorted(FREE_IDS):
@@ -344,6 +389,7 @@ def build(dry_run=False):
     # Validate
     for p in (AUTHORITATIVE, LIVE):
         subprocess.run(["jq", ".", str(p)], check=False)
+    print("[done] changes left uncommitted for Norman to review/commit — skill runs never commit (see SKILL.md Commit policy)")
     return final
 
 def check():
@@ -359,14 +405,17 @@ def check():
     ok = 0
     bad = []
     for sid, vals in custom["models"].items():
-        # Explicit free additions (not in catalog) — Norman requested 0/0/0
-        if sid in FREE_ADDITIONS or sid in FREE_IDS:
+        # Explicit free additions (not in catalog) — Norman requested 0/0/0.
+        # Any ":free"-suffixed key follows the same rule via FREE_SUFFIX.
+        if sid in FREE_ADDITIONS or sid in FREE_IDS or sid.endswith(FREE_SUFFIX):
             if vals.get("input_cost_per_million_tokens") == 0 and vals.get("output_cost_per_million_tokens") == 0:
                 ok += 1
             else:
                 bad.append((sid, "expected free 0"))
             continue
-        if sid in MODELS_DEV_MAP:
+        if sid in PINNED_RATES:
+            exp = backfill_buckets(models_dev_to_tokscale(PINNED_RATES[sid]), buckets.get(sid, set()))
+        elif sid in MODELS_DEV_MAP:
             provider, key = MODELS_DEV_MAP[sid]
             cost = dev_costs.get((provider, key), LITELLM_COSTS.get(key))
             exp = backfill_buckets(models_dev_to_tokscale(cost), buckets.get(sid, set())) if cost else None
