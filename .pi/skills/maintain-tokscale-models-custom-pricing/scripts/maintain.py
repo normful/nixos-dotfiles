@@ -209,12 +209,6 @@ def build(dry_run=False):
         print(f"[dry-run] wrote {out} (not overwriting authoritative)")
         return final
 
-    # Backup authoritative
-    if AUTHORITATIVE.exists():
-        bak = AUTHORITATIVE.with_suffix(".json.bak")
-        bak.write_text(AUTHORITATIVE.read_text())
-        print(f"[write] backup {bak}")
-
     AUTHORITATIVE.parent.mkdir(parents=True, exist_ok=True)
     AUTHORITATIVE.write_text(json.dumps(final, indent=2))
     print(f"[write] authoritative {AUTHORITATIVE} ({len(final['models'])})")

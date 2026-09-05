@@ -53,7 +53,7 @@ This skill maintains `custom-pricing.json` to inform `tokscale` of actual per-to
   | `xiaomi-mimo-v2.5-pro` | `mimo-v2.5-pro` | 0.48/0.96/0.00384 (catalog renamed 2026-09-05; stored prices match exactly) |
 - **Kimi-k2.5 cc version:** Checked (`jq -r '.data[].model_id' | grep k2.5`) → no `cc-kimi-k2.5` exists; `kimi-k2.5` stays 0.6/3/0.105, no extra cc entry (Norman: nevermind).
 - **Explicit free additions (non-aihubmix but requested):** `big-pickle` (opencode, not in catalog) and `solar-pro4:free` (not in catalog) added as `0/0/0`.
-- **Overwrite policy:** Directly overwrite the chezmoi source (backup `.bak` kept). For `cc-minimax-m2.7-highspeed`, Norman chose to **overwrite** catalog truth (0.1/0.1) over old custom (1.123/2.456/3.789), even though custom had higher cache cost.
+- **Overwrite policy:** Directly overwrite the chezmoi source (git is the backup — commit after each run). For `cc-minimax-m2.7-highspeed`, Norman chose to **overwrite** catalog truth (0.1/0.1) over old custom (1.123/2.456/3.789), even though custom had higher cache cost.
 - **Full catalog required:** Use `https://aihubmix.com/api/v1/models` (no type) as primary — `?type=llm` misses code models.
 
 ## Current State (2026-09-05)
@@ -78,7 +78,7 @@ python3 scripts/maintain.py --extract       # force re-extract sessions (otherwi
 What the single script does internally (in order):
 1. `fetch_catalog()` — `curl -s https://aihubmix.com/api/v1/models` → `/tmp/aihubmix_models_all.json` (and `?type=llm` for reference), `jq '.data | length'` to verify.
 2. `extract_sessions()` — rglob `~/.pi/agent/sessions/**/*.jsonl`, `json.loads` per line + regex fallback, collects unique + provider map → writes `/tmp/unique_model_ids.json` + `/tmp/provider_map.json` (282 unique, 8536 files as of 2026-09-05).
-3. `build()` — filters strict `aihubmix*` (92 in 2026-09-05; 4 skipped `cheap`/`crush-*`), resolves alias → catalog ID via `ALIAS_MAP` + generic `-deepseek-v4-flash` rule, `to_tokscale()` maps `input/output/cache_read/cache_write` → `input_cost.../output.../cache_read.../cache_creation...`, adds explicit free `big-pickle`/`solar-pro4:free` (0/0/0), writes sorted `chezmoi/dot_config/tokscale/custom-pricing.json` (backup `.bak`), syncs `~/.config` + `/tmp/custom-pricing.new.json`, `jq .` validation.
+3. `build()` — filters strict `aihubmix*` (92 in 2026-09-05; 4 skipped `cheap`/`crush-*`), resolves alias → catalog ID via `ALIAS_MAP` + generic `-deepseek-v4-flash` rule, `to_tokscale()` maps `input/output/cache_read/cache_write` → `input_cost.../output.../cache_read.../cache_creation...`, adds explicit free `big-pickle`/`solar-pro4:free` (0/0/0), writes sorted `chezmoi/dot_config/tokscale/custom-pricing.json` (no `.bak` — git history is the backup; commit after each run), syncs `~/.config` + `/tmp/custom-pricing.new.json`, `jq .` validation.
 4. `check()` — validates current file vs full catalog (90 OK, 0 bad; the 4 skipped `cheap`/`crush-*` are intentionally absent).
 
 Manual `jq` checks still useful for gigantic file:
@@ -93,7 +93,7 @@ jq '.models["cc-k2.6-code-preview"]' chezmoi/dot_config/tokscale/custom-pricing.
 
 Single consolidated script (replaces 9 previous scripts):
 
-- `scripts/maintain.py` — does it all: fetch, extract, filter strict `aihubmix*`, resolve aliases, transform pricing (including `cache_creation`), add free `big-pickle`/`solar-pro4:free`, overwrite authoritative `chezmoi/dot_config/tokscale/custom-pricing.json` (with `.bak`), sync `~/.config`, and validate. See header for `--fetch/--dry-run/--check/--extract` flags. Previous 9 scripts have been removed.
+- `scripts/maintain.py` — does it all: fetch, extract, filter strict `aihubmix*`, resolve aliases, transform pricing (including `cache_creation`), add free `big-pickle`/`solar-pro4:free`, overwrite authoritative `chezmoi/dot_config/tokscale/custom-pricing.json` (no `.bak`; git history is the backup), sync `~/.config`, and validate. See header for `--fetch/--dry-run/--check/--extract` flags. Previous 9 scripts have been removed.
 
 ## Maintenance Rules
 
@@ -103,7 +103,7 @@ Single consolidated script (replaces 9 previous scripts):
 - Keep `cache_creation` alongside `cache_read` where `cache_write` exists (5 models as of 2026-08-21).
 - For any new `<prefix>-deepseek-v4-flash` alias, map to `deepseek-v4-flash-0731`.
 - For any new unknown alias, ask Norman via `socrates` one-by-one (as done for `cheap`/`crush`).
-- Directly overwrite `chezmoi/dot_config/tokscale/custom-pricing.json` (backup `.bak` kept); `~/.config/tokscale/custom-pricing.json` is then derived via `chezmoi apply` or manual copy.
+- Directly overwrite `chezmoi/dot_config/tokscale/custom-pricing.json` (no `.bak` files — git history is the backup; commit after each run); `~/.config/tokscale/custom-pricing.json` is then derived via `chezmoi apply` or manual copy.
 - `big-pickle` and `solar-pro4:free` are intentional free entries not in aihubmix catalog — keep them.
 
 ## Common Mistakes to Avoid
@@ -114,4 +114,4 @@ Single consolidated script (replaces 9 previous scripts):
 4. **Normalizing keys** — keep exact session string (`deep-deepseek-v4-flash`), don't replace with canonical.
 5. **Broad scope** — don't add all 105 intersection; filter to strict `aihubmix*` provider.
 6. **Forgetting free 0 entries** — `big-pickle`/`solar-pro4:free` and other `*-free` should stay 0/0/0.
-7. **Not backing up** — always write `.bak` before overwrite.
+7. **Creating `.bak` files** — never write backup files; git history is the backup. Commit after each run instead.
