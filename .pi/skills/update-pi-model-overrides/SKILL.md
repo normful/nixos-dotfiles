@@ -21,7 +21,7 @@ Keep `chezmoi/dot_pi/agent/models.json` in sync with OpenCode Go's live model ca
 | AA coding index | `curl -s https://artificialanalysis.ai/api/v2/data/llms/models -H "x-api-key: [REDACTED:API key param]" -o /var/tmp/aa.json` | Requires `$ARTIFICIAL_ANALYSIS_API_KEY` to be set. Save to `/var/tmp/aa.json`. |
 | AihubMix pricing (for `aihubmix-*` enabledModels) | `curl -s https://aihubmix.com/api/v1/models?type=llm -o /tmp/aihubmix.json` | No auth. `jq` by `model_id`. Fields `pricing.input/output/cache_read`. |
 | OpenRouter pricing (for `openrouter/*` enabledModels) | `curl -s https://models.dev/api.json -o /tmp/models_dev.json` | Parse `openrouter.models[\"<model-id>\"].cost`. |
-| Enabled models list | `chezmoi/dot_pi/agent/settings.json` key `enabledModels` | 15 entries, order in file **kept as-is** — only `modelOverrides` objects are sorted descending by `⟐`. |
+| Enabled models list | `chezmoi/dot_pi/agent/settings.json` key `enabledModels` | order in file **kept as-is** — only `modelOverrides` objects are sorted descending by `⟐`. |
 
 ## Target file to modify
 
@@ -63,15 +63,18 @@ Where:
 
 ### Ordering
 
-Entries in `providers.opencode-go.modelOverrides` **must be written top-to-bottom in descending order of `⟐` (AA coding index) value** — highest coding first, `null` (no suffix) last. On ties, sort alphabetically by display name ascending. E.g. `Kimi K3 (76.2)` → `GLM-5.3 (74.8)` → … → `MiniMax M2.7 (52.6)`.
+Entries in `providers.opencode-go.modelOverrides` **must be written top-to-bottom in descending order of `⟐` (AA coding index) value** — highest coding first, `null` (no suffix) last. On ties, sort alphabetically by display name ascending. E.g. `Grok 4.6 (76.8)` → `Muse Spark 1.3 (76.3)` → `Kimi K3 (76.2)` → … → `LongCat-2.0 (45.3)` → nulls last.
 
 ## AA Slug Mapping to OpenCode Go Model IDs
 
 AA uses hyphenated slugs. Map from AA slug to OpenCode Go model ID. For models with multiple effort variants, pick **high → xhigh → max** priority (high if AA has it, else xhigh, else max):
 
 | AA Slug | OpenCode Go Model ID | Effort |
+| `grok-4-6` | `grok-4.6` | high |
 | `deepseek-v4-pro` | `deepseek-v4-pro` | **0813 Max — 68.8 coding / 53.2 intel / $1.98 blended ($1.32 in / $3.96 out) 75.2 tps** — canonical for DeepSeek V4 Pro |
 | `deepseek-v4-flash` | `deepseek-v4-flash` | **0731 Max — 69.1 coding / 51.8 intel / $0.66 blended ($0.44 in / $1.32 out) 114.6 tps** — canonical for DeepSeek V4 Flash |
+| `deepseek-v4-flash-vision` | `deepseek-v4-flash-vision-exp` | fallback (no `deepseek-v4-flash-vision-exp` slug in AA; vision max = 65) |
+| `glm-5-3-flash` | `glm-5.3-flash` | — |
 | `glm-5-3` | `glm-5.3` | — |
 | `glm-5-2` | `glm-5.2` | — |
 | `glm-5-1` | `glm-5.1` | — |
@@ -82,16 +85,21 @@ AA uses hyphenated slugs. Map from AA slug to OpenCode Go model ID. For models w
 | `kimi-k3` | `kimi-k3` | max |
 | `kimi-k2-7-code` | `kimi-k2.7-code` | — |
 | `kimi-k2-6` | `kimi-k2.6` | — |
+| `longcat-2-0` | `longcat-2.0` | — |
 | `mimo-v2-5-pro` | `mimo-v2.5-pro` | — |
 | `mimo-v2-5-0424` | `mimo-v2.5` | — (MiMo-V2.5 is distinct from MiMo-V2.5-Pro) |
 | `minimax-m3` | `minimax-m3` | — |
 | `minimax-m2-7` | `minimax-m2.7` | — |
-| `muse-spark-1-2` | `muse-spark-1.2` | xhigh |
+| `minimax-m2-5` | `minimax-m2.5` | — (AA coding null → omit suffix) |
+| `muse-spark-1-3` | `muse-spark-1.3-contributor` (+ bare `muse-spark-1.3` alias, same rates/coding) | max |
+| `muse-spark-1-2` | `muse-spark-1.2-contributor` (+ bare `muse-spark-1.2` alias, same rates/coding) | xhigh |
 | `qwen3-8-max` | `qwen3.8-max` | — |
+| `qwen3-8-flash-next` | `qwen3.8-flash` | fallback (no `qwen3-8-flash` slug in AA) |
 | `qwen3-7-max` | `qwen3.7-max` | — |
 | `qwen3-7-plus` | `qwen3.7-plus` | — |
 | `qwen3-6-plus` | `qwen3.6-plus` | — |
 | `hy3` | `hy3` | — |
+| *(no AA slug)* | `hy4-preview`, `omen-alpha` | — (AA null/missing → rate-limit-only name) |
 
 > **DeepSeek canonical (override — use this data specifically):**
 > | AA Slug | Name | Release | Coding | Intelligence | AA Pricing (blended / in / out) | Median tps |
@@ -100,55 +108,69 @@ AA uses hyphenated slugs. Map from AA slug to OpenCode Go model ID. For models w
 
 ## Rate Limit Reference Table
 
-Extract from go.mdx section "Usage limits". Use these values for calculations (20 models as of 2026-08-20):
+Extract from go.mdx section "Usage limits". Use these values for calculations (27 models as of 2026-09-05):
 
 | Model | Requests per 5hr | Requests per month | Per Hour (÷5) | Per Min (÷5÷60) |
-| Grok 4.5 | 120 | 600 | 24 | 0.4 |
+| Grok 4.6 | 169 | 845 | 34 | 0.6 |
 | GPT 5.6 Luna | 2050 | 10250 | 410 | 6.8 |
+| GLM-5.3-Flash | 1580 | 7900 | 316 | 5.3 |
 | GLM-5.3 | 220 | 1080 | 44 | 0.7 |
 | GLM-5.2 | 880 | 4300 | 176 | 2.9 |
 | GLM-5.1 | 880 | 4300 | 176 | 2.9 |
 | Kimi K3 | 110 | 490 | 22 | 0.4 |
 | Kimi K2.7 Code | 1350 | 6750 | 270 | 4.5 |
 | Kimi K2.6 | 1150 | 5750 | 230 | 3.8 |
+| LongCat-2.0 | 11400 | 57200 | 2280 | 38.0 |
 | MiMo-V2.5 | 30100 | 150400 | 6020 | 100.3 |
 | MiMo-V2.5-Pro | 3250 | 16300 | 650 | 10.8 |
 | MiniMax M3 | 3200 | 16000 | 640 | 10.7 |
 | MiniMax M2.7 | 3400 | 17000 | 680 | 11.3 |
+| Muse Spark 1.3 Contributor | 45300 | 226600 | 9060 | 151.0 |
 | Muse Spark 1.2 Contributor | 45300 | 226600 | 9060 | 151.0 |
 | Qwen3.8 Max | 160 | 810 | 32 | 0.5 |
-| Qwen3.7 Max | 340 | 1690 | 68 | 1.1 |
+| Qwen3.8 Flash | 5400 | 27000 | 1080 | 18.0 |
+| Qwen3.7 Max | 170 | 840 | 34 | 0.6 |
 | Qwen3.7 Plus | 4300 | 21600 | 860 | 14.3 |
 | Qwen3.6 Plus | 3300 | 16300 | 660 | 11.0 |
 | DeepSeek V4 Pro | 1050 | 5200 | 210 | 3.5 |
 | DeepSeek V4 Flash | 7600 | 37800 | 1520 | 25.3 |
+| DeepSeek V4 Flash Vision Exp | 3800 | 18900 | 760 | 12.7 |
+| Hy4 preview | 1350 | 6770 | 270 | 4.5 |
 | Hy3 | 4300 | 21500 | 860 | 14.3 |
+| Omen Alpha | 11600 | 57900 | 2320 | 38.7 |
 
 ## Model ID Mapping
 
 Display names in the docs vs kebab-case model IDs (display name is what appears in `modelOverrides[].name` before the rate suffix):
 
 | Display Name | Model ID |
-| Grok 4.5 | grok-4.5 |
+| Grok 4.6 | grok-4.6 |
 | GPT 5.6 Luna | gpt-5.6-luna |
+| GLM-5.3-Flash | glm-5.3-flash |
 | GLM-5.3 | glm-5.3 |
 | GLM-5.2 | glm-5.2 |
 | GLM-5.1 | glm-5.1 |
 | Kimi K3 | kimi-k3 |
 | Kimi K2.6 | kimi-k2.6 |
 | Kimi K2.7 Code | kimi-k2.7-code |
+| LongCat-2.0 | longcat-2.0 |
 | MiMo-V2.5 | mimo-v2.5 |
 | MiMo-V2.5-Pro | mimo-v2.5-pro |
 | MiniMax M3 | minimax-m3 |
 | MiniMax M2.7 | minimax-m2.7 |
-| Muse Spark 1.2 Contributor | muse-spark-1.2 |
+| Muse Spark 1.3 Contributor | muse-spark-1.3-contributor (bare `muse-spark-1.3` alias shares rates/coding) |
+| Muse Spark 1.2 Contributor | muse-spark-1.2-contributor (bare `muse-spark-1.2` alias shares rates/coding) |
 | Qwen3.8 Max | qwen3.8-max |
+| Qwen3.8 Flash | qwen3.8-flash |
 | Qwen3.7 Max | qwen3.7-max |
 | Qwen3.7 Plus | qwen3.7-plus |
 | Qwen3.6 Plus | qwen3.6-plus |
 | DeepSeek V4 Pro | deepseek-v4-pro |
 | DeepSeek V4 Flash | deepseek-v4-flash |
+| DeepSeek V4 Flash Vision Exp | deepseek-v4-flash-vision-exp |
+| Hy4 preview | hy4-preview |
 | Hy3 | hy3 |
+| Omen Alpha | omen-alpha |
 
 ## Process
 
@@ -197,73 +219,94 @@ Save to `/tmp/calc_ratelimits.py` and run `python3 /tmp/calc_ratelimits.py`:
 import json
 
 MODELS = {
-    "Grok 4.5":          {"reqs_5hr": 120,   "reqs_mo": 600},
+    "Grok 4.6":          {"reqs_5hr": 169,   "reqs_mo": 845},
     "GPT 5.6 Luna":      {"reqs_5hr": 2050,  "reqs_mo": 10250},
+    "GLM-5.3-Flash":     {"reqs_5hr": 1580,  "reqs_mo": 7900},
     "GLM-5.3":           {"reqs_5hr": 220,   "reqs_mo": 1080},
     "GLM-5.2":           {"reqs_5hr": 880,   "reqs_mo": 4300},
     "GLM-5.1":           {"reqs_5hr": 880,   "reqs_mo": 4300},
     "Kimi K3":           {"reqs_5hr": 110,   "reqs_mo": 490},
     "Kimi K2.7 Code":    {"reqs_5hr": 1350,  "reqs_mo": 6750},
     "Kimi K2.6":         {"reqs_5hr": 1150,  "reqs_mo": 5750},
+    "LongCat-2.0":       {"reqs_5hr": 11400, "reqs_mo": 57200},
     "MiMo-V2.5":         {"reqs_5hr": 30100, "reqs_mo": 150400},
     "MiMo-V2.5-Pro":     {"reqs_5hr": 3250,  "reqs_mo": 16300},
     "MiniMax M3":        {"reqs_5hr": 3200,  "reqs_mo": 16000},
     "MiniMax M2.7":      {"reqs_5hr": 3400,  "reqs_mo": 17000},
+    "Muse Spark 1.3 Contributor": {"reqs_5hr": 45300, "reqs_mo": 226600},
     "Muse Spark 1.2 Contributor": {"reqs_5hr": 45300, "reqs_mo": 226600},
     "Qwen3.8 Max":       {"reqs_5hr": 160,   "reqs_mo": 810},
-    "Qwen3.7 Max":       {"reqs_5hr": 340,   "reqs_mo": 1690},
+    "Qwen3.8 Flash":     {"reqs_5hr": 5400,  "reqs_mo": 27000},
+    "Qwen3.7 Max":       {"reqs_5hr": 170,   "reqs_mo": 840},
     "Qwen3.7 Plus":      {"reqs_5hr": 4300,  "reqs_mo": 21600},
     "Qwen3.6 Plus":      {"reqs_5hr": 3300,  "reqs_mo": 16300},
     "DeepSeek V4 Pro":   {"reqs_5hr": 1050,  "reqs_mo": 5200},
     "DeepSeek V4 Flash": {"reqs_5hr": 7600,  "reqs_mo": 37800},
+    "DeepSeek V4 Flash Vision Exp": {"reqs_5hr": 3800, "reqs_mo": 18900},
+    "Hy4 preview":       {"reqs_5hr": 1350,  "reqs_mo": 6770},
     "Hy3":               {"reqs_5hr": 4300,  "reqs_mo": 21500},
+    "Omen Alpha":        {"reqs_5hr": 11600, "reqs_mo": 57900},
 }
 
 DISPLAY_TO_ID = {
-    "Grok 4.5": "grok-4.5",
+    "Grok 4.6": "grok-4.6",
     "GPT 5.6 Luna": "gpt-5.6-luna",
+    "GLM-5.3-Flash": "glm-5.3-flash",
     "GLM-5.3": "glm-5.3",
     "GLM-5.2": "glm-5.2",
     "GLM-5.1": "glm-5.1",
     "Kimi K3": "kimi-k3",
     "Kimi K2.6": "kimi-k2.6",
     "Kimi K2.7 Code": "kimi-k2.7-code",
+    "LongCat-2.0": "longcat-2.0",
     "MiMo-V2.5": "mimo-v2.5",
     "MiMo-V2.5-Pro": "mimo-v2.5-pro",
     "MiniMax M3": "minimax-m3",
     "MiniMax M2.7": "minimax-m2.7",
-    "Muse Spark 1.2 Contributor": "muse-spark-1.2",
+    "Muse Spark 1.3 Contributor": "muse-spark-1.3-contributor",
+    "Muse Spark 1.2 Contributor": "muse-spark-1.2-contributor",
     "Qwen3.8 Max": "qwen3.8-max",
+    "Qwen3.8 Flash": "qwen3.8-flash",
     "Qwen3.7 Max": "qwen3.7-max",
     "Qwen3.7 Plus": "qwen3.7-plus",
     "Qwen3.6 Plus": "qwen3.6-plus",
     "DeepSeek V4 Pro": "deepseek-v4-pro",
     "DeepSeek V4 Flash": "deepseek-v4-flash",
+    "DeepSeek V4 Flash Vision Exp": "deepseek-v4-flash-vision-exp",
+    "Hy4 preview": "hy4-preview",
     "Hy3": "hy3",
+    "Omen Alpha": "omen-alpha",
 }
 
 AA_SLUG_TO_MODEL_ID = {
+    "grok-4-6":                "grok-4.6",
     "grok-4-5":                "grok-4.5",
     "gpt-5-6-luna-high":       "gpt-5.6-luna",
     "gpt-5-6-luna-xhigh":      "gpt-5.6-luna",
     "gpt-5-6-luna":            "gpt-5.6-luna",
+    "glm-5-3-flash":           "glm-5.3-flash",
     "glm-5-3":                 "glm-5.3",
     "glm-5-2":                 "glm-5.2",
     "glm-5-1":                 "glm-5.1",
     "kimi-k3":                 "kimi-k3",
     "kimi-k2-7-code":          "kimi-k2.7-code",
     "kimi-k2-6":               "kimi-k2.6",
+    "longcat-2-0":             "longcat-2.0",
     "mimo-v2-5-pro":           "mimo-v2.5-pro",
     "mimo-v2-5-0424":          "mimo-v2.5",
     "minimax-m3":              "minimax-m3",
     "minimax-m2-7":            "minimax-m2.7",
-    "muse-spark-1-2":          "muse-spark-1.2",
+    "minimax-m2-5":            "minimax-m2.5",
+    "muse-spark-1-3":          "muse-spark-1.3-contributor",
+    "muse-spark-1-2":          "muse-spark-1.2-contributor",
     "qwen3-8-max":             "qwen3.8-max",
+    "qwen3-8-flash-next":      "qwen3.8-flash",
     "qwen3-7-max":             "qwen3.7-max",
     "qwen3-7-plus":            "qwen3.7-plus",
     "qwen3-6-plus":            "qwen3.6-plus",
     "deepseek-v4-pro":         "deepseek-v4-pro",
     "deepseek-v4-flash":       "deepseek-v4-flash",
+    "deepseek-v4-flash-vision": "deepseek-v4-flash-vision-exp",
     "hy3":                     "hy3",
 }
 
@@ -360,7 +403,7 @@ if __name__ == "__main__":
 
 ## Extension: enabledModels name overrides
 
-For the 15 models listed in `chezmoi/dot_pi/agent/settings.json` `enabledModels`, create **per-provider** `modelOverrides` in `chezmoi/dot_pi/agent/models.json` (`providers.<provider>.modelOverrides` keyed by bare model ID, e.g. `providers["aihubmix-oc"].modelOverrides["coding-glm-5.3"]`, `providers["openrouter"].modelOverrides["inclusionai/ling-3.0-flash"]`). Same `⟐`/`●` suffix format as opencode-go, but **pricing source differs** (not `go.mdx`):
+For the 17 models listed in `chezmoi/dot_pi/agent/settings.json` `enabledModels`, create **per-provider** `modelOverrides` in `chezmoi/dot_pi/agent/models.json` (`providers.<provider>.modelOverrides` keyed by bare model ID, e.g. `providers["aihubmix-oc"].modelOverrides["coding-glm-5.3-flash"]`, `providers["openrouter"].modelOverrides["google/gemini-3.8-flash"]`). Same `⟐`/`●` suffix format as opencode-go, but **pricing source differs** (not `go.mdx`):
 
 - `aihubmix-am/*` and `aihubmix-oc/*` → `https://aihubmix.com/api/v1/models?type=llm` (`pricing.input/output/cache_read`)
 - `openrouter/*` → `https://models.dev/api.json` `openrouter.models` cost
@@ -381,21 +424,23 @@ Free models (`coding-glm-5.2-free` $0/$0) have `cost_per_req = 0` → no `●` p
 ### EnabledModels AA & Pricing Mapping
 
 | `enabledModels` entry | AA Slug (coding) | Pricing source `model_id` / `openrouter` key |
-| `opencode-go/muse-spark-1.2-contributor` | `muse-spark-1-2` 72.2 | go.mdx `Muse Spark 1.2 Contributor` 45300/5hr |
+| `opencode-go/muse-spark-1.3-contributor` | `muse-spark-1-3` 76.3 | go.mdx `Muse Spark 1.3 Contributor` 45300/5hr |
 | `opencode-go/deepseek-v4-flash` | `deepseek-v4-flash` 69.1 (0731 Max) | go.mdx 7600/5hr |
-| `opencode-go/mimo-v2.5` | `mimo-v2-5-0424` 56.8 | go.mdx 30100/5hr |
-| `opencode-go/minimax-m3` | `minimax-m3` 58.6 | go.mdx 3200/5hr |
 | `opencode-go/hy3` | `hy3` 58.8 | go.mdx 4300/5hr |
-| `opencode-go/glm-5.2` | `glm-5-2` 68.8 | go.mdx 880/5hr |
-| `opencode/muse-spark-1.2-contributor-free` | `muse-spark-1-2` 72.2 | aihubmix `muse-spark` free — treat as same coding, price $0 → no `●` |
-| `opencode/deepseek-v4-flash-free` | `deepseek-v4-flash` 69.1 | aihubmix `deepseek` free — price $0 → no `●` |
+| `aihubmix-oc/deepseek-v4-flash-0731-fast` | `deepseek-v4-flash` 69.1 | aihubmix `deepseek-v4-flash-0731-fast` $0.28/$1.4 cache 0.07 |
+| `aihubmix-oc/deep-deepseek-v4-flash-vision-exp` | `deepseek-v4-flash-vision` 65 *fallback* (no `-exp` slug in AA) | aihubmix `deepseek-v4-flash-vision-exp` $0.142/$0.284 cache 0.0284 |
+| `aihubmix-oc/coding-glm-5.3-flash` | `glm-5-3-flash` 71.5 | aihubmix `glm-5.3-flash` $0.11268/$0.39438 cache 0.02817 |
+| `aihubmix-oc/glm-5.3-flash` | `glm-5-3-flash` 71.5 | aihubmix `glm-5.3-flash` $0.11268/$0.39438 cache 0.02817 |
+| `aihubmix-oc/qwen3.8-flash` | `qwen3-8-flash-next` 73.1 *fallback* (no `qwen3-8-flash` in AA) | aihubmix `qwen3.8-flash` $0.1126/$0.380025 cache 0.014075 |
+| `aihubmix-oc/agnes-2.5-flash` | `agnes-2-5-pro-alpha` 58.8 *fallback* (no `agnes-2-5-flash` in AA yet, null would omit `⟐`; using pro-alpha as closest) | aihubmix `agnes-2.5-flash` $0.03/$0.15 |
 | `aihubmix-am/cc-minimax-m3` | `minimax-m3` 58.6 | aihubmix `cc-minimax-m3` $0.1/$0.1 |
 | `aihubmix-oc/coding-xiaomi-mimo-v2.5` | `mimo-v2-5-0424` 56.8 | aihubmix `coding-xiaomi-mimo-v2.5` $0.08/$0.16 cache 0.0016 |
-| `aihubmix-oc/coding-glm-5.2-free` | `glm-5-2` 68.8 | aihubmix `coding-glm-5.2-free` $0/$0 → no `●` |
-| `aihubmix-oc/coding-glm-5.3` | `glm-5-3` 74.8 | aihubmix `coding-glm-5.3` $0.06/$0.22 |
-| `aihubmix-oc/agnes-2.5-flash` | `agnes-2-5-pro-alpha` 58.8 *fallback* (no `agnes-2-5-flash` in AA yet, null would omit `⟐`; using pro-alpha as closest) | aihubmix `agnes-2.5-flash` $0.03/$0.15 |
-| `openrouter/inclusionai/ling-3.0-flash` | `ling-3-0-flash` 50.6 | models.dev `openrouter` `inclusionai/ling-3.0-flash` $0.021/$0.063 cache 0.0042 |
-| `openrouter/google/gemini-3.7-flash` | `gemini-3-7-flash` 76.1 (high) | models.dev `openrouter` `google/gemini-3.7-flash` $0.375/$1.875 cache 0.0375 |
+| `openrouter/inclusionai/ling-3.0-flash-fin:free` | `ling-3-0-flash` 50.6 | free tier — price $0 → `⟐ coding` only, no `●` |
+| `openrouter/google/gemini-3.8-flash` | `gemini-3-8-flash` 76.3 (high) | models.dev `openrouter` `google/gemini-3.8-flash` $0.75/$3.75 cache 0.075 |
+| `vercel-ai-gateway/inclusionai/ling-3.0-flash` | `ling-3-0-flash` 50.6 | models.dev `openrouter` `inclusionai/ling-3.0-flash` $0.021/$0.063 cache 0.0042 |
+| `vercel-ai-gateway/xiaomi/mimo-v2.5` | `mimo-v2-5-0424` 56.8 | models.dev `xiaomi/mimo-v2.5` (vercel section; same cost as openrouter `xiaomi/mimo-v2.5` $0.14/$0.28 cache 0.0028) |
+| `vercel-ai-gateway/openai/gpt-5.4-nano` | `gpt-5-4-nano` 56.1 (xhigh) | models.dev `openai/gpt-5.4-nano` $0.2/$1.25 cache 0.02 |
+| `opencode-go/mimo-v2.5` | `mimo-v2-5-0424` 56.8 | go.mdx 30100/5hr |
 
 ### Python for enabledModels (uniform 500/50k/200)
 
@@ -404,39 +449,43 @@ Free models (`coding-glm-5.2-free` $0/$0) have `cost_per_req = 0` → no `●` p
 import json, re
 
 ENABLED_MODELS = [
-  "opencode-go/muse-spark-1.2-contributor",
+  "opencode-go/muse-spark-1.3-contributor",
   "opencode-go/deepseek-v4-flash",
-  "opencode-go/mimo-v2.5",
-  "opencode-go/minimax-m3",
   "opencode-go/hy3",
-  "opencode-go/glm-5.2",
-  "opencode/muse-spark-1.2-contributor-free",
-  "opencode/deepseek-v4-flash-free",
+  "aihubmix-oc/deepseek-v4-flash-0731-fast",
+  "aihubmix-oc/deep-deepseek-v4-flash-vision-exp",
+  "aihubmix-oc/coding-glm-5.3-flash",
+  "aihubmix-oc/glm-5.3-flash",
+  "aihubmix-oc/qwen3.8-flash",
+  "aihubmix-oc/agnes-2.5-flash",
   "aihubmix-am/cc-minimax-m3",
   "aihubmix-oc/coding-xiaomi-mimo-v2.5",
-  "aihubmix-oc/coding-glm-5.2-free",
-  "aihubmix-oc/coding-glm-5.3",
-  "aihubmix-oc/agnes-2.5-flash",
-  "openrouter/inclusionai/ling-3.0-flash",
-  "openrouter/google/gemini-3.7-flash",
+  "openrouter/inclusionai/ling-3.0-flash-fin:free",
+  "openrouter/google/gemini-3.8-flash",
+  "vercel-ai-gateway/inclusionai/ling-3.0-flash",
+  "vercel-ai-gateway/xiaomi/mimo-v2.5",
+  "vercel-ai-gateway/openai/gpt-5.4-nano",
+  "opencode-go/mimo-v2.5",
 ]
 # AA slug mapping for enabledModels (reuse AA_SLUG_TO_MODEL_ID where possible)
 ENABLED_AA = {
-  "opencode-go/muse-spark-1.2-contributor": "muse-spark-1-2",
+  "opencode-go/muse-spark-1.3-contributor": "muse-spark-1-3",
   "opencode-go/deepseek-v4-flash": "deepseek-v4-flash",
-  "opencode-go/mimo-v2.5": "mimo-v2-5-0424",
-  "opencode-go/minimax-m3": "minimax-m3",
   "opencode-go/hy3": "hy3",
-  "opencode-go/glm-5.2": "glm-5-2",
-  "opencode/muse-spark-1.2-contributor-free": "muse-spark-1-2",
-  "opencode/deepseek-v4-flash-free": "deepseek-v4-flash",
+  "aihubmix-oc/deepseek-v4-flash-0731-fast": "deepseek-v4-flash",
+  "aihubmix-oc/deep-deepseek-v4-flash-vision-exp": "deepseek-v4-flash-vision",
+  "aihubmix-oc/coding-glm-5.3-flash": "glm-5-3-flash",
+  "aihubmix-oc/glm-5.3-flash": "glm-5-3-flash",
+  "aihubmix-oc/qwen3.8-flash": "qwen3-8-flash-next",  # fallback, no qwen3-8-flash in AA
+  "aihubmix-oc/agnes-2.5-flash": "agnes-2-5-pro-alpha",  # fallback, AA has no flash yet
   "aihubmix-am/cc-minimax-m3": "minimax-m3",
   "aihubmix-oc/coding-xiaomi-mimo-v2.5": "mimo-v2-5-0424",
-  "aihubmix-oc/coding-glm-5.2-free": "glm-5-2",
-  "aihubmix-oc/coding-glm-5.3": "glm-5-3",
-  "aihubmix-oc/agnes-2.5-flash": "agnes-2-5-pro-alpha",  # fallback, AA has no flash yet
-  "openrouter/inclusionai/ling-3.0-flash": "ling-3-0-flash",
-  "openrouter/google/gemini-3.7-flash": "gemini-3-7-flash",
+  "openrouter/inclusionai/ling-3.0-flash-fin:free": "ling-3-0-flash",
+  "openrouter/google/gemini-3.8-flash": "gemini-3-8-flash",
+  "vercel-ai-gateway/inclusionai/ling-3.0-flash": "ling-3-0-flash",
+  "vercel-ai-gateway/xiaomi/mimo-v2.5": "mimo-v2-5-0424",
+  "vercel-ai-gateway/openai/gpt-5.4-nano": "gpt-5-4-nano",
+  "opencode-go/mimo-v2.5": "mimo-v2-5-0424",
 }
 # pricing helpers
 def cost_per_req_aih(pricing):  # pricing from aihubmix
@@ -490,6 +539,6 @@ Write results to `providers.<provider>.modelOverrides` keyed by bare model ID, s
 
 7. **Wrong AA slug**: AA slugs use hyphens (e.g. `glm-5-2`, `mimo-v2-5-0424`, `muse-spark-1-2`), while OpenCode Go model IDs use dots (e.g. `glm-5.2`). The `AA_SLUG_TO_MODEL_ID` mapping handles this — do not attempt to derive one from the other algorithmically.
 
-8. **Missing new models**: The catalog now has 20 models (not 13). If `go.mdx` row count ≠ `len(MODELS)`, update the skill — do not silently drop new models like `grok-4.5`, `glm-5.3`, `kimi-k3`, `muse-spark-1.2`, `qwen3.8-max`, `gpt-5.6-luna`, `hy3`.
+8. **Missing new models**: The catalog now has 27 models (not 20). If `go.mdx` row count ≠ `len(MODELS)`, update the skill — do not silently drop new models like `grok-4.6`, `glm-5.3-flash`, `longcat-2.0`, `qwen3.8-flash`, `deepseek-v4-flash-vision-exp`, `hy4-preview`, `omen-alpha`, `muse-spark-1.3-contributor`. Note removed models too (`grok-4.5` dropped from live docs 2026-09-05 but kept as stale override; `qwen3.7-max` rates changed 340→170/5hr).
 
 9. **Trailing commas / invalid JSON**: `chezmoi/dot_pi/agent/models.json` must be strict JSON (no trailing commas). Validate with `python3 -m json.tool` or `jq` — previously the file had trailing commas and failed both.
