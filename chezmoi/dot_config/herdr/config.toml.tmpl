@@ -41,7 +41,7 @@ switch_ascii_input_source_in_prefix = true
 reveal_hidden_cursor_for_cjk_ime = true
 cjk_ime_agents = ["pi"]
 cjk_ime_cursor_shape = "steady_block"
-allow_nested = false
+allow_nested = {{ if .exeDevVm }}true{{ else }}false{{ end }}
 
 [keys]
 prefix = "alt+l"
