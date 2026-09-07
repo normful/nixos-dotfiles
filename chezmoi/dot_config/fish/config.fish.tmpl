@@ -32,10 +32,12 @@ if status is-interactive
     bind -M default escape,escape 'commandline -r ""; commandline -f repaint'
     # -------------------------------------------------------------------------
 
-    # If SSH'ing in, attach to herdr
+    {{ if not .exeDevVm -}}
+    # If SSH'ing in, attach to herdr (skipped on exe.dev VMs: allow_nested=true would recurse)
     if set -q SSH_CONNECTION; and command -v herdr >/dev/null 2>&1
         herdr
     end
+    {{ end -}}
 
     # if command -v hh >/dev/null 2>&1
     #   set --export HISTFILE ~/.config/fish/hh.history
