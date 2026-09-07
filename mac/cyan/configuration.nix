@@ -192,6 +192,10 @@
       # ripgrep+fzf in long-running processes.
       (callPackage ../../packages/fff-mcp { })
 
+      # Trigram-indexed grep. Client/server regex search for large
+      # codebases, faster than ripgrep on repeated queries.
+      (callPackage ../../packages/tgrep { })
+
       # ── low interest ──
 
       # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,

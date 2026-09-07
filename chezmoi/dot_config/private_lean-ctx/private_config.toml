@@ -45,6 +45,7 @@ shell_timeout_secs = 300
 shell_allowlist_extra = [
     "zk",
     "sqlite3",
+    "ansible-playbook",
 ]
 
 [cloud]

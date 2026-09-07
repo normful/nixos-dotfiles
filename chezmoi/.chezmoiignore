@@ -22,14 +22,12 @@
 .config/fish
 {{ end }}
 
-{{/* exe.dev VM (hermes-setup): bare `chezmoi apply` ≈ the essentials subset */}}
-{{/* (mirrors dotfiles_chezmoi_targets in hermes-setup roles/dotfiles/defaults) */}}
+{{/* Config that should not be installed on exe.dev VM */}}
 {{ if .exeDevVm -}}
 .cargo
 .colima
 .commandcode
 .opencommit
-.pi
 .serena
 .terminfo
 .warp
@@ -40,11 +38,8 @@ Library
 .config/lftp
 .config/mise
 .config/nvim
-.config/pi-auto-name
 .config/procs
 .config/rpiv-advisor
-.config/rpiv-pi
-.config/tokscale
 .config/wezterm
 .config/zellij
 {{ end -}}
