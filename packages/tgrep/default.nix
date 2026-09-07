@@ -2,9 +2,10 @@
 # https://github.com/microsoft/tgrep
 #
 # Upstream releases one tarball per platform; each contains `./tgrep`
-# plus `./README.md`. The binary is already named `tgrep`, so extract
-# only it. Linux builds are static-pie musl (no interpreter), macOS
-# links only system libs — no autoPatchelfHook needed.
+# plus `./README.md` (note the `./` prefix — GNU tar needs the exact
+# member name, so extract everything and drop the README). Linux builds
+# are static-pie musl (no interpreter), macOS links only system libs —
+# no autoPatchelfHook needed.
 {
   lib,
   stdenv,
@@ -47,7 +48,8 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    tar -xzf $src -C $out/bin tgrep
+    tar -xzf $src -C $out/bin
+    rm -f $out/bin/README.md
     chmod +x $out/bin/tgrep
     runHook postInstall
   '';
