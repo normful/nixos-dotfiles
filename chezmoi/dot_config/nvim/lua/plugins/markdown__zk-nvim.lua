@@ -3,6 +3,7 @@ local function configure_zk_nvim()
     picker = 'telescope',
     lsp = {
       auto_attach = { enabled = true, filetypes = { 'markdown' } },
+      config = { cmd = { 'zk-normful-fork', 'lsp' } },
     },
   })
 end
@@ -50,7 +51,7 @@ return {
 
     {
       '<Leader>zo',
-      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'modified' } }, { title = 'Recent notes' })<CR>",
+      "<Cmd>lua require('zk').edit({ notebook_path = vim.fn.expand('~/code/alcove'), sort = { 'modified' }, limit = 50 }, { title = 'Recent notes' })<CR>",
       mode = 'n',
       desc = 'Open notes',
     },

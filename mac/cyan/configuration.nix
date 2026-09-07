@@ -79,6 +79,7 @@
       hk
       opencode
       himalaya
+      crystal
 
       # adoc
       asciidoctor-with-extensions
@@ -224,6 +225,10 @@
       # Terminal coding agent for any model. TUI + CLI. DeepSeek,
       # Claude, GPT, open-weight models via vLLM/Ollama.
       (callPackage ../../packages/codewhale { })
+
+      # RAM-efficient terminal coding agent harness (Rust). Local TUI,
+      # remote execution over native SSH sessions.
+      (callPackage ../../packages/jcode { })
 
       # ── already tried ──
 

@@ -16,7 +16,7 @@
     "branchSummarization": "deepseek/deepseek-v4-flash"
   },
   "branchSummarySkipPrompt": true,
-  "model": "meta/muse-spark-1.2-contributor",
+  "model": "meta/muse-spark-1.3-contributor",
   "compactMode": "default",
   "reasoningEffort": {
     "meta/muse-spark-1.2-contributor": "high",

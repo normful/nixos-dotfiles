@@ -7,7 +7,7 @@
   "namingStyle": "natural",
   "replaceExistingName": "always",
   "reRenameEveryNTurns": 10,
-  "respectExternalRenames": true,
+  "respectExternalRenames": false,
   "sessionNameMaxLength": 200,
   "skipSessionNameDedup": false,
   "surfaces": {
