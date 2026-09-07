@@ -21,5 +21,11 @@ function fish_prompt --description 'Write out the prompt'
         set prompt_status $status_color "[" $last_status "]" $normal
     end
 
-    echo -s (prompt_hostname) ' ' $cwd_color (prompt_pwd --full-length-dirs=2 --dir-length=1) $vcs_color (fish_git_prompt) $normal $prompt_status $status_color $suffix $normal ' '
+    set -l current_hostname (prompt_hostname)
+    set -l hostname_color (set_color EAB308) # gold for non-cyan hosts
+    if test "$current_hostname" = "cyan"
+        set hostname_color (set_color cyan)
+    end
+
+    echo -s $hostname_color $current_hostname $normal ' ' $cwd_color (prompt_pwd --full-length-dirs=2 --dir-length=1) $vcs_color (fish_git_prompt) $normal $prompt_status $status_color $suffix $normal ' '
 end
