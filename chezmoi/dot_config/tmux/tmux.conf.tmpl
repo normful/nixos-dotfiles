@@ -1,8 +1,8 @@
 # See https://ianthehenry.com/posts/how-to-configure-tmux/ for more explanation
 # And https://github.com/ianthehenry/dotfiles/blob/master/.tmux.conf
 
-set-option -g prefix  M-l # WezTerm, kitty, Ghostty config: Cmd+L sends Meta+L
-set-option -g prefix2 C-l # Second prefix that also works: Ctrl+L
+set-option -g prefix  A-a
+set-option -g prefix2 C-a
 
 set-option -g status-style bg=default
 
@@ -139,10 +139,10 @@ bind-key -T root F3       run "pbpaste | tmux load-buffer - && tmux paste-buffer
 # ------------------------
 
 # Previous session
-bind-key -T root F9       switch-client -p # <F9>
+# bind-key -T root F9       switch-client -p # <F9>
 
 # Next session
-bind-key -T root F10      switch-client -n # <F10>
+# bind-key -T root F10      switch-client -n # <F10>
 
 # -----------------------
 # Keyboard binds: Windows
@@ -150,13 +150,15 @@ bind-key -T root F10      switch-client -n # <F10>
 
 # New window
 bind-key -T prefix n      new-window # <PREFIX1or2> + n
-bind-key -T root F8       new-window # <F8>
+# bind-key -T root F8       new-window # <F8>
 
 # Previous window
-bind-key -T root F11      previous-window # <F11>
+# bind-key -T root F11      previous-window # <F11>
+bind-key -T root s        previous-window
 
 # Next window
-bind-key -T root F12      next-window # <F12>
+# bind-key -T root F12      next-window # <F12>
+bind-key -T root d        next-window
 
 # Kill window
 bind-key -T prefix x      kill-window # <PREFIX1or2> + x
