@@ -14,7 +14,7 @@ function _lc
 		command $argv
 		return
 	end
-	'/run/current-system/sw/bin/lean-ctx' -t $argv
+	command lean-ctx -t $argv
 	set -l _lc_rc $status
 	if test $_lc_rc -eq 127 -o $_lc_rc -eq 126
 		command $argv
@@ -32,7 +32,7 @@ function _lc_compress
 		command $argv
 		return
 	end
-	'/run/current-system/sw/bin/lean-ctx' -c $argv
+	command lean-ctx -c $argv
 	set -l _lc_rc $status
 	if test $_lc_rc -eq 127 -o $_lc_rc -eq 126
 		command $argv
