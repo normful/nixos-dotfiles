@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.85.1",
-  "defaultProvider": "opencode-go",
-  "defaultModel": "muse-spark-1.3-contributor",
+  "defaultProvider": "exe-dev-fireworks",
+  "defaultModel": "accounts/fireworks/models/glm-5p3-flash@llm",
   "defaultThinkingLevel": "high",
   "quietStartup": true,
   "collapseChangelog": true,

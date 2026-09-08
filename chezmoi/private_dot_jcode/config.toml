@@ -115,8 +115,8 @@ tool_profile = "acp"
 trusted_external_sources = []
 
 [provider]
-default_model = "omen-alpha"
-default_provider = "opencode-go"
+default_model = "fireworks/glm-5p3-flash"
+default_provider = "exedev-llm"
 openai_reasoning_effort = "low"
 openai_service_tier = "priority"
 openai_native_compaction_mode = "auto"
@@ -126,6 +126,7 @@ cross_provider_failover = "manual"
 same_provider_account_failover = false
 model_picker_providers = [
     "opencode-go",
+    "exedev-llm",
 ]
 stream_idle_timeout_secs = 600
 max_retries = 8
@@ -214,3 +215,46 @@ enabled = true
 [launch_hotkeys]
 enabled = false
 imported = true
+
+# Keyless exe.dev LLM gateway — network-edge injected, no API key (any bearer accepted).
+# Model list from https://llm.int.exe.xyz/v1/models.
+[providers.exedev-llm]
+type = "openai-compatible"
+base_url = "https://llm.int.exe.xyz/v1"
+auth = "none"
+default_model = "fireworks/glm-5p3-flash"
+requires_api_key = false
+[[providers.exedev-llm.models]]
+id = "fireworks/glm-5p3-flash"
+[[providers.exedev-llm.models]]
+id = "fireworks/qwen3p8-2p4t-a95b"
+[[providers.exedev-llm.models]]
+id = "fireworks/muse-glimmer-30b"
+[[providers.exedev-llm.models]]
+id = "fireworks/glm-5p3"
+[[providers.exedev-llm.models]]
+id = "fireworks/glm-5p2"
+[[providers.exedev-llm.models]]
+id = "fireworks/kimi-k3"
+[[providers.exedev-llm.models]]
+id = "fireworks/kimi-k2p7-code"
+[[providers.exedev-llm.models]]
+id = "fireworks/kimi-k2p6"
+[[providers.exedev-llm.models]]
+id = "fireworks/deepseek-v4-pro-0813"
+[[providers.exedev-llm.models]]
+id = "fireworks/inkling"
+[[providers.exedev-llm.models]]
+id = "fireworks/nemotron-3-ultra-nvfp4"
+[[providers.exedev-llm.models]]
+id = "fireworks/qwen3p7-plus"
+[[providers.exedev-llm.models]]
+id = "fireworks/minimax-m3"
+[[providers.exedev-llm.models]]
+id = "fireworks/deepseek-v4-flash-0731"
+[[providers.exedev-llm.models]]
+id = "fireworks/nemotron-lightning-3p5-30b-a3b"
+[[providers.exedev-llm.models]]
+id = "fireworks/gpt-oss-120b"
+[[providers.exedev-llm.models]]
+id = "fireworks/qwen3-embedding-8b"
