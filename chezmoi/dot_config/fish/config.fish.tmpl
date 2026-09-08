@@ -32,17 +32,12 @@ if status is-interactive
     bind -M default escape,escape 'commandline -r ""; commandline -f repaint'
     # -------------------------------------------------------------------------
 
-    {{ if not .exeDevVm -}}
-    # If SSH'ing in, attach to herdr (skipped on exe.dev VMs: allow_nested=true would recurse)
+    {{ if .mac -}}
+    # If SSH'ing in, attach to herdr
     if set -q SSH_CONNECTION; and command -v herdr >/dev/null 2>&1
         herdr
     end
     {{ end -}}
-
-    # if command -v hh >/dev/null 2>&1
-    #   set --export HISTFILE ~/.config/fish/hh.history
-    #   set --export HSTR_CONFIG hicolor,prompt-bottom
-    # end
 
     {{ if .mac -}}
     if command -v intelephense >/dev/null 2>&1
@@ -69,12 +64,18 @@ if status is-interactive
       set --export TEMARI_MODEL "openrouter/z-ai/glm-5.3-flash"
     end
 
-    set --export PI_TELEMETRY "0"
-    set --export PI_OFFLINE "1"
     set --export TELEMETRY_ENABLED false
     set --export DO_NOT_TRACK "1"
-    set --export OPENSPEC_TELEMETRY "0"
-    set --export JCODE_NO_TELEMETRY "1"
+    if command -v pi >/dev/null 2>&1
+      set --export PI_TELEMETRY "0"
+      set --export PI_OFFLINE "1"
+    end
+    if command -v openspec >/dev/null 2>&1
+      set --export OPENSPEC_TELEMETRY "0"
+    end
+    if command -v jcode >/dev/null 2>&1
+      set --export JCODE_NO_TELEMETRY "1"
+    end
 
     {{ if .mac -}}
     set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -109,46 +110,54 @@ if status is-interactive
     {{ else if .linux -}}
     if command -v nh >/dev/null 2>&1
         abbr --add mm "nh os switch $HOME/code/nixos-dotfiles --hostname (hostname -s)"
-    else if test (hostname -s) = "tmp-herm-2"
-        abbr --add mm "echo 'tmp-herm-2 is Ubuntu without Nix; dotfiles managed by chezmoi (abbr ca)'"
-    else
+    else if command -v nixos-rebuild >/dev/null 2>&1
         abbr --add mm "sudo nixos-rebuild switch --flake $HOME/code/nixos-dotfiles#(hostname -s)"
     end
     {{ end -}}
 
     abbr --add c clear
     abbr --add q exit
-
-    abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --sort time'
-
-    abbr --add hh _atuin_search
-
-    abbr --add man 'batman'
-
-    abbr --add d dirh
-    abbr --add nd nextd
-    abbr --add pd prevd
-
     abbr --add utc 'date -u'
 
-    abbr --add ag 'rg'
-    abbr --add rgd --position command --set-cursor=% 'rg % --json | delta'
-    abbr --add rglit 'rg -F'
+    if command -v eza >/dev/null 2>&1
+      abbr --add l 'eza --classify=auto --color=always --icons=always --almost-all --group-directories-first --long --binary --smart-group --header --mounts --octal-permissions --no-permissions --sort time'
+    end
 
-    abbr --add g git
-    abbr --add qg git
-    abbr --add gl 'git l'
-    abbr --add gs 'git s'
+    if command -v atuin >/dev/null 2>&1
+      abbr --add hh _atuin_search
+    end
 
-    abbr --add n "nvim"
-    abbr --add v "nvim"
+    if command -v batman >/dev/null 2>&1
+      abbr --add man 'batman'
+    end
 
-    abbr --add pimin 'cd (mktemp -d); and pi'
-    abbr --add piall "cd (mktemp -d); and touch foo; and pi --skill $HOME/.pi/agent/skills/curated-ai-skills"
-    abbr --add pilean "pi -e $HOME/.pi/agent/extensions/pi-lean-ctx/"
-    abbr --add piorchestrator "pi 'read $HOME/.pi/agent/skills/curated-ai-skills/orchestrator/SKILL.md and $HOME/.pi/agent/skills/curated-ai-skills/writing-multiagent-workflows/SKILL.md and the workflow agents in $HOME/.pi/agents'"
+    if command -v rg >/dev/null 2>&1
+      abbr --add ag 'rg'
+      abbr --add rgd --position command --set-cursor=% 'rg % --json | delta'
+      abbr --add rglit 'rg -F'
+    end
 
-    abbr --add sss 'git show HEAD'
+    if command -v git >/dev/null 2>&1
+      abbr --add g git
+      abbr --add qg git
+      abbr --add gl 'git l'
+      abbr --add gs 'git s'
+      abbr --add sss 'git show HEAD'
+    end
+
+    if command -v nvim >/dev/null 2>&1
+      abbr --add n "nvim"
+      abbr --add v "nvim"
+    end
+
+    if command -v pi >/dev/null 2>&1
+      abbr --add pimin 'cd (mktemp -d); and pi'
+      {{ if .mac -}}
+        abbr --add piall "cd (mktemp -d); and touch foo; and pi --skill $HOME/.pi/agent/skills/curated-ai-skills"
+        abbr --add pilean "pi -e $HOME/.pi/agent/extensions/pi-lean-ctx/"
+        abbr --add piorchestrator "pi 'read $HOME/.pi/agent/skills/curated-ai-skills/orchestrator/SKILL.md and $HOME/.pi/agent/skills/curated-ai-skills/writing-multiagent-workflows/SKILL.md and the workflow agents in $HOME/.pi/agents'"
+      {{ end -}}
+    end
 
     abbr --add em "nvim $HOME/code/nixos-dotfiles/mac/cyan/configuration.nix"
 
@@ -233,7 +242,3 @@ if status is-interactive
     fish_add_path --global --prepend "$HOME/.local/bin"
     {{ end -}}
 end
-
-# function __should_na --on-event fish_prompt
-#     echo $history[1] | grep -Ev '(^hh$|^sd|^1.$)' >> $HOME/.config/fish/hh.history
-# end
