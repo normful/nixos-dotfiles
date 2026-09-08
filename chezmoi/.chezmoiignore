@@ -24,7 +24,6 @@
 
 {{/* Config that should not be installed on exe.dev VM */}}
 {{ if .exeDevVm -}}
-.cargo
 .colima
 .commandcode
 .opencommit
