@@ -171,10 +171,14 @@ if status is-interactive
     abbr --add ek "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf"
     abbr --add ew "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua.tmpl"
 
-    abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
     abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
     abbr --add epim   "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/models.json"
     abbr --add epims  "nvim $HOME/.pi/agent/models-store.json"
+    abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings_mac.json"
+    {{ end -}}
+
+    {{ if .exeDevVm -}}
+    abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings_exeDevVm.json"
     {{ end -}}
 
     if command -v chezmoi >/dev/null 2>&1
