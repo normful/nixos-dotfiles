@@ -51,11 +51,12 @@ incremental = true # https://doc.rust-lang.org/cargo/reference/profiles.html#inc
 [cargo-new]
 vcs = "git" # VCS to use
 
-[doc]
-browser = "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
-
 [future-incompat-report]
 frequency = "always" # when to display a notification about a future incompat report
+
+{{ if .mac -}}
+[doc]
+browser = "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
 
 [target.aarch64-apple-darwin]
 linker = "/usr/bin/cc" # To avoid using gcc at /run/current-system/sw/bin/cc
@@ -65,6 +66,7 @@ rustflags = [
   "-C", "target-cpu=apple-m1",
   "-C", "opt-level=3",
 ]
+{{ end -}}
 
 [term]
 quiet = false          # whether cargo output is quiet
