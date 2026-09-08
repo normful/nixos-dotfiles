@@ -1,5 +1,5 @@
 {{- if .mac -}}
-{{-   include "settings_mac.json" -}}
-{{- else if .linux -}}
-{{-   include "settings_linux.json" -}}
+{{-   include "dot_pi/agent/settings_mac.json" -}}
+{{- else if .exeDevVm -}}
+{{-   include "dot_pi/agent/settings_exeDevVm.json" -}}
 {{- end -}}

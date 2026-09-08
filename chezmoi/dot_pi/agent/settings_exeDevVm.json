@@ -1,0 +1,89 @@
+{
+  "lastChangelogVersion": "0.85.1",
+  "defaultProvider": "exe-dev-fireworks",
+  "defaultModel": "accounts/fireworks/models/glm-5p3-flash@llm",
+  "defaultThinkingLevel": "high",
+  "quietStartup": true,
+  "collapseChangelog": true,
+  "editorPaddingX": 3,
+  "showHardwareCursor": true,
+  "hideThinkingBlock": false,
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "branchSummary": {
+    "skipPrompt": true
+  },
+  "npmCommand": [
+    "bun"
+  ],
+  "retry": {
+    "enabled": true,
+    "maxRetries": 5,
+    "baseDelayMs": 3000,
+    "provider": {
+      "timeoutMs": 3600000,
+      "maxRetries": 0,
+      "maxRetryDelayMs": 60000
+    }
+  },
+  "packages": [
+    "npm:pi-lean-ctx",
+    "npm:@parallel-web/pi-extension",
+    "npm:@normful/pi-statusline",
+    "npm:@normful/pi-show-files-read",
+    "npm:@normful/pi-show-theme-colors",
+    "npm:@normful/pi-stop-secrets-leaks",
+    "npm:@normful/pi-auto-name",
+    "https://github.com/normful/pi-agent-browser-native",
+    "https://github.com/normful/pi-mcp-adapter",
+    {
+      "source": "https://github.com/normful/picadillo",
+      "extensions": [
+        "-extensions/overstory.ts",
+        "-extensions/mulch.ts",
+        "-extensions/gastown.ts",
+        "-extensions/respond.ts",
+        "+extensions/parrot.ts"
+      ],
+      "skills": [
+        "-skills/mulch/SKILL.md",
+        "-skills/run-in-tmux/SKILL.md"
+      ]
+    },
+    "npm:@code-fixer-23/pi-session-manager",
+    "npm:@vanillagreen/pi-session-manager",
+    "git:github.com/iRonin/pi-clear-on-double-esc",
+    "npm:@spences10/pi-themes",
+    "npm:@agnishc/edb-context-viewer",
+    "npm:@tintinweb/pi-subagents",
+    "npm:@gotgenes/pi-nocd"
+  ],
+  "transport": "auto",
+  "doubleEscapeAction": "none",
+  "theme": "dracula",
+  "treeFilterMode": "no-tools",
+  "enableSkillCommands": true,
+  "enableInstallTelemetry": false,
+  "enabledModels": [
+    "opencode-go/muse-spark-1.3-contributor",
+    "opencode-go/deepseek-v4-flash",
+    "opencode-go/omen-alpha",
+    "opencode-go/mimo-v2.5",
+    "opencode-go/hy3",
+    "opencode-go/qwen3.8-flash"
+  ],
+  "terminal": {
+    "showTerminalProgress": false,
+    "imageWidthCells": 60
+  },
+  "autocompleteMaxVisible": 20,
+  "compaction": {
+    "enabled": true
+  },
+  "httpIdleTimeoutMs": 300000,
+  "tuiMode": "regular",
+  "showCacheMissNotices": true,
+  "markdown": {
+    "mermaid": "final"
+  }
+}

@@ -183,7 +183,7 @@ if status is-interactive
       {{ if .mac -}}
       abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit config changes'; chezmoi apply"
       {{ end -}}
-    {{ end -}}
+    end
 
     if command -v iconv >/dev/null 2>&1
       abbr --add catjis 'iconv -f shift-jis -t utf-8'
