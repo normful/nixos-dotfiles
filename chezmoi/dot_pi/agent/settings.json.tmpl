@@ -1,0 +1,5 @@
+{{- if .mac -}}
+{{-   include "settings_mac.json" -}}
+{{- else if .linux -}}
+{{-   include "settings_linux.json" -}}
+{{- end -}}
