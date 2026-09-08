@@ -159,37 +159,51 @@ if status is-interactive
       {{ end -}}
     end
 
+    abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
+    abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
+    abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
+    abbr --add eh "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/herdr/config.toml.tmpl"
+
+    {{ if .mac -}}
     abbr --add em "nvim $HOME/code/nixos-dotfiles/mac/cyan/configuration.nix"
 
     abbr --add et "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/ghostty/config"
     abbr --add ek "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/kitty/kitty.conf"
     abbr --add ew "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/wezterm/wezterm.lua.tmpl"
 
-    abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
-    abbr --add eg "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_gitconfig.tmpl"
-    abbr --add eu "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/tmux/tmux.conf.tmpl"
-    abbr --add eh "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/herdr/config.toml.tmpl"
-
     abbr --add episet "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/settings.json"
     abbr --add episys "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/SYSTEM.md"
     abbr --add epim   "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_pi/agent/models.json"
     abbr --add epims  "nvim $HOME/.pi/agent/models-store.json"
+    {{ end -}}
 
-    abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit config changes'; chezmoi apply"
-    abbr --add ca 'chezmoi apply'
-    abbr --add cmt 'chezmoi chattr +template'
+    if command -v chezmoi >/dev/null 2>&1
+      abbr --add ca 'chezmoi apply'
+      abbr --add cmt 'chezmoi chattr +template'
+      {{ if .mac -}}
+      abbr --add cma "cd $HOME/code/nixos-dotfiles; chezmoi add $HOME/.pi/agent/settings.json; chezmoi add $HOME/.config/lean-ctx/config.toml; git add chezmoi/dot_pi/agent/settings.json; git add chezmoi/dot_config/private_lean-ctx/private_config.toml; git commit -m 'chore: autocommit config changes'; chezmoi apply"
+      {{ end -}}
+    {{ end -}}
 
-    abbr --add catjis 'iconv -f shift-jis -t utf-8'
-    abbr --add mdcat 'mdcat --columns 180 --paginate'
-    abbr --add glow "glow -s $HOME/Library/Preferences/glow/night-owl.json"
-    abbr --add hsr 'herdr server reload-config'
+    if command -v iconv >/dev/null 2>&1
+      abbr --add catjis 'iconv -f shift-jis -t utf-8'
+    end
+
+    if command -v mdcat >/dev/null 2>&1
+      abbr --add mdcat 'mdcat --columns 180 --paginate'
+    end
+
+    if command -v glow >/dev/null 2>&1
+      abbr --add glow "glow -s $HOME/Library/Preferences/glow/night-owl.json"
+    end
+
+    if command -v herdr >/dev/null 2>&1
+      abbr --add hsr 'herdr server reload-config'
+    end
 
     if command -v zk >/dev/null 2>&1
-        abbr --add zn  "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
-        abbr --add zkn "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
-        abbr --add znt "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
-
         abbr --add zj 'today'
+        abbr --add zn "zk new --working-dir=$HOME/code/alcove --notebook-dir=$HOME/code/alcove --title"
     end
 
     if command -v commandcode >/dev/null >&1
@@ -197,20 +211,20 @@ if status is-interactive
     end
 
     if command -v cargo >/dev/null 2>&1
-        abbr --add cf 'cargo fmt'
-        abbr --add cl 'cargo clippy'
-        abbr --add ck 'cargo check'
+        abbr --add carf 'cargo fmt'
+        abbr --add carl 'cargo clippy'
+        abbr --add carc 'cargo check'
 
-        abbr --add cb 'cargo build'
-        abbr --add cbr 'cargo build --release'
+        abbr --add carb 'cargo build'
+        abbr --add carbr 'cargo build --release'
 
-        abbr --add cr 'cargo run'
-        abbr --add crr 'cargo run --release'
+        abbr --add carr 'cargo run'
+        abbr --add carrr 'cargo run --release'
 
-        abbr --add ct 'cargo test'
-        abbr --add ctn 'cargo test -- --nocapture'
+        abbr --add cart 'cargo test'
+        abbr --add cartn 'cargo test -- --nocapture'
 
-        abbr --add cdo 'cargo doc --open'
+        abbr --add card 'cargo doc --open'
     end
 
     {{ if .mac -}}
