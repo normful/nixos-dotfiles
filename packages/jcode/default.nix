@@ -1,70 +1,89 @@
-# jcode – prebuilt binaries, no nixpkgs package exists
-# https://github.com/1jehuang/jcode
+# jcode – built from source (cargo), no nixpkgs package exists
+# https://github.com/normful/jcode (fork of https://github.com/1jehuang/jcode)
 #
-# Upstream releases one tarball per platform; each contains a single
-# executable named after the asset, except linux-x86_64 which ships a
-# wrapper script + `.bin` pair (the wrapper execs its `.bin` sibling
-# by name and sets LD_LIBRARY_PATH to its own dir).
+# The fork publishes no compiled release tarballs, so this builds the
+# `jcode` binary from source with rustPlatform.buildRustPackage.
+#
+# To update to a newer fork commit:
+#   1. Set `rev` to the new master HEAD.
+#   2. Refresh `hash`: temporarily set it to `lib.fakeHash`, run
+#        `nix build` on this package, and copy the `got: sha256-…`
+#        value from the hash-mismatch error. (Do NOT use
+#        `nix store prefetch-file` on the release tarball — that hashes
+#        the .tar.gz file, while fetchFromGitHub hashes the unpacked tree.)
+#   3. Refresh the vendored lockfile from the same commit:
+#        curl -sL https://raw.githubusercontent.com/normful/jcode/<rev>/Cargo.lock \
+#          -o packages/jcode/Cargo.lock
+#   4. `nix build` to verify (updates outputHashes below if git deps changed).
 {
   lib,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  perl,
+  pkg-config,
+  openssl,
   stdenv,
-  fetchurl,
-  autoPatchelfHook,
+  libiconv,
+  apple-sdk_15,
 }:
 
-let
+rustPlatform.buildRustPackage rec {
+  pname = "jcode";
+  # Matches the fork's Cargo.toml [package] version at the pinned rev.
   version = "0.84.0";
-  base = "https://github.com/1jehuang/jcode/releases/download/v${version}";
 
-  sources = {
-    aarch64-darwin = {
-      url = "${base}/jcode-macos-aarch64.tar.gz";
-      sha256 = "4661f312185575b88ab500ad9c3a97861062d493fb817aa4d721b057c7130401";
-    };
-    x86_64-darwin = {
-      url = "${base}/jcode-macos-x86_64.tar.gz";
-      sha256 = "3033c5ad0a50ae193650219eec3255b4f519c4cfbcd51521c76e599518a8ec45";
-    };
-    aarch64-linux = {
-      url = "${base}/jcode-linux-aarch64.tar.gz";
-      sha256 = "3852a93ab86a6a2098fb45fc631de3b2fb8304c3a04044b7669becfe9146f539";
-    };
-    x86_64-linux = {
-      url = "${base}/jcode-linux-x86_64.tar.gz";
-      sha256 = "e00eaede1a4f26812e77382bda9d82e2d301affd983d18ada38fddd43dce9571";
+  src = fetchFromGitHub {
+    owner = "normful";
+    repo = "jcode";
+    rev = "879bf1ecd301bb7f87d215b638e15ef5b5aca57a";
+    hash = "sha256-m3oBFOXGdaE+VKp1eahKbhBkFalUykkJhQPgMWCaAZU=";
+  };
+
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "agentgrep-0.1.6" = "sha256-yBLs2YZ6cUlTHYZGLtlAXpK7/9xX2kPi46B1YLbuPUU=";
+      "mermaid-rs-renderer-0.3.1" = "sha256-uekh1vJ19dAPP7+4PiqSlJizApZLpDhBWBoyN+fgS9s=";
     };
   };
 
-  src = fetchurl sources.${stdenv.hostPlatform.system};
-in
-stdenv.mkDerivation rec {
-  pname = "jcode";
-  inherit version src;
+  # Only the main binary. The workspace also defines test_api,
+  # jcode-harness, and feature-gated dev bench bins we don't ship.
+  cargoBuildFlags = [
+    "--bin"
+    "jcode"
+  ];
 
-  dontBuild = true;
-  dontConfigure = true;
-  dontUnpack = true;
+  # fetchFromGitHub strips .git, so the jcode-build-meta script can't
+  # run git itself. Pass the pinned commit's identity explicitly so
+  # `jcode --version` and the self-update ancestry check see the real
+  # commit instead of "unknown" (same values a local `cargo build`
+  # in the fork would emit). TAG is intentionally unset: this is a
+  # fork snapshot, not an official release tag.
+  JCODE_BUILD_GIT_HASH = "879bf1e";
+  JCODE_BUILD_GIT_DATE = "2026-09-08 17:58:50 +0000";
 
-  # Linux binaries are dynamically linked (ELF, /lib64/ld-linux …);
-  # rewrite interpreter/RPATH for the Nix store (same as lightpanda).
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  # cmake: aws-lc-sys (rustls TLS). perl: aws-lc/openssl-src build scripts.
+  # pkg-config + openssl: imap/native-tls links system OpenSSL
+  # (vendored OpenSSL is only behind the off-by-default
+  # linux-compat-vendored-openssl feature). rusqlite uses its bundled
+  # sqlite, so no system sqlite needed.
+  nativeBuildInputs = [
+    cmake
+    perl
+    pkg-config
+  ];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    tar -xzf $src -C $out/bin
-    # Normalize the entry point to `jcode`. The linux-x86_64 `.bin`
-    # keeps its upstream name: its wrapper script execs the sibling
-    # `jcode-linux-x86_64.bin` by exact name.
-    for f in $out/bin/jcode-*; do
-      case "$f" in
-        *.bin) ;;
-        *) mv "$f" $out/bin/jcode ;;
-      esac
-    done
-    chmod +x $out/bin/jcode
-    runHook postInstall
-  '';
+  buildInputs = [
+    openssl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    libiconv
+    apple-sdk_15
+  ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "RAM-efficient terminal coding agent harness";
@@ -72,11 +91,16 @@ stdenv.mkDerivation rec {
       Jcode is a terminal coding agent harness built in Rust. Local terminal
       UI with remote execution over native SSH sessions, keeping the
       workspace, tools, and agent execution on the remote host.
+      Built from source from the normful/jcode fork.
     '';
-    homepage = "https://github.com/1jehuang/jcode";
-    changelog = "https://github.com/1jehuang/jcode/releases/tag/v${version}";
+    homepage = "https://github.com/normful/jcode";
     license = licenses.mit;
     mainProgram = "jcode";
-    platforms = builtins.attrNames sources;
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-darwin"
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 }
