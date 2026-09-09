@@ -409,8 +409,8 @@
     "opencode-go/mimo-v2.5",
     "opencode-go/hy3",
     "opencode-go/qwen3.8-flash",
-    "openrouter/inception/mercury-2.5-preview",
-    "aihubmix-oc/mercury-2.5-preview",
+    "openrouter/inception/mercury-2.5",
+    "aihubmix-oc/mercury-2.5",
     "aihubmix-oc/deepseek-v4.1-flash"
   ],
   "terminal": {
