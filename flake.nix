@@ -20,12 +20,6 @@
     nix-casks.url = "github:atahanyorganci/nix-casks/archive";
     nix-casks.inputs.nixpkgs.follows = "nixpkgs-2605";
 
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs-2605";
-
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs-2605";
-
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
 
@@ -53,32 +47,9 @@
         lib = nixpkgs-2605.lib;
       };
 
-      createGcpConfig =
-        hostname: configFile:
-        nixosSystem2605 rec {
-          system = "x86_64-linux";
-          modules = [
-            ./gcp/${hostname}/${configFile}
-          ];
-          specialArgs = {
-            inherit inputs;
-            pkgs-stable = import nixpkgs-2605 {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            pkgs-pinned-unstable = import nixpkgs-unstable-2611 {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          };
-        };
     in
     {
       nixosConfigurations = {
-        # NixOS on Google Cloud Platform virtual machines
-        jute = createGcpConfig "jute" "configuration.nix";
-        jute-first-install = createGcpConfig "jute" "first-install-configuration.nix";
-
         # NixOS on Windows, in Windows Subsystem for Linux
         duro = nixosSystem2605 rec {
           system = "x86_64-linux";
