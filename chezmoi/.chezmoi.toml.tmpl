@@ -2,7 +2,7 @@
 {{ if stdinIsATTY -}}
 {{   $customSourceDir = promptStringOnce . "customSourceDir" "What is the absolute path to nixos-dotfiles/chezmoi" "/home/norman/code/nixos-dotfiles/chezmoi" -}}
 {{ else -}}
-{{   $customSourceDir = "/home/norman/code/nixos-dotfiles/chezmoi" -}}
+{{   $customSourceDir = joinPath .chezmoi.homeDir "code/nixos-dotfiles/chezmoi" -}}
 {{ end -}}
 
 {{ $gitName := "" -}}
@@ -22,6 +22,8 @@
 {{ $hasDisplay := false -}}
 {{ if stdinIsATTY -}}
 {{   $hasDisplay = promptBoolOnce . "hasDisplay" "Does this machine have a display" true -}}
+{{ else -}}
+{{   $hasDisplay = and (eq .chezmoi.os "darwin") (ne .chezmoi.username "exedev") -}}
 {{ end -}}
 
 sourceDir = {{ $customSourceDir | quote }}
@@ -30,10 +32,8 @@ sourceDir = {{ $customSourceDir | quote }}
   mac = {{ eq .chezmoi.os "darwin" }}
   linux = {{ eq .chezmoi.os "linux" }}
   windows = {{ eq .chezmoi.os "windows" }}
+  exeDevVm = {{ eq .chezmoi.username "exedev" }}
   hasDisplay = {{ $hasDisplay }}
   gitName = {{ $gitName | quote }}
   gitEmail = {{ $gitEmail | quote }}
   customSourceDir = {{ $customSourceDir | quote }}
-
-[keepassxc]
-  database = "{{ .chezmoi.destDir }}/keeshare/chezmoi.kdbx"

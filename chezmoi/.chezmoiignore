@@ -10,7 +10,10 @@
 .local/bin/convert-all-mp3-to-ogg.sh
 .local/bin/convert-all-wav-to-mp3.sh
 .local/bin/copy-sdcard-to-video-footage-dirs.sh
+.local/bin/exe-ssh-key-cleanup
 .local/bin/mirror-android
+.local/bin/move-mp3s.sh
+.local/bin/ntm
 {{ end -}}
 
 {{/* Config that should not be installed on macOS */}}
@@ -21,3 +24,30 @@
 {{ if .windows -}}
 .config/fish
 {{ end }}
+
+{{/* Config that should not be installed on exe.dev VM */}}
+{{ if .exeDevVm -}}
+.colima
+.opencommit
+.serena
+.terminfo
+.warp
+intelephense
+Library/**
+!Library/
+!Library/Preferences/
+!Library/Preferences/glow/
+!Library/Preferences/glow/night-owl.json
+.config/gastown
+.config/procs
+.config/rpiv-advisor
+.config/wezterm
+.config/zellij
+.config/nvim/lua/plugins/markdown__peek-nvim.lua
+.config/nvim/lua/plugins/markdown__diagram-nvim.lua
+.config/nvim/lua/plugins/markdown__img-clip-nvim.lua
+{{ end -}}
+{{/* nvim init.lua is Ubuntu/VM-only: Nix machines get init via customRC (packages/neovim) */}}
+{{ if not .exeDevVm -}}
+.config/nvim/init.lua
+{{ end -}}
