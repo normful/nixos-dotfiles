@@ -173,7 +173,7 @@ local function configure_mkdnflow_nvim()
       MkdnToggleToDo = { { 'n', 'v' }, '<C-Space>' },
     },
 
-    perspective = {
+    path_resolution = {
       priority = 'root',
       root_tell = '.git',
     },

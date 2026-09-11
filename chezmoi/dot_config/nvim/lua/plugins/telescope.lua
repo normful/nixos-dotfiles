@@ -1,11 +1,5 @@
 local function configure_telescope()
-  local browser_bookmarks = require('browser_bookmarks')
-  browser_bookmarks.setup({
-    selected_browser = 'vivaldi',
-  })
-
   local telescope = require('telescope')
-  telescope.load_extension('bookmarks')
   telescope.load_extension('fzy_native')
   telescope.load_extension('zoxide')
 
@@ -53,7 +47,6 @@ return {
     { 'nvim-lua/plenary.nvim' },
     { 'jvgrootveld/telescope-zoxide' },
     { 'nvim-telescope/telescope-fzy-native.nvim' },
-    { 'dhruvmanila/telescope-bookmarks.nvim' },
   },
   keys = {
     -- File Finders
@@ -143,12 +136,6 @@ return {
       '<Cmd>lua require("telescope").extensions.zoxide.list{}<CR>',
       mode = { 'n', 't' },
       desc = 'Open dir',
-    },
-    {
-      '<LocalLeader>k',
-      '<Cmd>Telescope bookmarks<CR>',
-      mode = { 'n', 't' },
-      desc = 'Find Vivaldi bookmark',
     },
     {
       '<Leader>vh',

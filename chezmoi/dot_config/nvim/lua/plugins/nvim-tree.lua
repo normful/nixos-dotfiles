@@ -120,5 +120,12 @@ return {
       '<Cmd>NvimTreeFindFileToggle!<CR>',
       desc = '[Cmd+e] Toggle nvim-tree',
     },
+    {
+      -- SSH/Termius-friendly: plain comma+o, no Cmd or F-keys needed.
+      -- (NvChad also maps <C-n> to NvimTreeToggle.)
+      '<Leader>o',
+      '<Cmd>NvimTreeFindFileToggle!<CR>',
+      desc = 'Toggle nvim-tree',
+    },
   },
 }

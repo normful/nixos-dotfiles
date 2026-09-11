@@ -78,8 +78,6 @@ end, { nargs = 0 })
 -- Inserts links from clipboard or creates new Zk links
 -- Handles both normal and visual mode
 vim.api.nvim_create_user_command('NormfulInsertLink', function(opts)
-  vim.fn.system('cd $HOME/code/alcove && zk index')
-
   if vim.fn.exists(':ZkInsertLink') ~= 2 then
     error('Command not available: ZkInsertLink')
   end
