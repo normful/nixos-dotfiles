@@ -9,6 +9,10 @@ slow_command_threshold_ms = 5000
 theme = "default"
 buddy_enabled = true
 redirect_exclude = []
+# NOTE (Hermes engine via exe-dev-vm-setup roles/leanctx): the Hermes
+# context engine needs these daemon tools alive — do NOT add them here:
+# ctx_transcript_compact, ctx_search, ctx_semantic_search, ctx_read,
+# ctx_expand, ctx_knowledge, ctx_summary. (Verified 2026-09-10.)
 disabled_tools = [
     "ctx_callgraph",
     "ctx_graph",
@@ -45,6 +49,7 @@ shell_timeout_secs = 300
 shell_allowlist_extra = [
     "zk",
     "sqlite3",
+    "ansible-playbook",
 ]
 
 [cloud]
