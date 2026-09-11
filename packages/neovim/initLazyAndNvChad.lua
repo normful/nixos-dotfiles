@@ -1,4 +1,6 @@
--- IMPORTANT: If you change this file, remember to rebuild the Nix system
+-- IMPORTANT: If you change this file, remember to rebuild the Nix system.
+-- ALSO mirror the change in chezmoi/dot_config/nvim/init.lua (the Ubuntu/exe.dev VM
+-- entry point) — the two files must stay in sync; only this header differs.
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 

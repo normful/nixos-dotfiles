@@ -9,6 +9,10 @@ let
   isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
   isLinux = pkgs-pinned-unstable.stdenv.isLinux;
   isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
+  isAarch64Darwin = pkgs-pinned-unstable.stdenv.isDarwin && pkgs-pinned-unstable.stdenv.isAarch64;
+  # normful fork of zk, built from source. aarch64-darwin only
+  # (see packages/zk-fork/default.nix). Replaces nixpkgs zk on cyan.
+  zkFork = pkgs-pinned-unstable.callPackage ../packages/zk-fork { };
   phpEnv = (
     pkgs-pinned-unstable.php85.buildEnv {
       extensions = (
@@ -49,7 +53,6 @@ in
     environment.systemPackages =
       with pkgs-pinned-unstable;
       (optionals config.my.enableMultiLangTools [
-        mise
         cloc
         just
         cmake
@@ -161,7 +164,9 @@ in
         notable
       ])
       ++ (optionals config.my.enablePkmTools [
-        zk
+        # normful fork replaces nixpkgs zk on aarch64-darwin (cyan);
+        # other platforms keep upstream zk.
+        (if isAarch64Darwin then zkFork else zk)
       ])
       ++ (optionals config.my.enableConfigLangsTools [
         otree

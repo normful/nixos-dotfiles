@@ -67,7 +67,7 @@
     ++ (with pkgs-pinned-unstable; [
       tailscale
       keepassxc
-      gh # Log into this one manually, unlike the one using GH_TOKEN env var in packages/gh-wrapped/default.nix
+      gh # Log into this one manually
 
       # Packages I'm only installing on this computer for now
       mariadb_118
@@ -79,6 +79,7 @@
       hk
       opencode
       himalaya
+      crystal
 
       # adoc
       asciidoctor-with-extensions
@@ -151,6 +152,12 @@
       # figure/table/equation detection (layout extra).
       (callPackage ../../packages/agent-papers-cli { })
 
+      # Headless browser for AI agents and scraping. Runs real JavaScript
+      # through V8 and speaks CDP as a drop-in for headless Chrome at a
+      # fraction of the memory. Built with render (screenshots, PDF) and
+      # stealth (Chrome-like TLS fingerprint, tracker blocking).
+      (callPackage ../../packages/obscura { })
+
       # ── medium interest ──
 
       # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
@@ -191,6 +198,10 @@
       # ripgrep+fzf in long-running processes.
       (callPackage ../../packages/fff-mcp { })
 
+      # Trigram-indexed grep. Client/server regex search for large
+      # codebases, faster than ripgrep on repeated queries.
+      (callPackage ../../packages/tgrep { })
+
       # ── low interest ──
 
       # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
@@ -224,6 +235,10 @@
       # Terminal coding agent for any model. TUI + CLI. DeepSeek,
       # Claude, GPT, open-weight models via vLLM/Ollama.
       (callPackage ../../packages/codewhale { })
+
+      # RAM-efficient terminal coding agent harness (Rust). Local TUI,
+      # remote execution over native SSH sessions.
+      (callPackage ../../packages/jcode { })
 
       # ── already tried ──
 
