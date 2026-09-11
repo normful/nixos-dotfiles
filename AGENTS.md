@@ -11,8 +11,8 @@ Primary focus: **nix-darwin config for macOS (hostname: cyan)** and **neovim con
 
 ## Off-Limits (unless explicitly asked)
 
-- `.git`, `gcp/`, `wsl/`, `secrets/`, `.venv/`, `node_modules/`
-- Pulumi files, README.md, LICENSE, .sops.yaml
+- `.git`, `wsl/`, `.venv/`, `node_modules/`
+- README.md, LICENSE
 
 ## Flake Maintenance
 
