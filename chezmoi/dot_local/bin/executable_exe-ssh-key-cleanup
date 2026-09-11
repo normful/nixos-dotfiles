@@ -186,8 +186,8 @@ if [[ "$LIST_ONLY" == "1" ]]; then
 fi
 
 if [[ "$DRY_RUN" == "1" ]]; then
-  would=$(echo "$DISPLAY_JSON" | jq -r '[.[] | select(.current==false and .orphan==true and .name != "cyan")] | length')
-  echo "Dry-run: would delete $would orphan keys (cyan protected, non-orphan never deleted; $ORPHAN_COUNT orphans total, $NON_CURRENT non-current)." >&2
+  would=$(echo "$DISPLAY_JSON" | jq -r '[.[] | select(.current==false and .orphan==true and .name != "cyan" and (.name | contains("termius") | not) and (.name | startswith("ci-") | not))] | length')
+  echo "Dry-run: would delete $would orphan keys (cyan / *termius* / ci-* protected, non-orphan never deleted; $ORPHAN_COUNT orphans total, $NON_CURRENT non-current)." >&2
   echo "Re-run without --dry-run to actually delete." >&2
   exit 0
 fi
@@ -197,14 +197,14 @@ fi
 # Otherwise interactive prompt
 
 if [[ "$YES" == "1" ]]; then
-  # HARD RULES: never delete cyan, never delete non-orphan (VM still exists)
+  # HARD RULES: never delete cyan / *termius* / ci-*, never delete non-orphan (VM still exists)
   if [[ "$ORPHANS_ONLY" == "1" ]]; then
-    TO_DELETE_JSON=$(echo "$DISPLAY_JSON" | jq '[.[] | select(.current==false and .orphan==true and .name != "cyan")]')
+    TO_DELETE_JSON=$(echo "$DISPLAY_JSON" | jq '[.[] | select(.current==false and .orphan==true and .name != "cyan" and (.name | contains("termius") | not) and (.name | startswith("ci-") | not))]')
   else
     # Without --orphans, --yes still only deletes orphans (safety: non-orphan are in-use)
-    TO_DELETE_JSON=$(echo "$DISPLAY_JSON" | jq '[.[] | select(.current==false and .orphan==true and .name != "cyan")]')
+    TO_DELETE_JSON=$(echo "$DISPLAY_JSON" | jq '[.[] | select(.current==false and .orphan==true and .name != "cyan" and (.name | contains("termius") | not) and (.name | startswith("ci-") | not))]')
   fi
-  echo "Non-interactive --yes: will delete $(echo "$TO_DELETE_JSON" | jq 'length') keys (orphans only, cyan protected)." >&2
+  echo "Non-interactive --yes: will delete $(echo "$TO_DELETE_JSON" | jq 'length') keys (orphans only, cyan / *termius* / ci-* protected)." >&2
 else
   echo "Select keys to delete:" >&2
   echo "  - Enter indices like: 0,2,5  or  0-3  or  a (=all orphaned)  or  A (=all non-current shown)" >&2
@@ -219,11 +219,11 @@ else
   # Expand ranges and lists
   TO_DELETE_NAMES=()
   if [[ "$sel" == "a" ]]; then
-    # all orphaned (cyan protected, non-orphan never)
-    TO_DELETE_NAMES=($(echo "$DISPLAY_JSON" | jq -r '.[] | select(.orphan==true and .current==false and .name != "cyan") | .name'))
+    # all orphaned (cyan / *termius* / ci-* protected, non-orphan never)
+    TO_DELETE_NAMES=($(echo "$DISPLAY_JSON" | jq -r '.[] | select(.orphan==true and .current==false and .name != "cyan" and (.name | contains("termius") | not) and (.name | startswith("ci-") | not)) | .name'))
   elif [[ "$sel" == "A" ]]; then
-    # A = all orphans as well (non-orphan are in-use, never delete — cyan also protected)
-    TO_DELETE_NAMES=($(echo "$DISPLAY_JSON" | jq -r '.[] | select(.orphan==true and .current==false and .name != "cyan") | .name'))
+    # A = all orphans as well (non-orphan are in-use, never delete — cyan / *termius* / ci-* also protected)
+    TO_DELETE_NAMES=($(echo "$DISPLAY_JSON" | jq -r '.[] | select(.orphan==true and .current==false and .name != "cyan" and (.name | contains("termius") | not) and (.name | startswith("ci-") | not)) | .name'))
   elif [[ "$sel" == *","* || "$sel" == *"-"* || "$sel" =~ ^[0-9\ ]+$ ]]; then
     # numeric indices
     # Expand comma and dash ranges via python-ish: use bash loop
@@ -253,10 +253,10 @@ else
 
   if [[ ${#TO_DELETE_NAMES[@]} -eq 0 ]]; then echo "No valid selection." >&2; exit 0; fi
 
-  # Remove duplicates and filter out current/cyan/non-orphan
+  # Remove duplicates and filter out current/cyan/termius/ci-/non-orphan
   TO_DELETE_JSON=$(printf '%s\n' "${TO_DELETE_NAMES[@]}" | jq -R . | jq -s -c --argjson disp "$DISPLAY_JSON" '
     unique
-    | map(select(. as $n | $disp | map(select(.name==$n and .current==false and .orphan==true and .name != "cyan")) | length>0))
+    | map(select(. as $n | $disp | map(select(.name==$n and .current==false and .orphan==true and .name != "cyan" and (.name | contains("termius") | not) and (.name | startswith("ci-") | not))) | length>0))
     | map({name: .})
   ')
   # Expand to full objects for display
@@ -282,9 +282,9 @@ FAILED=0
 DELETED=0
 SKIPPED=0
 for name in $(echo "$TO_DELETE_JSON" | jq -r '.[].name'); do
-  # HARD RULES: never delete cyan, never delete non-orphan
-  if [[ "$name" == "cyan" ]]; then
-    echo "Skipping protected key cyan (NEVER delete) — $name" >&2
+  # HARD RULES: never delete cyan / *termius* / ci-* , never delete non-orphan
+  if [[ "$name" == "cyan" || "$name" == *termius* || "$name" == ci-* ]]; then
+    echo "Skipping protected key (cyan / *termius* / ci-* NEVER delete) — $name" >&2
     SKIPPED=$((SKIPPED+1))
     continue
   fi
@@ -321,7 +321,7 @@ fi
 echo "Done. Deleted=$DELETED, warnings=$FAILED, keys remaining total (excluding deleted) ref check=$REMAIN_COUNT" >&2
 
 if [[ "$SKIPPED" -gt 0 ]]; then
-  echo "Skipped $SKIPPED protected/in-use keys (cyan or non-orphan)." >&2
+  echo "Skipped $SKIPPED protected/in-use keys (cyan / *termius* / ci-* or non-orphan)." >&2
 fi
 if [[ "$FAILED" -gt 0 && "$DELETED" -eq 0 ]]; then
   echo "All deletions failed — check 'ssh exe.dev ssh-key list' and permissions." >&2
