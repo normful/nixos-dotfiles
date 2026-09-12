@@ -282,7 +282,6 @@ in
         git-lfs
         git-filter-repo
         git-cliff
-        opencommit
       ])
       ++ (optionals config.my.enableGitHookTools [
         lefthook

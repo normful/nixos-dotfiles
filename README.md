@@ -65,7 +65,6 @@ In alphabetical order:
 - `│   ├──` [dot_gitconfig.tmpl](chezmoi/dot_gitconfig.tmpl) Global Git configuration (chezmoi template)
 - `│   ├──` [dot_gitignore_global](chezmoi/dot_gitignore_global) Global Git ignore patterns
 - `│   ├──` [dot_local/bin/](chezmoi/dot_local/bin/) Personal scripts (~25 executables: git helpers, media converters)
-- `│   ├──` [dot_opencommit](chezmoi/dot_opencommit) OpenCommit config
 - `│   ├──` [dot_pi/](chezmoi/dot_pi/) pi agent settings, models, subagents, and custom agents
 - `│   ├──` [dot_ripgreprc](chezmoi/dot_ripgreprc) ripgrep defaults
 - `│   ├──` [dot_serena/](chezmoi/dot_serena/) Serena config modifier
