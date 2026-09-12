@@ -132,7 +132,20 @@ if status is-interactive
       abbr --add qg git
       abbr --add gl 'git l'
       abbr --add gs 'git s'
-      abbr --add sss 'git show HEAD'
+    end
+
+    if command -v hunk >/dev/null 2>&1
+      abbr --add h hunk
+
+      abbr --add hd 'hunk diff'
+      abbr --add hdc 'hunk diff --staged'
+      abbr --add hdup 'hunk diff @...@{upstream}'
+      abbr --add hdor 'hunk diff HEAD...origin/(git branch --show-current)'
+
+      abbr --add hs 'hunk show HEAD'
+      abbr --add sss 'hunk show HEAD'
+
+      abbr --add hlog 'hunk log'
     end
 
     if command -v nvim >/dev/null 2>&1

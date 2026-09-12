@@ -1,0 +1,91 @@
+# theme = "my-aurora-x"
+# theme = "my-material-theme-ocean"
+theme = "my-night-owl"
+
+mode = "unified"
+cursor_line = "row"
+watch = false
+line_numbers = false
+tab_width = 2
+file_gap = 1
+hunk_gap = 0
+wrap_lines = false
+hunk_headers = false
+menu_bar = true
+animations = false
+sidebar = true
+agent_notes = true
+copy_decorations = false
+prompt_save_view_preferences = true
+transparent_background = false
+color_moved = true
+
+[vcs]
+watch = true
+
+[pager]
+watch = false
+line_numbers = true
+
+[keybindings]
+"hunk.view.toggleMenuBar" = false
+"hunk.view.openThemeSelector" = false
+"hunk.view.toggleHunkHeaders" = false
+"hunk.history.toggleGraph" = "alt+g"
+"hunk.history.toggleDecorations" = "alt+d"
+
+[themes.my-aurora-x]
+base = "aurora-x"
+label = "my-aurora-x"
+
+removedBg  = "#3f0002"
+removedContentBg  = "#901012"
+removedSignColor  = "#901012"
+movedRemovedBg  = "#630003"
+
+addedBg  = "#002800"
+addedContentBg  = "#006000"
+addedSignColor  = "#006000"
+movedAddedBg = "#345333"
+
+panelAlt = "#3b3d42"
+
+[themes.my-material-theme-ocean]
+base = "material-theme-ocean"
+label = "my-material-theme-ocean"
+
+removedBg  = "#3f0002"
+removedContentBg  = "#901012"
+removedSignColor  = "#901012"
+movedRemovedBg  = "#630003"
+
+addedBg  = "#002800"
+addedContentBg  = "#006000"
+addedSignColor  = "#006000"
+movedAddedBg = "#345333"
+
+panelAlt = "#3b3d42"
+
+[themes.my-night-owl]
+base = "night-owl"
+label = "my-night-owl"
+
+removedBg  = "#3f0002"
+removedContentBg  = "#901012"
+removedSignColor  = "#901012"
+movedRemovedBg  = "#630003"
+
+addedBg  = "#002800"
+addedContentBg  = "#006000"
+addedSignColor  = "#006000"
+movedAddedBg = "#345333"
+
+panelAlt = "#3b3d42"
+
+[extension.hunk-exclude-files]
+patterns = [
+  "*.lock",
+  "dist/**",
+  "generated/**",
+  "vendor/**",
+]

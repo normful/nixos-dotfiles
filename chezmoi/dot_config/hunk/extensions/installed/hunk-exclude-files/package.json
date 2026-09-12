@@ -1,0 +1,44 @@
+{
+  "name": "hunk-exclude-files",
+  "version": "0.1.0",
+  "description": "Hide files matching configured glob rules from Hunk reviews.",
+  "keywords": [
+    "hunk",
+    "hunk-extension",
+    "git",
+    "diff",
+    "glob"
+  ],
+  "homepage": "https://github.com/astwys/hunk-exclude-files#readme",
+  "bugs": {
+    "url": "https://github.com/astwys/hunk-exclude-files/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astwys/hunk-exclude-files.git"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.1",
+  "type": "module",
+  "hunk": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "apiVersion": 6
+  },
+  "scripts": {
+    "dev": "hunk diff --extension .",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "hunkdiff": "^0.19.0",
+    "typescript": "^5.9.3"
+  }
+}
