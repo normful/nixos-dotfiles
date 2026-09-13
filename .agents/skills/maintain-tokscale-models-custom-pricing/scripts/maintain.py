@@ -107,6 +107,19 @@ PINNED_RATES = {
     # upstream rate, not OpenRouter's bill). Flip to 0 if invoice says free.
     "poolside/laguna-xs.2": {"input": 0.1, "output": 0.2,
                              "source": "haimaker.ai + designforonline from-$0.10 (unverified, Norman default)"},
+    # Fireworks models behind exe-dev-fireworks / exedev_llm / custom clients
+    # (2026-09-13 run). Fireworks names decimals with `p` (glm-5p3 = GLM 5.3).
+    # Rates from tokscale's bundled models DB (matches models.dev [fireworks]);
+    # cacheRead exact 0.029/0.007. glm-5p3-flash@llm must NOT fall back to the
+    # non-flash glm-5p3 (1.4/4.4) — exact entries for every model half.
+    "glm-5p3-flash": {"input": 0.15, "output": 0.5, "cache_read": 0.029,
+                      "source": "tokscale models DB fireworks glm-5p3-flash + models.dev [fireworks]"},
+    "glm-5p3-flash@llm": {"input": 0.15, "output": 0.5, "cache_read": 0.029,
+                          "source": "same model as glm-5p3-flash (exe-dev-fireworks @llm tier)"},
+    "fireworks/glm-5p3-flash": {"input": 0.15, "output": 0.5, "cache_read": 0.029,
+                                "source": "same model as glm-5p3-flash (custom + exedev_llm slash-form)"},
+    "deepseek-v4p1-flash@llm": {"input": 0.22, "output": 0.66, "cache_read": 0.007,
+                                "source": "tokscale models DB fireworks deepseek-v4p1-flash + LiteLLM [fireworks_ai]"},
 }
 # Submit-warning model halves with NO entry (intentional, documented in SKILL.md):
 #   @preset/glm47, @preset/glm47-flash-fast, @preset/kimi25-high-reasoning

@@ -218,6 +218,11 @@
       "output_cost_per_million_tokens": 3.38,
       "cache_read_input_token_cost_per_million_tokens": 0.14027
     },
+    "deepseek-v4p1-flash@llm": {
+      "input_cost_per_million_tokens": 0.22,
+      "output_cost_per_million_tokens": 0.66,
+      "cache_read_input_token_cost_per_million_tokens": 0.007
+    },
     "dots-3-note-preview-free": {
       "input_cost_per_million_tokens": 0,
       "output_cost_per_million_tokens": 0,
@@ -245,6 +250,11 @@
       "input_cost_per_million_tokens": 0.6918,
       "output_cost_per_million_tokens": 2.0754,
       "cache_read_input_token_cost_per_million_tokens": 0.023058
+    },
+    "fireworks/glm-5p3-flash": {
+      "input_cost_per_million_tokens": 0.15,
+      "output_cost_per_million_tokens": 0.5,
+      "cache_read_input_token_cost_per_million_tokens": 0.029
     },
     "gemini-2.5-flash-lite-preview-09-2025": {
       "input_cost_per_million_tokens": 0.1,
@@ -275,6 +285,16 @@
       "input_cost_per_million_tokens": 0.11268,
       "output_cost_per_million_tokens": 0.39438,
       "cache_read_input_token_cost_per_million_tokens": 0.02817
+    },
+    "glm-5p3-flash": {
+      "input_cost_per_million_tokens": 0.15,
+      "output_cost_per_million_tokens": 0.5,
+      "cache_read_input_token_cost_per_million_tokens": 0.029
+    },
+    "glm-5p3-flash@llm": {
+      "input_cost_per_million_tokens": 0.15,
+      "output_cost_per_million_tokens": 0.5,
+      "cache_read_input_token_cost_per_million_tokens": 0.029
     },
     "google/gemini-2.0-flash-exp:free": {
       "input_cost_per_million_tokens": 0,

@@ -135,6 +135,20 @@ These override older skill assumptions where they conflict.
 
 ## Run history
 
+- **Fourth run (2026-09-13):** fixed 5 `tokscale submit` warnings (reasons 4 "does not
+  establish the requested provider" and 5 "does not exactly name the requested model")
+  from Fireworks models behind `exe-dev-fireworks` / `exedev_llm` / `custom` clients.
+  Fireworks encodes decimals as `p` (`glm-5p3` = GLM 5.3). Added 4 exact model-half keys
+  (125 → 129 models); the two `custom`+`exedev_llm` warnings shared `fireworks/glm-5p3-flash`:
+  | Key | In/Out/CacheRead | Source |
+  |-----|------------------|--------|
+  | `glm-5p3-flash` | 0.15/0.5/0.029 | tokscale models DB fireworks `glm-5p3-flash` + models.dev `[fireworks]` |
+  | `glm-5p3-flash@llm` | 0.15/0.5/0.029 | same model (`@llm` tier) — must NOT fall back to non-flash `glm-5p3` 1.4/4.4 |
+  | `fireworks/glm-5p3-flash` | 0.15/0.5/0.029 | same model (slash-form half) |
+  | `deepseek-v4p1-flash@llm` | 0.22/0.66/0.007 | tokscale models DB fireworks `deepseek-v4p1-flash` + LiteLLM `[fireworks_ai]` |
+  Post-apply `tokscale submit --dry-run`: 5 warning pairs → 0; all 4 keys show
+  `custom (submission-safe)`; total cost $0.06 → $0.29. Also added all 4 to `PINNED_RATES`.
+  (Cursor/Hindsight warnings in the same run are out of scope — setup steps, see above.)
 - **Second run (2026-09-05):** fixed `pricing does not cover every populated token bucket` warnings via `backfill_buckets()` (explicit `0` for session-populated cache buckets missing a rate — 0 = unknown rate, not free tier); widened scope beyond strict-aihubmix with `MODELS_DEV_MAP` (non-aihubmix IDs priced from models.dev per-provider section, or litellm probe values in `LITELLM_COSTS`):
   - cerebras: `gpt-oss-120b` 0.35/0.75, `qwen-3-235b-a22b-instruct-2507` 0.2/0.6, `zai-glm-4.7` 2.25/2.75
   - openrouter: `x-ai/grok-code-fast-1` 0.2/1.5/0.02 (zenmux), `google/gemini-3.7-flash` 0.75/3.75/0.075+w0.041667, `minimax/minimax-m3` 0.3/1.2/0.06, `z-ai/glm-4.7` 0.4/1.75/0.08, `upstage/solar-pro4` 0.03/0.12/0.006
