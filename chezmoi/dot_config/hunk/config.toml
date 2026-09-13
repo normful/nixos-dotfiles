@@ -4,14 +4,9 @@ theme = "my-night-owl"
 
 mode = "unified"
 cursor_line = "row"
-watch = false
-line_numbers = false
 tab_width = 2
 file_gap = 1
 hunk_gap = 0
-wrap_lines = false
-hunk_headers = false
-menu_bar = true
 animations = false
 sidebar = true
 agent_notes = true
@@ -20,12 +15,44 @@ prompt_save_view_preferences = true
 transparent_background = false
 color_moved = true
 
-[vcs]
+[vcs] # hunk diff
+menu_bar = true
 watch = true
+line_numbers = false
+hunk_headers = false
+wrap_lines = false
 
-[pager]
+[show] # hunk show
+menu_bar = false
 watch = false
 line_numbers = true
+hunk_headers = true
+wrap_lines = true
+
+[stash-show] # hunk show
+menu_bar = false
+watch = false
+line_numbers = true
+hunk_headers = true
+wrap_lines = true
+
+[diff] # hunk diff --files <left> <right>
+menu_bar = false
+watch = false
+line_numbers = true
+hunk_headers = true
+
+[patch] # hunk patch
+menu_bar = false
+watch = false
+line_numbers = true
+hunk_headers = true
+
+[difftool] # hunk difftool
+menu_bar = false
+watch = false
+line_numbers = true
+hunk_headers = true
 
 [keybindings]
 "hunk.view.toggleMenuBar" = false
