@@ -44,12 +44,12 @@ cjk_ime_cursor_shape = "steady_block"
 allow_nested = {{ if .exeDevVm }}true{{ else }}false{{ end }}
 
 [keys]
-prefix = "alt+l"
+prefix = {{ if .exeDevVm }}"alt+k"{{ else }}"alt+l"{{ end }}
 
 # Workspace management
 new_workspace = ""
-previous_workspace = ["f9"]
-next_workspace = ["f10"]
+previous_workspace = ["f9", "prefix+9"]
+next_workspace = ["f10", "prefix+0"]
 rename_workspace = ["prefix+1"]
 close_workspace = ""
 workspace_picker = ""
@@ -57,8 +57,8 @@ switch_workspace = ""
 
 # Tab management
 new_tab = ["f8", "prefix+n"]
-previous_tab = ["f11"]
-next_tab = ["f12"]
+previous_tab = ["f11", "prefix+-"]
+next_tab = ["f12", "prefix+="]
 close_tab = ""
 rename_tab = ["prefix+2"]
 switch_tab = ""
@@ -128,32 +128,28 @@ detach = ["prefix+d"]
 copy_mode = ["f1"]
 
 [[keys.command]]
-key = "f2"
-type = "plugin_action"
-command = "rmarganti.herdr-pluck.pluck"
-
-[[keys.command]]
 key = "prefix+4"
-type = "popup"
-command = "hunk show HEAD"
-description = "hunk show HEAD"
-width = "100%"
-height = "100%"
-
-[[keys.command]]
-key = "prefix+5"
 type = "popup"
 command = "hunk diff"
 description = "hunk diff"
 width = "100%"
 height = "100%"
 
+[[keys.command]]
+key = "prefix+5"
+type = "popup"
+command = "hunk show"
+description = "hunk show"
+width = "100%"
+height = "100%"
+
 [ui]
-sidebar_min_width = 22
+sidebar_min_width = 14
 sidebar_width = 32
 sidebar_max_width = 50
-sidebar_collapsed_mode = "compact"
-sidebar_start_collapsed = false
+sidebar_collapsed_mode = "hidden"
+sidebar_start_collapsed = true
+mobile_width_threshold = 120
 mouse_scroll_lines = 5
 prompt_new_tab_name = false
 prompt_new_workspace_name = false
