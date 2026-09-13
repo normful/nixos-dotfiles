@@ -14,6 +14,16 @@ Primary focus: **nix-darwin config for macOS (hostname: cyan)** and **neovim con
 - `.git`, `wsl/`, `.venv/`, `node_modules/`
 - README.md, LICENSE
 
+## Git Workflow
+
+- **Committing and pushing directly to `main` is allowed in this repo.**
+  Norman (the repo owner) has explicitly authorized it. Agents do not need to
+  create a feature branch for routine work here unless Norman asks for one.
+- Never `git push --force` / `--force-with-lease` to any branch.
+- Skill-specific commit policies still apply where they exist (e.g. the
+  `maintain-tokscale-models-custom-pricing` skill says routine pricing runs
+  leave changes uncommitted unless Norman says to commit).
+
 ## Flake Maintenance
 
 ### Updating nixpkgs-unstable
