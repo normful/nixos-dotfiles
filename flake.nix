@@ -23,7 +23,7 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
     llm-agents.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
 
-    herdr.url = "github:herdrdev/herdr/v0.8.2";
+    herdr.url = "github:herdrdev/herdr/v0.9.0";
     herdr.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
   };
 

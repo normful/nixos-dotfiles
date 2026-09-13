@@ -12,6 +12,7 @@ active_row_bg = "#224B79"
 new_cwd = "follow"
 default_shell = ""
 shell_mode = "auto"
+kitty_graphics = true
 
 [update]
 version_check = false
@@ -149,12 +150,11 @@ sidebar_width = 32
 sidebar_max_width = 50
 sidebar_collapsed_mode = "hidden"
 sidebar_start_collapsed = true
-mobile_width_threshold = 120
 mouse_scroll_lines = 5
 prompt_new_tab_name = false
 prompt_new_workspace_name = false
 show_agent_labels_on_pane_borders = true
-pane_borders = true
+pane_borders = "off"
 pane_gaps = true
 pane_outer_borders = true
 pane_scrollbars = true
@@ -163,7 +163,6 @@ hide_tab_bar_when_single_tab = false
 confirm_close = true
 copy_on_select = true
 host_cursor = "auto"
-mobile_width_threshold = 64
 mouse_capture = true
 redraw_on_focus_gained = true
 right_click_passthrough_modifier = ""
@@ -177,10 +176,6 @@ tab_bar_right_separator = " "
 window_title = "{workspace} {pane} ({hostname})"
 
 [ui.toast]
-# off = disable pop-up notifications
-# herdr = show in-app toasts
-# terminal = ask the outer terminal to show a desktop notification
-# system = ask the OS notification service directly
 delivery = "off"
 delay_seconds = 1
 
@@ -204,6 +199,14 @@ rows = [
 [ui.sidebar.agents]
 row_gap = 0
 rows = [
-  ["state_icon", "state_text", { token = "pane", dim = false, bold = false, fg = "#cccccc" } ],
-  [ { token = "workspace", dim = false, bold = false, fg = "#aaaaaa" } ],
+  [
+    "state_icon",
+    { token = "state_text", dim = false, bold = false },
+    { token = "pane", dim = false, bold = false, fg = "#dddddd" },
+  ],
+  [
+    { token = "workspace", dim = false, bold = false, fg = "#aabbdd" },
+    { token = "machine", dim = true, bold = false, fg = "#ffffff", rules = [{ equals = "Local", fg = "#00b0f0" }, { equals = "blexy", fg = "#f08080" }] },
+    { token = "agent", dim = true, bold = false, fg = "#eeccaa", rules = [{ equals = "pi", fg = "#b9bdc2" }, { equals = "commandcode", fg = "#807d9b" }] },
+  ],
 ]
