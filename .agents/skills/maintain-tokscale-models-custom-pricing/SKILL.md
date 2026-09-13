@@ -135,6 +135,24 @@ These override older skill assumptions where they conflict.
 
 ## Run history
 
+- **Fifth run (2026-09-13):** fixed 8 of 13 `tokscale submit` warnings (reasons 1/4/5/6
+  + bucket shortfall). `deepseek-v4.1-flash` + `mercury-2.5-preview` (aihubmix-oc)
+  rode the aihubmix catalog path automatically (0.155/0.62/0.0031,
+  0.2/0.75/0.02 — direct catalog IDs, no alias needed). 6 exact model-half keys
+  added to `PINNED_RATES` (129 → 133 models with bucket backfill active):
+  | Key | In/Out/CacheRead | Sources |
+  |-----|------------------|---------|
+  | `muse-spark-1.3-contributor` | 0.1/0.2/0.002 | models.dev [opencode-go]+[openrouter] meta/+[nano-gpt] meta/ (3-way agree) |
+  | `omen-alpha` | 0.2/0.66/0.04 | models.dev [opencode-go] sole source |
+  | `inception/mercury-2.5` | 0.04/0.15/0.004 | OpenRouter API + models.dev [openrouter]; NOT kilo 0.2/0.75 |
+  | `poolside/laguna-s-2.1` | 0.09/0.18/0.009 | OpenRouter API + models.dev [openrouter]; NOT nano-gpt/kilo 0.1/0.2 |
+  | `inclusionai/ling-3.0-flash-fin` | 0.06/0.18/0.012 | OpenRouter API + models.dev [openrouter]+[kilo] agree |
+  | `inclusionai/ling-3.0-flash-fin-free` | 0/0/0 | OpenRouter API 0/0 + models.dev [openrouter]+[kilo] 0/0 |
+  Post-apply dry-run: 13 warning pairs → 5 (3× `@preset/*` accepted loss +
+  `nex-agi/nex-n2-mini`/`nex-n2-pro`: paid variants absent from OpenRouter API
+  catalog, tokscale DB ("Model not found"), and every models.dev section —
+  left pending with candidates noted, no sibling-model rate asserted).
+  All 8 fixed keys show `custom (submission-safe)`.
 - **Fourth run (2026-09-13):** fixed 5 `tokscale submit` warnings (reasons 4 "does not
   establish the requested provider" and 5 "does not exactly name the requested model")
   from Fireworks models behind `exe-dev-fireworks` / `exedev_llm` / `custom` clients.

@@ -119,11 +119,34 @@ PINNED_RATES = {
     "fireworks/glm-5p3-flash": {"input": 0.15, "output": 0.5, "cache_read": 0.029,
                                 "source": "same model as glm-5p3-flash (custom + exedev_llm slash-form)"},
     "deepseek-v4p1-flash@llm": {"input": 0.22, "output": 0.66, "cache_read": 0.007,
-                                "source": "tokscale models DB fireworks deepseek-v4p1-flash + LiteLLM [fireworks_ai]"},
+                                 "source": "tokscale models DB fireworks deepseek-v4p1-flash + LiteLLM [fireworks_ai]"},
+    # 2026-09-13 run #5: reasons 4 (provider not established), 5 (fuzzy-only),
+    # 6 (ambiguous) + bucket shortfall on opencode_go/inception/mercury-2.5.
+    # aihubmix-oc halves (deepseek-v4.1-flash, mercury-2.5-preview) ride the
+    # aihubmix catalog path automatically — no PINNED entry needed.
+    # Pinned = provider Norman pays: opencode_go -> opencode-go, openrouter ->
+    # OpenRouter API, vercel-ai-gateway -> kilo (same 0.06/0.18/0.012 as OR).
+    "muse-spark-1.3-contributor": {"input": 0.1, "output": 0.2, "cache_read": 0.002,
+                                   "source": "models.dev [opencode-go] + [openrouter] meta/ + [nano-gpt] meta/ (3-way agree)"},
+    "omen-alpha": {"input": 0.2, "output": 0.66, "cache_read": 0.04,
+                   "source": "models.dev [opencode-go] (sole source; pi models.json has no cost block)"},
+    "inception/mercury-2.5": {"input": 0.04, "output": 0.15, "cache_read": 0.004,
+                              "source": "OpenRouter API (prompt 4e-8/completion 1.5e-7/cacheRead 4e-9) + models.dev [openrouter]; NOT kilo 0.2/0.75"},
+    "poolside/laguna-s-2.1": {"input": 0.09, "output": 0.18, "cache_read": 0.009,
+                              "source": "OpenRouter API (prompt 9e-8/completion 1.8e-7/cacheRead 9e-9) + models.dev [openrouter]; NOT nano-gpt/kilo 0.1/0.2"},
+    "inclusionai/ling-3.0-flash-fin": {"input": 0.06, "output": 0.18, "cache_read": 0.012,
+                                       "source": "OpenRouter API (prompt 6e-8/completion 1.8e-7/cacheRead 1.2e-8) + models.dev [openrouter]+[kilo] agree"},
+    "inclusionai/ling-3.0-flash-fin-free": {"input": 0, "output": 0, "cache_read": 0,
+                                            "source": "OpenRouter API 0/0 + models.dev [openrouter]+[kilo] 0/0 (free endpoint)"},
 }
 # Submit-warning model halves with NO entry (intentional, documented in SKILL.md):
 #   @preset/glm47, @preset/glm47-flash-fast, @preset/kimi25-high-reasoning
 #     -> router/preset labels, unknown rate (accepted loss, @preset/glm47 precedent)
+#   nex-agi/nex-n2-mini, nex-agi/nex-n2-pro (2026-09-13 run #5)
+#     -> paid variants absent from OpenRouter API catalog (only :free n2.5
+#        listed), tokscale models DB ("Model not found"), and every
+#        models.dev provider section. Candidates noted, no rate asserted
+#        (sibling-model rule: n2.5/qwen3.5-base prices are NOT evidence).
 
 
 def zero_rates() -> dict:

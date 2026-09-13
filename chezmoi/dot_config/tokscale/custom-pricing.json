@@ -59,26 +59,26 @@
     "cc-minimax-m2.1": {
       "input_cost_per_million_tokens": 0.1,
       "output_cost_per_million_tokens": 0.1,
-      "cache_read_input_token_cost_per_million_tokens": 0,
-      "cache_creation_input_token_cost_per_million_tokens": 0
+      "cache_creation_input_token_cost_per_million_tokens": 0,
+      "cache_read_input_token_cost_per_million_tokens": 0
     },
     "cc-minimax-m2.5": {
       "input_cost_per_million_tokens": 0.1,
       "output_cost_per_million_tokens": 0.1,
-      "cache_read_input_token_cost_per_million_tokens": 0,
-      "cache_creation_input_token_cost_per_million_tokens": 0
+      "cache_creation_input_token_cost_per_million_tokens": 0,
+      "cache_read_input_token_cost_per_million_tokens": 0
     },
     "cc-minimax-m2.5-highspeed": {
       "input_cost_per_million_tokens": 0.1,
       "output_cost_per_million_tokens": 0.1,
-      "cache_read_input_token_cost_per_million_tokens": 0,
-      "cache_creation_input_token_cost_per_million_tokens": 0
+      "cache_creation_input_token_cost_per_million_tokens": 0,
+      "cache_read_input_token_cost_per_million_tokens": 0
     },
     "cc-minimax-m2.7-highspeed": {
       "input_cost_per_million_tokens": 0.1,
       "output_cost_per_million_tokens": 0.1,
-      "cache_read_input_token_cost_per_million_tokens": 0,
-      "cache_creation_input_token_cost_per_million_tokens": 0
+      "cache_creation_input_token_cost_per_million_tokens": 0,
+      "cache_read_input_token_cost_per_million_tokens": 0
     },
     "cc-minimax-m3": {
       "input_cost_per_million_tokens": 0.1,
@@ -87,8 +87,7 @@
     },
     "coding-glm-4.6-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "coding-glm-4.7": {
       "input_cost_per_million_tokens": 0.06,
@@ -136,13 +135,11 @@
     },
     "coding-kimi-k3-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "coding-minimax-m2-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "coding-minimax-m2.1-free": {
       "input_cost_per_million_tokens": 0,
@@ -218,15 +215,14 @@
       "output_cost_per_million_tokens": 3.38,
       "cache_read_input_token_cost_per_million_tokens": 0.14027
     },
-    "deepseek-v4p1-flash@llm": {
-      "input_cost_per_million_tokens": 0.22,
-      "output_cost_per_million_tokens": 0.66,
-      "cache_read_input_token_cost_per_million_tokens": 0.007
+    "deepseek-v4.1-flash": {
+      "input_cost_per_million_tokens": 0.155,
+      "output_cost_per_million_tokens": 0.62,
+      "cache_read_input_token_cost_per_million_tokens": 0.0031
     },
     "dots-3-note-preview-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "dots-studio/dots-3-note-preview:free": {
       "input_cost_per_million_tokens": 0,
@@ -251,11 +247,6 @@
       "output_cost_per_million_tokens": 2.0754,
       "cache_read_input_token_cost_per_million_tokens": 0.023058
     },
-    "fireworks/glm-5p3-flash": {
-      "input_cost_per_million_tokens": 0.15,
-      "output_cost_per_million_tokens": 0.5,
-      "cache_read_input_token_cost_per_million_tokens": 0.029
-    },
     "gemini-2.5-flash-lite-preview-09-2025": {
       "input_cost_per_million_tokens": 0.1,
       "output_cost_per_million_tokens": 0.4,
@@ -264,7 +255,7 @@
     "gemini-3.1-flash-lite-preview": {
       "input_cost_per_million_tokens": 0.25,
       "output_cost_per_million_tokens": 1.5,
-      "cache_read_input_token_cost_per_million_tokens": 0.25
+      "cache_read_input_token_cost_per_million_tokens": 0.025
     },
     "gemini-3.1-pro-preview": {
       "input_cost_per_million_tokens": 2,
@@ -285,16 +276,6 @@
       "input_cost_per_million_tokens": 0.11268,
       "output_cost_per_million_tokens": 0.39438,
       "cache_read_input_token_cost_per_million_tokens": 0.02817
-    },
-    "glm-5p3-flash": {
-      "input_cost_per_million_tokens": 0.15,
-      "output_cost_per_million_tokens": 0.5,
-      "cache_read_input_token_cost_per_million_tokens": 0.029
-    },
-    "glm-5p3-flash@llm": {
-      "input_cost_per_million_tokens": 0.15,
-      "output_cost_per_million_tokens": 0.5,
-      "cache_read_input_token_cost_per_million_tokens": 0.029
     },
     "google/gemini-2.0-flash-exp:free": {
       "input_cost_per_million_tokens": 0,
@@ -352,10 +333,25 @@
       "output_cost_per_million_tokens": 0.6248,
       "cache_read_input_token_cost_per_million_tokens": 0.03905
     },
+    "inception/mercury-2.5": {
+      "input_cost_per_million_tokens": 0.04,
+      "output_cost_per_million_tokens": 0.15,
+      "cache_read_input_token_cost_per_million_tokens": 0.004
+    },
     "inclusionai/ling-3.0-flash": {
       "input_cost_per_million_tokens": 0.021,
       "output_cost_per_million_tokens": 0.063,
       "cache_read_input_token_cost_per_million_tokens": 0.0042
+    },
+    "inclusionai/ling-3.0-flash-fin": {
+      "input_cost_per_million_tokens": 0.06,
+      "output_cost_per_million_tokens": 0.18,
+      "cache_read_input_token_cost_per_million_tokens": 0.012
+    },
+    "inclusionai/ling-3.0-flash-fin-free": {
+      "input_cost_per_million_tokens": 0,
+      "output_cost_per_million_tokens": 0,
+      "cache_read_input_token_cost_per_million_tokens": 0
     },
     "inclusionai/ling-3.0-flash-fin:free": {
       "input_cost_per_million_tokens": 0,
@@ -374,8 +370,7 @@
     },
     "kimi-for-coding-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "kimi-k2-turbo-preview": {
       "input_cost_per_million_tokens": 1.2,
@@ -412,10 +407,14 @@
       "output_cost_per_million_tokens": 0,
       "cache_read_input_token_cost_per_million_tokens": 0
     },
+    "mercury-2.5-preview": {
+      "input_cost_per_million_tokens": 0.2,
+      "output_cost_per_million_tokens": 0.75,
+      "cache_read_input_token_cost_per_million_tokens": 0.02
+    },
     "mimo-v2-flash-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "minimax-m2.5": {
       "input_cost_per_million_tokens": 0.288,
@@ -461,6 +460,11 @@
       "input_cost_per_million_tokens": 1.375,
       "output_cost_per_million_tokens": 4.675
     },
+    "muse-spark-1.3-contributor": {
+      "input_cost_per_million_tokens": 0.1,
+      "output_cost_per_million_tokens": 0.2,
+      "cache_read_input_token_cost_per_million_tokens": 0.002
+    },
     "nemotron-3.5-lightning-free": {
       "input_cost_per_million_tokens": 0,
       "output_cost_per_million_tokens": 0,
@@ -468,8 +472,7 @@
     },
     "north-mini-code-free": {
       "input_cost_per_million_tokens": 0,
-      "output_cost_per_million_tokens": 0,
-      "cache_read_input_token_cost_per_million_tokens": 0
+      "output_cost_per_million_tokens": 0
     },
     "nvidia/nemotron-3-nano-30b-a3b:free": {
       "input_cost_per_million_tokens": 0,
@@ -495,6 +498,16 @@
       "input_cost_per_million_tokens": 0,
       "output_cost_per_million_tokens": 0,
       "cache_read_input_token_cost_per_million_tokens": 0
+    },
+    "omen-alpha": {
+      "input_cost_per_million_tokens": 0.2,
+      "output_cost_per_million_tokens": 0.66,
+      "cache_read_input_token_cost_per_million_tokens": 0.04
+    },
+    "poolside/laguna-s-2.1": {
+      "input_cost_per_million_tokens": 0.09,
+      "output_cost_per_million_tokens": 0.18,
+      "cache_read_input_token_cost_per_million_tokens": 0.009
     },
     "poolside/laguna-s-2.1:free": {
       "input_cost_per_million_tokens": 0,
@@ -522,23 +535,19 @@
     },
     "qwen3-coder-flash": {
       "input_cost_per_million_tokens": 0.136,
-      "output_cost_per_million_tokens": 0.544,
-      "cache_read_input_token_cost_per_million_tokens": 0.136
+      "output_cost_per_million_tokens": 0.544
     },
     "qwen3-coder-next": {
       "input_cost_per_million_tokens": 0.137,
-      "output_cost_per_million_tokens": 0.548,
-      "cache_read_input_token_cost_per_million_tokens": 0.137
+      "output_cost_per_million_tokens": 0.548
     },
     "qwen3.5-35b-a3b": {
       "input_cost_per_million_tokens": 0.0564,
-      "output_cost_per_million_tokens": 0.4512,
-      "cache_read_input_token_cost_per_million_tokens": 0.0564
+      "output_cost_per_million_tokens": 0.4512
     },
     "qwen3.5-397b-a17b": {
       "input_cost_per_million_tokens": 0.1644,
-      "output_cost_per_million_tokens": 0.9864,
-      "cache_read_input_token_cost_per_million_tokens": 0.1644
+      "output_cost_per_million_tokens": 0.9864
     },
     "qwen3.5-flash": {
       "input_cost_per_million_tokens": 0.0282,
@@ -554,8 +563,7 @@
     },
     "qwen3.6-35b-a3b": {
       "input_cost_per_million_tokens": 0.254,
-      "output_cost_per_million_tokens": 1.524,
-      "cache_read_input_token_cost_per_million_tokens": 0.254
+      "output_cost_per_million_tokens": 1.524
     },
     "qwen3.6-plus": {
       "input_cost_per_million_tokens": 0.282,
