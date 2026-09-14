@@ -1,0 +1,19 @@
+[review]
+auto_open = true # Opens or refreshes a review when an associated agent enters the following states:
+on_states = ["idle", "blocked", "unknown"]
+
+reuse_pane = true
+watch = true
+placement = "tab"
+
+[roundtrip]
+clear_after_send = false
+prompt_template = """Human-authored inline review comments on your changes in {worktree}:
+
+{comments}
+
+Address each comment and verify the resulting changes. If a comment is unclear or requires a decision, ask a focused clarification question and continue with any unaffected comments. Then summarize what you changed and explain anything you did not implement."""
+
+[hunk]
+bin = "hunk"
+experimental = true # Passes Hunk's --experimental option, currently including support for STML-rendered agent notes.
