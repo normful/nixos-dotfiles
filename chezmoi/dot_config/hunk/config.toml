@@ -1,6 +1,6 @@
 # theme = "my-aurora-x"
-# theme = "my-material-theme-ocean"
-theme = "my-night-owl"
+theme = "my-material-theme-ocean"
+# theme = "my-night-owl"
 
 mode = "unified"
 cursor_line = "row"
@@ -11,7 +11,7 @@ animations = false
 sidebar = true
 agent_notes = true
 copy_decorations = false
-prompt_save_view_preferences = true
+prompt_save_view_preferences = false
 transparent_background = false
 color_moved = true
 
