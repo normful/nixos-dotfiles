@@ -224,6 +224,10 @@
       # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
       (callPackage ../../packages/disky { })
 
+      # Read-only disk usage visualizer. Category-tagged tree, JSON/TOON
+      # output for agents, plus a browser treemap/sunburst UI.
+      (callPackage ../../packages/duvis { })
+
       # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
       # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
       (callPackage ../../packages/openfang { })
