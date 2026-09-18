@@ -119,3 +119,24 @@ opt.spell = false
 
 -- Only the last window will have a status line
 opt.laststatus = 3
+
+-- Clipboard
+vim.opt.clipboard:append({ 'unnamed,unnamedplus' })
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(''), '\n'),
+    vim.fn.getregtype(''),
+  }
+end
+vim.g.clipboard = {
+  name = 'my custom clipboard provider',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = paste,
+    ['*'] = paste,
+  },
+  cache_enabled = false,
+}
