@@ -5,13 +5,13 @@ local function configure_lspconfig()
     -- Visit https://mason-registry.dev/registry/list to see all installable by Mason
     -- Equivalently: see https://github.com/search?q=repo%3Amason-org%2Fmason-registry+neovim%3A+lspconfig%3A&type=code
     ensure_installed = {
-      -- Some tools are installed by Nix, so they're not listed here
+      -- Some tools are installed by Nix (cyan) or mise (exe.dev VMs), so
+      -- they're not listed here: gopls, pylsp, ts_ls.
 
       'nil_ls',
       'bashls',
       'dockerls',
       'docker_compose_language_service',
-      'ts_ls',
       'eslint',
       'biome',
       'tailwindcss',
