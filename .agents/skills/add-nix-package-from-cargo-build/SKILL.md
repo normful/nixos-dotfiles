@@ -11,10 +11,9 @@ description: Add a new Nix package under packages/ that builds a Rust binary fro
 
 Reference examples in `packages/`:
 - `jcode` — full pattern: fork source, vendored `Cargo.lock`, two git-dep `outputHashes`, system OpenSSL, `cmake`/`perl`/`pkg-config`, Darwin frameworks, `--bin` selection, build-time version-identity env vars
-- `maki` — `outputHashes` for git deps, `cargoBuildFlags --package`, `postPatch` fix for a vendored crate
 - `arxiv-cli` — pinned (untagged) commit, `outputHashes`, `perl` for vendored OpenSSL
 - `git-ai` — `OPENSSL_NO_VENDOR`, `openssl` + `sqlite` in `buildInputs`, Darwin `libiconv` + `apple-sdk_15`
-- `disky` — minimal template: `fetchFromGitHub` + vendored `Cargo.lock`, no extra inputs
+- `tpluck` — minimal template: `fetchFromGitHub` + vendored `Cargo.lock`, no extra inputs
 
 ## When to Use
 
@@ -198,8 +197,8 @@ rustPlatform.buildRustPackage rec {
 ```
 
 Adaptations:
-- **Single-bin crate, no git deps, no sys deps**: drop `cargoBuildFlags`, `outputHashes`, and extra inputs (see `disky`).
-- **Crate needs a vendored-crate patch** (e.g. a relative-path `include_str!` that breaks under Nix vendoring): add `postPatch` with `substituteInPlace` on `$cargoDepsCopy` (see `maki`).
+- **Single-bin crate, no git deps, no sys deps**: drop `cargoBuildFlags`, `outputHashes`, and extra inputs (see `tpluck`).
+- **Crate needs a vendored-crate patch** (e.g. a relative-path `include_str!` that breaks under Nix vendoring): add `postPatch` with `substituteInPlace` on `$cargoDepsCopy`.
 - **Multiple bins to ship**: repeat `--bin` pairs in `cargoBuildFlags`, or use `--package <pkg>` to build one workspace member's bins.
 - **Build script needs commit identity**: set the repo's documented env vars (e.g. `JCODE_BUILD_GIT_HASH = "<short sha>";`) as top-level derivation attrs so `build.rs` emits real values instead of `unknown`.
 

@@ -10,10 +10,10 @@ description: Add a new Nix package under packages/ that installs a prebuilt bina
 **Package a CLI tool that publishes prebuilt binaries as GitHub Release assets** (common for Rust/Go tools with no nixpkgs package). Pattern: `fetchurl` the release tarball, disable build phases, extract and install the binary to `$out/bin`.
 
 Reference examples in `packages/`:
-- `jcode` — full pattern: multi-platform `sources`, tarball-content quirks, Linux `autoPatchelfHook`
-- `dcg` — multi-platform `sources` keyed by `stdenv.hostPlatform.system`
-- `lightpanda` — single raw binary + `autoPatchelfHook` on Linux
-- `openfang`, `lumen`, `humanify` — minimal single-platform (`aarch64-darwin`) template
+- `dcg` — full pattern: multi-platform `sources` keyed by `stdenv.hostPlatform.system`
+- `carbonyl` — zip asset with post-unpack quirks (dylib fixup, `makeWrapper` entry point)
+- `tree-sitter` — single compressed binary (`.gz`), no tarball: `gunzip` straight into `$out/bin`
+- `openfang`, `humanify` — minimal single-platform (`aarch64-darwin`) template
 
 ## When to Use
 
@@ -72,15 +72,15 @@ Reference examples in `packages/`:
 
 ### Step 1: Probe the release
 
-Get the latest tag, asset list, hashes, and — critically — the **inner filenames** (they often differ from the installed binary name, e.g. `jcode-macos-aarch64` inside vs `jcode` installed). Watch for:
+Get the latest tag, asset list, hashes, and — critically — the **inner filenames** (they often differ from the installed binary name, e.g. `carbonyl`'s zip wraps everything in a `carbonyl-<platform>/` directory). Watch for:
 
-- **Wrapper + binary pairs** (e.g. jcode's `linux-x86_64` tarball: 505-byte `sh` wrapper + `.bin` ELF; the wrapper execs its sibling by exact name, so the `.bin` must keep its upstream name)
+- **Wrapper + binary pairs** (e.g. `carbonyl`: the `$out/bin` entry point is a `makeWrapper` shim over files kept at their upstream layout under `$out/libexec/carbonyl/` — don't flatten or rename what the wrapper expects)
 - **Dynamically linked Linux ELF** (`interpreter /lib64/ld-linux…`) → needs `autoPatchelfHook`
 - **Only Nix platforms matter**: `aarch64-darwin`, `x86_64-darwin`, `aarch64-linux`, `x86_64-linux`. Ignore `freebsd`/`windows` assets — `stdenv.hostPlatform.system` can never select them
 
 ### Step 2: Create `packages/<name>/default.nix`
 
-Multi-platform template (copy `packages/jcode/default.nix` and adapt):
+Multi-platform template (copy `packages/dcg/default.nix` and adapt):
 
 ```nix
 # <name> – prebuilt binaries, no nixpkgs package exists
@@ -156,12 +156,12 @@ stdenv.mkDerivation rec {
 
 Adaptations:
 - **Single-platform** (darwin-only host, asset only for `aarch64-darwin`): drop the `sources` attrset; use `stdenvNoCC.mkDerivation` with inline `src = fetchurl { url = …; sha256 = …; };`, plain `mv` of the known inner name, and `platforms = [ "aarch64-darwin" ]` (see `openfang`). Omit `autoPatchelfHook`.
-- **Raw binary asset** (no tarball, e.g. lightpanda): skip `tar`, use `install -Dm755 $src $out/bin/<name>`.
+- **Single-file asset** (no tarball, e.g. `tree-sitter`'s `.gz`): skip `tar`, stream the file straight into `$out/bin/<name>` (`gunzip -c ${src} > $out/bin/<name>`).
 - **Upstream lacks Linux/macOS-x86 assets**: include only the platforms that exist; `platforms` follows `sources` automatically.
 
 ### Step 3: Wire into `mac/cyan/configuration.nix`
 
-Add beside similar tools (coding agents cluster near `codewhale`/`maki`; pick the section that fits), with a 2-line comment in file style:
+Add beside similar tools (agent CLIs cluster near `swival`/`jcode`; pick the section that fits), with a 2-line comment in file style:
 
 ```nix
       # <What it is>. <One-line why it matters>.
