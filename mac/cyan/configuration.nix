@@ -113,6 +113,7 @@
       (callPackage ../../packages/lean-ctx { })
       (callPackage ../../packages/tpluck { })
       (callPackage ../../packages/tree-sitter { })
+      (callPackage ../../packages/duvis { })
 
       # ── high interest ──
 
@@ -141,53 +142,15 @@
       # critique), 44 detector rules, live browser iteration.
       (callPackage ../../packages/impeccable { })
 
-      # AI research papers from your terminal. Search, read, cite, and
-      # explore the full Hugging Face Papers ecosystem. Includes an MCP
-      # server (hfpaper mcp) with 7 paper tools.
-      (callPackage ../../packages/hfpaper { })
-
-      # Academic paper reader + multi-source search for agentic deep
-      # research. `paper` reads/skims/navigates PDFs; `paper-search`
-      # queries Google (Serper), Semantic Scholar, PubMed. Includes
-      # figure/table/equation detection (layout extra).
-      (callPackage ../../packages/agent-papers-cli { })
-
-      # Headless browser for AI agents and scraping. Runs real JavaScript
-      # through V8 and speaks CDP as a drop-in for headless Chrome at a
-      # fraction of the memory. Built with render (screenshots, PDF) and
-      # stealth (Chrome-like TLS fingerprint, tracker blocking).
-      (callPackage ../../packages/obscura { })
-
       # ── medium interest ──
 
       # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
       # agents into one live surface. Real-time compose/extend/observe.
       (callPackage ../../packages/iii-engine { })
 
-      # Semantic code intelligence. Pre-indexed knowledge graph: symbol
-      # relationships, call graphs, code structure. ~35% cheaper, ~70%
-      # fewer agent tool calls.
-      (callPackage ../../packages/codegraph { })
-
       # Security scanner for AI agent skills. 68 vulnerability patterns
       # across 17 categories. Fast static + optional LLM analysis.
       (callPackage ../../packages/skillspector { })
-
-      # Persistent memory for AI coding agents. Captures sessions,
-      # compresses to searchable memory, injects context on next start.
-      (callPackage ../../packages/agentmemory { })
-
-      # Permanent memory for AI agents — single binary, zero deps, MCP native.
-      (callPackage ../../packages/icm { })
-
-      # Local real-time voice transcription TUI with speaker diarization.
-      (callPackage ../../packages/voxterm { })
-
-      # Talk to one agent. Ship with a crew.
-      (callPackage ../../packages/firstmate { })
-
-      # Beautiful git diff viewer, AI commit generation, change summaries — all from the CLI
-      (callPackage ../../packages/lumen { })
 
       # Git extension that tracks AI-generated code. Every line linked
       # to agent, model, and prompts that generated it.
@@ -198,35 +161,11 @@
       # ripgrep+fzf in long-running processes.
       (callPackage ../../packages/fff-mcp { })
 
-      # Trigram-indexed grep. Client/server regex search for large
-      # codebases, faster than ripgrep on repeated queries.
-      (callPackage ../../packages/tgrep { })
-
       # ── low interest ──
 
       # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
       # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
       (callPackage ../../packages/docling { })
-
-      # AI git commit message generator from staged diff. Supports
-      # TogetherAI, OpenAI, Groq, Ollama, conventional commits.
-      (callPackage ../../packages/aicommits { })
-
-      # Knowledge graph from any folder. /graphify . → graph.html +
-      # GRAPH_REPORT.md. Parses code, docs, PDFs, images, videos.
-      (callPackage ../../packages/graphify { })
-
-      # AI coding agent. Native Rust TUI, tree-sitter indexing, sandboxed
-      # code execution, subagent task delegation. Fast startup, 60 FPS.
-      (callPackage ../../packages/maki { })
-
-      # Fast macOS disk analyzer and cleanup CLI. Scans 2M files in
-      # seconds, DuckDB snapshots, TUI, diff, Trash-restorable cleanup.
-      (callPackage ../../packages/disky { })
-
-      # Read-only disk usage visualizer. Category-tagged tree, JSON/TOON
-      # output for agents, plus a browser treemap/sunburst UI.
-      (callPackage ../../packages/duvis { })
 
       # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
       # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
@@ -236,22 +175,11 @@
       # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
       (callPackage ../../packages/bernstein { })
 
-      # Terminal coding agent for any model. TUI + CLI. DeepSeek,
-      # Claude, GPT, open-weight models via vLLM/Ollama.
-      (callPackage ../../packages/codewhale { })
-
       # RAM-efficient terminal coding agent harness (Rust). Local TUI,
       # remote execution over native SSH sessions.
       (callPackage ../../packages/jcode { })
 
       # ── already tried ──
-
-      # AI spend tracker. Reads 31 tools' session files, breaks down
-      # tokens & dollars by task, model, tool, project. All local.
-      (callPackage ../../packages/codeburn { })
-
-      # (callPackage ../../packages/grepai { })
-      # (callPackage ../../packages/lightpanda { })
 
       # ────────────────────────────────────────────────────────────────────────
       # Packages I've used before but don't need now
