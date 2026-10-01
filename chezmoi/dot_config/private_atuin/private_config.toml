@@ -107,6 +107,7 @@ history_filter = [
   "^ls($| )",
   "^pwd$",
   "^reset$",
+  "ssh exe.dev integrations",
 ]
 
 ## prevent commands run with cwd matching any of these regexes from being written
