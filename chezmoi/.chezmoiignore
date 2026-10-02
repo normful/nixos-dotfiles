@@ -1,6 +1,16 @@
 {{/* vim: set filetype=gotemplate : */}}
 **/.DS_Store
 
+{{/* ---- Never install dependency or build trees ----
+     chezmoi does not read .gitignore, so a node_modules left by an install under
+     dot_config/hunk/extensions is walked as target content. It reads filenames as
+     its own attributes, and typebox's build/type/engine/readonly_object/ collides
+     with the sibling object/ directory — which aborts every chezmoi command on
+     this source with "inconsistent state" and an empty result.
+*/}}
+**/node_modules
+**/node_modules/**
+
 {{/* Config that should not be installed on non-macOS machines */}}
 {{/* i.e. config that is only needed on macOS machines */}}
 {{ if not .mac -}}
