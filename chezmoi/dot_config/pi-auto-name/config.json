@@ -13,7 +13,7 @@
   "surfaces": {
     "renamePiSession": true,
     "renameHerdrPane": true,
-    "renameHerdrTab": false,
+    "renameHerdrTab": true,
     "renameTmuxWindow": false,
     "renameZellijPane": false,
     "renameZellijTab": false
