@@ -115,6 +115,10 @@
       (callPackage ../../packages/tree-sitter { })
       (callPackage ../../packages/duvis { })
 
+      # Hunk-level git plumbing for agents. Stage, unstage, discard, undo,
+      # split, and reorder individual hunks by ID without interactive prompts.
+      (callPackage ../../packages/git-surgeon { })
+
       # ── high interest ──
 
       # Multi-agent safety hook. Blocks destructive shell commands
