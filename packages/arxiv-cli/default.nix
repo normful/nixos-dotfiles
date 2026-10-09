@@ -4,7 +4,6 @@
   rustPlatform,
   perl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "arxiv-cli";
   # No release tags upstream — pinned to main commit below
@@ -12,7 +11,7 @@ rustPlatform.buildRustPackage rec {
 
   # openssl-sys is built with the `vendored` feature, which compiles OpenSSL
   # from source inside cargo — that needs perl to run openssl's Configure.
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   src = fetchFromGitHub {
     owner = "sonesuke";
@@ -42,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sonesuke/arxiv-cli";
     license = licenses.mit;
     mainProgram = "arxiv-cli";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

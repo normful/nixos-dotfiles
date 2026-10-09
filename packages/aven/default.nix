@@ -4,9 +4,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-}:
-
-let
+}: let
   version = "0.1.46";
   base = "https://github.com/raine/aven/releases/download/v${version}";
 
@@ -31,35 +29,35 @@ let
 
   src = fetchurl sources.${stdenvNoCC.hostPlatform.system};
 in
-stdenvNoCC.mkDerivation {
-  pname = "aven";
-  inherit version src;
+  stdenvNoCC.mkDerivation {
+    pname = "aven";
+    inherit version src;
 
-  dontBuild = true;
-  dontConfigure = true;
-  dontUnpack = true;
+    dontBuild = true;
+    dontConfigure = true;
+    dontUnpack = true;
 
-  # Archive contains a single statically linked binary named `aven`.
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    tar -xzf $src -C $out/bin aven
-    chmod +x $out/bin/aven
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Local-first task manager for power users and agents";
-    longDescription = ''
-      Aven is a local-first task manager built for power users and AI agents.
-      Tasks live in a local SQLite database; projects and workspaces are
-      inferred from the current directory, and a CLI plus agent workflows
-      cover listing, searching, refs, and status transitions.
+    # Archive contains a single statically linked binary named `aven`.
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      tar -xzf $src -C $out/bin aven
+      chmod +x $out/bin/aven
+      runHook postInstall
     '';
-    homepage = "https://github.com/raine/aven";
-    changelog = "https://github.com/raine/aven/releases/tag/v${version}";
-    license = licenses.mit;
-    mainProgram = "aven";
-    platforms = builtins.attrNames sources;
-  };
-}
+
+    meta = with lib; {
+      description = "Local-first task manager for power users and agents";
+      longDescription = ''
+        Aven is a local-first task manager built for power users and AI agents.
+        Tasks live in a local SQLite database; projects and workspaces are
+        inferred from the current directory, and a CLI plus agent workflows
+        cover listing, searching, refs, and status transitions.
+      '';
+      homepage = "https://github.com/raine/aven";
+      changelog = "https://github.com/raine/aven/releases/tag/v${version}";
+      license = licenses.mit;
+      mainProgram = "aven";
+      platforms = builtins.attrNames sources;
+    };
+  }

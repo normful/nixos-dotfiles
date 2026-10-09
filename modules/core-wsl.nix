@@ -2,8 +2,7 @@
   pkgs-pinned-unstable,
   config,
   ...
-}:
-{
+}: {
   wsl.enable = true;
   wsl.defaultUser = config.my.user.name;
   wsl.docker-desktop.enable = true;

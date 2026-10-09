@@ -1,11 +1,9 @@
-{ pkgs-stable, ... }:
-let
+{pkgs-stable, ...}: let
   substituters = [
     "https://cache.nixos.org"
     "https://nix-community.cachix.org"
   ];
-in
-{
+in {
   nix.package = pkgs-stable.nixVersions.latest;
 
   nix.settings = {
@@ -40,7 +38,7 @@ in
 
   nix.optimise = {
     automatic = true;
-    dates = [ "daily" ];
+    dates = ["daily"];
   };
 
   nixpkgs.config.allowUnfree = true;

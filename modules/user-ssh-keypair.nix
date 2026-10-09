@@ -2,8 +2,7 @@
   config,
   pkgs-stable,
   ...
-}:
-{
+}: {
   config = {
     environment.systemPackages = with pkgs-stable; [
       openssh
@@ -11,8 +10,8 @@
 
     systemd.services.generate-user-ssh-keys = {
       description = "Generate SSH keypair for user ${config.my.user.name}";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "local-fs.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["local-fs.target"];
       serviceConfig = {
         Type = "oneshot";
         User = config.my.user.name;

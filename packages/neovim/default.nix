@@ -1,10 +1,6 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   initLazyAndNvChad = builtins.readFile ./initLazyAndNvChad.lua;
-in
-
-''
+in ''
   lua << EOF
     ${initLazyAndNvChad}
   EOF

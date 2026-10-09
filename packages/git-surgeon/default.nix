@@ -4,9 +4,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-}:
-
-let
+}: let
   version = "0.1.17";
   base = "https://github.com/raine/git-surgeon/releases/download/v${version}";
 
@@ -31,29 +29,29 @@ let
 
   src = fetchurl sources.${stdenvNoCC.hostPlatform.system};
 in
-stdenvNoCC.mkDerivation {
-  pname = "git-surgeon";
-  inherit version src;
+  stdenvNoCC.mkDerivation {
+    pname = "git-surgeon";
+    inherit version src;
 
-  dontBuild = true;
-  dontConfigure = true;
-  dontUnpack = true;
+    dontBuild = true;
+    dontConfigure = true;
+    dontUnpack = true;
 
-  # Archive contains a single statically linked binary named `git-surgeon`.
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    tar -xzf $src -C $out/bin git-surgeon
-    chmod +x $out/bin/git-surgeon
-    runHook postInstall
-  '';
+    # Archive contains a single statically linked binary named `git-surgeon`.
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      tar -xzf $src -C $out/bin git-surgeon
+      chmod +x $out/bin/git-surgeon
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Non-interactive hunk-level git staging, unstaging, discarding, undoing, fold, amend, squash, commit splitting, and commit reordering";
-    homepage = "https://github.com/raine/git-surgeon";
-    changelog = "https://github.com/raine/git-surgeon/releases/tag/v${version}";
-    license = licenses.mit;
-    mainProgram = "git-surgeon";
-    platforms = builtins.attrNames sources;
-  };
-}
+    meta = with lib; {
+      description = "Non-interactive hunk-level git staging, unstaging, discarding, undoing, fold, amend, squash, commit splitting, and commit reordering";
+      homepage = "https://github.com/raine/git-surgeon";
+      changelog = "https://github.com/raine/git-surgeon/releases/tag/v${version}";
+      license = licenses.mit;
+      mainProgram = "git-surgeon";
+      platforms = builtins.attrNames sources;
+    };
+  }

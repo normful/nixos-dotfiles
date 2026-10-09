@@ -3,11 +3,9 @@
   lib,
   pkgs-stable,
   ...
-}:
-let
+}: let
   isDarwin = pkgs-stable.stdenv.isDarwin;
-in
-{
+in {
   options.my = {
     hostname = lib.mkOption {
       type = lib.types.str;
@@ -29,12 +27,11 @@ in
       description = "System flake path";
       type = lib.types.str;
       default =
-        if isDarwin then
-          "/Users/${config.my.user.name}/code/nixos-dotfiles"
-        else if config.my.isFirstInstall then
-          "/etc/nixos"
-        else
-          "/home/${config.my.user.name}/code/nixos-dotfiles";
+        if isDarwin
+        then "/Users/${config.my.user.name}/code/nixos-dotfiles"
+        else if config.my.isFirstInstall
+        then "/etc/nixos"
+        else "/home/${config.my.user.name}/code/nixos-dotfiles";
     };
 
     enableInteractiveCli = lib.mkOption {

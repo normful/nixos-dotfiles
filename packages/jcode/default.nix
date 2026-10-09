@@ -27,7 +27,6 @@
   libiconv,
   apple-sdk_15,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jcode";
   # Matches the fork's Cargo.toml [package] version at the pinned rev.
@@ -75,13 +74,14 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    libiconv
-    apple-sdk_15
-  ];
+  buildInputs =
+    [
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      libiconv
+      apple-sdk_15
+    ];
 
   doCheck = false;
 

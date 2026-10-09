@@ -7,9 +7,7 @@
   lib,
   stdenv,
   fetchurl,
-}:
-
-let
+}: let
   version = "0.9.2";
   base = "https://github.com/Dicklesworthstone/destructive_command_guard/releases/download/v${version}";
 
@@ -26,27 +24,27 @@ let
 
   src = fetchurl sources.${stdenv.hostPlatform.system};
 in
-stdenv.mkDerivation {
-  pname = "dcg";
-  inherit version;
-  inherit src;
+  stdenv.mkDerivation {
+    pname = "dcg";
+    inherit version;
+    inherit src;
 
-  sourceRoot = ".";
-  dontConfigure = true;
-  dontBuild = true;
+    sourceRoot = ".";
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    install -m755 dcg $out/bin/dcg
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      install -m755 dcg $out/bin/dcg
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Destructive Command Guard - multi-agent safety hook that blocks destructive shell commands";
-    homepage = "https://github.com/Dicklesworthstone/destructive_command_guard";
-    license = licenses.mit;
-    platforms = builtins.attrNames sources;
-    mainProgram = "dcg";
-  };
-}
+    meta = with lib; {
+      description = "Destructive Command Guard - multi-agent safety hook that blocks destructive shell commands";
+      homepage = "https://github.com/Dicklesworthstone/destructive_command_guard";
+      license = licenses.mit;
+      platforms = builtins.attrNames sources;
+      mainProgram = "dcg";
+    };
+  }

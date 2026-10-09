@@ -1,5 +1,4 @@
-{ pkgs-pinned-unstable, ... }:
-{
+{pkgs-pinned-unstable, ...}: {
   my.user.name = "norman";
   my.hostname = "duro";
 

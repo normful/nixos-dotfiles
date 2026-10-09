@@ -24,7 +24,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "duvis";
   version = "0.1.8";

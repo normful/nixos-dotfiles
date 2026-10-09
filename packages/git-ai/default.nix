@@ -9,7 +9,6 @@
   libiconv,
   apple-sdk_15,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-ai";
   version = "1.6.4";
@@ -33,14 +32,15 @@ rustPlatform.buildRustPackage {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-    sqlite
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    libiconv
-    apple-sdk_15
-  ];
+  buildInputs =
+    [
+      openssl
+      sqlite
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      libiconv
+      apple-sdk_15
+    ];
 
   doCheck = false;
 
@@ -56,6 +56,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/git-ai-project/git-ai";
     license = licenses.gpl3Plus;
     mainProgram = "git-ai";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

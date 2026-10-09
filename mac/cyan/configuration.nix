@@ -5,8 +5,7 @@
   config,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
     ../../modules/overall-options.nix
     ../../modules/interactive-cli.nix
@@ -62,207 +61,209 @@
     my.enableFonts = true;
     my.enableJapaneseFonts = true;
 
-    environment.systemPackages = [
-    ]
-    ++ (with pkgs-pinned-unstable; [
-      tailscale
-      keepassxc
-      gh # Log into this one manually
+    environment.systemPackages =
+      [
+      ]
+      ++ (with pkgs-pinned-unstable; [
+        tailscale
+        keepassxc
+        gh # Log into this one manually
 
-      # Packages I'm only installing on this computer for now
-      mariadb_118
-      jre25_minimal
-      terminal-notifier
-      atuin
-      mdwatch
-      sqlite
-      hk
-      opencode
-      himalaya
-      crystal
+        # Packages I'm only installing on this computer for now
+        mariadb_118
+        jre25_minimal
+        terminal-notifier
+        atuin
+        mdwatch
+        sqlite
+        hk
+        opencode
+        himalaya
+        crystal
 
-      # adoc
-      asciidoctor-with-extensions
-      asciidoc-full-with-plugins
-      kramdown-asciidoc
+        # adoc
+        asciidoctor-with-extensions
+        asciidoc-full-with-plugins
+        kramdown-asciidoc
 
-      # TeX Live Medium + extra CJK/XeTeX packages
-      (texliveMedium.withPackages (
-        ps: with ps; [
-          xecjk
-          fontspec
-        ]
-      ))
-      ansible
-      fswatch
+        # TeX Live Medium + extra CJK/XeTeX packages
+        (texliveMedium.withPackages (
+          ps:
+            with ps; [
+              xecjk
+              fontspec
+            ]
+        ))
+        ansible
+        fswatch
 
-      git-credential-oauth
-      sesh
+        git-credential-oauth
+        sesh
 
-      # ────────────────────────────────────────────────────────────────────────
-      # TODO: Replace many (all?) with https://github.com/berberman/nvfetcher
-      # Examples of other people also using nvfetcher:
-      # - https://github.com/search?q=path%3A_sources%2Fgenerated.nix&type=code
-      # - https://github.com/search?q=path%3AREADME.md+nvfetcher&type=code
-      # ────────────────────────────────────────────────────────────────────────
+        # ────────────────────────────────────────────────────────────────────────
+        # TODO: Replace many (all?) with https://github.com/berberman/nvfetcher
+        # Examples of other people also using nvfetcher:
+        # - https://github.com/search?q=path%3A_sources%2Fgenerated.nix&type=code
+        # - https://github.com/search?q=path%3AREADME.md+nvfetcher&type=code
+        # ────────────────────────────────────────────────────────────────────────
 
-      # ── keepers ──
+        # ── keepers ──
 
-      (callPackage ../../packages/arxiv-cli { })
-      (callPackage ../../packages/agent-browser { })
-      (callPackage ../../packages/lean-ctx { })
-      (callPackage ../../packages/tpluck { })
-      (callPackage ../../packages/tree-sitter { })
-      (callPackage ../../packages/duvis { })
+        (callPackage ../../packages/arxiv-cli {})
+        (callPackage ../../packages/agent-browser {})
+        (callPackage ../../packages/lean-ctx {})
+        (callPackage ../../packages/tpluck {})
+        (callPackage ../../packages/tree-sitter {})
+        (callPackage ../../packages/duvis {})
 
-      # Hunk-level git plumbing for agents. Stage, unstage, discard, undo,
-      # split, and reorder individual hunks by ID without interactive prompts.
-      (callPackage ../../packages/git-surgeon { })
+        # Hunk-level git plumbing for agents. Stage, unstage, discard, undo,
+        # split, and reorder individual hunks by ID without interactive prompts.
+        (callPackage ../../packages/git-surgeon {})
 
-      # ── high interest ──
+        # ── high interest ──
 
-      # Multi-agent safety hook. Blocks destructive shell commands
-      # (rm -rf, :(){:|:&};:, etc.) before they run. Designed for
-      # AI coding agents.
-      (callPackage ../../packages/dcg { })
+        # Multi-agent safety hook. Blocks destructive shell commands
+        # (rm -rf, :(){:|:&};:, etc.) before they run. Designed for
+        # AI coding agents.
+        (callPackage ../../packages/dcg {})
 
-      # Local-first task manager for power users and agents. Tasks live in
-      # a local SQLite DB; project/workspace inferred from the cwd.
-      (callPackage ../../packages/aven { })
+        # Local-first task manager for power users and agents. Tasks live in
+        # a local SQLite DB; project/workspace inferred from the cwd.
+        (callPackage ../../packages/aven {})
 
-      # CLI coding agent for open AI models. Connects to LM Studio,
-      # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
-      (callPackage ../../packages/swival { })
+        # CLI coding agent for open AI models. Connects to LM Studio,
+        # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
+        (callPackage ../../packages/swival {})
 
-      # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
-      # line-level comments. Agent reads full files, cross-references context.
-      (callPackage ../../packages/open-code-review { })
+        # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
+        # line-level comments. Agent reads full files, cross-references context.
+        (callPackage ../../packages/open-code-review {})
 
-      # AI-powered code review for GitHub PRs. Posts inline comments on
-      # exact diff lines, incremental re-triage, conversational resolution.
-      (callPackage ../../packages/codecanary { })
+        # AI-powered code review for GitHub PRs. Posts inline comments on
+        # exact diff lines, incremental re-triage, conversational resolution.
+        (callPackage ../../packages/codecanary {})
 
-      # LLM-powered JS deobfuscator. Reverses minified/obfuscated code
-      # back to readable source via OpenAI, Gemini, or local Ollama.
-      (callPackage ../../packages/humanify { })
+        # LLM-powered JS deobfuscator. Reverses minified/obfuscated code
+        # back to readable source via OpenAI, Gemini, or local Ollama.
+        (callPackage ../../packages/humanify {})
 
-      # Design guidance for AI coding agents. 23 commands (polish, audit,
-      # critique), 44 detector rules, live browser iteration.
-      (callPackage ../../packages/impeccable { })
+        # Design guidance for AI coding agents. 23 commands (polish, audit,
+        # critique), 44 detector rules, live browser iteration.
+        (callPackage ../../packages/impeccable {})
 
-      # ── medium interest ──
+        # ── medium interest ──
 
-      # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
-      # agents into one live surface. Real-time compose/extend/observe.
-      (callPackage ../../packages/iii-engine { })
+        # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
+        # agents into one live surface. Real-time compose/extend/observe.
+        (callPackage ../../packages/iii-engine {})
 
-      # Security scanner for AI agent skills. 68 vulnerability patterns
-      # across 17 categories. Fast static + optional LLM analysis.
-      (callPackage ../../packages/skillspector { })
+        # Security scanner for AI agent skills. 68 vulnerability patterns
+        # across 17 categories. Fast static + optional LLM analysis.
+        (callPackage ../../packages/skillspector {})
 
-      # Git extension that tracks AI-generated code. Every line linked
-      # to agent, model, and prompts that generated it.
-      (callPackage ../../packages/git-ai { })
+        # Git extension that tracks AI-generated code. Every line linked
+        # to agent, model, and prompts that generated it.
+        (callPackage ../../packages/git-ai {})
 
-      # High-performance file search MCP server. Typo-resistant path &
-      # content search, frecency-ranked, background watcher. Faster than
-      # ripgrep+fzf in long-running processes.
-      (callPackage ../../packages/fff-mcp { })
+        # High-performance file search MCP server. Typo-resistant path &
+        # content search, frecency-ranked, background watcher. Faster than
+        # ripgrep+fzf in long-running processes.
+        (callPackage ../../packages/fff-mcp {})
 
-      # ── low interest ──
+        # ── low interest ──
 
-      # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
-      # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
-      (callPackage ../../packages/docling { })
+        # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
+        # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
+        (callPackage ../../packages/docling {})
 
-      # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
-      # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
-      (callPackage ../../packages/openfang { })
+        # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
+        # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.
+        (callPackage ../../packages/openfang {})
 
-      # Multi-agent orchestrator. Runs a crew of CLI coding agents
-      # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
-      (callPackage ../../packages/bernstein { })
+        # Multi-agent orchestrator. Runs a crew of CLI coding agents
+        # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
+        (callPackage ../../packages/bernstein {})
 
-      # RAM-efficient terminal coding agent harness (Rust). Local TUI,
-      # remote execution over native SSH sessions.
-      (callPackage ../../packages/jcode { })
+        # RAM-efficient terminal coding agent harness (Rust). Local TUI,
+        # remote execution over native SSH sessions.
+        (callPackage ../../packages/jcode {})
 
-      # ── already tried ──
+        # ── already tried ──
 
-      # ────────────────────────────────────────────────────────────────────────
-      # Packages I've used before but don't need now
-      # ────────────────────────────────────────────────────────────────────────
+        # ────────────────────────────────────────────────────────────────────────
+        # Packages I've used before but don't need now
+        # ────────────────────────────────────────────────────────────────────────
 
-      # infisical
-      # direnv
-      # dolt
-      # tuios
-      # zola
-      # repomix
-      # sqlite-web
+        # infisical
+        # direnv
+        # dolt
+        # tuios
+        # zola
+        # repomix
+        # sqlite-web
 
-      # ────────────────────────────────────────────────────────────────────────
-      # Example packages and overlaid packages
-      # ────────────────────────────────────────────────────────────────────────
+        # ────────────────────────────────────────────────────────────────────────
+        # Example packages and overlaid packages
+        # ────────────────────────────────────────────────────────────────────────
 
-      hello-wrapped # from overlays/hello-wrapped-config — hello with default --greeting flag
-      figlet-patched # from overlays/figlet-patched — figlet defaulting to smslant font
-      (callPackage ../../packages/cowsay { }) # from packages/cowsay — cowsay pinned to v3.8.4
-    ])
-    ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
-      flux
-      vlc
-      keka
-      key-codes
-      mp3gain-express
-      neovide
+        hello-wrapped # from overlays/hello-wrapped-config — hello with default --greeting flag
+        figlet-patched # from overlays/figlet-patched — figlet defaulting to smslant font
+        (callPackage ../../packages/cowsay {}) # from packages/cowsay — cowsay pinned to v3.8.4
+      ])
+      ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
+        flux
+        vlc
+        keka
+        key-codes
+        mp3gain-express
+        neovide
 
-      ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
-      # anki
-      # brave-browser
-      # cursor
-      # discord
-      # docker
-      # firefox_nightly
-      # inkscape
-      # iptvnator
-      # libreoffice
-      # notion-calendar
-      # orion
-      # rustrover
-      # slack
-      # superwhisper
-      # tor-browser
-      # tunnelblick
-      # visual-studio-code_insiders
-      # zed
-    ])
-    ++ (with inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}; [
-      herdr
-    ])
-    ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-      rtk
+        ### Some of these are gigantic and slow down system rebuild, so I'm purposely just installing them imperatively, outside of Nix
+        # anki
+        # brave-browser
+        # cursor
+        # discord
+        # docker
+        # firefox_nightly
+        # inkscape
+        # iptvnator
+        # libreoffice
+        # notion-calendar
+        # orion
+        # rustrover
+        # slack
+        # superwhisper
+        # tor-browser
+        # tunnelblick
+        # visual-studio-code_insiders
+        # zed
+      ])
+      ++ (with inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}; [
+        herdr
+      ])
+      ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
+        rtk
 
-      # AI Coding Agents
-      # jules
+        # AI Coding Agents
+        # jules
 
-      # Workflow & Project Management
-      # beads-rust
-      # beads-viewer
-      # openspec # Small
-      # cc-sdd # Large
-      # spec-kit # Large
-      # workmux
+        # Workflow & Project Management
+        # beads-rust
+        # beads-viewer
+        # openspec # Small
+        # cc-sdd # Large
+        # spec-kit # Large
+        # workmux
 
-      # Code Review
-      # tuicr
+        # Code Review
+        # tuicr
 
-      # Utilities
-      # ck
-      # gno
-      # qmd
-      # showboat
-    ]);
+        # Utilities
+        # ck
+        # gno
+        # qmd
+        # showboat
+      ]);
 
     system.defaults.dock.persistent-apps = [
       # Terminals
@@ -347,7 +348,7 @@
         EDITOR = "nvim";
         GIT_EDITOR = "nvim";
       };
-      shells = [ pkgs-stable.fish ];
+      shells = [pkgs-stable.fish];
     };
 
     programs = {
@@ -572,7 +573,6 @@
             pkill -x "$proc"d 2>/dev/null || true
           done
         '';
-
       };
 
       primaryUser = config.my.user.name;

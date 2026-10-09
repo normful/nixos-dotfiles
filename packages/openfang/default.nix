@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "openfang";
   version = "0.6.9";
@@ -37,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/RightNow-AI/openfang";
     license = licenses.mit;
     mainProgram = "openfang";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

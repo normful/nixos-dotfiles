@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tpluck";
   version = "0.1.0";
@@ -31,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/tomis007/tpluck";
     license = licenses.mit;
     mainProgram = "tpluck";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

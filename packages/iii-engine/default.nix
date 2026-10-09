@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "iii-engine";
   version = "0.11.2";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/iii-hq/iii";
     license = licenses.asl20;
     mainProgram = "iii";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

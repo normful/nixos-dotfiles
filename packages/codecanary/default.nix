@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "codecanary";
   version = "0.6.24";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/alansikora/codecanary";
     license = licenses.mit;
     mainProgram = "codecanary";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

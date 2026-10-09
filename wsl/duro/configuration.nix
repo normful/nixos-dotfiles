@@ -1,8 +1,4 @@
-{
-  inputs,
-  ...
-}:
-{
+{inputs, ...}: {
   imports = [
     ../../modules/overall-options.nix
     ./my-config.nix

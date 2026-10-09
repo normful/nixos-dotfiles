@@ -20,6 +20,6 @@ final: prev: {
       makeWrapper ${prev.hello}/bin/hello $out/bin/hello-wrapped \
         --add-flags "--greeting='Hello from a wrapped overlay!'"
     '';
-    buildInputs = [ prev.makeWrapper ];
+    buildInputs = [prev.makeWrapper];
   };
 }

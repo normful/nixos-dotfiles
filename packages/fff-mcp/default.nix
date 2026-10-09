@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "fff-mcp";
   version = "0.9.6";
@@ -37,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/dmtrKovalenko/fff";
     license = licenses.mit;
     mainProgram = "fff-mcp";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

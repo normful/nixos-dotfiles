@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lean-ctx";
   version = "3.9.20";
@@ -42,8 +41,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://leanctx.com";
     changelog = "https://github.com/yvgude/lean-ctx/releases/tag/v${version}";
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     mainProgram = "lean-ctx";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

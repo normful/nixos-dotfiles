@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python313Packages,
 }:
-
 python313Packages.buildPythonApplication {
   pname = "skillspector";
   version = "0-unstable-2026-06-10";
@@ -44,6 +43,6 @@ python313Packages.buildPythonApplication {
     homepage = "https://github.com/NVIDIA/SkillSpector";
     license = licenses.mit;
     mainProgram = "skillspector";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

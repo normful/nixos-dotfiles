@@ -15,11 +15,9 @@
 #
 # Convention: overlay subdirectories may include a tests/ folder with
 # updated test fixtures when the overlay changes test-relevant behavior.
-{ lib }:
-let
+{lib}: let
   inherit (builtins) readDir;
   # Filter to only directories (skip default.nix itself, patches/, tests/)
   overlayDirs = lib.filterAttrs (name: type: type == "directory") (readDir ./.);
 in
-
-lib.composeManyExtensions (lib.mapAttrsToList (name: _: import ./${name}/default.nix) overlayDirs)
+  lib.composeManyExtensions (lib.mapAttrsToList (name: _: import ./${name}/default.nix) overlayDirs)

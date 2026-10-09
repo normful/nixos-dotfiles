@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "humanify";
   version = "3.1.1";
@@ -36,6 +35,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/jehna/humanify";
     license = licenses.mit;
     mainProgram = "humanify";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

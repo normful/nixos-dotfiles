@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "agent-browser";
   version = "0.31.1";
@@ -36,6 +35,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/vercel-labs/agent-browser";
     license = licenses.asl20;
     mainProgram = "agent-browser";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

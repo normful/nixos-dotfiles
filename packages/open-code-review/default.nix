@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "open-code-review";
   version = "1.6.4";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/alibaba/open-code-review";
     license = licenses.asl20;
     mainProgram = "ocr";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

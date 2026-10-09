@@ -15,7 +15,6 @@
   cowsay,
   fetchFromGitHub,
 }:
-
 cowsay.overrideAttrs (old: {
   name = "cowsay-3.8.4-pinned";
   src = fetchFromGitHub {

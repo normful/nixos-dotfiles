@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python314Packages,
 }:
-
 python314Packages.buildPythonApplication rec {
   pname = "bernstein";
   version = "2.8.2";
@@ -73,6 +72,6 @@ python314Packages.buildPythonApplication rec {
     homepage = "https://github.com/sipyourdrink-ltd/bernstein";
     license = licenses.asl20;
     mainProgram = "bernstein";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

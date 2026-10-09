@@ -15,11 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "0r40v6pfmya1ppqk11abz33r9l6q6nzyw04xzyl99snqcir1kycc";
   };
 
-  nativeBuildInputs = [
-    unzip
-    makeWrapper
-  ]
-  ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+  nativeBuildInputs =
+    [
+      unzip
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.isDarwin [darwin.cctools];
 
   unpackPhase = "unzip $src";
 

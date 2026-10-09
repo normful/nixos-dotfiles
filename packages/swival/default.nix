@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python314Packages,
 }:
-
 python314Packages.buildPythonApplication rec {
   pname = "swival";
   version = "1.0.34";
@@ -59,6 +58,6 @@ python314Packages.buildPythonApplication rec {
     homepage = "https://swival.dev/";
     license = licenses.mit;
     mainProgram = "swival";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }
