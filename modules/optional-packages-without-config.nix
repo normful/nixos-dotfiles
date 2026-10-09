@@ -3,8 +3,7 @@
   lib,
   pkgs-pinned-unstable,
   ...
-}:
-let
+}: let
   optionals = lib.optionals;
   isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
   isLinux = pkgs-pinned-unstable.stdenv.isLinux;
@@ -12,24 +11,27 @@ let
   isAarch64Darwin = pkgs-pinned-unstable.stdenv.isDarwin && pkgs-pinned-unstable.stdenv.isAarch64;
   # normful fork of zk, built from source. aarch64-darwin only
   # (see packages/zk-fork/default.nix). Replaces nixpkgs zk on cyan.
-  zkFork = pkgs-pinned-unstable.callPackage ../packages/zk-fork { };
+  zkFork = pkgs-pinned-unstable.callPackage ../packages/zk-fork {};
   phpEnv = (
     pkgs-pinned-unstable.php85.buildEnv {
       extensions = (
-        { enabled, all }:
-        enabled
-        ++ (with all; [
-          curl
-          mbstring
-          mysqli
-          pdo
-          pdo_mysql
-          zip
+        {
+          enabled,
+          all,
+        }:
+          enabled
+          ++ (with all; [
+            curl
+            mbstring
+            mysqli
+            pdo
+            pdo_mysql
+            zip
 
-          # Only enable either pcov or xdebug.
-          # pcov
-          xdebug
-        ])
+            # Only enable either pcov or xdebug.
+            # pcov
+            xdebug
+          ])
       );
 
       # When pcov.enabled = On, interoperability with Xdebug is NOT possible
@@ -47,11 +49,9 @@ let
       '';
     }
   );
-in
-{
+in {
   config = {
-    environment.systemPackages =
-      with pkgs-pinned-unstable;
+    environment.systemPackages = with pkgs-pinned-unstable;
       (optionals config.my.enableMultiLangTools [
         cloc
         just
@@ -119,7 +119,7 @@ in
         intelephense
       ])
       ++ (optionals config.my.enableLangNix [
-        nixfmt
+        alejandra
         nix-prefetch-github
         nix-search-cli
       ])
@@ -166,7 +166,11 @@ in
       ++ (optionals config.my.enablePkmTools [
         # normful fork replaces nixpkgs zk on aarch64-darwin (cyan);
         # other platforms keep upstream zk.
-        (if isAarch64Darwin then zkFork else zk)
+        (
+          if isAarch64Darwin
+          then zkFork
+          else zk
+        )
       ])
       ++ (optionals config.my.enableConfigLangsTools [
         otree
@@ -229,9 +233,9 @@ in
         dbeaver-bin
       ])
       /*
-        ++ (optionals config.my.enableMysqlMariaDbTools [
-          mycli
-        ])
+      ++ (optionals config.my.enableMysqlMariaDbTools [
+        mycli
+      ])
       */
       ++ (optionals config.my.enablePostgresqlDbTools [
         pgcli
@@ -263,7 +267,7 @@ in
       ++ (optionals config.my.enableBackupTools [
         restic
         rclone
-        (callPackage ../packages/better-adb-sync { })
+        (callPackage ../packages/better-adb-sync {})
       ])
       ++ (optionals config.my.enablePdfTools [
         ghostscript
@@ -311,8 +315,7 @@ in
         remmina
       ]);
 
-    fonts.packages =
-      with pkgs-pinned-unstable;
+    fonts.packages = with pkgs-pinned-unstable;
       (optionals config.my.enableFonts [
         hubot-sans
         mona-sans

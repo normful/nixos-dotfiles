@@ -27,82 +27,107 @@
     herdr.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
   };
 
-  outputs =
-    inputs@{
-      nixpkgs-2511,
-      nixpkgs-2605,
-      nixpkgs-unstable-2611,
-      ...
-    }:
-    let
-      genAttrs = nixpkgs-2605.lib.genAttrs;
-      nixosSystem2605 = nixpkgs-2605.lib.nixosSystem;
-      darwinSystem2605 = inputs.nix-darwin-2605.lib.darwinSystem;
+  outputs = inputs @ {
+    nixpkgs-2511,
+    nixpkgs-2605,
+    nixpkgs-unstable-2611,
+    ...
+  }: let
+    genAttrs = nixpkgs-2605.lib.genAttrs;
+    nixosSystem2605 = nixpkgs-2605.lib.nixosSystem;
+    darwinSystem2605 = inputs.nix-darwin-2605.lib.darwinSystem;
 
-      # Load custom overlays from the overlays/ directory.
-      # Each subdirectory there is an overlay (see overlays/default.nix).
-      # Applying this overlay lets us use packages like hello-wrapped,
-      # figlet-patched, etc. in system environment.systemPackages.
-      myOverlays = import ./overlays {
-        lib = nixpkgs-2605.lib;
-      };
-
-    in
-    {
-      nixosConfigurations = {
-        # NixOS on Windows, in Windows Subsystem for Linux
-        duro = nixosSystem2605 rec {
-          system = "x86_64-linux";
-          modules = [
-            ./wsl/duro/configuration.nix
-          ];
-          specialArgs = {
-            inherit inputs;
-            pkgs-stable = import nixpkgs-2605 {
-              inherit system;
-              config.allowUnfree = true;
-            };
-            pkgs-pinned-unstable = import nixpkgs-unstable-2611 {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          };
-        };
-      };
-
-      # Nix on macOS using nix-darwin
-      darwinConfigurations.cyan = darwinSystem2605 rec {
-        system = "aarch64-darwin";
+    # Load custom overlays from the overlays/ directory.
+    # Each subdirectory there is an overlay (see overlays/default.nix).
+    # Applying this overlay lets us use packages like hello-wrapped,
+    # figlet-patched, etc. in system environment.systemPackages.
+    myOverlays = import ./overlays {
+      lib = nixpkgs-2605.lib;
+    };
+  in {
+    nixosConfigurations = {
+      # NixOS on Windows, in Windows Subsystem for Linux
+      duro = nixosSystem2605 rec {
+        system = "x86_64-linux";
         modules = [
-          ./mac/cyan/configuration.nix
+          ./wsl/duro/configuration.nix
         ];
         specialArgs = {
           inherit inputs;
-          pkgs-previous-stable = import nixpkgs-2511 {
-            inherit system;
-            config.allowUnfree = true;
-          };
           pkgs-stable = import nixpkgs-2605 {
             inherit system;
             config.allowUnfree = true;
           };
           pkgs-pinned-unstable = import nixpkgs-unstable-2611 {
             inherit system;
-            config = {
-              allowUnfree = true;
-              problems.handlers = {
-                pysilero-vad.broken = "ignore";
-              };
-            };
-            # Apply custom overlays so overlay-defined packages (hello-wrapped,
-            # figlet-patched, etc.) are available in pkgs-pinned-unstable.
-            overlays = [ myOverlays ];
+            config.allowUnfree = true;
           };
         };
       };
-
-      formatter = genAttrs [ "aarch64-darwin" "x86_64-linux" ] (
-        system: nixpkgs-2605.packages.${system}.nixfmt
-      );
     };
+
+    # Nix on macOS using nix-darwin
+    darwinConfigurations.cyan = darwinSystem2605 rec {
+      system = "aarch64-darwin";
+      modules = [
+        ./mac/cyan/configuration.nix
+      ];
+      specialArgs = {
+        inherit inputs;
+        pkgs-previous-stable = import nixpkgs-2511 {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        pkgs-stable = import nixpkgs-2605 {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        pkgs-pinned-unstable = import nixpkgs-unstable-2611 {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            problems.handlers = {
+              pysilero-vad.broken = "ignore";
+            };
+          };
+          # Apply custom overlays so overlay-defined packages (hello-wrapped,
+          # figlet-patched, etc.) are available in pkgs-pinned-unstable.
+          overlays = [myOverlays];
+        };
+      };
+    };
+
+    # `nix fmt` runs the formatter with the flake root as its working
+    # directory. Alejandra without arguments reads stdin, so wrap it to
+    # default to the whole repository while still forwarding explicit paths.
+    formatter = genAttrs ["aarch64-darwin" "x86_64-linux"] (
+      system: let
+        pkgs = nixpkgs-2605.legacyPackages.${system};
+      in
+        pkgs.writeShellApplication {
+          name = "alejandra";
+          runtimeInputs = [pkgs.alejandra];
+          text = ''
+            # `nix fmt` may pass flags only (e.g. `nix fmt -- --check`), which
+            # would leave alejandra reading stdin. Default to the repository
+            # in that case; honour an explicit `-` for stdin.
+            have_path=false
+            for arg in "$@"; do
+              if [ "$arg" = "-" ]; then
+                have_path=true
+              else
+                case "$arg" in
+                  -*) ;;
+                  *) have_path=true ;;
+                esac
+              fi
+            done
+            if [ "$have_path" = false ]; then
+              set -- "$@" .
+            fi
+            exec alejandra "$@"
+          '';
+        }
+    );
+  };
 }

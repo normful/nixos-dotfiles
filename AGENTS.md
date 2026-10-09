@@ -24,6 +24,14 @@ Primary focus: **nix-darwin config for macOS (hostname: cyan)** and **neovim con
   `maintain-tokscale-models-custom-pricing` skill says routine pricing runs
   leave changes uncommitted unless Norman says to commit).
 
+## Formatting
+
+- Nix files use [alejandra](https://github.com/kamadorueda/alejandra), exposed via
+  `flake.nix`'s `formatter` output (from the `nixpkgs-2605` pin).
+- Format the whole repo: `nix fmt -- .` (alejandra with no arguments reads stdin,
+  so pass the path explicitly).
+- Check without writing: `alejandra --check <files>`.
+
 ## Flake Maintenance
 
 ### Updating nixpkgs-unstable

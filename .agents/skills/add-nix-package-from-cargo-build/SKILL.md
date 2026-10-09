@@ -77,7 +77,7 @@ Reference examples in `packages/`:
 | Bin targets | `curl -sL https://raw.githubusercontent.com/<owner>/<repo>/<rev>/Cargo.toml` → `[[bin]]` sections | Decide `cargoBuildFlags --bin/--package` |
 | License + blurb | `curl -s https://api.github.com/repos/<owner>/<repo> \| jq -r '.description, .license.spdx_id'` | `meta.license`, `meta.description` |
 | Resolve hashes | `nix build` with `lib.fakeHash` placeholders | Copy `got: sha256-…` values from mismatch errors |
-| Format check | `nixfmt --check packages/<name>/default.nix` | Repo formatter is `nixfmt` (see `flake.nix`) |
+| Format check | `alejandra --check packages/<name>/default.nix` | Repo formatter is `alejandra` (see `flake.nix`) |
 
 ### `-sys` crate → Nix input mapping
 
@@ -222,7 +222,7 @@ Add beside similar tools, with a 2-line comment in file style:
 Then:
 
 ```bash
-nixfmt --check packages/<name>/default.nix
+alejandra --check packages/<name>/default.nix
 ```
 
 Do not run `darwin-rebuild switch` — the user applies it.

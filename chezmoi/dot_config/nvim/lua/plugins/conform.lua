@@ -11,7 +11,7 @@ return {
     formatters_by_ft = {
       lua = { 'stylua' },
       bash = { 'shfmt' },
-      nix = { 'nixfmt' },
+      nix = { 'alejandra' },
       javascript = { 'biome', 'eslint_d' },
       javascriptreact = { 'biome', 'eslint_d' },
       typescript = { 'biome' },
