@@ -126,6 +126,10 @@
       # AI coding agents.
       (callPackage ../../packages/dcg { })
 
+      # Local-first task manager for power users and agents. Tasks live in
+      # a local SQLite DB; project/workspace inferred from the cwd.
+      (callPackage ../../packages/aven { })
+
       # CLI coding agent for open AI models. Connects to LM Studio,
       # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
       (callPackage ../../packages/swival { })
