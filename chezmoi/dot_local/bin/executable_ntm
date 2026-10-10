@@ -2,7 +2,7 @@
 
 set -o errexit -o pipefail
 
-TARGET_DIR="$HOME/.pi/agent/skills/curated-ai-skills/notion-task-manager"
+TARGET_DIR="$HOME/code/curated-ai-skills/notion-task-manager"
 
 # Check if target directory exists
 if [[ ! -d "$TARGET_DIR" ]]; then
