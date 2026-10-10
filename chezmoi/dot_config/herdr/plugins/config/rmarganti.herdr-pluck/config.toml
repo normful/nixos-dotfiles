@@ -1,4 +1,0 @@
-[[patterns]]
-name = "trace-id"
-regex = "trace_id=(?<match>[A-Za-z0-9_-]+)"
-priority = 25
