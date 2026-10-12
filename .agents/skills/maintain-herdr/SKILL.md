@@ -186,7 +186,7 @@ After the target-version `herdr config check` is clean, diff the *target version
 
 **Decision rule — explicit config means decided (per user preference 2026-08-26):**
 - If a key **does not appear** in `config.toml.tmpl` (or the rendered `~/.config/herdr/config.toml`) at all → candidate to surface in primary "unconfigured" table.
-- If a key **appears in any form** (`= ""`, `= []`, `= false`, `= 0`, `= true`, `= "value"`, etc.) → **never surface** — explicit config is respected. Treat as decided and skip forever. This covers your 30 blanked keybinds like `focus_pane_left = ""`, `switch_tab = ""`, etc., **and** your intentional `= false`/`true` overrides like `update.version_check = false`, `ui.prompt_new_tab_name = false`, `ui.toast.clipboard.enabled = true`, `ui.sound.enabled = false`. Do not re-surface these as "differs from default".
+- If a key **appears in any form** (`= ""`, `= []`, `= false`, `= 0`, `= true`, `= "value"`, etc.) → **never surface** — explicit config is respected. Treat as decided and skip forever. This covers your blanked keybinds (35 of them as of 2026-10-11) like `focus_pane_left = ""`, `switch_tab = ""`, etc., **and** your intentional `= false`/`true` overrides like `update.version_check = false`, `ui.prompt_new_tab_name = false`, `ui.toast.clipboard.enabled = true`, `ui.sound.enabled = false`. Do not re-surface these as "differs from default".
 - **No secondary table** — never surface a "differs from default" table. When you explicitly set `version_check = false` where default is `true`, that is respected, not advisory.
 
 This ensures future you is not re-asked about anything you deliberately configured. For a new upstream key you haven't decided yet (e.g. `keys.move_tab_next` absent in your file), it surfaces **once**; if you then add `keys.move_tab_next = ""` to record "keep disabled" (or any explicit value), it is suppressed on all future bumps.
@@ -204,33 +204,69 @@ curl -fsSL "https://raw.githubusercontent.com/herdrdev/herdr/refs/tags/${TAG}/do
 ```
 Also filter `CHANGELOG.md` at same ref for `### Added` since last pin to prioritize new keys.
 
-**2. Get the documented key surface (authoritative) and the canonical defaults.** The machine-readable list is `docs/next/website/src/data/config-reference.json` at the release tag — 210 keys at v0.9.3 against 133 in the sample config. It is a **superset** of `--default-config`: it also carries legacy-but-accepted keys (`keys.swap_pane_*`, `keys.copy_mode`, `experimental.kitty_graphics`) and the full `theme.custom.*` token set.
+**2. Build the three key lists. Both sides of the diff must use the SAME dotted-path extractor — a bare-key scan on one side makes every dotted key look unconfigured.**
+
+**(a) Documented key surface for the tag — the authoritative list.** `docs/next/website/src/data/config-reference.json` = 210 keys at v0.9.3 against 134 in the sample config; it is a **superset** of `--default-config`, carrying legacy-but-accepted names (`keys.swap_pane_*`, `keys.copy_mode`, `experimental.kitty_graphics`) and the full `theme.custom.*` token set:
 ```bash
-# documented key surface at the tag (dotted paths, nested tables prefixed)
 gh api "repos/herdrdev/herdr/contents/docs/next/website/src/data/config-reference.json?ref=${TAG}" --jq .content | base64 -d > /tmp/herdr.config-reference.json
-jq -r 'def collect(p;n): (n.keys // [])[] | .key as $k | "\(p)\($k)", (collect("\(p)\($k)."; .)); [ .sections[] | collect(""; .) ] | unique[]' /tmp/herdr.config-reference.json > /tmp/documented_keys.txt
+jq -r 'def collect(p;n): (n.keys // [])[] | .key as $k | "\(p)\($k)", (collect("\(p)\($k)."; .)); [ .sections[] | collect(""; .) ] | unique[]' /tmp/herdr.config-reference.json | sort -u > /tmp/documented_keys.txt
+```
 
-# canonical defaults (values as shipped)
+**(b) Local keys, and (c) shipped default values.** One table-tracking extractor emits dotted paths, and also emits a table path when that table is present with no keys of its own — that is what lets an explicitly-empty `[table]` suppress its documented children:
+```bash
+cat > /tmp/dotted_keys.awk <<'AWK'
+{ line=$0
+  sub(/^[[:space:]]+/,"",line)
+  if (line ~ /^#/) sub(/^#[[:space:]]*/,"",line)
+  if (line ~ /^\[/) {
+    if (tbl != "" && nkeys == 0) print tbl
+    h=line; sub(/[[:space:]]*#.*/,"",h); gsub(/[][[:space:]]/,"",h)
+    tbl=h; nkeys=0; next }
+  if (line !~ /=/) next
+  k=line; sub(/=.*/,"",k); gsub(/[[:space:]]/,"",k)
+  v=line; sub(/^[^=]*=/,"",v); sub(/[[:space:]]*#.*/,"",v); gsub(/^[[:space:]]+|[[:space:]]+$/,"",v)
+  if (k !~ /^[a-zA-Z_][a-zA-Z0-9_.-]*$/) next
+  # value must be a complete TOML scalar or the opening of an array/inline table — a plain grep also matches
+  # prose comments such as "# off = disable pop-up notifications" and "# type = \"shell\" runs detached..."
+  ok = (v ~ /^\[/ || v ~ /^\{/ || v ~ /^"[^"]*"$/ || v ~ /^[0-9-][0-9]*$/ || v=="true" || v=="false" || v=="reset")
+  if (!ok) next
+  nkeys++
+  print (tbl != "" ? tbl "." k : k) }
+END { if (tbl != "" && nkeys == 0) print tbl }
+AWK
+awk -f /tmp/dotted_keys.awk chezmoi/dot_config/herdr/config.toml.tmpl | sort -u > /tmp/local_keys.txt
 nix run github:herdrdev/herdr/${TAG}#herdr -- --default-config > /tmp/herdr.default.toml
-
-# presence check — key name only, value ignored except for "" / [] filter
-grep -E '^\s*[^#].*=' chezmoi/dot_config/herdr/config.toml.tmpl | cut -d= -f1 | sed 's/^ *//;s/ *$//' | sort -u > /tmp/local_keys_present.txt
-grep -E '=\s*""\s*$|=\s*\[\s*\]\s*$' chezmoi/dot_config/herdr/config.toml.tmpl | cut -d= -f1 | sed 's/^ *//' | sort -u > /tmp/local_explicit_empty.txt
-# defaults leaf keys as dotted paths (the JSON above is the primary key list; this adds the shipped default values)
-# The value must be a complete TOML scalar, or the opening of an array/inline table. Plain `grep` gives false
-# positives on prose comments such as "# off = disable pop-up notifications" or "# type = \"shell\" runs detached...".
-awk '{ line=$0; sub(/^[[:space:]]+/,"",line); if (line ~ /^#/) sub(/^#[[:space:]]*/,"",line);
-  if (line ~ /^\[/) { h=line; sub(/[[:space:]]*#.*/,"",h); gsub(/[][[:space:]]/,"",h); tbl=h; next }
-  if (line !~ /=/) next; k=line; sub(/=.*/,"",k); gsub(/[[:space:]]/,"",k);
-  v=line; sub(/^[^=]*=/,"",v); sub(/[[:space:]]*#.*/,"",v); gsub(/^[[:space:]]+|[[:space:]]+$/,"",v);
-  if (k !~ /^[a-zA-Z_][a-zA-Z0-9_.-]*$/) next;
-  ok = (v ~ /^\[/ || v ~ /^\{/ || v ~ /^"[^"]*"$/ || v ~ /^[0-9-][0-9]*$/ || v=="true" || v=="false" || v=="reset");
-  if (!ok) next; print (tbl != "" ? tbl "." k : k) }' /tmp/herdr.default.toml | sort -u > /tmp/default_keys.txt
+awk -f /tmp/dotted_keys.awk /tmp/herdr.default.toml | sort -u > /tmp/default_keys.txt
+```
 ```
 
 **3. Diff → advisory table (primary only — no secondary):**
-- **Primary "unconfigured"** = `comm -23 /tmp/documented_keys.txt /tmp/local_keys_present.txt` (fall back to `/tmp/default_keys.txt` if the JSON fetch fails) — a key present locally in *any* form is already excluded, so explicit config is decided. Group by table for readability. Exclude noisy leaves like individual color tokens unless the `theme.custom` table itself is absent.
-- **Legacy-but-accepted keys** are documented in the JSON but absent from `--default-config`. Report them as "decided", not as candidates, once the modern successor is configured locally: `keys.indexed.*` → `switch_tab`/`switch_workspace`/`focus_agent`; `keys.swap_pane_*`; `experimental.kitty_graphics` → `terminal.kitty_graphics`; `ui.sound.*` file paths when `ui.sound.enabled = false`.
+```bash
+comm -23 /tmp/documented_keys.txt /tmp/local_keys.txt > /tmp/missing.txt   # documented but not configured here
+# Drop decidable families, then children of tables that are present-but-childless (an explicitly-empty
+# [table] states a documented default of {}, e.g. [ui.sidebar.agents.rows_by_agent]).
+# Verified 2026-10-11: with the current config at v0.9.3 this leaves 0 candidates — fix any non-empty
+# family that should have been caught rather than reporting it as new.
+python3 - <<'PY' > /tmp/surface.txt
+local = {l.strip() for l in open('/tmp/local_keys.txt') if l.strip()}
+cand  = [l.strip() for l in open('/tmp/missing.txt') if l.strip()]
+families = [   # (prefix to drop, keys that must be configured locally for that drop to apply)
+    ('keys.indexed.',              ['keys.switch_tab', 'keys.focus_agent']),  # legacy; superseded
+    ('experimental.kitty_graphics', ['terminal.kitty_graphics']),            # accepted legacy name
+    ('theme.custom.',              ['theme.custom']),                        # token leaves; owning table set
+    ('ui.sound.',                  ['ui.sound.enabled']),                    # moot while sounds are disabled
+]
+drop = [p for p, gates in families if all(g in local for g in gates)]
+childless = {p for p in local if not any(q.startswith(p + '.') for q in local)}
+for k in cand:
+    if any(k.startswith(p) for p in drop): continue
+    parent = k.rsplit('.', 1)[0]
+    if parent != k and parent in childless: continue
+    print(k)
+PY
+```
+- **Primary "unconfigured"** = the contents of `/tmp/surface.txt`. A key present locally in *any* form (`= ""`, `= []`, `= false`, `= 0`, …) is already excluded, so explicit config is decided. Group by table for readability.
+- **Legacy-but-accepted keys** — documented in the JSON but absent from `--default-config`. Drop them once the modern successor is configured, as the family filter above does; never report them as candidates.
 - **No secondary table** — do not build or surface "differs from default" (e.g. `update.version_check = false` vs `true`, `ui.prompt_new_tab_name = false` vs `true`) — these are explicitly configured and respected per user preference 2026-08-26. Suppress entirely.
 - **Do not parse `config-reference.mdx` at the raw URL** — verified 2026-08-26 it renders via `<ConfigReference />` and contains no key table. Its JSON sibling (`.../website/src/data/config-reference.json`) *is* the key list; parse that. Use `--default-config` for shipped default *values* and `configuration.mdx` only for human context.
 
