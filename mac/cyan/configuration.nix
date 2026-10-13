@@ -131,6 +131,10 @@
         # a local SQLite DB; project/workspace inferred from the cwd.
         (callPackage ../../packages/aven {})
 
+        # Terminal coding agent (Pi fork). IDE-grade tool surface: built-in
+        # LSP/DAP, 60+ model providers, one self-contained binary.
+        (callPackage ../../packages/omp {})
+
         # CLI coding agent for open AI models. Connects to LM Studio,
         # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
         (callPackage ../../packages/swival {})
