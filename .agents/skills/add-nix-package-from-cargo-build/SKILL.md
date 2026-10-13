@@ -17,7 +17,7 @@ Reference examples in `packages/`:
 
 ## When to Use
 
-- Rust tool with no nixpkgs package and no usable prebuilt release assets (e.g. a personal fork)
+- Rust tool with no nixpkgs package and no usable prebuilt release assets (e.g. a personal fork). Check GitHub Releases first: a usable asset means the `add-nix-package-from-compiled-github-release` skill applies instead — minutes of download versus 10–60 min of compiling
 - A source build is wanted for patching, pinning, or transparency
 - Follow this skill instead of inventing a new structure
 

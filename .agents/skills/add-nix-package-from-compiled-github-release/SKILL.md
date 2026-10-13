@@ -14,6 +14,7 @@ Reference examples in `packages/`:
 - `carbonyl` — zip asset with post-unpack quirks (dylib fixup, `makeWrapper` entry point)
 - `tree-sitter` — single compressed binary (`.gz`), no tarball: `gunzip` straight into `$out/bin`
 - `openfang`, `humanify` — minimal single-platform (`aarch64-darwin`) template
+- `omp` — bare uncompressed Darwin executable, no archive; Developer-ID signed, so `stdenvNoCC` + `dontFixup = true`
 
 ## When to Use
 
@@ -157,6 +158,8 @@ stdenv.mkDerivation rec {
 Adaptations:
 - **Single-platform** (darwin-only host, asset only for `aarch64-darwin`): drop the `sources` attrset; use `stdenvNoCC.mkDerivation` with inline `src = fetchurl { url = …; sha256 = …; };`, plain `mv` of the known inner name, and `platforms = [ "aarch64-darwin" ]` (see `openfang`). Omit `autoPatchelfHook`.
 - **Single-file asset** (no tarball, e.g. `tree-sitter`'s `.gz`): skip `tar`, stream the file straight into `$out/bin/<name>` (`gunzip -c ${src} > $out/bin/<name>`).
+- **Bare uncompressed executable** (the asset *is* the binary — common for Bun/Deno-compiled CLIs with per-arch asset names like `omp-darwin-arm64`): `dontUnpack = true;` and `install -Dm755 $src $out/bin/<name>`; no `tar`, no `gunzip`, no `chmod`.
+- **Signed/notarized macOS asset**: use `stdenvNoCC` + `dontFixup = true;` — strip rewrites the Mach-O and invalidates the embedded signature, after which macOS refuses to exec. Check first with `codesign -dv <asset>` (`flags=0x10000(runtime)` + a `TeamIdentifier` means a real signature to preserve).
 - **Upstream lacks Linux/macOS-x86 assets**: include only the platforms that exist; `platforms` follows `sources` automatically.
 
 ### Step 3: Wire into `mac/cyan/configuration.nix`
@@ -175,7 +178,17 @@ Add beside similar tools (agent CLIs cluster near `swival`/`jcode`; pick the sec
 nix-instantiate --parse packages/<name>/default.nix
 ```
 
-This checks syntax only. The build itself verifies hashes (mismatch fails loudly). Do not run `darwin-rebuild switch` — the user applies it.
+This checks syntax only. Then build the instance the config will actually use, and smoke-test it:
+
+```bash
+nix build --no-link --print-out-paths --impure --expr '
+  let f = builtins.getFlake (toString .);
+  in builtins.head (builtins.filter (p: (p.pname or "") == "<name>")
+       f.darwinConfigurations.cyan.config.environment.systemPackages)'
+<result>/bin/<name> --version
+```
+
+Do not run `darwin-rebuild switch` — the user applies it.
 
 ## Common Mistakes
 
@@ -188,3 +201,5 @@ This checks syntax only. The build itself verifies hashes (mismatch fails loudly
 | Converting hex hashes to SRI | Unnecessary — `fetchurl`'s `sha256` accepts the bare hex from `SHA256SUMS`, per repo convention |
 | Adding `freebsd`/`windows` to `sources` | Never selectable via `stdenv.hostPlatform.system`; omit |
 | Forgetting `mainProgram` / `platforms` in `meta` | Copy the `meta` block from the template verbatim and fill in |
+| Building/verifying against the wrong package set | The `callPackage` lines in `mac/cyan/configuration.nix` sit inside a `with pkgs-pinned-unstable;` scope, not the module's default `pkgs`. A standalone `nix build` via `import nixpkgs-2605` gives a *different* derivation (e.g. `stdenv-darwin` vs `stdenv-darwin-no-cc`) — verify via `darwinConfigurations.cyan.config.environment.systemPackages`, not a hand-rolled `pkgs` |
+| Adding `autoPatchelfHook` to a `bun --compile` single-file payload (the exception to the row above) | patchelf grows `.dynamic` and leaves a stale `DT_VERDEF`; the loader SIGSEGVs before `main()` (can1357/oh-my-pi#9881). Prefer not shipping a Linux asset you cannot build-test |
