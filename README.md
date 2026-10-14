@@ -72,8 +72,7 @@ In alphabetical order:
 - `│   ├──` [dot_warp/](chezmoi/dot_warp/) Warp terminal themes, settings, keybindings, workflows
 - `│   ├──` [dot_zshrc](chezmoi/dot_zshrc) Zsh rc
 - `│   ├──` [intelephense/](chezmoi/intelephense/) Intelephense licence template
-- `│   ├──` [private_Library/](chezmoi/private_Library/) macOS LaunchAgents and app prefs, e.g. glow themes (private)
-- `│   └──` [private_dot_jcode/](chezmoi/private_dot_jcode/) jcode config (private, chezmoi template)
+- `│   └──` [private_Library/](chezmoi/private_Library/) macOS LaunchAgents and app prefs, e.g. glow themes (private)
 - `├──` [flake.lock](flake.lock) Nix flake lock (pins inputs for reproducibility)
 - `├──` [flake.nix](flake.nix) Main Nix flake (NixOS + macOS configs)
 - `├──` [LICENSE](LICENSE) License
