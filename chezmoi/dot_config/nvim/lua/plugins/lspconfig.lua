@@ -6,7 +6,7 @@ local function configure_lspconfig()
     -- Equivalently: see https://github.com/search?q=repo%3Amason-org%2Fmason-registry+neovim%3A+lspconfig%3A&type=code
     ensure_installed = {
       -- Some tools are installed by Nix (cyan) or mise (exe.dev VMs), so
-      -- they're not listed here: gopls, pylsp, ts_ls.
+      -- they're not listed here: gopls, pylsp, ts_ls, rust_analyzer.
 
       'nil_ls',
       'bashls',
@@ -20,8 +20,6 @@ local function configure_lspconfig()
       'basedpyright',
       'harper_ls',
       -- 'marksman', Purposely not using marksman for Markdown because it had more downsides than upsides
-
-      'rust_analyzer',
     },
     automatic_enable = false,
   })
