@@ -9,6 +9,29 @@ Primary focus: **nix-darwin config for macOS (hostname: cyan)** and **neovim con
 - Neovim: `modules/neovim.nix`
 - Chezmoi dotfiles: `chezmoi/`
 
+## Chezmoi Source Naming
+
+Prefixes are parsed **in a fixed order per target type**, and a name that breaks
+that order is not an error: chezmoi stops parsing at the offending prefix and
+treats the rest as a literal name. `private_modify_foo.tmpl` is therefore a
+*plain template* named `modify_foo` that inherits `0600` — the script never runs
+and nothing warns.
+
+| Target | Prefixes, in order |
+| ------ | ------------------ |
+| Directory | `remove_`, `external_`, `exact_`, `private_`, `readonly_`, `dot_` |
+| Regular file | `encrypted_`, `private_`, `readonly_`, `empty_`, `executable_`, `dot_` |
+| Create file | `create_` + the regular-file list |
+| Modify file | `modify_` + the regular-file list, minus `empty_` |
+| Remove file / symlink | `remove_`, `dot_` / `symlink_`, `dot_` |
+| Script | `run_`, then `once_` or `onchange_`, then `before_` or `after_` |
+
+`.tmpl` is a suffix and applies last. `chezmoi source-path <target under $HOME>`
+is the check: a mis-ordered name resolves to a target you did not mean, or the
+one you meant reports `not managed`. The same rule governs the private source
+(`~/code/private-dotfiles`), which is where this was found. Reference:
+<https://www.chezmoi.io/reference/source-state-attributes/>
+
 ## Off-Limits (unless explicitly asked)
 
 - `.git`, `wsl/`, `.venv/`, `node_modules/`
