@@ -273,6 +273,7 @@ in {
         ghostscript
         qpdf
         diff-pdf
+        poppler-utils
       ])
       ++ (optionals config.my.enableWindowsTools [
         dos2unix
