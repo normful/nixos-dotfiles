@@ -77,7 +77,6 @@
         mdwatch
         sqlite
         hk
-        opencode
         himalaya
         crystal
 
