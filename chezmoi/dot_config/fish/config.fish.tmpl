@@ -158,6 +158,9 @@ if status is-interactive
         abbr --add piall "cd (mktemp -d); and touch foo; and pi"
         abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model 'openrouter/inception/mercury-3' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
       {{ end -}}
+      {{ if .exeDevVm -}}
+        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model 'exe-dev-all/inception/mercury-3@openrouter' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
+      {{ end -}}
     end
 
     abbr --add ef "nvim $HOME/code/nixos-dotfiles/chezmoi/dot_config/fish/config.fish.tmpl"
