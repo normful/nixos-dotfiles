@@ -156,8 +156,7 @@ if status is-interactive
       abbr --add pimin 'cd (mktemp -d); and pi'
       {{ if .mac -}}
         abbr --add piall "cd (mktemp -d); and touch foo; and pi"
-        abbr --add pilean "pi -e $HOME/.pi/agent/extensions/pi-lean-ctx/"
-        abbr --add piorchestrator "pi 'read $HOME/.pi/agent/skills/orchestrator/SKILL.md and $HOME/.pi/agent/skills/writing-subagent-workflows/SKILL.md and the workflow agents in $HOME/.pi/agents'"
+        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model 'openrouter/inception/mercury-3' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
       {{ end -}}
     end
 
