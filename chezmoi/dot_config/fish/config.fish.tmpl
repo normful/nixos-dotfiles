@@ -156,10 +156,9 @@ if status is-interactive
       abbr --add pimin 'cd (mktemp -d); and pi'
       {{ if .mac -}}
         abbr --add piall "cd (mktemp -d); and touch foo; and pi"
-        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model 'openrouter/inception/mercury-3' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
       {{ end -}}
-      {{ if .exeDevVm -}}
-        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model 'exe-dev-all/inception/mercury-3@openrouter' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
+      {{ if or .mac .exeDevVm -}}
+        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model '{{ if .mac }}openrouter/inception/mercury-3{{ else }}exe-dev-all/inception/mercury-3@openrouter{{ end }}' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
       {{ end -}}
     end
 
