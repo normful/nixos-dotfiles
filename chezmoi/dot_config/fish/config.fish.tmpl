@@ -158,7 +158,7 @@ if status is-interactive
         abbr --add piall "cd (mktemp -d); and touch foo; and pi"
       {{ end -}}
       {{ if or .mac .exeDevVm -}}
-        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read' --model '{{ if .mac }}openrouter/inception/mercury-3{{ else }}exe-dev-all/inception/mercury-3@openrouter{{ end }}' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
+        abbr --add pim "pi -ns -nbt -xt 'read,bash,write,codemode,trash,browser,web_research,web_search,web_fetch,ctx_shell,ctx_patch,session_search,session_list,session_read,memory_consolidate,memory_lint,memory_read_session_observations,memory_auto_improve,memory_feedback,memory_message_send,memory_message_list,memory_message_pop,memory_status,memory_forget_sweep,memory_install_self_routing,memory_delete_page,memory_message_cancel,memory_handoff_cancel' --model '{{ if .mac }}openrouter/inception/mercury-3{{ else }}exe-dev-all/inception/mercury-3@openrouter{{ end }}' --system-prompt ~/.pi/agent/SYSTEM_FOR_FAST_ORCHESTRATOR_MODEL.md"
       {{ end -}}
     end
 
