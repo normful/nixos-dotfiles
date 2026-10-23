@@ -5,6 +5,16 @@ local function configure_lspconfig()
     -- Visit https://mason-registry.dev/registry/list to see all installable by Mason
     -- Equivalently: see https://github.com/search?q=repo%3Amason-org%2Fmason-registry+neovim%3A+lspconfig%3A&type=code
     ensure_installed = {
+      {{- if .exeDevVm }}
+      -- VM profile (exe.dev): Mason only installs what the box does not already
+      -- have. gopls, pylsp, ts_ls (typescript-language-server), intelephense and
+      -- rust-analyzer come from mise/rustup via PATH, so they are not listed.
+      -- Everything below is a deliberate omission: basedpyright, eslint, biome,
+      -- tailwindcss, harper_ls, elp, dockerls, docker_compose_language_service
+      -- and golangci_lint_ls would each add 10-300 MB for languages this VM is
+      -- not used to edit. Re-add one here if that changes, then apply + :MasonInstall.
+      'bashls',
+      {{- else }}
       -- Some tools are installed by Nix (cyan) or mise (exe.dev VMs), so
       -- they're not listed here: gopls, pylsp, ts_ls, rust_analyzer.
 
@@ -20,6 +30,7 @@ local function configure_lspconfig()
       'basedpyright',
       'harper_ls',
       -- 'marksman', Purposely not using marksman for Markdown because it had more downsides than upsides
+      {{- end }}
     },
     automatic_enable = false,
   })

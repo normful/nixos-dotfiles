@@ -53,9 +53,30 @@ Library/**
 .config/rpiv-advisor
 .config/wezterm
 .config/zellij
-.config/nvim/lua/plugins/markdown__peek-nvim.lua
-.config/nvim/lua/plugins/markdown__diagram-nvim.lua
-.config/nvim/lua/plugins/markdown__img-clip-nvim.lua
+{{/* nvim: VM profile ships only a whitelist of plugin specs. Chezmoi has no
+     "ignore this directory, then re-include selected children" other than `!`
+     excludes, which take priority over all includes, so: exclude the whole
+     directory, then re-include the essentials. Lazy still runs
+     `{ import = "plugins" }`; it simply finds these files instead of all 61. */}}
+.config/nvim/lua/plugins/*
+!.config/nvim/lua/plugins/chezmoi-vim.lua
+!.config/nvim/lua/plugins/cmdalias.lua
+!.config/nvim/lua/plugins/comment-nvim.lua
+!.config/nvim/lua/plugins/conform.lua
+!.config/nvim/lua/plugins/editorconfig.lua
+!.config/nvim/lua/plugins/fugitive.lua
+!.config/nvim/lua/plugins/git-signs.lua
+!.config/nvim/lua/plugins/lspconfig.lua
+!.config/nvim/lua/plugins/markdown__mkdnflow-nvim.lua
+!.config/nvim/lua/plugins/markdown__render-markdown-nvim.lua
+!.config/nvim/lua/plugins/markdown__zk-nvim.lua
+!.config/nvim/lua/plugins/nvim-surround.lua
+!.config/nvim/lua/plugins/nvim-tree.lua
+!.config/nvim/lua/plugins/projectroot.lua
+!.config/nvim/lua/plugins/tabset.lua
+!.config/nvim/lua/plugins/telescope.lua
+!.config/nvim/lua/plugins/treesitter.lua
+!.config/nvim/lua/plugins/zz-vm-minimal.lua
 {{ end -}}
 {{/* nvim init.lua is Ubuntu/VM-only: Nix machines get init via customRC (packages/neovim) */}}
 {{ if not .exeDevVm -}}

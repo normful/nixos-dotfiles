@@ -38,7 +38,9 @@ return {
         'zipPlugin',
         'tutor',
         'rplugin',
+        {{- if not .exeDevVm }}
         'syntax',
+        {{- end }}
         'synmenu',
         'optwin',
         'compiler',

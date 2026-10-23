@@ -14,6 +14,16 @@ return {
   },
   opts = {
     auto_install = true,
+    {{- if .exeDevVm }}
+    -- VM profile (exe.dev, 2 vCPU): install nothing eagerly. Neovim 0.12 bundles
+    -- parsers for c, lua, markdown, markdown_inline, query, vim and vimdoc, which
+    -- covers most VM editing for free; anything else compiles the first time a
+    -- buffer of that filetype is opened. sync_install would block startup on an
+    -- unbounded task:wait() while every missing grammar compiles in parallel.
+    ensure_installed = {},
+    sync_install = false,
+    install_options = { max_jobs = 2 },
+    {{- else }}
     sync_install = true,
     ensure_installed = {
       'bash', 'blade', 'c', 'cpp', 'css', 'dockerfile', 'editorconfig',
@@ -25,6 +35,7 @@ return {
       'rust', 'scss', 'sql', 'ssh_config', 'svelte', 'terraform', 'toml',
       'tsx', 'typescript', 'typst', 'vim', 'yaml',
     },
+    {{- end }}
     highlight = { enable = true },
     indent = { enable = true },
     fold = { enable = true },
@@ -44,7 +55,12 @@ return {
       move = { set_jumps = false },
       select = { lookahead = true },
     })
+    {{- if not .exeDevVm }}
+    -- Folding is driven by nvim-ufo, which ships only in the full profile. With
+    -- nvim-ufo absent nothing sets foldlevel/foldenable, so treesitter folds
+    -- would start closed on every buffer — leave folding on its default there.
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    {{- end }}
   end,
 }
