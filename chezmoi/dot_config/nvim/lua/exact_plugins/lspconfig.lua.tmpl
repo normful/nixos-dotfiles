@@ -162,6 +162,11 @@ end
 
 return {
   'neovim/nvim-lspconfig',
+  -- Without an explicit event this spec is pure `lazy = true` with no trigger, so
+  -- it loaded only because another plugin declared nvim-lspconfig as a
+  -- dependency (go.nvim does). On a machine without go.nvim nothing loaded it and
+  -- no language server ever attached. Load on first file read instead.
+  event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'mason-org/mason.nvim', build = ':MasonUpdate' },
     { 'mason-org/mason-lspconfig.nvim' },
