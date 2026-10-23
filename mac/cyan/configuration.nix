@@ -187,10 +187,6 @@
         # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
         (callPackage ../../packages/bernstein {})
 
-        # RAM-efficient terminal coding agent harness (Rust). Local TUI,
-        # remote execution over native SSH sessions.
-        (callPackage ../../packages/jcode {})
-
         # ── already tried ──
 
         # ────────────────────────────────────────────────────────────────────────
@@ -204,6 +200,10 @@
         # zola
         # repomix
         # sqlite-web
+        # jcode        — 861-crate Rust build from source; too slow to rebuild on
+        #                every unstable bump. The derivation is kept at
+        #                packages/jcode/default.nix as the cargoLock template the
+        #                add-nix-package-from-cargo-build skill copies from.
 
         # ────────────────────────────────────────────────────────────────────────
         # Example packages and overlaid packages
