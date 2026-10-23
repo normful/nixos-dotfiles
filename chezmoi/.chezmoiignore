@@ -53,30 +53,14 @@ Library/**
 .config/rpiv-advisor
 .config/wezterm
 .config/zellij
-{{/* nvim: VM profile ships only a whitelist of plugin specs. Chezmoi has no
-     "ignore this directory, then re-include selected children" other than `!`
-     excludes, which take priority over all includes, so: exclude the whole
-     directory, then re-include the essentials. Lazy still runs
-     `{ import = "plugins" }`; it simply finds these files instead of all 61. */}}
-.config/nvim/lua/plugins/*
-!.config/nvim/lua/plugins/chezmoi-vim.lua
-!.config/nvim/lua/plugins/cmdalias.lua
-!.config/nvim/lua/plugins/comment-nvim.lua
-!.config/nvim/lua/plugins/conform.lua
-!.config/nvim/lua/plugins/editorconfig.lua
-!.config/nvim/lua/plugins/fugitive.lua
-!.config/nvim/lua/plugins/git-signs.lua
-!.config/nvim/lua/plugins/lspconfig.lua
-!.config/nvim/lua/plugins/markdown__mkdnflow-nvim.lua
-!.config/nvim/lua/plugins/markdown__render-markdown-nvim.lua
-!.config/nvim/lua/plugins/markdown__zk-nvim.lua
-!.config/nvim/lua/plugins/nvim-surround.lua
-!.config/nvim/lua/plugins/nvim-tree.lua
-!.config/nvim/lua/plugins/projectroot.lua
-!.config/nvim/lua/plugins/tabset.lua
-!.config/nvim/lua/plugins/telescope.lua
-!.config/nvim/lua/plugins/treesitter.lua
-!.config/nvim/lua/plugins/zz-vm-minimal.lua
+{{/* nvim: non-essential plugin specs live in lua/opt-plugins, a SEPARATE target
+     directory from lua/plugins. This matters: chezmoi's exact_ pruning compares
+     the target dir against the directory's source children, and a source file
+     that is merely IGNORED still counts as a source child — so ignoring
+     lua/plugins/* does not remove already-applied specs. A different target
+     directory has no stale children to begin with. init.lua imports it behind a
+     cond guard, so the absent directory does not raise "No specs found". */}}
+.config/nvim/lua/opt-plugins
 {{ end -}}
 {{/* nvim init.lua is Ubuntu/VM-only: Nix machines get init via customRC (packages/neovim) */}}
 {{ if not .exeDevVm -}}
