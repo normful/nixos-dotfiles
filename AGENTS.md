@@ -4,8 +4,8 @@ Primary focus: **nix-darwin config for macOS (hostname: cyan)** and **neovim con
 
 ## Key Paths
 
-- macOS config: `mac/cyan/configuration.nix`
-- NixOS modules: `modules/`
+- macOS config: `mac/cyan/configuration.nix` (the only host in this flake)
+- Shared modules: `modules/`
 - Neovim: `modules/neovim.nix`
 - Chezmoi dotfiles: `chezmoi/`
 
@@ -34,7 +34,7 @@ one you meant reports `not managed`. The same rule governs the private source
 
 ## Off-Limits (unless explicitly asked)
 
-- `.git`, `wsl/`, `.venv/`, `node_modules/`
+- `.git`, `.venv/`, `node_modules/`
 - README.md, LICENSE
 
 ## Git Workflow
@@ -66,10 +66,8 @@ To update the pinned unstable input:
 2. Update the commit hash in the `nixpkgs-unstable-2611.url` in `flake.nix`
 3. Run: `nix flake lock --update-input nixpkgs-unstable-2611`
 4. Verify before committing: `nix eval --raw .#darwinConfigurations.cyan.system`.
-   That is the only gate — cyan is the only machine actually run. The legacy
-   `nixosConfigurations.duro` (WSL) shares `modules/`, so evaluate it for a
-   warning but do not block on it. Unstable bumps break on renamed attributes
-   (e.g. `typescript-go` → `typescript`).
+   cyan is the only configuration in the flake. Unstable bumps break on renamed
+   attributes (e.g. `typescript-go` → `typescript`).
 5. **NEVER** manually edit `flake.lock` — always use the `nix flake lock` command
 6. Hand `sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#cyan` to
    Norman; it needs an interactive sudo password.

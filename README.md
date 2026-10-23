@@ -74,28 +74,22 @@ In alphabetical order:
 - `│   ├──` [intelephense/](chezmoi/intelephense/) Intelephense licence template
 - `│   └──` [private_Library/](chezmoi/private_Library/) macOS LaunchAgents and app prefs, e.g. glow themes (private)
 - `├──` [flake.lock](flake.lock) Nix flake lock (pins inputs for reproducibility)
-- `├──` [flake.nix](flake.nix) Main Nix flake (NixOS + macOS configs)
+- `├──` [flake.nix](flake.nix) Main Nix flake (nix-darwin config for cyan)
 - `├──` [LICENSE](LICENSE) License
 - `├──` [mac/](mac/) macOS (nix-darwin) configuration
 - `│   └──` [cyan/](mac/cyan/) Host config for 'cyan' MacBook Pro
 - `│       └──` [configuration.nix](mac/cyan/configuration.nix) nix-darwin system configuration
-- `├──` [modules/](modules/) Shared NixOS/nix-darwin modules used by hosts
-- `│   ├──` [core-wsl.nix](modules/core-wsl.nix) WSL-specific base config
+- `├──` [modules/](modules/) Shared nix-darwin modules used by cyan
 - `│   ├──` [interactive-cli.nix](modules/interactive-cli.nix) Interactive CLI tooling
 - `│   ├──` [locale.nix](modules/locale.nix) Locale and timezone settings
 - `│   ├──` [neovim.nix](modules/neovim.nix) Neovim build + language tooling
-- `│   ├──` [nix.nix](modules/nix.nix) Nix daemon, GC, substituters/caches
 - `│   ├──` [optional-packages-without-config.nix](modules/optional-packages-without-config.nix) Optional packages needing no extra config
-- `│   ├──` [overall-options.nix](modules/overall-options.nix) Shared top-level options
-- `│   ├──` [user-minimal.nix](modules/user-minimal.nix) Minimal user setup
-- `│   └──` [user-ssh-keypair.nix](modules/user-ssh-keypair.nix) Managed user SSH keypair
+- `│   └──` [overall-options.nix](modules/overall-options.nix) Shared top-level options
 - `├──` [overlays/](overlays/) Nixpkgs overlays: [default.nix](overlays/default.nix), [figlet-patched/](overlays/figlet-patched/) (patched figlet + tests), [hello-wrapped-config/](overlays/hello-wrapped-config/)
 - `├──` [packages/](packages/) Custom Nix packages, one dir per package each with `default.nix` (~40 packages, e.g. [neovim/](packages/neovim/), [tpluck/](packages/tpluck/), [lean-ctx/](packages/lean-ctx/); some Rust packages also carry `Cargo.lock`)
 - `├──` [pyproject.toml](pyproject.toml) Python project config
 - `├──` [stylua.toml](stylua.toml) StyLua formatter config (Lua files)
-- `├──` [uv.lock](uv.lock) uv lockfile for reproducible Python deps
-- `└──` [wsl/](wsl/) WSL host configs
-- `    └──` [duro/](wsl/duro/) Host config for 'duro' WSL instance (`configuration.nix`, `my-config.nix`)
+- `└──` [uv.lock](uv.lock) uv lockfile for reproducible Python deps
 
 ## Documentation
 
@@ -106,9 +100,7 @@ Aside from this README.md, the other main docs are:
 
 ## What are the hostnames of machines managed here?
 
-- Currently, this repo contains config for:
-    - A MacBook Pro named `cyan` in [mac/cyan/configuration.nix](mac/cyan/configuration.nix)
-    - A WSL instance named `duro` in [wsl/duro/configuration.nix](wsl/duro/configuration.nix)
+- A single MacBook Pro named `cyan`, in [mac/cyan/configuration.nix](mac/cyan/configuration.nix)
 
 ## Why don't you run NixOS in a VM on macOS?
 

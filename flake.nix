@@ -14,9 +14,6 @@
     nix-darwin-2605.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
     nix-darwin-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
 
-    nixos-wsl-2605.url = "github:nix-community/nixos-wsl/release-26.05";
-    nixos-wsl-2605.inputs.nixpkgs.follows = "nixpkgs-2605";
-
     nix-casks.url = "github:atahanyorganci/nix-casks/archive";
     nix-casks.inputs.nixpkgs.follows = "nixpkgs-2605";
 
@@ -34,7 +31,6 @@
     ...
   }: let
     genAttrs = nixpkgs-2605.lib.genAttrs;
-    nixosSystem2605 = nixpkgs-2605.lib.nixosSystem;
     darwinSystem2605 = inputs.nix-darwin-2605.lib.darwinSystem;
 
     # Load custom overlays from the overlays/ directory.
@@ -45,33 +41,7 @@
       lib = nixpkgs-2605.lib;
     };
   in {
-    # LEGACY, UNUSED. cyan (darwinConfigurations below) is the only machine
-    # Norman runs. Nothing here is maintained; it shares modules/ with cyan, so
-    # a passing evaluation here means nothing for cyan, and vice versa. Kept
-    # only so the WSL config is not lost.
-    nixosConfigurations = {
-      # NixOS on Windows, in Windows Subsystem for Linux
-      duro = nixosSystem2605 rec {
-        system = "x86_64-linux";
-        modules = [
-          ./wsl/duro/configuration.nix
-        ];
-        specialArgs = {
-          inherit inputs;
-          pkgs-stable = import nixpkgs-2605 {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          pkgs-pinned-unstable = import nixpkgs-unstable-2611 {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        };
-      };
-    };
-
-    # PRIMARY HOST. This is the machine this flake exists for; the legacy host
-    # above is not. Everything added here is load-bearing.
+    # The only machine this flake configures. Everything here is load-bearing.
     # Nix on macOS using nix-darwin
     darwinConfigurations.cyan = darwinSystem2605 rec {
       system = "aarch64-darwin";
