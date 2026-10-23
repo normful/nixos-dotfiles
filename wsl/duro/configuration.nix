@@ -1,3 +1,5 @@
+# LEGACY, UNUSED. The machine Norman runs is cyan (mac/cyan/configuration.nix).
+# This WSL host is kept only as reference; expect it to drift behind modules/.
 {inputs, ...}: {
   imports = [
     ../../modules/overall-options.nix

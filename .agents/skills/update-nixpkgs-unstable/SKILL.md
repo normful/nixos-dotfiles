@@ -123,12 +123,18 @@ cheaper than discovering it during a rebuild.
 nix eval --raw .#darwinConfigurations.cyan.system
 ```
 
-Expect a `/nix/store/…-darwin-system-…` path. `modules/*.nix` is shared by every
-host in the flake, so check the others too:
+Expect a `/nix/store/…-darwin-system-…` path. That is the only gate that
+matters: cyan is the only machine Norman actually runs.
+
+The legacy `nixosConfigurations.duro` (WSL) shares `modules/*.nix`, so you may
+evaluate it too:
 
 ```bash
 nix eval --raw .#nixosConfigurations.duro.config.system.build.toplevel.drvPath
 ```
+
+A failure there does not block the commit — duro is unused and expected to
+drift. Mention it in the summary instead of chasing it.
 
 Then size the work the user is about to accept, so you can report it:
 
@@ -189,6 +195,6 @@ packages on macOS. Report the dry-run size and the exact command instead.
 | Hand-editing `flake.lock` | Regenerate it with `nix flake lock` |
 | Committing without evaluating | `nix eval --raw .#darwinConfigurations.cyan.system` first |
 | Pinning backwards around a rename | Substitute the new attribute, after checking what it now provides |
-| Evaluating only cyan | `modules/*.nix` is shared — evaluate `nixosConfigurations.duro` too |
+| Blocking on the legacy duro host | duro is unused — report the drift, do not chase it |
 | Agent running `sudo darwin-rebuild` | Hand the command to the user |
 | Pushing the commit | The skill commits only; the user decides when to push |

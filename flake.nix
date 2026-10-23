@@ -45,6 +45,10 @@
       lib = nixpkgs-2605.lib;
     };
   in {
+    # LEGACY, UNUSED. cyan (darwinConfigurations below) is the only machine
+    # Norman runs. Nothing here is maintained; it shares modules/ with cyan, so
+    # a passing evaluation here means nothing for cyan, and vice versa. Kept
+    # only so the WSL config is not lost.
     nixosConfigurations = {
       # NixOS on Windows, in Windows Subsystem for Linux
       duro = nixosSystem2605 rec {
@@ -66,6 +70,8 @@
       };
     };
 
+    # PRIMARY HOST. This is the machine this flake exists for; the legacy host
+    # above is not. Everything added here is load-bearing.
     # Nix on macOS using nix-darwin
     darwinConfigurations.cyan = darwinSystem2605 rec {
       system = "aarch64-darwin";

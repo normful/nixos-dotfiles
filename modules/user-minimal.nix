@@ -1,3 +1,4 @@
+# duro-only (legacy WSL host, not in use): not imported by cyan.
 {
   pkgs-stable,
   config,

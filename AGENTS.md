@@ -65,9 +65,10 @@ To update the pinned unstable input:
    `git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1`
 2. Update the commit hash in the `nixpkgs-unstable-2611.url` in `flake.nix`
 3. Run: `nix flake lock --update-input nixpkgs-unstable-2611`
-4. Verify before committing: `nix eval --raw .#darwinConfigurations.cyan.system`,
-   plus `nix eval --raw .#nixosConfigurations.duro.config.system.build.toplevel.drvPath`
-   because `modules/` is shared. Unstable bumps break on renamed attributes
+4. Verify before committing: `nix eval --raw .#darwinConfigurations.cyan.system`.
+   That is the only gate — cyan is the only machine actually run. The legacy
+   `nixosConfigurations.duro` (WSL) shares `modules/`, so evaluate it for a
+   warning but do not block on it. Unstable bumps break on renamed attributes
    (e.g. `typescript-go` → `typescript`).
 5. **NEVER** manually edit `flake.lock` — always use the `nix flake lock` command
 6. Hand `sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#cyan` to
