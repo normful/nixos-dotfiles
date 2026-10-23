@@ -108,7 +108,6 @@
 
         # ── keepers ──
 
-        (callPackage ../../packages/arxiv-cli {})
         (callPackage ../../packages/agent-browser {})
         (callPackage ../../packages/lean-ctx {})
         (callPackage ../../packages/tpluck {})
@@ -150,10 +149,6 @@
         # back to readable source via OpenAI, Gemini, or local Ollama.
         (callPackage ../../packages/humanify {})
 
-        # Design guidance for AI coding agents. 23 commands (polish, audit,
-        # critique), 44 detector rules, live browser iteration.
-        (callPackage ../../packages/impeccable {})
-
         # ── medium interest ──
 
         # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
@@ -163,10 +158,6 @@
         # Security scanner for AI agent skills. 68 vulnerability patterns
         # across 17 categories. Fast static + optional LLM analysis.
         (callPackage ../../packages/skillspector {})
-
-        # Git extension that tracks AI-generated code. Every line linked
-        # to agent, model, and prompts that generated it.
-        (callPackage ../../packages/git-ai {})
 
         # High-performance file search MCP server. Typo-resistant path &
         # content search, frecency-ranked, background watcher. Faster than
@@ -204,6 +195,10 @@
         #                every unstable bump. The derivation is kept at
         #                packages/jcode/default.nix as the cargoLock template the
         #                add-nix-package-from-cargo-build skill copies from.
+        # git-ai       — unused. 471-crate Rust build from source. Derivation kept
+        #                at packages/git-ai for the same skill's openssl example.
+        # arxiv-cli    — unused. 357-crate Rust build from source.
+        # impeccable   — unused. Largest npm build in the config (783 MB output).
 
         # ────────────────────────────────────────────────────────────────────────
         # Example packages and overlaid packages
