@@ -65,7 +65,15 @@ To update the pinned unstable input:
    `git ls-remote https://github.com/NixOS/nixpkgs.git refs/heads/nixpkgs-unstable | cut -f1`
 2. Update the commit hash in the `nixpkgs-unstable-2611.url` in `flake.nix`
 3. Run: `nix flake lock --update-input nixpkgs-unstable-2611`
-4. **NEVER** manually edit `flake.lock` — always use the `nix flake lock` command
+4. Verify before committing: `nix eval --raw .#darwinConfigurations.cyan.system`,
+   plus `nix eval --raw .#nixosConfigurations.duro.config.system.build.toplevel.drvPath`
+   because `modules/` is shared. Unstable bumps break on renamed attributes
+   (e.g. `typescript-go` → `typescript`).
+5. **NEVER** manually edit `flake.lock` — always use the `nix flake lock` command
+6. Hand `sudo darwin-rebuild switch --flake $HOME/code/nixos-dotfiles#cyan` to
+   Norman; it needs an interactive sudo password.
+
+See `.agents/skills/update-nixpkgs-unstable/SKILL.md` for the full procedure.
 
 ## Neovim Config Organization
 
@@ -101,13 +109,16 @@ To update the pinned unstable input:
 - Naming: `plugin-name.lua` (e.g., `telescope.lua`, `treesitter.lua`)
 - Each file returns a lazy.nvim plugin spec table
 
-## Local Skills (`.pi/skills/`)
+## Local Skills (`.agents/skills/`)
 
 | Skill | Description |
 |-------|-------------|
-| [maintain-herdr](.pi/skills/maintain-herdr/SKILL.md) | Maintain and upgrade herdr pin in flake.nix/flake.lock plus config.toml compatibility |
-| [maintain-rpiv-pi-models](.pi/skills/maintain-rpiv-pi-models/SKILL.md) | Maintain models used for rpiv-pi skills and agents (`private_models.json`) |
-| [maintain-terminal-configs](.pi/skills/maintain-terminal-configs/SKILL.md) | Maintain synchronized keybindings across Ghostty, WezTerm, and Kitty |
-| [maintain-tokscale-models-custom-pricing](.pi/skills/maintain-tokscale-models-custom-pricing/SKILL.md) | Maintain tokscale custom pricing for aihubmix models (`custom-pricing.json`) |
-| [update-nixpkgs-unstable](.pi/skills/update-nixpkgs-unstable/SKILL.md) | Update nixpkgs-unstable reference in flake.nix to latest commit |
-| [update-pi-model-overrides](.pi/skills/update-pi-model-overrides/SKILL.md) | Update OpenCode Go model rate limits and availability in `models.json` |
+| [add-nix-package-from-cargo-build](.agents/skills/add-nix-package-from-cargo-build/SKILL.md) | Add a `packages/` derivation building a Rust binary from source via `rustPlatform.buildRustPackage` |
+| [add-nix-package-from-compiled-github-release](.agents/skills/add-nix-package-from-compiled-github-release/SKILL.md) | Add a `packages/` derivation installing a prebuilt binary from GitHub Releases |
+| [maintain-herdr](.agents/skills/maintain-herdr/SKILL.md) | Maintain and upgrade herdr pin in flake.nix/flake.lock plus config.toml compatibility |
+| [maintain-terminal-configs](.agents/skills/maintain-terminal-configs/SKILL.md) | Maintain synchronized keybindings across Ghostty, WezTerm, and Kitty |
+| [maintain-tokscale-models-custom-pricing](.agents/skills/maintain-tokscale-models-custom-pricing/SKILL.md) | Maintain tokscale custom pricing for aihubmix models (`custom-pricing.json`) |
+| [update-nixpkgs-unstable](.agents/skills/update-nixpkgs-unstable/SKILL.md) | Bump the nixpkgs-unstable pin in flake.nix, relock, verify eval, commit |
+
+The pi-model skills (`maintain-rpiv-pi-models`, `update-pi-model-overrides`)
+live in the global skill root (`~/.pi/agent/skills`), not here.
