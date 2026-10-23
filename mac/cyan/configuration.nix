@@ -240,7 +240,7 @@
         herdr
       ])
       ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-        rtk
+        # rtk — unused. 203-crate Rust source build from this input.
 
         # AI Coding Agents
         # jules
