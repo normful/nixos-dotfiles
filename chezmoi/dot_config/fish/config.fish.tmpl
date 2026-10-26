@@ -69,6 +69,9 @@ if status is-interactive
     if command -v jcode >/dev/null 2>&1
       set --export JCODE_NO_TELEMETRY "1"
     end
+    if command -v lean-ctx >/dev/null 2>&1
+      set --export LEAN_CTX_TELEMETRY "off"
+    end
 
     {{ if .mac -}}
     set --export PUPPETEER_EXECUTABLE_PATH "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
