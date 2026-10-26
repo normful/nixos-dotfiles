@@ -70,15 +70,16 @@
         gh # Log into this one manually
 
         # Packages I'm only installing on this computer for now
+        terminal-notifier
+        hk
+        atuin
+        sqlite
+        himalaya
+        mdwatch
+
+        # crystal
         mariadb_118
         jre25_minimal
-        terminal-notifier
-        atuin
-        mdwatch
-        sqlite
-        hk
-        himalaya
-        crystal
 
         # adoc
         asciidoctor-with-extensions
@@ -113,56 +114,10 @@
         (callPackage ../../packages/tpluck {})
         (callPackage ../../packages/tree-sitter {})
         (callPackage ../../packages/duvis {})
-
-        # Hunk-level git plumbing for agents. Stage, unstage, discard, undo,
-        # split, and reorder individual hunks by ID without interactive prompts.
         (callPackage ../../packages/git-surgeon {})
-
-        # ── high interest ──
-
-        # Multi-agent safety hook. Blocks destructive shell commands
-        # (rm -rf, :(){:|:&};:, etc.) before they run. Designed for
-        # AI coding agents.
-        (callPackage ../../packages/dcg {})
-
-        # Local-first task manager for power users and agents. Tasks live in
-        # a local SQLite DB; project/workspace inferred from the cwd.
         (callPackage ../../packages/aven {})
-
-        # Terminal coding agent (Pi fork). IDE-grade tool surface: built-in
-        # LSP/DAP, 60+ model providers, one self-contained binary.
         (callPackage ../../packages/omp {})
-
-        # CLI coding agent for open AI models. Connects to LM Studio,
-        # llama.cpp, Gemini, ChatGPT, Bedrock, and OpenAI-compatible servers.
         (callPackage ../../packages/swival {})
-
-        # AI-powered code review CLI. Reads git diffs, sends to LLM, returns
-        # line-level comments. Agent reads full files, cross-references context.
-        (callPackage ../../packages/open-code-review {})
-
-        # AI-powered code review for GitHub PRs. Posts inline comments on
-        # exact diff lines, incremental re-triage, conversational resolution.
-        (callPackage ../../packages/codecanary {})
-
-        # LLM-powered JS deobfuscator. Reverses minified/obfuscated code
-        # back to readable source via OpenAI, Gemini, or local Ollama.
-        (callPackage ../../packages/humanify {})
-
-        # ── medium interest ──
-
-        # Runtime for agentmemory. Collapses queues, cron, HTTP, state,
-        # agents into one live surface. Real-time compose/extend/observe.
-        (callPackage ../../packages/iii-engine {})
-
-        # Security scanner for AI agent skills. 68 vulnerability patterns
-        # across 17 categories. Fast static + optional LLM analysis.
-        (callPackage ../../packages/skillspector {})
-
-        # High-performance file search MCP server. Typo-resistant path &
-        # content search, frecency-ranked, background watcher. Faster than
-        # ripgrep+fzf in long-running processes.
-        (callPackage ../../packages/fff-mcp {})
 
         # ── low interest ──
 
@@ -178,11 +133,17 @@
         # (Claude Code, Codex, Gemini CLI, 40+) with HMAC audit chain.
         (callPackage ../../packages/bernstein {})
 
-        # ── already tried ──
-
         # ────────────────────────────────────────────────────────────────────────
         # Packages I've used before but don't need now
         # ────────────────────────────────────────────────────────────────────────
+
+        # (callPackage ../../packages/dcg {})
+        # (callPackage ../../packages/open-code-review {})
+        # (callPackage ../../packages/codecanary {})
+        # (callPackage ../../packages/humanify {})
+        # (callPackage ../../packages/iii-engine {})
+        # (callPackage ../../packages/skillspector {})
+        # (callPackage ../../packages/fff-mcp {})
 
         # infisical
         # direnv
@@ -191,14 +152,10 @@
         # zola
         # repomix
         # sqlite-web
-        # jcode        — 861-crate Rust build from source; too slow to rebuild on
-        #                every unstable bump. The derivation is kept at
-        #                packages/jcode/default.nix as the cargoLock template the
-        #                add-nix-package-from-cargo-build skill copies from.
-        # git-ai       — unused. 471-crate Rust build from source. Derivation kept
-        #                at packages/git-ai for the same skill's openssl example.
-        # arxiv-cli    — unused. 357-crate Rust build from source.
-        # impeccable   — unused. Largest npm build in the config (783 MB output).
+        # jcode
+        # git-ai
+        # arxiv-cli
+        # impeccable
 
         # ────────────────────────────────────────────────────────────────────────
         # Example packages and overlaid packages
@@ -210,7 +167,6 @@
       ])
       ++ (with inputs.nix-casks.packages.${pkgs.stdenv.hostPlatform.system}; [
         flux
-        vlc
         keka
         key-codes
         mp3gain-express
@@ -234,14 +190,13 @@
         # tor-browser
         # tunnelblick
         # visual-studio-code_insiders
+        # vlc
         # zed
       ])
       ++ (with inputs.herdr.packages.${pkgs.stdenv.hostPlatform.system}; [
         herdr
       ])
       ++ (with inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}; [
-        # rtk — unused. 203-crate Rust source build from this input.
-
         # AI Coding Agents
         # jules
 
@@ -253,10 +208,9 @@
         # spec-kit # Large
         # workmux
 
-        # Code Review
+        # Others
         # tuicr
-
-        # Utilities
+        # rtk
         # ck
         # gno
         # qmd
