@@ -5,22 +5,22 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "lean-ctx";
-  version = "3.9.20";
+  version = "3.11.4";
 
   src = fetchFromGitHub {
     owner = "yvgude";
     repo = "lean-ctx";
     rev = "v${version}";
-    hash = "sha256-A1k7Mkl2doldHpLyAEWXjxUZBum6v+ngNu7c1YlMX2g=";
+    hash = "sha256-gLi5dE0AiAkGtrkYvQs2/f+tqcXxN5FSkTgYP8NgGoE=";
   };
 
   sourceRoot = "${src.name}/rust";
-  cargoHash = "sha256-9IDNnGnj+DNXUe6IAkIO6bGddGCNblJq6BMsR83lOIg=";
+  cargoHash = "sha256-Q9p8/aA6Orl2X69tL+bRSDQGA2bIk5PURe/Tea1Q390=";
 
   # Opt out of default features (which include jemalloc) — jemalloc is slow to compile
   buildNoDefaultFeatures = true;
   # Choose features explicitly — see full list at:
-  # https://github.com/yvgude/lean-ctx/blob/3.9.20/rust/Cargo.toml#L52-L93
+  # https://github.com/yvgude/lean-ctx/blob/3.11.4/rust/Cargo.toml#L52-L93
   buildFeatures = [
     "tree-sitter"
     "embeddings"

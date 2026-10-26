@@ -1,8 +1,8 @@
 {pkgs}: let
-  version = "0.26.8";
+  version = "0.27.1";
   src = pkgs.fetchurl {
     url = "https://github.com/tree-sitter/tree-sitter/releases/download/v${version}/tree-sitter-macos-arm64.gz";
-    hash = "sha256-Ak4s7jRyNSTWLUG95NK0ryPIu+AjbhFsecCzfZV1iJ4=";
+    hash = "sha256-RsuX2aLFLJTiLZp2wvERYVa4th+YNg4qnM4F/LGXzU0=";
   };
 in
   pkgs.runCommand "tree-sitter-${version}"
