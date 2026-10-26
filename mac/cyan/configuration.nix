@@ -138,12 +138,6 @@
         # ────────────────────────────────────────────────────────────────────────
 
         # (callPackage ../../packages/dcg {})
-        # (callPackage ../../packages/open-code-review {})
-        # (callPackage ../../packages/codecanary {})
-        # (callPackage ../../packages/humanify {})
-        # (callPackage ../../packages/iii-engine {})
-        # (callPackage ../../packages/skillspector {})
-        # (callPackage ../../packages/fff-mcp {})
 
         # infisical
         # direnv
