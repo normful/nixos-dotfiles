@@ -4,7 +4,7 @@
   pkgs-stable,
   ...
 }: let
-  isDarwin = pkgs-stable.stdenv.isDarwin;
+  isDarwin = pkgs-stable.stdenv.hostPlatform.isDarwin;
 in {
   options.my = {
     hostname = lib.mkOption {
