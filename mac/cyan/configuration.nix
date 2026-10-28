@@ -117,6 +117,7 @@
         (callPackage ../../packages/git-surgeon {})
         (callPackage ../../packages/aven {})
         (callPackage ../../packages/omp {})
+        (callPackage ../../packages/opencode {})
         (callPackage ../../packages/swival {})
 
         # ── low interest ──
