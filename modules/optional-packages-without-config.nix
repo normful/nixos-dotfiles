@@ -5,10 +5,10 @@
   ...
 }: let
   optionals = lib.optionals;
-  isDarwin = pkgs-pinned-unstable.stdenv.isDarwin;
-  isLinux = pkgs-pinned-unstable.stdenv.isLinux;
-  isX86_64Linux = pkgs-pinned-unstable.stdenv.isLinux && pkgs-pinned-unstable.stdenv.isx86_64;
-  isAarch64Darwin = pkgs-pinned-unstable.stdenv.isDarwin && pkgs-pinned-unstable.stdenv.isAarch64;
+  isDarwin = pkgs-pinned-unstable.stdenv.hostPlatform.isDarwin;
+  isLinux = pkgs-pinned-unstable.stdenv.hostPlatform.isLinux;
+  isX86_64Linux = pkgs-pinned-unstable.stdenv.hostPlatform.isLinux && pkgs-pinned-unstable.stdenv.hostPlatform.isx86_64;
+  isAarch64Darwin = pkgs-pinned-unstable.stdenv.hostPlatform.isDarwin && pkgs-pinned-unstable.stdenv.hostPlatform.isAarch64;
   # normful fork of zk, built from source. aarch64-darwin only
   # (see packages/zk-fork/default.nix). Replaces nixpkgs zk on cyan.
   zkFork = pkgs-pinned-unstable.callPackage ../packages/zk-fork {};
