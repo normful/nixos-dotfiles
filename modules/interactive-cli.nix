@@ -4,7 +4,7 @@
   pkgs-pinned-unstable,
   ...
 }: let
-  isLinux = pkgs-pinned-unstable.stdenv.isLinux;
+  isLinux = pkgs-pinned-unstable.stdenv.hostPlatform.isLinux;
 in {
   config = lib.mkIf config.my.enableInteractiveCli {
     environment.systemPackages = (
