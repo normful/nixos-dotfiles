@@ -544,6 +544,22 @@
 
         # Power Nap: 0 = disabled, 1 = enabled (allows background network activity during display sleep)
         /usr/bin/pmset -c powernap 1
+
+        # ── Battery power ───────────────────────────────────────────────────────
+        # Everything above is scoped -c (AC). These are -b (battery). Nothing in
+        # this repo declared battery settings before, so they were unmanaged
+        # drift: a UI tweak or a macOS update could change them and a rebuild
+        # would not put them back.
+        #
+        # Idle sleep on battery: sleep after 5 minutes. The live value was 0
+        # (never), so an open lid on battery never slept and just drained.
+        # Lid-close sleep is not governed by this: the lid is handled by
+        # my-lid-ac-watch below.
+        /usr/bin/pmset -b sleep 5
+
+        # Display sleep on battery: 2 minutes, matching the previous live value
+        # so declaring it does not change screen behaviour.
+        /usr/bin/pmset -b displaysleep 2
       '';
       serviceConfig = {
         RunAtLoad = true; # apply settings immediately when the daemon loads at boot
