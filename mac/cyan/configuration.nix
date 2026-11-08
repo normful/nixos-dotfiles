@@ -550,5 +550,103 @@
         KeepAlive = false; # run once and exit, no need to keep the process running
       };
     };
+
+    # Keep `disablesleep` in sync with the power source, so closing the lid keeps
+    # the machine awake on AC power only.
+    #
+    # Why a daemon and not a pmset setting: `pmset` cannot scope `disablesleep` to
+    # one power source. The -a/-b/-c flags are accepted but ignored for that key;
+    # it is one system-wide flag. Setting it by hand therefore also disables lid
+    # sleep on battery, which means a closed lid in a bag stays awake and drains.
+    # This daemon does the scoping that pmset will not.
+    #
+    # Why `disablesleep` at all: `pmset sleep 0` only defeats the idle timer. Lid
+    # close is a separate clamshell event that powerd turns into an immediate
+    # sleep request regardless of the idle timer. `disablesleep` is the only
+    # pmset knob that makes powerd ignore the clamshell request.
+    launchd.daemons.my-lid-ac-watch = {
+      # Runs as root (LaunchDaemon in the system domain), which pmset requires.
+      script = ''
+        set -u
+
+        log() { /bin/echo "$(/bin/date -u +%Y-%m-%dT%H:%M:%SZ) $*"; }
+
+        # Log only when the message changes, so a condition that stays broken
+        # writes one line rather than one line every 20 seconds forever.
+        last_msg=""
+        note() {
+          if [ "$1" != "$last_msg" ]; then
+            log "$1"
+            last_msg="$1"
+          fi
+        }
+
+        # Current value of the system-wide disablesleep flag. `pmset -g` omits the
+        # SleepDisabled line entirely when the flag is 0, so absence means 0.
+        #
+        # This is read back after every write because `pmset` exits 0 even when it
+        # refuses the change, so its exit status proves nothing.
+        read_disablesleep() {
+          /usr/bin/pmset -g \
+            | /usr/bin/awk '/SleepDisabled/ { print $2; found = 1 } END { if (!found) print 0 }'
+        }
+
+        # Read ExternalConnected from the IORegistry rather than parsing
+        # `pmset -g ps`. The pmset output is localized, so it would break on a
+        # non-English system locale. Prints Yes, No, or nothing.
+        ac_state() {
+          /usr/sbin/ioreg -rn AppleSmartBattery \
+            | /usr/bin/awk -F' = ' '/"ExternalConnected"/ { gsub(/"/, "", $2); print $2; exit }'
+        }
+
+        # A LaunchDaemon starts as root; this fires only if someone runs the script
+        # by hand, which would otherwise fail silently (see read_disablesleep).
+        if [ "$(/usr/bin/id -u)" != 0 ]; then
+          log "FATAL not running as root, pmset cannot apply anything; exiting"
+          exit 1
+        fi
+
+        log "watcher starting, disablesleep=$(read_disablesleep)"
+
+        while :; do
+          state="$(ac_state)"
+          case "$state" in
+            Yes) want=1; source_name=ac ;;
+            No)  want=0; source_name=battery ;;
+            *)
+              note "ERROR could not read ExternalConnected from IORegistry, leaving disablesleep untouched"
+              /bin/sleep 20
+              continue
+              ;;
+          esac
+
+          current="$(read_disablesleep)"
+          if [ "$current" != "$want" ]; then
+            result="$(/usr/bin/pmset -a disablesleep "$want" 2>&1)"
+            rc=$?
+            current="$(read_disablesleep)"
+            if [ "$current" = "$want" ]; then
+              note "$source_name (ExternalConnected=$state) -> disablesleep=$want"
+            else
+              note "ERROR pmset -a disablesleep $want did not take effect (now=$current rc=$rc output=$result)"
+            fi
+          fi
+
+          # Plain polling sleep, not a launchd StartInterval timer: this process
+          # holds no power assertion and does not wake the system, so it costs
+          # nothing while the machine sleeps.
+          /bin/sleep 20
+        done
+      '';
+      serviceConfig = {
+        RunAtLoad = true; # apply the correct value at boot, before any lid close
+        KeepAlive = true; # must stay resident to react to plug and unplug
+        ThrottleInterval = 10; # if it crashes, do not respawn in a tight loop
+        StandardOutPath = "/var/log/my-lid-ac-watch.log";
+        StandardErrorPath = "/var/log/my-lid-ac-watch.log";
+        ProcessType = "Background";
+        Nice = 10;
+      };
+    };
   };
 }
