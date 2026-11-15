@@ -70,7 +70,6 @@ in {
         pnpm
         deno
 
-        typescript
         typescript-language-server
 
         prettierd

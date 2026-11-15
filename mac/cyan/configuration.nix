@@ -82,7 +82,6 @@
 
         # adoc
         asciidoctor-with-extensions
-        asciidoc-full-with-plugins
         kramdown-asciidoc
 
         # TeX Live Medium + extra CJK/XeTeX packages
@@ -111,7 +110,6 @@
         (callPackage ../../packages/agent-browser {})
         (callPackage ../../packages/lean-ctx {})
         (callPackage ../../packages/tpluck {})
-        (callPackage ../../packages/tree-sitter {})
         (callPackage ../../packages/duvis {})
         (callPackage ../../packages/git-surgeon {})
         (callPackage ../../packages/aven {})
@@ -299,12 +297,15 @@
         EDITOR = "nvim";
         GIT_EDITOR = "nvim";
       };
-      shells = [pkgs-stable.fish];
+      shells = [pkgs-pinned-unstable.fish];
     };
 
     programs = {
       fish = {
         enable = true;
+        # Use the unstable pin so fish does not drag a second Python (3.13)
+        # into the closure; 2605's fish is built against python313Packages.
+        package = pkgs-pinned-unstable.fish;
       };
 
       # Also see:
