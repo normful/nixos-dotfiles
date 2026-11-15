@@ -5,25 +5,25 @@
   stdenvNoCC,
   fetchurl,
 }: let
-  version = "0.1.51";
+  version = "0.1.56";
   base = "https://github.com/raine/aven/releases/download/v${version}";
 
   sources = {
     aarch64-darwin = {
       url = "${base}/aven-darwin-arm64.tar.gz";
-      sha256 = "713fc5dd6c3ee58de025fa045c7078720e02eb5bb43b4748fbb74040a5f2f159";
+      sha256 = "81db92daddcef649d4fdd991b0134669d673efa6377c9f3010b15a28e41d44c7";
     };
     x86_64-darwin = {
       url = "${base}/aven-darwin-amd64.tar.gz";
-      sha256 = "488aaec4992f669865471a13f2aef653aed2af42d719aa6dea5ebb074d11f2b3";
+      sha256 = "1b4558eae823e329bde0feff60ea8b57891544df4150a6c5bde305a4077395ab";
     };
     aarch64-linux = {
       url = "${base}/aven-linux-arm64.tar.gz";
-      sha256 = "520b89360d214f04f480666caf68f149175e91302731cfd888f43aa0d4dd6bbd";
+      sha256 = "f8e36e9ef62642fa62f5a1999acafcd4bb15a11686995f23ea2b518a17f4057f";
     };
     x86_64-linux = {
       url = "${base}/aven-linux-amd64.tar.gz";
-      sha256 = "7f8cfc42e7308745a9cb66953b7fb7c752fd5d9863781e2be7d6b2b01ba7a757";
+      sha256 = "ec3a8066aaa2e014bc40bd30973b9f7a8603b262efa33690f407ded00238cbb1";
     };
   };
 

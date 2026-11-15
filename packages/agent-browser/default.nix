@@ -5,11 +5,11 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "agent-browser";
-  version = "0.38.2";
+  version = "0.43.0";
 
   src = fetchurl {
     url = "https://github.com/vercel-labs/agent-browser/releases/download/v${version}/agent-browser-darwin-arm64";
-    sha256 = "8168b86ab5d94be8f670992dfe4fe1445016518a864b48bda105e64142e7cbf9";
+    sha256 = "05338a8eeddf0b3f9ebf0c87a6c21aedc10685608c68618e1a8483c43eae9c3f";
   };
 
   dontBuild = true;

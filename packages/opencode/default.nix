@@ -24,7 +24,7 @@
   sysctl,
   unzip,
 }: let
-  version = "2.2.0";
+  version = "2.3.0";
 
   # Upstream ships four nix-relevant assets (verified against v2.2.0):
   #   - opencode-darwin-arm64.zip / opencode-darwin-x64.zip  (signed Mach-O)
@@ -36,7 +36,7 @@
   # (can1357/oh-my-pi#9881) — not worth shipping an asset we cannot build-test.
   src = fetchurl {
     url = "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-darwin-arm64.zip";
-    sha256 = "c71b1cd96541539ad38e2a75377d2f43d2a27567289a14371a182e9a0800db3d";
+    sha256 = "7907df2b12720a840fbb49c5b978b9b82925b6bf75479a5fd216afa8932b6702";
   };
 in
   stdenvNoCC.mkDerivation {

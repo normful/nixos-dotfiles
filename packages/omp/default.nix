@@ -16,7 +16,7 @@
   stdenvNoCC,
   fetchurl,
 }: let
-  version = "18.10.1";
+  version = "18.20.2";
   base = "https://github.com/can1357/oh-my-pi/releases/download/v${version}";
 
   # Release assets are bare executables, not archives: `omp-<os>-<arch>`.
@@ -29,11 +29,11 @@
   sources = {
     aarch64-darwin = {
       url = "${base}/omp-darwin-arm64";
-      sha256 = "74d920b72e7af01dbe258b41bb0684da7e747af63628eee41e98b5e74e2f21ac";
+      sha256 = "e2de0974ce581bfcf2044ea795c712fa240fdf8304f7bdb4b3d81b154d2b57fc";
     };
     x86_64-darwin = {
       url = "${base}/omp-darwin-x64";
-      sha256 = "057b47eb1b3d57c0af9d89c3b144be455d2064e9febdc85bec8a38191302e1d6";
+      sha256 = "4896674a500de3e0aed700077c67739ce6aea5ecd61d100fff174143daca693b";
     };
   };
 
