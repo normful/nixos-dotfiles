@@ -261,7 +261,7 @@
       };
       extraOptions = ''
         experimental-features = nix-command flakes
-        keep-outputs = true
+        keep-outputs = false
         keep-derivations = true
         keep-failed = false
         keep-going = true
