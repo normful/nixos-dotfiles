@@ -78,7 +78,6 @@
         mdwatch
 
         # crystal
-        mariadb_118
         jre25_minimal
 
         # adoc
@@ -128,8 +127,8 @@
         # ── low interest ──
 
         # Multi-format document parser (PDF, DOCX, XLSX, HTML, images,
-        # audio). Advanced PDF: layout, tables, formulas, OCR, MCP server.
-        (callPackage ../../packages/docling {})
+        # audio). Removed entirely: pulled ~2.0 GB exclusive (torch,
+        # torchvision, gfortran, scipy, onnxruntime) for a CLI rarely used.
 
         # Open-source Agent OS. Deploy, manage, orchestrate AI agents from
         # terminal. 40 channels, 60 skills, 50+ models. Autonomous 24/7.

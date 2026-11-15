@@ -322,7 +322,6 @@ in {
         mona-sans
         nerd-fonts._0xproto
         nerd-fonts.inconsolata
-        nerd-fonts.monaspace
         nerd-fonts.recursive-mono
 
         # Fonts that looked nice, but did not end up using

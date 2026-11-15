@@ -171,9 +171,6 @@ in {
           # https://github.com/lucc/nvimpager
           nvimpager
 
-          # https://github.com/eth-p/bat-extras/blob/master/doc/prettybat.md
-          bat-extras.prettybat
-
           # https://github.com/eth-p/bat-extras/blob/master/doc/batman.md
           bat-extras.batman
 
