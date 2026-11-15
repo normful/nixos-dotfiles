@@ -19,11 +19,13 @@
 # upstream's.
 #
 # To bump:
-#   1. Set `version` to the new tag (without the `v`).
-#   2. Refresh the source hash:
+#   1. Set `rev` below to the new tag.
+#   2. Refresh `hash` with:
 #        nix store prefetch-file --unpack --json \
-#          https://github.com/Swival/swival/archive/refs/tags/<version>.tar.gz
+#          https://github.com/Swival/swival/archive/refs/tags/<rev>.tar.gz
 #   3. `nix build` this package and smoke-test `result/bin/swival --version`.
+# There is no separate version string: it is read out of the fetched tree, so the
+# tag and the version cannot disagree.
 {
   lib,
   pkgs,
@@ -31,19 +33,23 @@
   pyproject-nix,
   pyproject-build-systems,
 }: let
-  version = "1.9.4";
+  src = pkgs.fetchFromGitHub {
+    owner = "Swival";
+    repo = "swival";
+    rev = "1.9.4";
+    hash = "sha256-DNNiXCvIGoZR9a2/shEDzzpGX3kfY7ISuk11dqXI0Fs=";
+  };
+
+  # Read the version from the tree itself rather than duplicating the tag in a
+  # second string that can drift. This costs a second import-from-derivation
+  # (uv2nix already realises this fetch to read `uv.lock`): the fetch has to
+  # happen during evaluation before `pyproject.toml` can be read.
+  version = (builtins.fromTOML (builtins.readFile "${src}/pyproject.toml")).project.version;
 
   # uv2nix reads `pyproject.toml` + `uv.lock` off this tree at evaluation time,
   # which is import-from-derivation: realising the fetch is part of evaluating
   # this expression. Both files come straight from the release tag, so the
   # dependency pins cannot drift from the code.
-  src = pkgs.fetchFromGitHub {
-    owner = "Swival";
-    repo = "swival";
-    rev = version;
-    hash = "sha256-DNNiXCvIGoZR9a2/shEDzzpGX3kfY7ISuk11dqXI0Fs=";
-  };
-
   workspace = uv2nix.lib.workspace.loadWorkspace {workspaceRoot = src;};
 
   # html-to-markdown 3.22.0 ships only `macosx_15_0_*` wheels for macOS, while
