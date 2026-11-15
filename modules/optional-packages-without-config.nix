@@ -64,7 +64,7 @@ in {
         grex
       ])
       ++ (optionals config.my.enableLangTsJs [
-        nodejs_26
+        nodejs_latest
         yarn
         bun
         pnpm
