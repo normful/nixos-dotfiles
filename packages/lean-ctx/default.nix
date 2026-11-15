@@ -1,47 +1,59 @@
+# lean-ctx – prebuilt binary, no nixpkgs package exists
+# https://github.com/yvgude/lean-ctx
+#
+# Upstream ships prebuilt release assets, so we install the tarball instead of
+# compiling the Rust workspace (which needed a feature-list pin and a slow
+# jemalloc-free build). The asset is a single bare `lean-ctx` Mach-O.
+#
+# To update to a newer release:
+#   1. Bump `version` to the new tag (without the `v`).
+#   2. Refresh the hash from the release's SHA256SUMS:
+#        curl -sL https://github.com/yvgude/lean-ctx/releases/download/v<version>/SHA256SUMS
+#   3. `nix build` this package and smoke-test `result/bin/lean-ctx --version`.
 {
   lib,
-  fetchFromGitHub,
-  rustPlatform,
+  fetchurl,
+  stdenvNoCC,
 }:
-rustPlatform.buildRustPackage rec {
+stdenvNoCC.mkDerivation rec {
   pname = "lean-ctx";
-  version = "3.11.4";
+  version = "3.12.5";
 
-  src = fetchFromGitHub {
-    owner = "yvgude";
-    repo = "lean-ctx";
-    rev = "v${version}";
-    hash = "sha256-gLi5dE0AiAkGtrkYvQs2/f+tqcXxN5FSkTgYP8NgGoE=";
+  src = fetchurl {
+    url = "https://github.com/yvgude/lean-ctx/releases/download/v${version}/lean-ctx-aarch64-apple-darwin.tar.gz";
+    sha256 = "b23133e86753a41864e2810751c67bf0583506528a53f48157edc4aacc5adb55";
   };
 
-  sourceRoot = "${src.name}/rust";
-  cargoHash = "sha256-Q9p8/aA6Orl2X69tL+bRSDQGA2bIk5PURe/Tea1Q390=";
+  dontBuild = true;
+  dontConfigure = true;
+  dontUnpack = true;
 
-  # Opt out of default features (which include jemalloc) — jemalloc is slow to compile
-  buildNoDefaultFeatures = true;
-  # Choose features explicitly — see full list at:
-  # https://github.com/yvgude/lean-ctx/blob/3.11.4/rust/Cargo.toml#L52-L93
-  buildFeatures = [
-    "tree-sitter"
-    "embeddings"
-    "http-server"
-    "secure-update"
-  ];
-
-  doCheck = false;
-
-  postInstall = ''
-    mkdir -p $out/share/skills/lean-ctx
-    cp -r $src/skills/lean-ctx/* $out/share/skills/lean-ctx/
-    chmod -R +w $out/share/skills/lean-ctx
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/bin
+    tar -xzf $src -C $out/bin lean-ctx
+    chmod +x $out/bin/lean-ctx
+    runHook postInstall
   '';
 
-  doInstallCheck = true;
+  # arm64 Mach-O carries a linker-signed (adhoc) signature; stripping or
+  # rewriting it invalidates the signature and macOS refuses to exec the
+  # binary. Nothing here needs fixup anyway.
+  dontFixup = true;
 
   meta = with lib; {
+    description = "Context gateway for AI agents: compress tool output to save tokens";
+    longDescription = ''
+      LeanCTX sits between an AI agent and its tools, compressing command, read
+      and grep output plus shell history so less of the context window is spent
+      on noise. It ships an MCP server, a shell hook and per-editor setup
+      (`lean-ctx onboard`). The SKILL.md it installs into agent skill dirs is
+      embedded in the binary itself, so no extra share directory is needed.
+    '';
     homepage = "https://leanctx.com";
     changelog = "https://github.com/yvgude/lean-ctx/releases/tag/v${version}";
-    sourceProvenance = with sourceTypes; [fromSource];
+    license = licenses.asl20;
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "lean-ctx";
     platforms = ["aarch64-darwin"];
   };
