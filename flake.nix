@@ -22,6 +22,18 @@
 
     herdr.url = "github:herdrdev/herdr/v0.9.5";
     herdr.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
+
+    # uv2nix builds packages/swival: a uv-locked virtualenv for a Python project
+    # whose 102-package runtime closure does not exist in nixpkgs at the pinned
+    # versions. Revisions are pinned; update them with `nix flake update`.
+    pyproject-nix.url = "github:pyproject-nix/pyproject.nix/d43f0e74444c1f266c640fc49ce6ce6fb69d33c3";
+    pyproject-nix.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
+    uv2nix.url = "github:pyproject-nix/uv2nix/c361746c7d630d98b972378290547c8d35542a7a";
+    uv2nix.inputs.pyproject-nix.follows = "pyproject-nix";
+    uv2nix.inputs.nixpkgs.follows = "nixpkgs-unstable-2611";
+    pyproject-build-systems.url = "github:pyproject-nix/build-system-pkgs/bdbc5f8dd2ad6136bb2ccecb14f6ec343965b194";
+    pyproject-build-systems.inputs.pyproject-nix.follows = "pyproject-nix";
+    pyproject-build-systems.inputs.uv2nix.follows = "uv2nix";
   };
 
   outputs = inputs @ {

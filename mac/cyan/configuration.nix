@@ -118,7 +118,12 @@
         (callPackage ../../packages/aven {})
         (callPackage ../../packages/omp {})
         (callPackage ../../packages/opencode {})
-        (callPackage ../../packages/swival {})
+        # swival is a uv-locked virtualenv (uv2nix), not a plain buildPythonApplication:
+        # see packages/swival/default.nix. The flake inputs are passed in because
+        # callPackage here only carries nixpkgs attrs.
+        (callPackage ../../packages/swival {
+          inherit (inputs) uv2nix pyproject-nix pyproject-build-systems;
+        })
 
         # ── low interest ──
 
