@@ -342,7 +342,7 @@
             ShowMountedServersOnDesktop = false;
             ShowRecentTags = false;
             ShowRemovableMediaOnDesktop = false;
-            ShowStatusBar = false;
+            ShowStatusBar = true;
             ShowPathbar = false;
             ShowTabView = false;
             WarnOnEmptyTrash = false;
