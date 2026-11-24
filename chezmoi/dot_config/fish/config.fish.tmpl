@@ -43,9 +43,15 @@ if status is-interactive
       # See https://github.com/yvgude/lean-ctx/blob/6588c16a18d5637d65f1fb810e23de1f728a7a9a/rust/src/core/config/schema.rs
       set --export LEAN_CTX_BIN (command -v lean-ctx)
       set --export LEAN_CTX_NO_UPDATE_CHECK "1"
-      set --export LEAN_CTX_OUTPUT_DENSITY "normal" # normal, terse, or ultra
-      set --export LEAN_CTX_TERSE_AGENT "lite" # off, lite, full, ultra
-      set --export LEAN_CTX_COMPRESSION "standard" # off, lite, standard, max
+      # Output style (compression_level = "max") lives in
+      # ~/.config/lean-ctx/config.toml, managed by private-dotfiles. Env vars
+      # shadow config.toml, so LEAN_CTX_COMPRESSION / LEAN_CTX_OUTPUT_DENSITY /
+      # LEAN_CTX_TERSE_AGENT are deliberately NOT set here: setting them made
+      # that file's compression_level inert (lean-ctx config validate flags the
+      # shadowing), and v4 retires the latter two in favour of compression_level.
+      # LEAN_CTX_MINIMAL and LEAN_CTX_NO_UPDATE_CHECK stay: their values are
+      # mirrored by minimal_overhead / update_check_disabled in that same
+      # config.toml, so env and file agree.
       set --export LEAN_CTX_MINIMAL "true"
       set --export LEAN_CTX_SAVINGS_FOOTER "never" # auto, always, never
     end
