@@ -108,6 +108,13 @@
         # ── keepers ──
 
         (callPackage ../../packages/agent-browser {})
+
+        # MCP relay that lets an agent drive the real browser through the
+        # browse extension. Binary only: `browse install` would fork a
+        # self-updating copy into ~/.local/bin, so pi's entry is wired by
+        # chezmoi instead (see packages/browse/default.nix).
+        (callPackage ../../packages/browse {})
+
         (callPackage ../../packages/lean-ctx {})
         (callPackage ../../packages/tpluck {})
         (callPackage ../../packages/duvis {})
