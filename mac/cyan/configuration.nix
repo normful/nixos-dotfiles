@@ -122,6 +122,11 @@
         (callPackage ../../packages/aven {})
         (callPackage ../../packages/omp {})
         (callPackage ../../packages/opencode {})
+
+        # Spec-driven development workflow for AI coding agents (openspec
+        # 2.2.0). Standalone upstream binary: the llm-agents package below is
+        # 1.6.0 and nixpkgs-unstable-2611 carries 1.16.0.
+        (callPackage ../../packages/openspec {})
         # swival is a uv-locked virtualenv (uv2nix), not a plain buildPythonApplication:
         # see packages/swival/default.nix. The flake inputs are passed in because
         # callPackage here only carries nixpkgs attrs.
@@ -207,7 +212,6 @@
         # Workflow & Project Management
         # beads-rust
         # beads-viewer
-        # openspec # Small
         # cc-sdd # Large
         # spec-kit # Large
         # workmux
